@@ -4,24 +4,6 @@ import { Header } from './_components/Header'
 import { AuthProvider } from './_providers/Auth'
 import localFont from 'next/font/local'
 
-const regular = localFont({
-  src: '../assets/fonts/HankenGrotesk-Regular.ttf',
-  display: 'swap',
-  variable: '--font-regular',
-})
-
-const semibold = localFont({
-  src: '../assets/fonts/HankenGrotesk-SemiBold.ttf',
-  display: 'swap',
-  variable: '--font-semibold',
-})
-
-const bold = localFont({
-  src: '../assets/fonts/HankenGrotesk-Bold.ttf',
-  display: 'swap',
-  variable: '--font-bold',
-})
-
 const hanken = localFont({
   src: '../assets/fonts/HankenGrotesk-VariableFont_wght.ttf',
   display: 'swap',
@@ -41,10 +23,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <LanguageProvider>
-      <html
-        lang={languageTag()}
-        className={`${hanken.variable} ${regular.variable} ${semibold.variable} ${bold.variable}`}
-      >
+      <html lang={languageTag()} className={`${hanken.className}`}>
         <body>
           <AuthProvider api="rest">
             <Header />

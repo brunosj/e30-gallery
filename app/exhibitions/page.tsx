@@ -1,6 +1,5 @@
 import type { ExhibitionsPage } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
-import TwoColumnBlockComponent from '@/components/TwoColumnBlock'
 
 async function getData(locale: string) {
   let data: ExhibitionsPage[] = []
@@ -48,10 +47,6 @@ export default async function Home() {
 
   return (
     <article className="">
-      <div key={page.id} className="flex flex-col gap-4">
-        <h2 className="text-2xl font-bold">{page.title}</h2>
-        <p className="text-lg">{page.slug}</p>
-      </div>
       {/* <TwoColumnBlockComponent block={page.layout} /> */}
       {/* <p>
         {'Visit the '}

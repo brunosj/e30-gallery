@@ -1,12 +1,104 @@
-/* 
-@import "./theme.module.css";
-@import "./typography.module.css";
-@import "./colors.module.css";
-@import "./common.module.css"; */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./preflight.css";
+
+:root {
+	--color-black: #151515;
+	--color-gray: #A9A9A9;
+	--color-white: #F5F5F5;
+	--color-white-rgb: 245, 245, 245;
+	--rounded-md: 4px;
+	--rounded-lg: 8px
+}
+
+* {
+	outline: gray solid 1px;
+}
+
+/* Typography */
+
+h1 {
+  font-size: 3rem;
+	line-height: 1.2;
+  font-weight: 700; 
+	letter-spacing: 1.5px;
+}
+
+h2 {
+  font-size: 2.25rem; 
+  line-height: 1.2;
+  font-weight: 700; 
+	letter-spacing: 1.5px;
+}
+
+h3 {
+  font-size: 1.5rem; 
+	line-height: 1.4;
+  font-weight: 600; 
+}
+
+p {
+  font-size: 1rem; 
+  line-height: 1.5rem;
+}
+
+small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.bold {
+	font-weight: 700; 
+}
+
+.semibold {
+	font-weight: 600; 
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+/* Layout */
+
+.container {
+	padding: 0 6rem;
+}
+
+.padding-y {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+.padding-x {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.padding-right {
+	padding-right: 6rem;
+}
+
+.padding-left {
+	padding-left: 6rem;
+}
+
+.object-cover {
+	object-fit: cover;
+}
+
+.order1 {
+  order: 1;
+}
+
+.order2 {
+  order: 2;
+}
+
+
 /* 
  :root {
 	 --base: 24px;
@@ -67,7 +159,3 @@
 	 vertical-align: middle;
 }
   */
-.container {
-	max-width: 95%;
-	margin: auto
-}

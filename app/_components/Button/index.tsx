@@ -1,28 +1,31 @@
 'use client'
 
 import React, { ElementType } from 'react'
-import { Link } from "@/lib/i18n"
-
+import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
 
 export type Props = {
   label?: string
-  appearance?: 'default' | 'primary' | 'secondary'
-  el?: 'button' | 'link' | 'a'
+  appearance?: 'default' | 'primary' | 'secondary' | null
+  el?: 'reference' | 'custom' | 'mailto'
   onClick?: () => void
-  href?: string
-  newTab?: boolean
+  href?: string | null
+  newTab?: boolean | null
   className?: string
   type?: 'submit' | 'button'
   disabled?: boolean
   invert?: boolean
+  email?: string
+  subject?: string
+  body?: string
+  url?: string
 }
 
 export const Button: React.FC<Props> = ({
-  el: elFromProps = 'link',
+  el: elFromProps = 'reference',
   label,
-  newTab,
-  href,
+  newTab = false,
+  href = '',
   appearance,
   className: classNameFromProps,
   onClick,
@@ -48,9 +51,9 @@ export const Button: React.FC<Props> = ({
     </div>
   )
 
-  if (onClick || type === 'submit') el = 'button'
+  if (onClick || type === 'submit') type = 'button'
 
-  if (el === 'link') {
+  if (el === 'reference' || el === 'custom') {
     return (
       <Link href={href || ''} className={className} {...newTabProps} onClick={onClick}>
         {content}
@@ -58,7 +61,7 @@ export const Button: React.FC<Props> = ({
     )
   }
 
-  const Element: ElementType = el
+  const Element: ElementType = el as ElementType
 
   return (
     <Element

@@ -3,5 +3,6 @@
     "account": "Account",
     "createAccount": "Create Account",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "viewNow": "View Now"
 }

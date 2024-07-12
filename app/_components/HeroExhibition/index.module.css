@@ -1,0 +1,44 @@
+.hero {
+  position: relative;
+  min-height: 75vh; 
+  
+}
+
+.contentContainer {
+  position: absolute;
+  top: 50%; 
+  right: 0;
+  transform: translate(0, -50%); 
+  text-align: right; 
+  max-width: 50%;
+}
+
+.content {
+  position: relative;
+  background-color:rgba(var(--color-white-rgb), 0.93);
+  padding: 3rem;
+  border-radius: var(--rounded-md);
+  margin-left:auto;
+}
+
+.content > * {
+  margin-top: 1rem;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 5px;
+  font-size:2.25rem;
+  line-height: 1.2;
+}
+
+.iconTopLeft {
+  width: 20px;
+}
+
+.iconBottomRight { 
+  width: 20px;
+  transform: rotate(180deg);
+  margin-left:auto;
+}

@@ -1,15 +1,22 @@
  .nav {
 	 display: flex;
-	 gap: calc(var(--base) / 4) var(--base);
+	 gap: 3rem;
 	 align-items: center;
 	 flex-wrap: wrap;
 	 opacity: 1;
 	 transition: opacity 0ms linear;
 	 visibility: visible;
-
 }
+
  .hide {
 	 opacity: 0;
 	 visibility: hidden;
+}
+
+.menu {
+	 display: flex;
+	 gap: 3rem;
+	 align-items: center;
+	 flex-wrap: wrap;
 }
  

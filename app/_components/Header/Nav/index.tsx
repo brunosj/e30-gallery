@@ -8,6 +8,7 @@ import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
 import { Menu } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
+import { Button } from '@/components/Button'
 
 export const HeaderNav: React.FC = () => {
   const { user } = useAuth()
@@ -47,21 +48,24 @@ export const HeaderNav: React.FC = () => {
     return <div>Error: {error}</div>
   }
 
-  console.log(menu)
-
   return (
-    <nav className="flex space-x-3 items-center">
+    <nav>
       {menu && menu.nav && (
-        <ul className="flex space-x-3">
+        <ul className={classes.menu}>
           {menu.nav.map((item, index) => (
             <li key={index}>
-              <Link href={item.link?.reference?.value.slug}>{item.link.label}</Link>
+              <Button
+                href={(item.link?.reference?.value as { slug: string })?.slug}
+                newTab={item.link.newTab}
+                label={item.link.label}
+                appearance={item.link.appearance}
+              />
             </li>
           ))}
         </ul>
       )}
 
-      {user ? (
+      {/* {user ? (
         <React.Fragment>
           <Link href="/account">{m.account()}</Link>
           <Link href="/logout">{m.logout()}</Link>
@@ -69,10 +73,8 @@ export const HeaderNav: React.FC = () => {
       ) : (
         <React.Fragment>
           <Link href="/login">{m.login()}</Link>
-          {/* <Link href="/create-account">{m.createAccount()}</Link> */}
         </React.Fragment>
-      )}
-      <LanguageSwitcher />
+      )} */}
     </nav>
   )
 }
