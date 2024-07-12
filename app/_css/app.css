@@ -1,0 +1,73 @@
+/* 
+@import "./theme.module.css";
+@import "./typography.module.css";
+@import "./colors.module.css";
+@import "./common.module.css"; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
+ :root {
+	 --base: 24px;
+	 --font-body: system-ui;
+	 --font-mono: 'Roboto Mono', monospace;
+	 --gutter-h: 180px;
+	 --block-padding: 120px;
+}
+
+ * {
+	 box-sizing: border-box;
+}
+
+ html {
+	 background: var(--theme-bg);
+	 -webkit-font-smoothing: antialiased;
+}
+ html, body, #app {
+	 height: 100%;
+}
+ body {
+	 font-family: var(--font-body);
+	 margin: 0;
+	 color: var(--theme-text);
+}
+ ::selection {
+	 background: var(--theme-success-500);
+	 color: var(--color-base-800);
+}
+ ::-moz-selection {
+	 background: var(--theme-success-500);
+	 color: var(--color-base-800);
+}
+ img {
+	 max-width: 100%;
+	 height: auto;
+	 display: block;
+}
+ p {
+	 margin: var(--base) 0;
+}
+ ul, ol {
+	 padding-left: var(--base);
+	 margin: 0 0 var(--base);
+}
+ a {
+	 color: currentColor;
+}
+ a:focus {
+	 opacity: 0.8;
+	 outline: none;
+}
+ a:active {
+	 opacity: 0.7;
+	 outline: none;
+}
+ svg {
+	 vertical-align: middle;
+}
+  */
+.container {
+	max-width: 95%;
+	margin: auto
+}

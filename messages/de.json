@@ -1,0 +1,7 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "account": "Konto",
+    "createAccount": "Konto erstellen",
+    "login": "Einloggen",
+    "logout": "Ausloggen"
+}

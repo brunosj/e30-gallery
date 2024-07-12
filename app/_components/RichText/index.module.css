@@ -1,0 +1,6 @@
+.richText :first-child {
+  margin-top: 0;
+}
+.richText a {
+  text-decoration: underline;
+}
