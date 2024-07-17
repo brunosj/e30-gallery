@@ -263,7 +263,7 @@ export interface Testimonial {
   id: string
   name: string
   testimonial: string
-  picture: string | Media
+  picture?: string | Media | null
   stars?: number | null
   updatedAt: string
   createdAt: string
@@ -385,18 +385,22 @@ export interface GalleryPage {
  */
 export interface MembersOnlyPage {
   id: string
-  tab_title: string
+  tab_title_home: string
+  page_title_home: string
   tab_text: {
     [k: string]: unknown
   }[]
   homeBlocks: TitleImageInfoBlock[]
+  tab_title_virtual_exhibition: string
   virtualExhibition?: string | null
-  special_events_title: string
+  tab_title_special_events: string
+  page_title_special_events: string
   special_events_text: {
     [k: string]: unknown
   }[]
   specialEventsImage: string | Media
-  individual_art_advice_title: string
+  tab_title_art_advice: string
+  page_title_art_advice: string
   individual_art_advice_text: {
     [k: string]: unknown
   }[]

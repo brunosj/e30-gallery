@@ -10,7 +10,7 @@ import * as m from '@/paraglide/messages.js'
 
 import classes from './index.module.css'
 
-export default async function Account() {
+export default async function MembersArea() {
   const result = await getMeUser({
     nullUserRedirect: `/art-society?error=${encodeURIComponent(
       `${m.mustBeLoggedIn()}`,

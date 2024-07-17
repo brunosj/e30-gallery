@@ -32,7 +32,7 @@
     "processing": "Processing",
     "errorWithCredentials":"There was an error with the credentials provided. Please try again.",
     "alreadyLoggedIn": "You are already logged in",
-    "mustBeLoggedIn": "You must be logged in to access your account",
+    "mustBeLoggedIn": "You must be logged in to access this area",
     "pleaseEnterValidEmail": "Please enter a valid email",
     "requiredField": "This field is required",
     "requestSubmitted": "Request Submitted",
@@ -45,6 +45,8 @@
     "emailSendingFailed": "There was a problem sending a recovery password email. Please inform us about this issue.",
     "accountUpdateSuccessfully": "Account updated successfully",
     "accountUpdateFailed": "There was an error updating the account. Please inform us about this issue.",
-    "passwordsDontMatch": "Passwords don't match"
+    "passwordsDontMatch": "Passwords don't match",
+    "welcome": "Welcome"
+
 
 }

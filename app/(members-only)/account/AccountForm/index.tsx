@@ -42,7 +42,6 @@ export const AccountForm: React.FC = () => {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${user.id}`,
           {
-            // Make sure to include cookies with fetch
             credentials: 'include',
             method: 'PATCH',
             body: JSON.stringify(data),
@@ -76,8 +75,9 @@ export const AccountForm: React.FC = () => {
     if (user === null) {
       router.push(`/art-society?unauthorized=account`)
     }
+  }, [user, router])
 
-    // Once user is loaded, reset form to have default values
+  useEffect(() => {
     if (user) {
       reset({
         email: user.email,
@@ -85,7 +85,7 @@ export const AccountForm: React.FC = () => {
         passwordConfirm: '',
       })
     }
-  }, [user, router, reset, changePassword])
+  }, [user, reset])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>

@@ -3,13 +3,26 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: var(--base-100) 0;
+  /* padding: var(--base-100) 0; */
   background-color: var(--color-black);
+}
+
+.left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap:1rem;
 }
 
 .logo {
   width: 100px;
-  padding:var(--base-50);
+  padding:var(--base-100);
+  /* margin:2rem 0; */
+}
+
+.logo img {
   filter: invert(1);
 }
 
@@ -19,4 +32,12 @@
   gap: var(--base-200);
 }
 
+.welcome {
+  color: var(--color-white);
+  border-left: var(--color-white) 1px solid;
+  height: 100%;
+}
 
+.subtitle {
+  margin-left:2rem;
+}

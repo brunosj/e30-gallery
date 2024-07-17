@@ -7,6 +7,9 @@ import { AuthProvider } from '@/providers/Auth'
 import localFont from 'next/font/local'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import Footer from '@/components/Footer'
+import { getMeUser } from '@/utilities/getMeUser'
+import { redirect } from '@/lib/i18n'
+import * as m from '@/paraglide/messages.js'
 
 const hanken = localFont({
   src: '../../assets/fonts/HankenGrotesk-VariableFont_wght.ttf',
@@ -16,13 +19,21 @@ const hanken = localFont({
 })
 
 export const metadata = {
-  title: 'Payload Auth + Next.js App Router Example',
-  description: 'An example of how to authenticate with Payload from a Next.js app.',
+  title: 'E30 Gallery',
+  description: 'an art gallery located in Frankfurt am Main, Germany',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
+  const result = await getMeUser({
+    nullUserRedirect: `/art-society?error=${encodeURIComponent(
+      `${m.mustBeLoggedIn()}`,
+    )}&redirect=${encodeURIComponent('/members-area')}`,
+  })
 
+  if (result.redirectUrl) {
+    redirect(result.redirectUrl)
+  }
   return (
     <LanguageProvider>
       <html lang={languageTag()} className={`${hanken.className}`}>

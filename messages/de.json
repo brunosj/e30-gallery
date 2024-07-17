@@ -33,7 +33,7 @@
     "processing": "Verarbeitung",
     "errorWithCredentials":"Es gab einen Fehler mit den bereitgestellten Anmeldeinformationen. Bitte versuchen Sie es erneut.",
     "alreadyLoggedIn": "Sie sind bereits angemeldet",
-    "mustBeLoggedIn": "Sie müssen angemeldet sein, um auf Ihr Konto zuzugreifen",
+    "mustBeLoggedIn": "Sie müssen angemeldet sein, um auf diesen Bereich zugreifen zu können",
     "pleaseEnterValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "requiredField": "Dieses Feld ist erforderlich",
     "requestSubmitted": "Anfrage eingereicht",
@@ -46,6 +46,7 @@
 "emailSendingFailed": "Es gab ein Problem beim Senden einer E-Mail zum Wiederherstellen des Passworts. Bitte informieren Sie uns über dieses Problem.",
 "accountUpdateSuccessfully": "Konto erfolgreich aktualisiert",
 "accountUpdateFailed": "Es gab einen Fehler beim Aktualisieren des Kontos. Bitte informieren Sie uns über dieses Problem.",
-"passwordsDontMatch": "Die Passwörter stimmen nicht überein"
+"passwordsDontMatch": "Die Passwörter stimmen nicht überein",
+"welcome": "Willkommen"
 
 }

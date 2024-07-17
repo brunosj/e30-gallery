@@ -1,8 +1,9 @@
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
-import classes from './index.module.css'
 import { RichText } from '../RichText'
+
+import classes from './index.module.css'
 
 type Props = {
   data: GalleryPage

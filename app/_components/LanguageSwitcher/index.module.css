@@ -1,8 +1,21 @@
 .switcher {
   display: flex;
   justify-content: center;
+  color:var(--colar-gray)
 }
 
 .active {
   font-weight: 600;
+}
+
+.fontWhite {
+  color: var(--color-white);
+}
+
+.fontBlack {
+  color: var(--color-black);
+}
+
+.fontGray {
+  color: var(--color-gray);
 }

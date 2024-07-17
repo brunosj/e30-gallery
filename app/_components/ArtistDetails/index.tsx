@@ -42,7 +42,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   const NextButton = ({ onClick, isDisabled }: { onClick: () => void; isDisabled: boolean }) => (
     <button
       onClick={onClick}
-      className={isDisabled ? classes.disabled : classes.controls}
+      className={isDisabled ? classes.disabled : 'controls'}
       disabled={isDisabled}
     >
       {m.next()}
@@ -58,7 +58,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   }) => (
     <button
       onClick={onClick}
-      className={isDisabled ? classes.disabled : classes.controls}
+      className={isDisabled ? classes.disabled : 'controls'}
       disabled={isDisabled}
     >
       {m.previous()}
@@ -78,14 +78,14 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
                 <button
                   onClick={() => setFilterType('represented')}
                   disabled={filterType === 'represented'}
-                  className={filterType === 'represented' ? classes.active : classes.controls}
+                  className={filterType === 'represented' ? classes.active : 'controls'}
                 >
                   {m.represented()}
                 </button>
                 <button
                   onClick={() => setFilterType('featured')}
                   disabled={filterType === 'featured'}
-                  className={filterType === 'featured' ? classes.active : classes.controls}
+                  className={filterType === 'featured' ? classes.active : 'controls'}
                 >
                   {m.featured()}
                 </button>
@@ -96,13 +96,13 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
             <ul className={classes.list}>
               {filteredArtists.map((artist, index) => (
                 <li key={artist.id}>
-                  <button onClick={() => handleArtistClick(index)} className={classes.controls}>
+                  <button onClick={() => handleArtistClick(index)} className={'controls'}>
                     {artist.name}
                   </button>
                 </li>
               ))}
             </ul>
-            <div className={classes.artwork}>
+            <div className="controls">
               <Image src={featuredArtwork.image.url} alt={featuredArtwork.image.title} fill />
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
               <div className="semibold">
                 <p> {m.artists()}</p>
               </div>
-              <button onClick={handleBackClick} className={classes.controls}>
+              <button onClick={handleBackClick} className={'controls'}>
                 {' '}
                 {m.backToList()}
               </button>

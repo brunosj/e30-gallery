@@ -1,18 +1,18 @@
-import type { ArtSocietyPage, Testimonial } from '../../payload-types'
-
 import React from 'react'
+import { Link } from '@/lib/i18n'
 import { redirect } from '@/lib/i18n'
 import { languageTag } from '@/paraglide/runtime'
+import { Button } from '@/components/Button'
 import { RenderParams } from '@/components/RenderParams'
-import { getMeUser } from '../../_utilities/getMeUser'
+import { getMeUser } from '@/utilities/getMeUser'
 import * as m from '@/paraglide/messages.js'
-import { ArtSocietyHero } from '@/components/ArtSocietyHero'
-import { ArtSocietyBenefits } from '@/components/ArtSocietyBenefits'
-import { Testimonials } from '@/components/Testimonials'
+import MembersAreaComponent from '@/components/MembersComponent'
+
 import classes from './index.module.css'
+import { MembersOnlyPage } from '@/app/payload-types'
 
 async function getData(locale: string) {
-  const urls = [`${process.env.PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`]
+  const urls = [`${process.env.PAYLOAD_URL}/api/members-only-page?locale=${locale}&depth=1`]
 
   const fetchPromises = urls.map(url =>
     fetch(url, {
@@ -39,6 +39,7 @@ export async function generateMetadata() {
   const locale = languageTag()
   const { pageData } = await getData(locale)
   const metadata = pageData.docs[0].meta
+  console.log(metadata)
   return {
     title: metadata.title,
     description: metadata.description,
@@ -47,26 +48,15 @@ export async function generateMetadata() {
     },
   }
 }
-
-export default async function Login() {
+export default async function Account() {
   const locale = languageTag()
   const { pageData } = await getData(locale)
-  const page: ArtSocietyPage = pageData.docs[0]
-
-  const result = await getMeUser({
-    validUserRedirect: `/members-area`,
-  })
-
-  if (result.redirectUrl) {
-    redirect(result.redirectUrl)
-  }
+  const page: MembersOnlyPage = pageData.docs[0]
 
   return (
-    <article>
-      <RenderParams className={[classes.params, 'container'].filter(Boolean).join(' ')} />
-      <ArtSocietyHero data={page} />
-      <ArtSocietyBenefits data={page} />
-      <Testimonials data={page} />
+    <article className={classes.account}>
+      <RenderParams className={classes.params} />
+      <MembersAreaComponent data={page} />
     </article>
   )
 }

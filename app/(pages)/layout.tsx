@@ -16,8 +16,8 @@ const hanken = localFont({
 })
 
 export const metadata = {
-  title: 'Payload Auth + Next.js App Router Example',
-  description: 'An example of how to authenticate with Payload from a Next.js app.',
+  title: 'E30 Gallery',
+  description: 'an art gallery located in Frankfurt am Main, Germany',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

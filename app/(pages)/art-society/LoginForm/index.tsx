@@ -49,7 +49,7 @@ export const LoginForm: React.FC<Props> = ({ data }: Props) => {
       try {
         await login(data)
         if (redirect?.current) router.push(redirect.current as string)
-        else router.push('/account')
+        else router.push('/members-area')
       } catch (_) {
         setError(`${m.errorWithCredentials()}`)
       }
