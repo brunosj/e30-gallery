@@ -1,0 +1,40 @@
+.bg {
+  background-color: var(--color-black);
+}
+
+
+.footer {
+  color:var(--color-white);
+}
+
+.content {
+  grid-column: span 2; 
+  /* text-align: right; */
+  /* padding:2rem 0; */
+  margin:auto 0;
+}
+
+
+
+.text  {
+  color: var(--color-white);
+  margin:auto;
+}
+
+.title {
+  margin:auto;
+  color: var(--color-white);
+  grid-column: span 1; 
+  text-transform: uppercase;
+  padding:1rem
+}
+
+.titleElements {
+  display: block;
+}
+
+.logo {
+  margin:auto;
+  border-top:1px solid var(--color-white);
+  border-bottom:1px solid var(--color-white)
+}

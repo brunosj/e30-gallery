@@ -1,10 +1,11 @@
-import type { Homepage, Exhibition, ReachOut } from '@/app/payload-types'
+import type { Homepage, Exhibition } from '@/app/payload-types'
 import type { Layout } from '@/components/RenderBlocks'
 
 import RenderBlocks from '@/components/RenderBlocks'
 import { languageTag } from '@/paraglide/runtime'
 import { HeroExhibition } from '@/components/HeroExhibition'
 import BannerReachOut from '@/components/BannerReachOut'
+import ArtistsListings from '@/components/ArtistsListings'
 
 async function getData(locale: string) {
   const urls = [
@@ -63,20 +64,8 @@ export default async function Home() {
     <article>
       <HeroExhibition data={latestExhibition} />
       <RenderBlocks layout={page.layout as Layout[]} />
-
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      {/* <TwoColumnBlockComponent block={page.layout as TwoColumnBlock[]} /> */}
-      {/* <p>
-        {'Visit the '}
-        <Link href="/login">login page</Link>
-        {' to start the authentication flow. Once logged in, you will be redirected to the '}
-        <Link href="/account">account page</Link>
-        {` which is restricted to users only. To manage all users, `}
-        <Link href={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/admin/collections/users`}>
-          login to the admin dashboard
-        </Link>
-        {'.'}
-      </p> */}
+      <ArtistsListings />
     </article>
   )
 }

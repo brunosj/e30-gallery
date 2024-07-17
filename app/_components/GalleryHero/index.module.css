@@ -1,0 +1,51 @@
+.grid {
+  display: flex;
+  /* grid-template-columns: repeat(2, 1fr); */
+  /* min-height: 60vh; */
+  background-color: var(--color-black);
+  color:var(--color-white);
+}
+
+.contentContainer {
+  display: flex;
+}
+
+.content {
+  position: relative;
+  margin: auto 0;
+}
+
+.content > * + * {
+  margin-top: 1.5rem;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;}
+
+.line {
+  position:relative;
+}
+
+.line::before {
+  content: ""; 
+  display: inline-block;
+  width: 75px; 
+  height: 1.5px; 
+  background-color: var(--color-white); 
+  margin-right: 8px; 
+  vertical-align: middle;
+}
+
+.image {
+  position: relative;
+  height:100%;
+  width:100%;
+  aspect-ratio: 1/1;
+
+}
+
+.image img {
+  aspect-ratio: 1/1;
+
+}

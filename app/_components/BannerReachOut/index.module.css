@@ -1,0 +1,38 @@
+.bg {
+  background-color: var(--color-black);
+}
+
+.reachOut {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:2rem;
+  /* min-height: 60vh; */
+}
+
+.content {
+  grid-column: span 2; 
+  text-align: right;
+  /* padding:2rem 0; */
+  margin:auto 0;
+}
+
+.content > * + * {
+  margin-top: 1rem;
+}
+
+.text  {
+  color: var(--color-white);
+  margin:auto;
+}
+
+.title {
+  margin:auto 0;
+  color: var(--color-white);
+  grid-column: span 1; 
+  text-transform: uppercase;
+  padding:1rem
+}
+
+.titleElements {
+  display: block;
+}

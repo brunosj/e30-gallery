@@ -4,5 +4,18 @@
     "createAccount": "Create Account",
     "login": "Login",
     "logout": "Logout",
-    "viewNow": "View Now"
+    "viewNow": "View Now",
+    "viewAll": "View All",
+    "artistsAtE30": "Artists at E30",
+    "allRightsReserved": "All Rights Reserved",
+    "latestExhibition": "Latest Exhibition",
+    "represented": "Represented",
+    "featured": "Featured",
+    "artists": "Artists",
+    "backToList": "Back to List",
+    "next": "Next",
+    "previous": "Previous",
+    "work": "Work",
+    "aboutTheGallery": "About The Gallery"
+
 }

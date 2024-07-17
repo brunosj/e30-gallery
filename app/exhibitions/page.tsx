@@ -1,64 +1,76 @@
-import type { ExhibitionsPage } from '@/app/payload-types'
+import type { ExhibitionsPage, Exhibition } from '@/app/payload-types'
+
 import { languageTag } from '@/paraglide/runtime'
+import BannerReachOut from '@/components/BannerReachOut'
+import { LatestExhibition } from '@/components/LatestExhibition'
+import { ExhibitionCard } from '@/components/ExhibitionCard'
+import classes from './page.module.css'
 
 async function getData(locale: string) {
-  let data: ExhibitionsPage[] = []
-  try {
-    const res = await fetch(
-      `${process.env.PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=1`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-        },
+  const urls = [
+    `${process.env.PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=1`,
+    `${process.env.PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
+  ]
+
+  const fetchPromises = urls.map(url =>
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
       },
-    )
-    if (!res.ok) {
-      console.error('Failed to fetch:', res.status, res.statusText)
-      throw new Error(`HTTP error status: ${res.status}`)
-    }
-    const dataRes = await res.json()
-    data = dataRes.docs
+    }),
+  )
+
+  try {
+    const responses = await Promise.all(fetchPromises)
+    const data = await Promise.all(responses.map(res => res.json()))
+    const pageData = data[0]
+    const exhibitionData = data[1]
+    return { pageData, exhibitionData }
   } catch (error) {
     console.error('Error fetching data:', error)
+    throw error
   }
-  return data
 }
 
 export async function generateMetadata() {
   const locale = languageTag()
-  const pages: ExhibitionsPage[] = await getData(locale)
-  const page = pages[0]
+  const { pageData } = await getData(locale)
+  const metadata = pageData.docs[0].meta
   return {
-    title: page?.meta?.title,
-    description: page?.meta?.description,
+    title: metadata.title,
+    description: metadata.description,
     openGraph: {
-      title: page?.meta?.title,
+      title: metadata.title,
     },
   }
 }
 
-export default async function Home() {
+export default async function ExhibitionsPage() {
   const locale = languageTag()
-  const pages: ExhibitionsPage[] = await getData(locale)
-  const page = pages[0]
-  // console.log(page.layout)
+  const { pageData, exhibitionData } = await getData(locale)
+  const page: ExhibitionsPage = pageData.docs[0]
+  const exhibitions: Exhibition[] = exhibitionData.docs
+  const latestExhibition = exhibitions
+    .map(exhibition => ({
+      ...exhibition,
+      dateEndParsed: new Date(exhibition.dateEnd ?? '').getTime(),
+    }))
+    .sort((a, b) => b.dateEndParsed - a.dateEndParsed)[0]
+  const otherExhibitions = exhibitions.slice(1)
 
   return (
-    <article className="">
-      {/* <TwoColumnBlockComponent block={page.layout} /> */}
-      {/* <p>
-        {'Visit the '}
-        <Link href="/login">login page</Link>
-        {' to start the authentication flow. Once logged in, you will be redirected to the '}
-        <Link href="/account">account page</Link>
-        {` which is restricted to users only. To manage all users, `}
-        <Link href={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/admin/collections/users`}>
-          login to the admin dashboard
-        </Link>
-        {'.'}
-      </p> */}
+    <article>
+      <LatestExhibition data={latestExhibition} />
+      <div className="container padding-y">
+        <div className={classes.exhibitions}>
+          {otherExhibitions.map(exhibition => (
+            <ExhibitionCard key={exhibition.id} data={exhibition} />
+          ))}
+        </div>
+      </div>
+      {page.Banners?.reachOutBoolean && <BannerReachOut />}
     </article>
   )
 }

@@ -1,0 +1,49 @@
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap:1rem;
+  }
+  
+  .info {
+    grid-column: span 3;
+    margin:auto;
+  }
+  
+  .content {
+    position: relative;
+    margin: auto 0;
+  }
+  
+  .content > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .richTextFounders h4 {
+    margin-top:4rem;
+    margin-bottom:1rem;
+  }
+  
+  .flex {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .image {
+    grid-column: span 2;
+    position: relative;
+    height:100%;
+    margin:auto 0;
+  }
+
+  .imageTopLeft {
+    position: relative;
+    width: 50%;
+  }
+  
+  .imageBottomRight {
+    position: relative;
+    margin-left: 175px;
+    margin-top: -3rem;  
+    z-index: -1; 
+  }
+   

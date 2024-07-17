@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@inlang/paraglide-next": "0.5.1",
+    "embla-carousel": "^8.1.6",
+    "embla-carousel-react": "^8.1.6",
     "escape-html": "^1.0.3",
     "next": "^14.2.3",
     "react": "18.3.1",

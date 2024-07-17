@@ -4,5 +4,17 @@
     "createAccount": "Konto erstellen",
     "login": "Einloggen",
     "logout": "Ausloggen",
-    "viewNow": "Jetzt ansehen"
+    "viewNow": "Jetzt ansehen",
+    "viewAll": "Alle anzeigen",
+    "artistsAtE30": "Künstler*innen bei E30",
+    "allRightsReserved": "Alle Rechte vorbehalten",
+    "latestExhibition": "Neueste Ausstellung",
+    "represented": "Vertreten",
+    "featured": "Vorgestellt",
+    "artists": "Künstler*innen",
+    "backToList": "Zurück zur Liste",
+    "next": "Nächster",
+    "previous": "Vorheriger",
+    "work": "Arbeit",
+    "aboutTheGallery": "Über die Galerie"
 }

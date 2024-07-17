@@ -1,0 +1,28 @@
+
+.avatar {
+  position: absolute;
+  top: -50%; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 8rem; 
+  height: 8rem; 
+  border-radius: 100%;
+  object-fit: cover;
+  }
+
+.artwork {
+  position: relative;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+
+
+.info {
+  margin-bottom:2rem;
+  background-color: white;
+}
+
+.info > * + * {
+  margin-top: 1rem;
+}

@@ -1,0 +1,25 @@
+
+.link:hover  .heading {
+  transform: scale(1.02);
+  transition: all 300ms ease;
+}
+
+.title {
+  margin:auto;
+  text-transform: uppercase;
+  padding:1rem
+}
+
+.heading {
+  font-size:4.5rem;
+  text-align: center;
+}
+
+/* .heading:hover {
+  transform: scale(1.05);
+} */
+
+
+.titleElements {
+  display: block;
+}

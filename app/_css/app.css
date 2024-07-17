@@ -1,18 +1,20 @@
 
 @import "./preflight.css";
+@import "./carousel.css";
 
 :root {
 	--color-black: #151515;
 	--color-gray: #A9A9A9;
 	--color-white: #F5F5F5;
 	--color-white-rgb: 245, 245, 245;
+	--color-gray-rgb: 169, 169, 169;
 	--rounded-md: 4px;
 	--rounded-lg: 8px
 }
 
-* {
+/* * {
 	outline: gray solid 1px;
-}
+} */
 
 /* Typography */
 
@@ -33,17 +35,26 @@ h2 {
 h3 {
   font-size: 1.5rem; 
 	line-height: 1.4;
-  font-weight: 600; 
+  font-weight: 500; 
 }
+
 
 p {
   font-size: 1rem; 
-  line-height: 1.5rem;
+  line-height: 1.5;
 }
 
 small {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.italic {
+	font-style: italic; 
+}
+
+.light {
+	font-weight: 300; 
 }
 
 .bold {
@@ -54,6 +65,10 @@ small {
 	font-weight: 600; 
 }
 
+.uppercase {
+	text-transform: uppercase;
+}
+
 .text-right {
 	text-align: right;
 }
@@ -62,7 +77,36 @@ small {
 	text-align: left;
 }
 
+.spacedTitle {
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 5px;
+  font-size:2.25rem;
+  line-height: 1.2;
+}
+
+.centered {
+	margin: auto;
+	text-align: center;
+	width: 100%;
+}
+
 /* Layout */
+
+.flex {
+	display: flex;
+	flex-direction: column;
+}
+
+.block {
+	display: block;
+}
+
+.right {
+	margin-left: auto;
+	text-align: right;
+
+}
 
 .container {
 	padding: 0 6rem;
@@ -73,17 +117,30 @@ small {
 	padding-bottom: 3rem;
 }
 
+.padding-y-sm {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
 .padding-x {
 	padding-left: 3rem;
 	padding-right: 3rem;
 }
 
-.padding-right {
+.padding-r {
 	padding-right: 6rem;
 }
 
-.padding-left {
+.padding-l {
 	padding-left: 6rem;
+}
+
+.padding-t {
+	padding-top: 3rem;
+}
+
+.padding-b {
+	padding-bottom: 3rem;
 }
 
 .object-cover {
@@ -96,6 +153,38 @@ small {
 
 .order2 {
   order: 2;
+}
+
+.iconTopLeft {
+  width: 20px;
+}
+
+.iconBottomRight { 
+  width: 20px;
+  transform: rotate(180deg);
+  margin-left:auto;
+}
+
+.rounded {
+	border-radius: 100%;
+}
+
+.relative {
+	position: relative;
+}
+
+/* Color */
+
+.gray {
+	color: var(--color-gray);
+}
+
+.border-t-black {
+	border-top: var(--color-black) 1px solid;
+}
+
+.border-b-black {
+	border-bottom: var(--color-black) 1px solid;
 }
 
 

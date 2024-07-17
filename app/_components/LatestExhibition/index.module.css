@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 60vh;
+}
+
+.contentContainer {
+  display: flex;
+
+}
+
+.content {
+  position: relative;
+margin: auto 0;
+}
+
+
+.content > * + * {
+  margin-top: 1.5rem;
+}
+

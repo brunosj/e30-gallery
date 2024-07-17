@@ -3,36 +3,50 @@ import type { Exhibition } from '@/app/payload-types'
 import Image from 'next/image'
 import { Button } from '@/components/Button'
 import * as m from '@/paraglide/messages.js'
-import Chevron from '@/public/svg/Chevron.svg'
 import classes from './index.module.css'
+import Chevron from '@/components/SVG/Chevron'
 
 type Props = {
   data: Exhibition
 }
 
 export const HeroExhibition: React.FC<Props> = ({ data }) => {
-  const { title, description, image } = data
+  const { title, description, image, dateBegin, dateEnd } = data
+  const begin = new Date(dateBegin || '').toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+  })
+  const end = new Date(dateEnd || '').toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+  })
 
   return (
     <section className={classes.hero}>
       <Image src={image.url} alt={image.title} fill />
       <div className={classes.contentContainer}>
-        <div className="padding-right ">
+        <div className="padding-r ">
           <div className={classes.content}>
-            <div className={classes.iconTopLeft}>
-              <Image src={Chevron} alt="Chevron" />
+            <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
+            <div className={classes.info}>
+              <p className="spacedTitle">{title}</p>
+              <p>
+                {description}
+                <span className="block">
+                  {begin} - {end}
+                </span>
+              </p>
+
+              <div className="right">
+                <Button
+                  href={'/exhibitions'}
+                  newTab={false}
+                  label={m.viewNow()}
+                  appearance={'primary'}
+                />
+              </div>
             </div>
-            <p className={classes.title}>{title}</p>
-            <p className={classes.semibold}>{description}</p>
-            <Button
-              href={'/exhibitions'}
-              newTab={false}
-              label={m.viewNow()}
-              appearance={'primary'}
-            />
-            <div className={classes.iconBottomRight}>
-              <Image src={Chevron} alt="Chevron" />
-            </div>
+            <Chevron color="var(--color-black)" size={20} className="iconBottomRight" />
           </div>
         </div>
       </div>
