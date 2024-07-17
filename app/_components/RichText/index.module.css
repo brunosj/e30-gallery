@@ -6,11 +6,11 @@
 }
 
 .richText h1 {
-  font-size: 3rem;
+  font-size: var(--base-300);
 	line-height: 1.2;
   font-weight: 700; 
 	letter-spacing: 1.5px;
-  margin-bottom:1rem
+  margin-bottom:var(--base-100)
 }
 
 .richText  h2 {
@@ -18,19 +18,19 @@
   line-height: 1.2;
   font-weight: 500; 
 	letter-spacing: 1.5px;
-  margin-bottom:1rem
+  margin-bottom:var(--base-100)
 }
 
 .richText  h3 {
-  font-size: 1.5rem; 
-	line-height: 1.4;
-  font-weight: 500; 
+  font-size: var(--base-150); 
+  line-height: 1.75;
+  font-weight: 400; 
 }
 
 .richText  p {
-  font-size: 1rem; 
-  line-height: 1.5;
-  margin-bottom:0.5rem
+  font-size: var(--base-100); 
+  line-height: 2;
+  margin-bottom:var(--base-50)
 
 }
 

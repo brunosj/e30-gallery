@@ -230,12 +230,16 @@ export interface ArtSocietyPage {
   id: string
   call_to_action_text: string
   imageHero: string | Media
+  help_text_: {
+    [k: string]: unknown
+  }[]
   benefits: {
     [k: string]: unknown
   }[]
   benefitsVideo: string | Media
   title_sentence: string
   testimonialsItems?: (string | Testimonial)[] | null
+  resetPasswordImage: string | Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -259,7 +263,7 @@ export interface Testimonial {
   id: string
   name: string
   testimonial: string
-  image: string | Media
+  picture: string | Media
   stars?: number | null
   updatedAt: string
   createdAt: string

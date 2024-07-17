@@ -22,7 +22,7 @@
 
 .artists {
 	border-bottom: var(--color-black) 1px solid;
-  /* margin-bottom:1rem; */
+  /* margin-bottom:var(--base-100); */
   margin:2rem 0;
 }
 
@@ -30,13 +30,13 @@
   display:flex;
   justify-content: space-between;
   /* font-weight: 600;  */
-  margin-bottom:0.5rem;
+  margin-bottom:var(--base-50);
 }
 
 .filterControls {
   display:flex;
   justify-content: space-between;
-  gap:1rem;
+  gap:var(--base-100);
   color:var(--color-gray);
   font-weight: 300;
 }
@@ -49,9 +49,9 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap:1rem;
+  gap:var(--base-100);
   min-height: 30vh;
-  margin:3rem 0;
+  margin:var(--base-300) 0;
 }
 
 .grid img {
@@ -63,7 +63,7 @@
 .list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* gap:1rem; */
+  /* gap:var(--base-100); */
   /* min-height: 30vh; */
 }
 
@@ -74,7 +74,7 @@
 .navigationButtons {
   display:flex;
   justify-content: space-between;
-  gap:1rem;
+  gap:var(--base-100);
   /* color:var(--color-gray);
   font-weight: 300; */
 }

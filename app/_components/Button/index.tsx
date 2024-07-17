@@ -33,7 +33,6 @@ export const Button: React.FC<Props> = ({
   disabled,
   invert,
 }) => {
-  let el = elFromProps
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
   const className = [
@@ -51,28 +50,41 @@ export const Button: React.FC<Props> = ({
     </div>
   )
 
-  if (onClick || type === 'submit') type = 'button'
-
-  if (el === 'reference' || el === 'custom') {
+  if (
+    (elFromProps === 'reference' && type !== 'submit') ||
+    (elFromProps === 'custom' && type !== 'submit')
+  ) {
     return (
       <Link href={href || ''} className={className} {...newTabProps} onClick={onClick}>
         {content}
       </Link>
     )
+  } else {
+    return (
+      <button
+        className={className}
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        {...newTabProps}
+      >
+        {content}
+      </button>
+    )
   }
 
-  const Element: ElementType = el as ElementType
+  // const Element: ElementType = elFromProps as ElementType
 
-  return (
-    <Element
-      href={href}
-      className={className}
-      type={type}
-      {...newTabProps}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {content}
-    </Element>
-  )
+  // return (
+  //   <Element
+  //     href={href}
+  //     className={className}
+  //     type={type}
+  //     {...newTabProps}
+  //     onClick={onClick}
+  //     disabled={disabled}
+  //   >
+  //     {content}
+  //   </Element>
+  // )
 }

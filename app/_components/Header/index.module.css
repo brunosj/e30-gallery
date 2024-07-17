@@ -3,14 +3,14 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 1rem 0;
+  padding: var(--base-100) 0;
 
  
 }
 
 .logo {
   width: 100px;
-  padding:0.5rem
+  padding:var(--base-50)
 }
 
 :global([data-theme="light"]) .logo {

@@ -16,17 +16,17 @@
 .content {
   position: relative;
   background-color:rgba(var(--color-white-rgb), 0.93);
-  padding: 3rem;
+  padding: var(--base-300);
   border-radius: var(--rounded-md);
   margin-left:auto;
 }
 
 .info {
-  padding:1rem;
+  padding:var(--base-100);
 }
 
 .info > * + * {
-  margin-top: 0.5rem;
+  margin-top: var(--base-50);
 }
 
 .iconTopLeft {

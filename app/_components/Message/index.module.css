@@ -5,33 +5,18 @@
 }
  .default {
 	 background-color: var(--theme-elevation-100);
-	 color: var(--theme-elevation-1000);
+	 /* color: var(--theme-elevation-1000); */
 }
  .warning {
 	 background-color: var(--theme-warning-500);
-	 color: var(--theme-warning-900);
+	 color: red;
 }
  .error {
 	 background-color: var(--theme-error-500);
-	 color: var(--theme-error-900);
+	 color: red;
 }
  .success {
 	 background-color: var(--theme-success-500);
-	 color: var(--theme-success-900);
+	 color: blue;
 }
- /* @media (prefers-color-scheme: dark) {
-	 .default {
-		 background-color: var(--theme-elevation-900);
-		 color: var(--theme-elevation-100);
-	}
-	 .warning {
-		 color: var(--theme-warning-100);
-	}
-	 .error {
-		 color: var(--theme-error-100);
-	}
-	 .success {
-		 color: var(--theme-success-100);
-	}
-} */
- 
+

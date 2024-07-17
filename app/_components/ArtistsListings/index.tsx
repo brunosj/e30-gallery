@@ -3,7 +3,7 @@ import type { Artist } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import * as m from '@/paraglide/messages.js'
 import { Button } from '../Button'
-import Carousel from '@/components/Carousel/Carousel'
+import ArtistCarousel from '@/components/ArtistCarousel/ArtistCarousel'
 
 import classes from './index.module.css'
 
@@ -43,7 +43,7 @@ export default async function ArtistsListings() {
 
   return (
     <section className="container padding-y">
-      <div className={[classes.info, 'centered padding-b'].filter(Boolean).join(' ')}>
+      <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
         <h2 className="uppercase">{m.artistsAtE30()}</h2>
         <Button
           href="/artists"
@@ -53,9 +53,7 @@ export default async function ArtistsListings() {
           className="padding-t"
         />
       </div>
-      <div>
-        <Carousel slides={data} />
-      </div>
+      <ArtistCarousel slides={data} />
     </section>
   )
 }

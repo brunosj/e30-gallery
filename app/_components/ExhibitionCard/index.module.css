@@ -12,6 +12,6 @@
 }
 
 .content > * + * {
-  margin-top: 0.5rem;
+  margin-top: var(--base-50);
 }
 

@@ -17,7 +17,7 @@
 }
 
 .content > * + * {
-  margin-top: 1rem;
+  margin-top: var(--base-100);
 }
 
 .text  {
@@ -30,7 +30,7 @@
   color: var(--color-white);
   grid-column: span 1; 
   text-transform: uppercase;
-  padding:1rem
+  padding:var(--base-100)
 }
 
 .titleElements {

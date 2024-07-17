@@ -1,5 +1,7 @@
 
 @import "./preflight.css";
+@import "./artistCarousel.css";
+@import "./artistCarousel.css";
 @import "./carousel.css";
 
 :root {
@@ -8,8 +10,16 @@
 	--color-white: #F5F5F5;
 	--color-white-rgb: 245, 245, 245;
 	--color-gray-rgb: 169, 169, 169;
+	--color-blue-link: #0094FF;
+	--color-yellow:#FFB800;
 	--rounded-md: 4px;
-	--rounded-lg: 8px
+	--rounded-lg: 8px;
+	--base-50: 0.5rem;
+	--base-100: 1rem;
+	--base-150: 1.5rem;
+	--base-200: 2rem;
+	--base-300: 3rem;
+	--base-600: 6rem;
 }
 
 /* * {
@@ -19,7 +29,7 @@
 /* Typography */
 
 h1 {
-  font-size: 3rem;
+  font-size: var(--base-300);
 	line-height: 1.2;
   font-weight: 700; 
 	letter-spacing: 1.5px;
@@ -28,19 +38,18 @@ h1 {
 h2 {
   font-size: 2.25rem; 
   line-height: 1.2;
-  font-weight: 700; 
+  font-weight: 00; 
 	letter-spacing: 1.5px;
 }
 
-h3 {
-  font-size: 1.5rem; 
-	line-height: 1.4;
-  font-weight: 500; 
+  h3 {
+  font-size: var(--base-150); 
+  line-height: 1.75;
+  font-weight: 400; 
 }
 
-
 p {
-  font-size: 1rem; 
+  font-size: var(--base-100); 
   line-height: 1.5;
 }
 
@@ -91,6 +100,9 @@ small {
 	width: 100%;
 }
 
+
+
+
 /* Layout */
 
 .flex {
@@ -109,38 +121,38 @@ small {
 }
 
 .container {
-	padding: 0 6rem;
+	padding: 0 var(--base-600);
 }
 
 .padding-y {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
+	padding-top: var(--base-300);
+	padding-bottom: var(--base-300);
 }
 
 .padding-y-sm {
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
+	padding-top: var(--base-150);
+	padding-bottom: var(--base-150);
 }
 
 .padding-x {
-	padding-left: 3rem;
-	padding-right: 3rem;
+	padding-left: var(--base-300);
+	padding-right: var(--base-300);
 }
 
 .padding-r {
-	padding-right: 6rem;
+	padding-right: var(--base-600);
 }
 
 .padding-l {
-	padding-left: 6rem;
+	padding-left: var(--base-600);
 }
 
 .padding-t {
-	padding-top: 3rem;
+	padding-top: var(--base-300);
 }
 
 .padding-b {
-	padding-bottom: 3rem;
+	padding-bottom: var(--base-300);
 }
 
 .object-cover {
@@ -153,16 +165,6 @@ small {
 
 .order2 {
   order: 2;
-}
-
-.iconTopLeft {
-  width: 20px;
-}
-
-.iconBottomRight { 
-  width: 20px;
-  transform: rotate(180deg);
-  margin-left:auto;
 }
 
 .rounded {
@@ -186,6 +188,52 @@ small {
 .border-b-black {
 	border-bottom: var(--color-black) 1px solid;
 }
+
+/* Classes */
+
+.iconTopLeft {
+  width: 20px;
+}
+
+.iconBottomRight { 
+  width: 20px;
+  transform: rotate(180deg);
+  margin-left:auto;
+}
+
+.blueLink {
+	color: var(--color-blue-link);
+	text-decoration: underline;
+}
+
+
+.form {
+	margin-bottom: var(--base);
+	display: flex;
+	flex-direction: column;
+	gap:  var(--base-100);
+	/* align-items: flex-start; */
+	width: 60%;
+	margin:auto;
+	flex-grow:0;
+}
+
+.message {
+	margin-bottom: var(--base-100);
+}
+
+.richTextHelpText p {
+	line-height:1.5;
+	font-size:small;
+}
+
+.richTextHelpText a {
+	color: var(--color-blue-link);
+	text-decoration: underline;
+}
+
+
+
 
 
 /* 

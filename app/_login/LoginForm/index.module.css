@@ -1,0 +1,16 @@
+
+ .form {
+	 margin-bottom: var(--base);
+	 display: flex;
+	 flex-direction: column;
+	 gap: calc(var(--base) / 2);
+	 align-items: flex-start;
+	 width: 66.66%;
+}
+ .submit {
+	 margin-top: var(--base-100);
+}
+ .message {
+	 margin-bottom: var(--base-100);
+}
+ 

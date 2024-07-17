@@ -4,11 +4,7 @@
   /* min-height: 60vh; */
   background-color: var(--color-black);
   color:var(--color-white);
-  gap:1rem;
-}
-
-.contentContainer {
-  display: flex;
+  gap:var(--base-100);
 }
 
 .content {
@@ -17,24 +13,21 @@
 }
 
 .content > * + * {
-  margin-top: 1.5rem;
+  margin-top: var(--base-150);
 }
-
-.flex {
-  display: flex;
-  flex-direction: column;}
 
 .line {
   position:relative;
+  margin-top: var(--base-50);
 }
 
 .line::before {
   content: ""; 
   display: inline-block;
   width: 75px; 
+  margin-right: 8px; 
   height: 1.5px; 
   background-color: var(--color-white); 
-  margin-right: 8px; 
   vertical-align: middle;
 }
 
@@ -42,6 +35,11 @@
   grid-column: span 2;
   max-width: 80%;
 }
+
+/* .leftColumn > *  {
+  margin-top: var(--base-50);
+} */
+
 
 .image {
   position: relative;

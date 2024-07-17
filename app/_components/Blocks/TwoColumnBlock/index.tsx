@@ -6,7 +6,7 @@ import { Button } from '@/components/Button'
 
 import classes from './index.module.css'
 
-const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
+export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
   invertOrder,
   columnText,
   columnImage,
@@ -55,5 +55,3 @@ const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
     </div>
   )
 }
-
-export default TwoColumnBlockComponent

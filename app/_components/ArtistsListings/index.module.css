@@ -24,5 +24,5 @@
 }
 
 .info > * + * {
-  margin-top: 1rem;
+  margin-top: var(--base-100);
 }

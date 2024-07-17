@@ -7,11 +7,11 @@ export default function LanguageSwitcher() {
   const locale = languageTag()
   return (
     <div className={classes.switcher}>
-      <Link href={pathname} locale="en" className={locale === 'en' ? 'bold' : 'gray'}>
+      <Link href={pathname} locale="en" className={locale === 'en' ? `${classes.active}` : 'gray'}>
         EN
       </Link>
       <span>/</span>
-      <Link href={pathname} locale="de" className={locale === 'de' ? 'bold' : 'gray'}>
+      <Link href={pathname} locale="de" className={locale === 'de' ? `${classes.active}` : 'gray'}>
         DE
       </Link>
     </div>

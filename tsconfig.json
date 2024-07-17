@@ -23,6 +23,8 @@
       "@/*": ["./*"],
       "@/app/*": ["./app/*"],
       "@/components/*": ["./app/_components/*"],
+      "@/providers/*": ["./app/_providers/*"],
+      "@/utilities/*": ["./app/_utilities/*"],
       "@/assets/*": ["./assets/*"],
     }
   },

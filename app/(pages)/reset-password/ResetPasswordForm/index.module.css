@@ -1,0 +1,10 @@
+.richTextHelpText p {
+	line-height:1.5;
+	font-size:small;
+}
+
+.richTextHelpText a {
+	color: var(--color-blue-link);
+	text-decoration: underline;
+}
+

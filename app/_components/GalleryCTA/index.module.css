@@ -28,7 +28,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 1rem;
+  padding: var(--base-100);
   width:40%;
 }
 

@@ -1,0 +1,110 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 40vh;
+  background-color: var(--color-black);
+  gap:var(--base-50)
+}
+
+.textOverlay {
+  position: absolute;
+  top: 66%; 
+  left: 0;
+  right: 0;
+  transform: translateY(-50%); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  
+  /* background: rgba(0, 0, 0, 0.5);  */
+}
+
+.title {
+  text-align: center;
+  padding:0 var(--base-100);
+}
+
+.columnLeft {
+  margin:auto;
+  padding:var(--base-300) 0 var(--base-300) var(--base-300);
+  height:100%;
+  width: 100%;
+}
+
+.columnRight {
+  margin:auto;
+  padding:var(--base-300) var(--base-300) var(--base-300) 0;  height:100%;
+  width: 100%;
+}
+
+
+.benefitsContent {
+  height:100%;
+  width: 100%;
+  display: flex;
+  padding:var(--base-200) var(--base-300);
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  background-color: var(--color-white);
+}
+
+.imageContent {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
+.imageContents {
+  height:100%;
+  width: 100%;
+  display: flex;
+  /* padding:var(--base-200); */
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  background-color: var(--color-white);
+  position: relative;
+}
+
+.iamgeContainer {
+  height:100%;
+  width: 100%;
+  /* display: flex; */
+  /* padding:var(--base-200); */
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  background-color: var(--color-white);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.benefitsList li::marker {
+  content: '★ ';
+}
+
+.benefitsList ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+.benefitsList ol {
+  list-style-type: disc;
+  list-style-position: inside;
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+.benefitsList li {
+	margin-bottom: var(--base-50);
+	line-height: 1.5;
+}
+
+

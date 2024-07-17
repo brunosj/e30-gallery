@@ -1,4 +1,4 @@
-import TwoColumnBlockComponent from './TwoColumnBlock'
+import { TwoColumnBlockComponent } from './TwoColumnBlock'
 
 export const components = {
   'two-column-block': TwoColumnBlockComponent,

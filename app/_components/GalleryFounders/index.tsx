@@ -1,7 +1,6 @@
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
-import * as m from '@/paraglide/messages.js'
 import classes from './index.module.css'
 import { RichText } from '../RichText'
 

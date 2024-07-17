@@ -22,12 +22,12 @@
 
 .textColumn {
   margin:auto;
-  /* padding: 3rem; */
+  /* padding: var(--base-300); */
   order:1
 }
 
 .textColumn > * + *  {
-  margin-top: 1rem;
+  margin-top: var(--base-100);
 }
 
 .order1 {

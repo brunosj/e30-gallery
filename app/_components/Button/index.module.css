@@ -6,7 +6,7 @@
 	 background-color: transparent;
 	 text-decoration: none;
 	 display: inline-flex;
-	 padding: 0.5rem 1.3rem;
+	 padding: var(--base-50) var(--base-150);
 }
  .content {
 	 display: flex;
@@ -17,7 +17,7 @@
 	 text-align: center;
 	 display: flex;
 	 align-items: center;
-	 font-size: 1rem;
+	 font-size: var(--base-100);
 	 letter-spacing: 0.5px;
 }
  .appearance--primary {

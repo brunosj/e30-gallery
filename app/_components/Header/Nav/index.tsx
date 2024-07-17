@@ -3,7 +3,7 @@
 import type { Menu } from '@/app/payload-types'
 
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '@/app/_providers/Auth'
+import { useAuth } from '@/providers/Auth'
 import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
@@ -72,16 +72,6 @@ export const HeaderNav: React.FC = () => {
           })}
         </ul>
       )}
-      {/* {user ? (
-        <React.Fragment>
-          <Link href="/account">{m.account()}</Link>
-          <Link href="/logout">{m.logout()}</Link>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Link href="/login">{m.login()}</Link>
-        </React.Fragment>
-      )} */}
     </nav>
   )
 }
