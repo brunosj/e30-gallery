@@ -1,7 +1,6 @@
 
 @import "./preflight.css";
 @import "./artistCarousel.css";
-@import "./artistCarousel.css";
 @import "./carousel.css";
 
 :root {
@@ -248,7 +247,7 @@ small {
 	background-color: var(--color-black); 
 	margin-bottom: -1px;
 	transition:all 0.3s ease;
-	opacity:0
+	opacity:0;
 }
 
 .controls:hover:after {
