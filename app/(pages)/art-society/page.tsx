@@ -12,7 +12,9 @@ import { Testimonials } from '@/components/Testimonials'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
-  const urls = [`${process.env.PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`]
+  const urls = [
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`,
+  ]
 
   const fetchPromises = urls.map(url =>
     fetch(url, {

@@ -7,8 +7,8 @@ import classes from './index.module.css'
 
 async function getData(locale: string) {
   const urls = [
-    `${process.env.PAYLOAD_URL}/api/artists-page?locale=${locale}&depth=2`,
-    `${process.env.PAYLOAD_URL}/api/artist?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artists-page?locale=${locale}&depth=2`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=1`,
   ]
 
   const fetchPromises = urls.map(url =>

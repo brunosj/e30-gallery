@@ -11,7 +11,7 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    connect-src 'self' ${process.env.PAYLOAD_URL};  
+    connect-src 'self' ${process.env.NEXT_PUBLIC_PAYLOAD_URL};  
     upgrade-insecure-requests;
 `
 
@@ -19,6 +19,12 @@ module.exports = paraglide({
   paraglide: {
     project: './project.inlang',
     outdir: './paraglide',
+  },
+  env: {
+    NEXT_PUBLIC_PAYLOAD_URL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://cms.e30gallery.com'
+        : 'http://localhost:3000',
   },
   typescript: {
     // !! WARN !!

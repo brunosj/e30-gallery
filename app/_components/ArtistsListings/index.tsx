@@ -10,13 +10,16 @@ import classes from './index.module.css'
 async function getData(locale: string) {
   let data
   try {
-    const res = await fetch(`${process.env.PAYLOAD_URL}/api/artist?locale=${locale}&depth=2`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
+        },
       },
-    })
+    )
     if (!res.ok) {
       console.error('Failed to fetch:', res.status, res.statusText)
       throw new Error(`HTTP error status: ${res.status}`)

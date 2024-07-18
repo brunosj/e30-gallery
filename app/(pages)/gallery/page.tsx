@@ -8,7 +8,7 @@ import { GalleryVision } from '@/components/GalleryVision'
 import { GalleryCTA } from '@/components/GalleryCTA'
 
 async function getData(locale: string) {
-  const urls = [`${process.env.PAYLOAD_URL}/api/gallery-page?locale=${locale}&depth=2`]
+  const urls = [`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/gallery-page?locale=${locale}&depth=2`]
 
   const fetchPromises = urls.map(url =>
     fetch(url, {

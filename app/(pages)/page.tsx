@@ -9,8 +9,8 @@ import ArtistsListings from '@/components/ArtistsListings'
 
 async function getData(locale: string) {
   const urls = [
-    `${process.env.PAYLOAD_URL}/api/homepage?locale=${locale}&depth=1`,
-    `${process.env.PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/homepage?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
   ]
 
   const fetchPromises = urls.map(url =>

@@ -10,7 +10,7 @@ async function getData(locale: string) {
   let data
   try {
     const res = await fetch(
-      `${process.env.PAYLOAD_URL}/api/globals/footer?locale=${locale}&depth=1`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/footer?locale=${locale}&depth=1`,
       {
         method: 'GET',
         headers: {

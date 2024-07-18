@@ -8,8 +8,8 @@ import classes from './index.module.css'
 
 async function getData(locale: string) {
   const urls = [
-    `${process.env.PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=1`,
-    `${process.env.PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
   ]
 
   const fetchPromises = urls.map(url =>
