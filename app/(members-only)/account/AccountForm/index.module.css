@@ -7,6 +7,11 @@
 	 align-items: flex-start;
 	 width: 66.66%;
 }
+
+.form > * {
+	margin-bottom: var(--base-100);
+}
+
  .changePassword {
 	 all: unset;
 	 cursor: pointer;

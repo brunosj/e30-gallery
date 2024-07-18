@@ -1,0 +1,34 @@
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+	gap:var(--base-200)
+}
+
+.column {
+  flex: 1;
+}
+
+.column h4 {
+  margin-bottom: var(--base-150);
+	text-transform: uppercase;
+	font-weight:600;
+}
+
+.column ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.column ul li {
+  margin-bottom: 8px;
+}
+
+.column li {
+	font-weight:300;
+}
+
+.text {
+	max-width:80%;
+}
+

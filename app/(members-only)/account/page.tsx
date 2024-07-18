@@ -9,6 +9,7 @@ import { AccountForm } from './AccountForm'
 import * as m from '@/paraglide/messages.js'
 
 import classes from './index.module.css'
+import { User } from '@/app/payload-types'
 
 export default async function MembersArea() {
   const result = await getMeUser({
@@ -21,19 +22,39 @@ export default async function MembersArea() {
     redirect(result.redirectUrl)
   }
 
+  if (!result.user) {
+    return null
+  }
+
+  const user: User = result.user
+
+  const { firstName, lastName, email } = user
+
   return (
-    <article className={classes.account}>
-      <RenderParams className={classes.params} />
-      <h1>Account</h1>
-      <p>
-        {`This is your account dashboard. Here you can update your account information and more. To manage all users, `}
-        <Link href={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/admin/collections/users`}>
-          login to the admin dashboard
-        </Link>
-        {'.'}
-      </p>
-      <AccountForm />
-      <Button href="/logout" appearance="secondary" label="Log out" />
+    <article className="container padding-y">
+      <div className={classes.account}>
+        <h1>{m.account()}</h1>
+        <p>{m.thisIsYourAccount()}</p>
+
+        {/* <div className={classes.details}>
+          <div>
+          <p className="semibold">{m.firstName()}</p>
+          <p>{firstName}</p>
+          </div>
+          
+          <div>
+          <p className="semibold">{m.lastName()}</p>
+          <p>{lastName}</p>
+          </div>
+          
+          <div>
+          <p className="semibold">{m.email()}</p>
+          <p>{email}</p>
+          </div>
+          </div> */}
+        <AccountForm />
+        <RenderParams className={classes.params} />
+      </div>
     </article>
   )
 }

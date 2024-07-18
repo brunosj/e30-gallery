@@ -44,7 +44,11 @@ text-transform: uppercase;
 
 .imageColumn {
   position:relative;
-  /* aspect-ratio: 1/1 */
+  aspect-ratio: 1/1
+}
+
+.imageColumn img {
+  object-fit: cover;
 }
 
 /* @media screen and (max-width: 1024px) {

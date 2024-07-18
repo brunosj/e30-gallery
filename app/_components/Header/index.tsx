@@ -19,7 +19,7 @@ export function Header() {
         </Link>
         <HeaderNav />
         <Socials />
-        <LanguageSwitcher />
+        <LanguageSwitcher theme="light" />
       </div>
     </header>
   )

@@ -58,10 +58,11 @@ export default async function BannerReachOut() {
             <RichText content={banner.text} />
           </div>
           <Button
-            href={banner.link.url}
+            href={banner.link.reference?.value.slug}
             newTab={banner.link.newTab}
             label={banner.link.label}
             appearance={banner.link.appearance}
+            el={banner.link.type || 'reference'}
           />
         </div>
       </div>

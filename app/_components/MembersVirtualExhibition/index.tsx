@@ -1,8 +1,5 @@
+import React from 'react'
 import type { MembersOnlyPage } from '@/app/payload-types'
-
-import Image from 'next/image'
-import { RichText } from '../RichText'
-
 import classes from './index.module.css'
 
 type Props = {
@@ -10,6 +7,14 @@ type Props = {
 }
 
 export const MembersVirtualExhibition: React.FC<Props> = ({ data }: Props) => {
-  const {} = data
-  return <section className="container"></section>
+  const { virtualExhibition, tab_title_virtual_exhibition } = data
+
+  return (
+    <section>
+      <div
+        className={classes.iframeContainer}
+        dangerouslySetInnerHTML={{ __html: virtualExhibition }}
+      />
+    </section>
+  )
 }

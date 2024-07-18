@@ -3,8 +3,10 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from '@/lib/i18n'
 import * as m from '@/paraglide/messages.js'
-
+import { Button } from '@/components/Button'
 import { useAuth } from '@/providers/Auth'
+
+import classes from './index.module.css'
 
 export const LogoutPage: React.FC = props => {
   const { logout } = useAuth()
@@ -27,16 +29,19 @@ export const LogoutPage: React.FC = props => {
   return (
     <Fragment>
       {(error || success) && (
-        <div>
-          <h1>{error || success}</h1>
-          <p>
-            {'What would you like to do next? '}
-            <Link href="/">Click here</Link>
-            {` to go to the home page. To log back in, `}
-            <Link href="/art-society">click here</Link>
-            {'.'}
-          </p>
-        </div>
+        <section className="container padding-y">
+          <div className={classes.logout}>
+            <h1>{error || success}</h1>
+            <p>{m.doNext()}</p>
+            <Button
+              href="/"
+              label={m.clickHere()}
+              appearance={'default'}
+            /> {m.toGoToTheHomepage()}{' '}
+            <Button href="/art-society" label={m.clickHere()} appearance={'default'} />{' '}
+            {m.toLogBackIn()}
+          </div>
+        </section>
       )}
     </Fragment>
   )

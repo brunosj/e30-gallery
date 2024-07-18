@@ -1,5 +1,3 @@
-'use client'
-
 import React, { ElementType } from 'react'
 import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
@@ -25,16 +23,19 @@ export const Button: React.FC<Props> = ({
   el: elFromProps = 'reference',
   label,
   newTab = false,
-  href = '',
+  href,
   appearance,
   className: classNameFromProps,
   onClick,
   type = 'button',
   disabled,
   invert,
+  email,
+  subject,
+  body,
+  url,
 }) => {
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
-
   const className = [
     classes.button,
     classNameFromProps,
@@ -50,12 +51,25 @@ export const Button: React.FC<Props> = ({
     </div>
   )
 
+  let finalHref = href || ''
+
+  if (elFromProps === 'mailto' && email) {
+    finalHref = `mailto:${email}`
+    if (subject) {
+      finalHref += `?subject=${encodeURIComponent(subject)}`
+      if (body) {
+        finalHref += `&body=${encodeURIComponent(body)}`
+      }
+    }
+  }
+
   if (
     (elFromProps === 'reference' && type !== 'submit') ||
-    (elFromProps === 'custom' && type !== 'submit')
+    (elFromProps === 'custom' && type !== 'submit') ||
+    (elFromProps === 'mailto' && type !== 'submit')
   ) {
     return (
-      <Link href={href || ''} className={className} {...newTabProps} onClick={onClick}>
+      <Link href={finalHref} className={className} {...newTabProps} onClick={onClick}>
         {content}
       </Link>
     )
@@ -77,7 +91,7 @@ export const Button: React.FC<Props> = ({
 
   // return (
   //   <Element
-  //     href={href}
+  //     href={finalHref}
   //     className={className}
   //     type={type}
   //     {...newTabProps}

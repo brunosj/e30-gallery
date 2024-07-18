@@ -19,6 +19,8 @@
     "aboutTheGallery": "About The Gallery",
     "memberLogin": "E30 Art Society Member Login",
     "email": "Email",
+    "firstName": "First name",
+    "lastName": "Last name", 
     "password": "Password",
     "pleaseEnterMail": "Please enter your email",
     "weSentLink": "We have sent you a link to reset your password",
@@ -46,7 +48,16 @@
     "accountUpdateSuccessfully": "Account updated successfully",
     "accountUpdateFailed": "There was an error updating the account. Please inform us about this issue.",
     "passwordsDontMatch": "Passwords don't match",
-    "welcome": "Welcome"
-
-
+    "welcome": "Welcome",
+    "clickHere": "click here",
+    "doNext": "What would you like to do next?",
+    "toLogBackIn": "To log back in,",
+    "toGoToTheHomepage": "To go to the homepage,",
+    "changePassword": "Change password",
+    "updateAcount": "Update account",
+    "toChangeYourPassword": "To change your password, ",
+    "toChangeYourAccountDetails": "To change your account details, fill in the form below:",
+    "changeYourPasswordBelowOr": "Change your password below or",
+    "cancel": "cancel",
+    "thisIsYourAccount": "This is your account dashboard. Here you can update your account information."
 }

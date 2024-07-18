@@ -10,7 +10,7 @@ type Props = {
   register: UseFormRegister<FieldValues & any>
   required?: boolean
   error: any
-  type?: 'text' | 'number' | 'password' | 'email'
+  type?: 'text' | 'number' | 'password' | 'email' | 'firstName' | 'lastName'
   validate?: (value: string) => boolean | string
 }
 

@@ -1,0 +1,89 @@
+.container {
+  width: 100%;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.block {
+  position: relative;
+}
+
+.block > * {
+  margin-bottom: var(--base-100);
+}
+
+.text {
+  position: relative;
+
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  /* height: 200px; */
+  overflow: hidden;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.infoIcon {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 20px; 
+  height: 20px; 
+  margin-left: 5px;
+  font-size: 14px; 
+  line-height: 1; 
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--color-black);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltipText p {
+  line-height: 1.2;
+  margin:0
+}
+
+.tooltipText::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}

@@ -30,11 +30,9 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
             <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
             <div className={classes.info}>
               <p className="spacedTitle">{title}</p>
-              <p>
-                {description}
-                <span className="block">
-                  {begin} - {end}
-                </span>
+              <p>{description}</p>
+              <p className="uppercase">
+                {begin} - {end}
               </p>
 
               <div className="right">

@@ -2,6 +2,7 @@ import type { Footer } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import LongLogo from '@/components/SVG/LongLogo'
 import * as m from '@/paraglide/messages.js'
+import { FooterNav } from '@/components/Footer/Nav'
 
 import classes from './index.module.css'
 
@@ -39,6 +40,7 @@ export default async function Footer() {
     <section className={classes.bg}>
       <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
         <div className={classes.content}>
+          <FooterNav data={footer} />
           <div className={[classes.logo, 'container padding-y'].filter(Boolean).join(' ')}>
             <LongLogo />
           </div>
@@ -47,15 +49,6 @@ export default async function Footer() {
               © {new Date().getFullYear()}. E30 Gallery, {m.allRightsReserved()}.
             </p>
           </div>
-          {/* <div className={classes.text}>
-            <RichText content={banner.text} />
-          </div> */}
-          {/* <Button
-            href={banner.link.url}
-            newTab={banner.link.newTab}
-            label={banner.link.label}
-            appearance={banner.link.appearance}
-          /> */}
         </div>
       </div>
     </section>

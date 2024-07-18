@@ -1,0 +1,7 @@
+.logout > * {
+  margin-bottom: var(--base-50);
+}
+
+.logout h1 {
+  margin-bottom:var(--base-200)
+}

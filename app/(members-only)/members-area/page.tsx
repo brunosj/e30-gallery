@@ -39,7 +39,6 @@ export async function generateMetadata() {
   const locale = languageTag()
   const { pageData } = await getData(locale)
   const metadata = pageData.docs[0].meta
-  console.log(metadata)
   return {
     title: metadata.title,
     description: metadata.description,

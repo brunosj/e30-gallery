@@ -34,10 +34,11 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
         )}
         {columnText.addLink && columnText.link && (
           <Button
-            href={columnText.link.url}
+            href={columnText.link.reference?.value.slug}
             newTab={columnText.link.newTab}
             label={columnText.link.label}
             appearance={columnText.link.appearance}
+            el={columnText.link.type || 'reference'}
           />
         )}
       </div>
@@ -50,7 +51,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           .filter(Boolean)
           .join(' ')}
       >
-        <Image src={columnImage.image.url} alt={columnImage.image.title} fill />
+        <Image src={image.url} alt={image.title} fill />
       </div>
     </div>
   )

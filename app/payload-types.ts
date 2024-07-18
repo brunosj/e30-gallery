@@ -387,7 +387,7 @@ export interface MembersOnlyPage {
   id: string
   tab_title_home: string
   page_title_home: string
-  tab_text: {
+  text_home: {
     [k: string]: unknown
   }[]
   homeBlocks: TitleImageInfoBlock[]
@@ -395,15 +395,12 @@ export interface MembersOnlyPage {
   virtualExhibition?: string | null
   tab_title_special_events: string
   page_title_special_events: string
-  special_events_text: {
+  text_special_events: {
     [k: string]: unknown
   }[]
   specialEventsImage: string | Media
   tab_title_art_advice: string
   page_title_art_advice: string
-  individual_art_advice_text: {
-    [k: string]: unknown
-  }[]
   individuallArtAdviceBlock: TitleImageInfoBlock[]
   form?: (string | null) | Form
   meta?: {
@@ -428,7 +425,9 @@ export interface MembersOnlyPage {
 export interface TitleImageInfoBlock {
   textJustification?: ('left' | 'center' | 'right' | 'justify') | null
   title?: string | null
-  info_tooltip: string
+  info: {
+    [k: string]: unknown
+  }[]
   addLink?: boolean | null
   link?: {
     type?: ('reference' | 'custom' | 'mailto') | null

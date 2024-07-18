@@ -8,12 +8,15 @@ import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Message } from '@/components/Message'
 import { useAuth } from '@/providers/Auth'
+import * as m from '@/paraglide/messages.js'
 
 import classes from './index.module.css'
 
 type FormData = {
   email: string
   name: string
+  firstName: string
+  lastName: string
   password: string
   passwordConfirm: string
 }
@@ -54,7 +57,7 @@ export const AccountForm: React.FC = () => {
         if (response.ok) {
           const json = await response.json()
           setUser(json.doc)
-          setSuccess('Successfully updated account.')
+          setSuccess(`${m.accountUpdateSuccessfully()}`)
           setError('')
           setChangePassword(false)
           reset({
@@ -62,9 +65,11 @@ export const AccountForm: React.FC = () => {
             name: json.doc.name,
             password: '',
             passwordConfirm: '',
+            firstName: json.doc.firstName,
+            lastName: json.doc.lastName,
           })
         } else {
-          setError('There was a problem updating your account.')
+          setError(`${m.accountUpdateFailed()}`)
         }
       }
     },
@@ -83,29 +88,50 @@ export const AccountForm: React.FC = () => {
         email: user.email,
         password: '',
         passwordConfirm: '',
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
       })
     }
   }, [user, reset])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-      <Message error={error} success={success} className={classes.message} />
       {!changePassword ? (
         <Fragment>
           <p>
-            {'To change your password, '}
+            {m.toChangeYourPassword()}
             <button
               type="button"
               className={classes.changePassword}
               onClick={() => setChangePassword(!changePassword)}
             >
-              click here
+              {m.clickHere()}
             </button>
             .
           </p>
+
+          <p>{m.toChangeYourAccountDetails()}</p>
+
+          <Input
+            name="firstName"
+            label={m.firstName()}
+            required
+            register={register}
+            error={errors.firstName}
+            type="firstName"
+          />
+
+          <Input
+            name="lastName"
+            label={m.lastName()}
+            required
+            register={register}
+            error={errors.lastName}
+            type="lastName"
+          />
           <Input
             name="email"
-            label="Email Address"
+            label={m.email()}
             required
             register={register}
             error={errors.email}
@@ -115,20 +141,20 @@ export const AccountForm: React.FC = () => {
       ) : (
         <Fragment>
           <p>
-            {'Change your password below, or '}
+            {m.changeYourPasswordBelowOr()}
             <button
               type="button"
               className={classes.changePassword}
               onClick={() => setChangePassword(!changePassword)}
             >
-              cancel
+              {m.cancel()}
             </button>
             .
           </p>
           <Input
             name="password"
             type="password"
-            label="Password"
+            label={m.password()}
             required
             register={register}
             error={errors.password}
@@ -136,10 +162,10 @@ export const AccountForm: React.FC = () => {
           <Input
             name="passwordConfirm"
             type="password"
-            label="Confirm Password"
+            label={m.confirmPassword()}
             required
             register={register}
-            validate={value => value === password.current || 'The passwords do not match'}
+            validate={value => value === password.current || `${m.passwordsDontMatch()}`}
             error={errors.passwordConfirm}
           />
         </Fragment>
@@ -147,9 +173,16 @@ export const AccountForm: React.FC = () => {
       <Button
         type="submit"
         className={classes.submit}
-        label={isLoading ? 'Processing' : changePassword ? 'Change password' : 'Update account'}
+        label={
+          isLoading
+            ? `${m.processing()}`
+            : changePassword
+              ? `${m.changePassword()}`
+              : `${m.updateAcount()}`
+        }
         appearance="primary"
       />
+      <Message error={error} success={success} className={classes.message} />
     </form>
   )
 }

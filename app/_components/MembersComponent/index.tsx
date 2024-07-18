@@ -19,7 +19,12 @@ type Props = {
 
 const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
   const [activeTab, setActiveTab] = useState<string>('home')
-
+  const {
+    tab_title_home,
+    tab_title_virtual_exhibition,
+    tab_title_special_events,
+    tab_title_art_advice,
+  } = data
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
@@ -43,7 +48,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             onClick={() => setActiveTab('home')}
             className={activeTab === 'home' ? classes.active : 'controls'}
           >
-            Home
+            {tab_title_home}
           </button>
         </li>
         <li className={classes.buttonContainer}>
@@ -51,7 +56,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             onClick={() => setActiveTab('virtualExhibition')}
             className={activeTab === 'virtualExhibition' ? classes.active : 'controls'}
           >
-            Virtual Exhibition
+            {tab_title_virtual_exhibition}
           </button>
         </li>
         <li className={classes.buttonContainer}>
@@ -59,7 +64,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             onClick={() => setActiveTab('specialEvents')}
             className={activeTab === 'specialEvents' ? classes.active : 'controls'}
           >
-            Special Events
+            {tab_title_special_events}
           </button>
         </li>
         <li className={classes.buttonContainer}>
@@ -67,11 +72,13 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             onClick={() => setActiveTab('individualArtAdvice')}
             className={activeTab === 'individualArtAdvice' ? classes.active : 'controls'}
           >
-            Individual Art Advice
+            {tab_title_art_advice}
           </button>
         </li>
       </nav>
-      <div className={classes.content}>{renderContent()}</div>
+      <section className={classes.content}>
+        <div>{renderContent()}</div>
+      </section>
     </article>
   )
 }

@@ -29,7 +29,8 @@
 
 .content {
   width: 100%;
-  max-width: 800px;
+  border-top: 1px solid var(--color-gray);
+  /* max-width: 800px; */
 }
 
 .nav li {

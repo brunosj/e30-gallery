@@ -5,3 +5,20 @@
 .params {
   margin-top: var(--base);
 }
+
+.account h1 {
+  margin-bottom:var(--base-100)
+}
+
+
+.account > * {
+  margin-bottom: var(--base-100);
+}
+
+/* .details {
+  margin: var(--base-200) 0;
+}
+
+.details > * {
+	margin-bottom:var(--base-100)
+} */

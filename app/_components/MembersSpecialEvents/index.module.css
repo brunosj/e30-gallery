@@ -1,0 +1,34 @@
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: var(--base-300);
+  min-height: 60vh;
+}
+
+.imageColumn {
+  position: relative;
+}
+
+.imageContainer {
+  height: 100%;
+}
+
+.imageContainer img {
+  object-fit: cover;
+}
+
+.imageContainer p {
+  margin-top:auto;
+}
+
+.caption {
+  display: block;
+  margin-top: var(--base-50); 
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  max-width: 70%;
+}

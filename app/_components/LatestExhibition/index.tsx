@@ -28,6 +28,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
     .reverse()
     .join(' ')
 
+  const beginYear = new Date(dateBegin || '').getFullYear()
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
@@ -39,7 +40,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
             <p className="spacedTitle">{title}</p>
             <p>
               <span className="block">
-                {begin} - {end} {endYear}
+                {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
               </span>
             </p>
             <p> {description}</p>

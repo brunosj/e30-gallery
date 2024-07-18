@@ -1,0 +1,53 @@
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--base-600);
+}
+
+.block {
+  position: relative;
+}
+
+.block > * {
+  margin-bottom: var(--base-100);
+}
+
+.title {
+  font-weight: 600;
+  margin-top:var(--base-300) 
+}
+
+.text > * {
+  margin-bottom: var(--base-150);
+}
+
+.text {
+  position: relative;
+  max-width: 90%;
+
+}
+
+.textLast > * {
+  margin-bottom: var(--base-150);
+}
+
+.textLast {
+  max-width: 70%;
+  margin:auto;
+}
+
+
+.image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+
+.richText p {
+  line-height: 1.5;
+  margin-bottom:var(--base-100)
+}
+
