@@ -237,7 +237,7 @@ small {
 	text-decoration: underline;
 }
 
-.controls:after {
+/* .controls:after {
 	content: ''; 
 	position: absolute;
 	bottom: 0; 
@@ -256,7 +256,7 @@ small {
  
 .controls {
   position: relative;
-}
+} */
 
 /* 
  :root {

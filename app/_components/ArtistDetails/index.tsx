@@ -96,13 +96,13 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
             <ul className={classes.list}>
               {filteredArtists.map((artist, index) => (
                 <li key={artist.id}>
-                  <button onClick={() => handleArtistClick(index)} className={'controls'}>
+                  <button onClick={() => handleArtistClick(index)} className="controls">
                     {artist.name}
                   </button>
                 </li>
               ))}
             </ul>
-            <div className="controls">
+            <div className="relative">
               <Image src={featuredArtwork.image.url} alt={featuredArtwork.image.title} fill />
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
               <div className="semibold">
                 <p> {m.artists()}</p>
               </div>
-              <button onClick={handleBackClick} className={'controls'}>
+              <button onClick={handleBackClick} className="controls">
                 {' '}
                 {m.backToList()}
               </button>
