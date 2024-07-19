@@ -1,0 +1,52 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+    - name: Execute deployment script
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+      run: |
+        set -e
+        ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "cd ~ && ./frontend.sh"
+        EXIT_STATUS=$?
+        echo "Deployment script exited with status $EXIT_STATUS"
+        exit $EXIT_STATUS
+
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: failure()
+
+    steps:
+    - name: Send Email
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: peacock.uberspace.de
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: GitHub Actions - Deploy E30 Frontend Failed
+        body: |
+          The GitHub Actions workflow 'Deploy CMS' has failed.
+          Repository: ${{ github.repository }}
+          Workflow: ${{ github.workflow }}
+          Job: ${{ github.job }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+        to: contact@landozone.net
+        from: sender@landozone.net
