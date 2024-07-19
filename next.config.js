@@ -27,7 +27,7 @@ module.exports = paraglide({
     outdir: './paraglide',
   },
   env: {
-    NEXT_PUBLIC_PAYLOAD_URL: process.env.NEXT_PUBLIC_PAYLOAD_URL,
+    NEXT_PUBLIC_PAYLOAD_URL: 'https://e30.landozone.net',
   },
   typescript: {
     // !! WARN !!
