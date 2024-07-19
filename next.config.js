@@ -36,20 +36,20 @@ module.exports = paraglide({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          // { key: 'Access-Control-Allow-Origin', value: process.env.NEXT_PUBLIC_FRONTEND_URL_DEV },
-          // {
-          //   key: 'Content-Security-Policy',
-          //   value: cspHeader.replace(/\n/g, ''),
-          // },
-        ],
-      },
-    ]
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: [
+  //         // { key: 'Access-Control-Allow-Origin', value: process.env.NEXT_PUBLIC_FRONTEND_URL_DEV },
+  //         // {
+  //         //   key: 'Content-Security-Policy',
+  //         //   value: cspHeader.replace(/\n/g, ''),
+  //         // },
+  //       ],
+  //     },
+  //   ]
+  // },
   images: {
     remotePatterns: [
       {
