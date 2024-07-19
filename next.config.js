@@ -17,7 +17,7 @@ const cspHeader = `
     upgrade-insecure-requests;
 `
 
-module.expors = paraglide({
+module.exports = paraglide({
   paraglide: {
     project: './project.inlang',
     outdir: './paraglide',
