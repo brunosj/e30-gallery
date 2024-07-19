@@ -1,10 +1,6 @@
 const { paraglide } = require('@inlang/paraglide-next/plugin')
 
-const allowedDomains = [
-  process.env.NEXT_PUBLIC_PAYLOAD_URL,
-  process.env.NEXT_PUBLIC_FRONTEND_URL_DEV,
-  process.env.NEXT_PUBLIC_FRONTEND_URL,
-]
+const allowedDomains = [process.env.NEXT_PUBLIC_PAYLOAD_URL, process.env.NEXT_PUBLIC_FRONTEND_URL]
 
 const cspHeader = `
     default-src 'self';
@@ -17,7 +13,7 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    connect-src 'self' ${allowedDomains.join(' ')};  
+    connect-src 'self' ${allowedDomains.join(' ')};
     upgrade-insecure-requests;
 `
 
@@ -26,9 +22,9 @@ module.exports = paraglide({
     project: './project.inlang',
     outdir: './paraglide',
   },
-  env: {
-    NEXT_PUBLIC_PAYLOAD_URL: 'https://cms.e30gallery.com',
-  },
+  // env: {
+  //   NEXT_PUBLIC_PAYLOAD_URL: 'http://localhost:3000',
+  // },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -36,20 +32,20 @@ module.exports = paraglide({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/(.*)',
-  //       headers: [
-  //         // { key: 'Access-Control-Allow-Origin', value: process.env.NEXT_PUBLIC_FRONTEND_URL_DEV },
-  //         // {
-  //         //   key: 'Content-Security-Policy',
-  //         //   value: cspHeader.replace(/\n/g, ''),
-  //         // },
-  //       ],
-  //     },
-  //   ]
-  // },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          // { key: 'Access-Control-Allow-Origin', value: 'http://localhost:5173' },
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader.replace(/\n/g, ''),
+          },
+        ],
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {

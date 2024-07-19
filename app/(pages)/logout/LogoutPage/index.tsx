@@ -33,13 +33,10 @@ export const LogoutPage: React.FC = props => {
           <div className={classes.logout}>
             <h1>{error || success}</h1>
             <p>{m.doNext()}</p>
-            <Button
-              href="/"
-              label={m.clickHere()}
-              appearance={'default'}
-            /> {m.toGoToTheHomepage()}{' '}
+            {m.toGoToTheHomepage()} <Button href="/" label={m.clickHere()} appearance={'default'} />
+            {'. '}
+            {m.toLogBackIn()}{' '}
             <Button href="/art-society" label={m.clickHere()} appearance={'default'} />{' '}
-            {m.toLogBackIn()}
           </div>
         </section>
       )}

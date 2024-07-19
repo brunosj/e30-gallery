@@ -14,7 +14,6 @@ import classes from './index.module.css'
 
 export function HeaderMembersArea() {
   const { user } = useAuth()
-  console.log(user)
   return (
     <header className={classes.header}>
       <div className={[classes.wrap, 'container'].filter(Boolean).join(' ')}>
