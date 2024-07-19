@@ -22,14 +22,17 @@ export const HeaderNav: React.FC = () => {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/menu?locale=${locale}&depth=1`,
           {
+            credentials: 'include',
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
             },
           },
         )
 
         if (!res.ok) {
+          console.error('Failed to fetch:', res.status, res.statusText)
           throw new Error(`API call failed with status: ${res.status}`)
         }
 
