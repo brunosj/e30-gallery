@@ -27,10 +27,7 @@ module.exports = paraglide({
     outdir: './paraglide',
   },
   env: {
-    NEXT_PUBLIC_PAYLOAD_URL:
-      process.env.NODE_ENV === 'production'
-        ? process.env.NEXT_PUBLIC_PAYLOAD_URL
-        : process.env.NEXT_PUBLIC_PAYLOAD_URL_DEV,
+    NEXT_PUBLIC_PAYLOAD_URL: process.env.NEXT_PUBLIC_PAYLOAD_URL,
   },
   typescript: {
     // !! WARN !!
@@ -39,19 +36,20 @@ module.exports = paraglide({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/(.*)',
-  //       headers: [
-  //         {
-  //           key: 'Content-Security-Policy',
-  //           value: cspHeader.replace(/\n/g, ''),
-  //         },
-  //       ],
-  //     },
-  //   ]
-  // },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          // { key: 'Access-Control-Allow-Origin', value: process.env.NEXT_PUBLIC_FRONTEND_URL_DEV },
+          // {
+          //   key: 'Content-Security-Policy',
+          //   value: cspHeader.replace(/\n/g, ''),
+          // },
+        ],
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
