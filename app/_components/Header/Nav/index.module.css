@@ -19,7 +19,6 @@
 	 align-items: center;
 	 flex-wrap: wrap;
 }
- 
 
 .activeMenuItem {
 	padding: 0 0.var(--base-100);

@@ -1,7 +1,6 @@
 .hero {
   position: relative;
   min-height: 75vh; 
-  
 }
 
 .contentContainer {
@@ -9,7 +8,6 @@
   top: 50%; 
   right: 0;
   transform: translate(0, -50%); 
-  /* text-align: right;  */
   max-width: 50%;
 }
 
@@ -38,3 +36,23 @@
   transform: rotate(180deg);
   margin-left:auto;
 }
+
+.paddingR {
+	padding-right: var(--base-600);
+}
+
+@media (max-width: 768px) {
+  .paddingR {
+    padding-right: 0;
+  }
+  
+  .contentContainer {
+    max-width: 100%;
+    padding:2rem;
+  }
+
+  .content {
+    padding: var(--base-100);
+  }
+}
+

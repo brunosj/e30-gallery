@@ -25,7 +25,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
     <section className={classes.hero}>
       <Image src={image.url} alt={image.title} fill />
       <div className={classes.contentContainer}>
-        <div className="padding-r ">
+        <div className={classes.paddingR}>
           <div className={classes.content}>
             <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
             <div className={classes.info}>

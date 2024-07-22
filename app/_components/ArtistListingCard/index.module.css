@@ -1,4 +1,3 @@
-
 .card {
   width: 100%;
   border: var(--color-gray) 0.5px solid;
@@ -7,43 +6,41 @@
 
 .avatar {
   position: absolute;
-  top: -50%; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  width: 8rem; 
-  height: 8rem; 
-  border-radius: 100%;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .avatar img {
   border: var(--color-gray) 0.5px solid;
-  border-radius: 100%;
-  }
+  border-radius: 50%;
+}
 
 .artwork {
   position: relative;
   width: 100%;
   object-fit: cover;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
 }
 
 .content {
   position: relative;
   width: 100%;
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   min-height: 20vh;
   text-align: center;
-  /* padding: var(--base-300); */
 }
 
 .info {
-  margin-bottom:2rem;
-  background-color: white;
+  margin-bottom: 2rem;
 }
 
 .info p {
@@ -52,6 +49,22 @@
   font-style: italic;
 }
 
-.info > *  + * {
+.info > * + * {
   margin-top: var(--base-100);
 }
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .avatar {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  /* .content {
+    min-height: 25vh;
+    padding: var(--base-150);
+  } */
+}
+
+

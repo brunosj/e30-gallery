@@ -23,3 +23,18 @@
 .titleElements {
   display: block;
 }
+
+
+@media (max-width: 768px) {
+  .heading {
+    font-size:2rem;
+
+  }
+
+  /* .content {
+    min-height: 25vh;
+    padding: var(--base-150);
+  } */
+}
+
+

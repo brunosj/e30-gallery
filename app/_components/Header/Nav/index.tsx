@@ -52,7 +52,7 @@ export const HeaderNav: React.FC = () => {
   }
 
   return (
-    <nav>
+    <nav className="desktop">
       {menu && menu.nav && (
         <ul className={classes.menu}>
           {menu.nav.map((item, index) => {

@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   min-height: 60vh;
+  gap: var(--base-200);
 }
 
 .contentContainer {

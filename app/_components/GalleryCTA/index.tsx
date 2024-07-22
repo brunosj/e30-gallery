@@ -14,7 +14,7 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
   const { text, link, backgroundImage } = data
 
   return (
-    <section className="padding-y">
+    <section className="padding-y bg-white">
       <div className={classes.cta}>
         <div className={classes.backgroundImageWrapper}>
           <Image

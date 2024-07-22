@@ -41,7 +41,7 @@ export default async function Footer() {
       <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
         <div className={classes.content}>
           <FooterNav data={footer} />
-          <div className={[classes.logo, 'container padding-y'].filter(Boolean).join(' ')}>
+          <div className={[classes.logo, 'container padding-y-sm'].filter(Boolean).join(' ')}>
             <LongLogo />
           </div>
           <div className="container padding-y-sm">

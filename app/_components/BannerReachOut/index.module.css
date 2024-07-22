@@ -6,7 +6,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap:2rem;
-  /* min-height: 60vh; */
 }
 
 .content {
@@ -35,4 +34,16 @@
 
 .titleElements {
   display: block;
+}
+
+@media (max-width: 480px) {
+  .reachOut {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .content {
+    grid-column: span 1;
+    padding-bottom: var(--base-150); 
+
+  }
 }

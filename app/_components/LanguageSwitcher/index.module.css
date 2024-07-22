@@ -19,3 +19,10 @@
 .fontGray {
   color: var(--color-gray);
 }
+
+
+@media (max-width: 768px) {
+  .switcher {
+    justify-content: left;
+  }
+}
