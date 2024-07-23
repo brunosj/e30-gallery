@@ -323,7 +323,7 @@ display: block;
   }
 
   h3 {
-    font-size: var(--base-100);
+    font-size: var(--base-150);
   }
 
 	p {
@@ -334,5 +334,10 @@ display: block;
   .spacedTitle {
     font-size: var(--base-150);
   }
+
+  .form {
+    width: 100%;
+  }
+  
 }
 

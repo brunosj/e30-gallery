@@ -3,3 +3,8 @@ max-width: 66%;
 }
 
 
+@media  (max-width: 768px) {
+  .text {
+    max-width: 100%;
+  }
+}

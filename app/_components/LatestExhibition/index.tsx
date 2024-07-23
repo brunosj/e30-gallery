@@ -56,7 +56,9 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
           </div>
         </div>
         <div className="relative">
-          <Image src={image.url} alt={image.title} fill />
+          <div className={classes.image}>
+            <Image src={image.url} alt={image.title} fill />
+          </div>
         </div>
       </div>
     </section>

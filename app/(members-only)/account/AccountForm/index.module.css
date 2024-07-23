@@ -21,3 +21,8 @@
 	 margin-top: calc(var(--base) / 2);
 }
  
+@media (max-width: 768px) {
+	.form {
+		width: 100%;
+	}
+}

@@ -75,3 +75,9 @@
 .noScroll {
   overflow: hidden;
 }
+
+.settings {
+  display: flex;
+  align-items: center;
+  gap:var(--base-50)
+}

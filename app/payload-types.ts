@@ -392,6 +392,7 @@ export interface MembersOnlyPage {
   }[]
   homeBlocks: TitleImageInfoBlock[]
   tab_title_virtual_exhibition: string
+  page_title_virtual_exhibition: string
   virtualExhibition?: string | null
   tab_title_special_events: string
   page_title_special_events: string

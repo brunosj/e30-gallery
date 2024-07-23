@@ -47,3 +47,50 @@
   width: 100%;
   min-width: 600px;
 }
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap:0rem;
+  }
+
+  .imageColumn {
+    padding-right: 6rem;
+  }
+
+  .image {
+    grid-column: span 2;
+    position: relative;
+    height:100%;
+    margin:auto 0;
+  }
+
+  .imageTopLeft {
+    position: relative;
+    width: 50%;
+  }
+
+  .imageBottomRight {
+    position: relative;
+    margin-left: auto;
+    margin-top: -3rem;  
+    z-index: -1; 
+  }
+  
+  .textOverlay {
+    width: 80%;
+    margin:auto;
+  }
+  
+  .title {
+    padding:0 var(--base-200);
+  }
+  
+  .formContainer {
+    min-width: 300px;
+  }
+
+  .formColumn {
+    margin:var(--base-200) auto;
+  }
+}

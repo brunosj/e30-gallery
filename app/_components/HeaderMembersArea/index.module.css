@@ -41,3 +41,19 @@
 .subtitle {
   margin-left:2rem;
 }
+
+@media (max-width: 768px) {
+  .left {
+    gap:0;
+  }
+
+  .logo {
+    width: 75px;
+    padding:var(--base-50)
+  }
+  .nav {
+    gap: var(--base-100);
+  }
+
+
+}

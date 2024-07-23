@@ -42,42 +42,50 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <article className={classes.account}>
-      <nav className={classes.nav}>
-        <li className={classes.buttonContainer}>
-          <button
-            onClick={() => setActiveTab('home')}
-            className={activeTab === 'home' ? classes.active : 'controls'}
-          >
-            {tab_title_home}
-          </button>
-        </li>
-        <li className={classes.buttonContainer}>
-          <button
-            onClick={() => setActiveTab('virtualExhibition')}
-            className={activeTab === 'virtualExhibition' ? classes.active : 'controls'}
-          >
-            {tab_title_virtual_exhibition}
-          </button>
-        </li>
-        <li className={classes.buttonContainer}>
-          <button
-            onClick={() => setActiveTab('specialEvents')}
-            className={activeTab === 'specialEvents' ? classes.active : 'controls'}
-          >
-            {tab_title_special_events}
-          </button>
-        </li>
-        <li className={classes.buttonContainer}>
-          <button
-            onClick={() => setActiveTab('individualArtAdvice')}
-            className={activeTab === 'individualArtAdvice' ? classes.active : 'controls'}
-          >
-            {tab_title_art_advice}
-          </button>
-        </li>
-      </nav>
-      <section className={classes.content}>
+      <div className="desktop">
+        <nav className={classes.nav}>
+          <li className={classes.buttonContainer}>
+            <button
+              onClick={() => setActiveTab('home')}
+              className={activeTab === 'home' ? classes.active : 'controls'}
+            >
+              {tab_title_home}
+            </button>
+          </li>
+          <li className={classes.buttonContainer}>
+            <button
+              onClick={() => setActiveTab('virtualExhibition')}
+              className={activeTab === 'virtualExhibition' ? classes.active : 'controls'}
+            >
+              {tab_title_virtual_exhibition}
+            </button>
+          </li>
+          <li className={classes.buttonContainer}>
+            <button
+              onClick={() => setActiveTab('specialEvents')}
+              className={activeTab === 'specialEvents' ? classes.active : 'controls'}
+            >
+              {tab_title_special_events}
+            </button>
+          </li>
+          <li className={classes.buttonContainer}>
+            <button
+              onClick={() => setActiveTab('individualArtAdvice')}
+              className={activeTab === 'individualArtAdvice' ? classes.active : 'controls'}
+            >
+              {tab_title_art_advice}
+            </button>
+          </li>
+        </nav>
+      </div>
+      <section className={[classes.content, 'desktop'].filter(Boolean).join(' ')}>
         <div>{renderContent()}</div>
+      </section>
+      <section className="mobile">
+        <MembersHome data={data} />
+        <MembersVirtualExhibition data={data} />
+        <MembersSpecialEvents data={data} />
+        <MembersArtAdvice data={data} />
       </section>
     </article>
   )

@@ -3,7 +3,7 @@
   margin: auto;
   --slide-height: 100%;
   --slide-spacing: var(--base-100);
-  --slide-size: 100%;
+  --slide-size: 80%;
   --slide-spacing-sm: 1.var(--base-600);
   --slide-size-sm: 50%;
   --slide-spacing-lg: 2rem;
@@ -19,6 +19,7 @@
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
 }
+
 @media (min-width: 750px) {
   .artistCarousel__container {
     margin-left: calc(var(--slide-spacing-sm) * -1);

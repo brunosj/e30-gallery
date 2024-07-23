@@ -12,7 +12,7 @@
 
 .content {
   position: relative;
-margin: auto 0;
+  margin: auto 0;
 }
 
 
@@ -20,3 +20,20 @@ margin: auto 0;
   margin-top: var(--base-150);
 }
 
+.image {
+  object-fit: cover;
+  min-height: 30vh;
+}
+
+@media  (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .contentContainer {
+    flex-direction: column;
+  }
+  .content {
+    margin: auto;
+  }
+  
+}

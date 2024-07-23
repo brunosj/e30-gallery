@@ -24,7 +24,7 @@
 }
 
 .info > * + * {
-  margin-top: var(--base-50);
+  margin-top: var(--base-100);
 }
 
 .iconTopLeft {

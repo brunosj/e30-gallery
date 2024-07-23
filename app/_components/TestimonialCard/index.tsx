@@ -17,7 +17,8 @@ export const TestimonialCard: React.FC<{ item: Testimonial }> = ({ item }) => {
           <Image src={item.picture.url} alt={item.picture.title} fill />
         </div> */}
         <div className={classes.info}>
-          <h3>{`"${item.testimonial}"`}</h3>
+          <h3 className="desktop">{`"${item.testimonial}"`}</h3>
+          <h4 className="mobile">{`"${item.testimonial}"`}</h4>
           <p className="semibold">{item.name}</p>
         </div>
       </div>

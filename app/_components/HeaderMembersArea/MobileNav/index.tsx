@@ -10,8 +10,11 @@ import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
+import { Link } from '@/lib/i18n'
+import Settings from '@/components/SVG/Settings'
+import * as m from '@/paraglide/messages.js'
 
-const MobileNav: React.FC = () => {
+const MobileNavMembersArea: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
   const [isOpen, setOpen] = useState(false)
   const pathname = usePathname()
@@ -75,7 +78,7 @@ const MobileNav: React.FC = () => {
     <nav className="mobile">
       <div className={classes.relativeFlex}>
         <nav>
-          <Hamburger toggled={isOpen} toggle={setOpen} size={22} color="var(--color-black)" />
+          <Hamburger toggled={isOpen} toggle={setOpen} size={22} color="var(--color-white)" />
         </nav>
         <div
           ref={menuRef}
@@ -83,30 +86,25 @@ const MobileNav: React.FC = () => {
         >
           <div className={[classes.flexColumn, 'container'].filter(Boolean).join(' ')}>
             <div className={classes.menuContainer}>
-              {menu && menu.nav && (
-                <ul className={classes.menu}>
-                  {menu.nav.map((item, index) => {
-                    const normalizedPathname = pathname.startsWith('/de/')
-                      ? pathname.replace('/de', '')
-                      : pathname
-
-                    const isActive =
-                      normalizedPathname ===
-                      `/${(item.link?.reference?.value as { slug: string })?.slug}`
-                    return (
-                      <li key={index} className={isActive ? classes.activeMenuItem : ''}>
-                        <Button
-                          href={(item.link?.reference?.value as { slug: string })?.slug}
-                          newTab={item.link.newTab}
-                          label={item.link.label}
-                          appearance={item.link.appearance}
-                          onClick={handleCloseMenu}
-                        />
-                      </li>
-                    )
-                  })}
-                </ul>
-              )}
+              <Button
+                href="/exhibitions"
+                label={m.exhibitions()}
+                appearance={'default'}
+                onClick={handleCloseMenu}
+              />
+              <Button
+                href="/artists"
+                label={m.artists()}
+                appearance={'default'}
+                onClick={handleCloseMenu}
+              />
+              <Link href="/account" onClick={handleCloseMenu}>
+                <div className={classes.settings}>
+                  <p>{m.account()}</p>
+                  <Settings color="var(--color-black)" size={22} />
+                </div>
+              </Link>
+              <Button href="/logout" appearance="primary" label="Log out" />
               <Socials />
               <LanguageSwitcher theme="light" />
             </div>
@@ -117,4 +115,4 @@ const MobileNav: React.FC = () => {
   )
 }
 
-export default MobileNav
+export default MobileNavMembersArea

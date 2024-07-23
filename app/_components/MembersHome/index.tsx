@@ -15,7 +15,6 @@ export const MembersHome: React.FC<Props> = ({ data }: Props) => {
     <section className="container padding-y">
       <h3 className="membersAreaTitle">{page_title_home}</h3>
       <RichText content={text_home} />
-
       <div className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')}>
         {homeBlocks.map((block, index) => {
           const { title, info, image, textJustification } = block

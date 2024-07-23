@@ -1,7 +1,5 @@
 .grid {
   display: flex;
-  /* grid-template-columns: repeat(2, 1fr); */
-  /* min-height: 60vh; */
   background-color: var(--color-black);
   color:var(--color-white);
 }
@@ -48,4 +46,17 @@
 .image img {
   aspect-ratio: 1/1;
 
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    flex-direction: column;
+  }
+  .contentContainer {
+    flex-direction: column;
+  }
+  .content {
+    margin: 2rem auto;
+  }
+  
 }

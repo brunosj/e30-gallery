@@ -141,7 +141,7 @@ export const AccountForm: React.FC = () => {
       ) : (
         <Fragment>
           <p>
-            {m.changeYourPasswordBelowOr()}
+            {m.changeYourPasswordBelowOr()}{' '}
             <button
               type="button"
               className={classes.changePassword}

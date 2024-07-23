@@ -15,7 +15,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
     <section className="container">
       <div className={classes.grid}>
         <div className={classes.image}>
-          <div className="padding-y">
+          <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
             {images.length > 0 && (
               <Image
                 key={images[0].imageFounder.title}

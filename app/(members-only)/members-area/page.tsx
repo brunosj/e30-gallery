@@ -1,11 +1,6 @@
 import React from 'react'
-import { Link } from '@/lib/i18n'
-import { redirect } from '@/lib/i18n'
 import { languageTag } from '@/paraglide/runtime'
-import { Button } from '@/components/Button'
 import { RenderParams } from '@/components/RenderParams'
-import { getMeUser } from '@/utilities/getMeUser'
-import * as m from '@/paraglide/messages.js'
 import MembersAreaComponent from '@/components/MembersComponent'
 
 import classes from './index.module.css'

@@ -36,11 +36,8 @@
 }
 
 .info {
-  margin-bottom:2rem;
-  background-color: white;
+  margin-bottom:1rem;
 }
-
-
 
 .info h3 {
   line-height: 1.5;
@@ -57,4 +54,22 @@
   width: 100%;
   display: flex;
   text-align: left;
+}
+
+@media  (max-width: 768px) {
+  .avatar {
+    width: 6rem; 
+    height: 6rem; 
+  }
+
+  .content {
+    padding: var(--base-100) var(--base-150);
+  }
+
+  .info h4{
+    line-height: 1.5;
+    color:var(--color-gray);
+    font-weight: 200;
+    font-style: italic;
+  } 
 }

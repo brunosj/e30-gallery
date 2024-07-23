@@ -1,6 +1,6 @@
 
 .content {
-  padding:2rem 0;
+  padding:  var(--base-200) 0;
   margin: auto 0;
 }
 
@@ -15,3 +15,10 @@
   margin-top: var(--base-50);
 }
 
+
+@media  (max-width: 768px) {
+  .content {
+    padding: var(--base-150);
+  }
+  
+}

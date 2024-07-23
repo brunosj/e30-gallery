@@ -51,3 +51,34 @@
   margin-bottom:var(--base-100)
 }
 
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--base-100);
+  }
+
+  .title {
+    font-weight: 600;
+    margin-top:var(--base-200) 
+  }
+
+  .text {
+    max-width: 100%;
+  }
+  
+  .textLast {
+    max-width: 100%;
+    margin:auto;
+  }
+  
+  
+  .text > * {
+    margin-bottom: var(--base-100);
+  }
+  
+  
+  .textLast > * {
+    margin-bottom: var(--base-100);
+  }
+  
+}

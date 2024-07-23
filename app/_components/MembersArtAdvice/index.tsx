@@ -52,7 +52,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
         {individuallArtAdviceBlock.slice(2).map((block, index) => {
           const { title, info, image, textJustification, link } = block
           return (
-            <div key={index} className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')}>
+            <div key={index} className={classes.grid}>
               <div className={classes.image}>
                 <Image src={image.url} alt={image.alt} fill />
               </div>

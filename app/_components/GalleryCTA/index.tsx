@@ -26,7 +26,12 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
         </div>
         <div className={classes.overlay}>
           <RichText content={text} className={classes.text} />
-          <Button href={link.url} label={link.label} appearance={link.appearance} />
+          <div className="desktop">
+            <Button href={link.url} label={link.label} appearance={link.appearance} />
+          </div>
+          <div className="mobile">
+            <Button href={link.url} label={link.label} appearance={'primary'} />
+          </div>
         </div>
       </div>
     </section>

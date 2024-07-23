@@ -103,7 +103,9 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
               ))}
             </ul>
             <div className="relative">
-              <Image src={featuredArtwork.image.url} alt={featuredArtwork.image.title} fill />
+              <div className={classes.image}>
+                <Image src={featuredArtwork.image.url} alt={featuredArtwork.image.title} fill />
+              </div>
             </div>
           </div>
         </div>
@@ -139,12 +141,20 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
                   <p>{filteredArtists[selectedArtistIndex].additional_info}</p>
                   <p>{filteredArtists[selectedArtistIndex].country}</p>
                 </div>
+                <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
+                  {' '}
+                  <Image
+                    src={filteredArtists[selectedArtistIndex].image.url}
+                    alt={filteredArtists[selectedArtistIndex].title}
+                    fill
+                  />
+                </div>
                 <RichText
                   content={filteredArtists[selectedArtistIndex].bio}
                   className="padding-y-sm"
                 />
               </div>
-              <div className="relative">
+              <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
                 <Image
                   src={filteredArtists[selectedArtistIndex].image.url}
                   alt={filteredArtists[selectedArtistIndex].title}
@@ -152,7 +162,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
                 />
               </div>
             </div>
-            <div className={classes.artists}>
+            <div className={classes.work}>
               <div className={classes.heading}>
                 <p className="semibold">{m.work()}</p>
               </div>

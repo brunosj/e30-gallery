@@ -6,7 +6,7 @@
 
 .avatar {
   position: absolute;
-  top: -50%;
+  top: -40%;
   left: 50%;
   transform: translateX(-50%);
   width: 8rem;
@@ -40,7 +40,8 @@
 }
 
 .info {
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .info p {
@@ -50,7 +51,7 @@
 }
 
 .info > * + * {
-  margin-top: var(--base-100);
+  margin-top: var(--base-50);
 }
 
 /* Responsive Styles */
