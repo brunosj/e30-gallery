@@ -11,7 +11,8 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
           <Image src={item.image.url} alt={item.image.alt} fill />
         </div>
         <div className={classes.info}>
-          <h3>{item.name}</h3>
+          <h3 className="desktop">{item.name}</h3>
+          <h4 className="mobile">{item.name}</h4>
           <p>{item.country}</p>
         </div>
       </div>

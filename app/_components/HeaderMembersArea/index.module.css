@@ -47,6 +47,14 @@
     gap:0;
   }
 
+  .welcome {
+    border-left: var(--color-white) 0px solid;
+  }
+  
+  .subtitle {
+    margin-left:var(--base-50);
+  }
+
   .logo {
     width: 75px;
     padding:var(--base-50)

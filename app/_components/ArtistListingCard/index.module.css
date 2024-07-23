@@ -62,6 +62,11 @@
     height: 6rem;
   }
 
+  .info > * + * {
+    margin-top: var(--base-25);
+  }
+  
+
   /* .content {
     min-height: 25vh;
     padding: var(--base-150);

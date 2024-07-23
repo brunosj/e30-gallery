@@ -326,6 +326,10 @@ display: block;
     font-size: var(--base-150);
   }
 
+  h4 {
+    font-size: var(--base-100);
+  }
+
 	p {
 		font-size: var(--base-100);
   	line-height: 1.5;
@@ -336,7 +340,7 @@ display: block;
   }
 
   .form {
-    width: 100%;
+    width: 90%;
   }
   
 }
