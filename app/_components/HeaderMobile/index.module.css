@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: var(--base-100) 0;
+  background-color: var(--color-white);
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  padding:var(--base-50)
+}
+
+:global([data-theme="light"]) .logo {
+  filter: invert(1);
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    padding:  0;
+    height:4rem;
+  }
+
+  .logo {
+    width: 75px;
+    padding:var(--base-50)
+  }
+  
+}  

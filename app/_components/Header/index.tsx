@@ -14,20 +14,15 @@ import classes from './index.module.css'
 
 export function Header() {
   return (
-    <header className="container border-b-black">
+    <header className="container border-b-black desktop">
       <Slide direction="down" triggerOnce duration={500}>
         <div className={classes.header}>
           <Link href="/" className={classes.logo}>
             <Image alt="E30 Logo" src={Logo} />
           </Link>
           <HeaderNav />
-          <MobileNav />
-          <div className="desktop">
-            <Socials />
-          </div>
-          <div className="desktop">
-            <LanguageSwitcher theme="light" />
-          </div>
+          <Socials />
+          <LanguageSwitcher theme="light" />
         </div>
       </Slide>
     </header>
