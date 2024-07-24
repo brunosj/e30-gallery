@@ -1,10 +1,8 @@
 import React from 'react'
 import { languageTag } from '@/paraglide/runtime'
-import { RenderParams } from '@/components/RenderParams'
-import MembersAreaComponent from '@/components/MembersComponent'
+import MembersAreaPage from '@/components/MembersAreaPage/page'
 
 import classes from './index.module.css'
-import { MembersOnlyPage } from '@/app/payload-types'
 
 async function getData(locale: string) {
   const urls = [
@@ -44,15 +42,11 @@ export async function generateMetadata() {
     },
   }
 }
-export default async function Account() {
-  const locale = languageTag()
-  const { pageData } = await getData(locale)
-  const page: MembersOnlyPage = pageData.docs[0]
 
+export default function MembersArea() {
   return (
-    <article className={classes.account}>
-      <RenderParams className={classes.params} />
-      <MembersAreaComponent data={page} />
+    <article>
+      <MembersAreaPage />
     </article>
   )
 }

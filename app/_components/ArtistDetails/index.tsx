@@ -1,21 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import type { Artist, Artwork } from '@/app/payload-types'
 import classes from './index.module.css'
-import { RichText } from '@/components//RichText'
+import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
-import { Button } from '@/components/Button'
+import { Fade, Slide } from 'react-awesome-reveal'
 
 type Props = {
   artists: Artist[]
-  featuredArtwork: Artwork
 }
 
-export default function ArtistDetails({ artists, featuredArtwork }: Props) {
+export default function ArtistDetails({ artists }: Props) {
   const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
   const [filterType, setFilterType] = useState<'represented' | 'featured'>('represented')
+  const [hoveredArtwork, setHoveredArtwork] = useState<Artwork | null>(null)
 
   const handleArtistClick = (index: number) => {
     setSelectedArtistIndex(index)
@@ -28,7 +28,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   const handleNextClick = () => {
     setSelectedArtistIndex(prevIndex => {
       const nextIndex = prevIndex! + 1
-      return nextIndex < artists.length ? nextIndex : prevIndex
+      return nextIndex < filteredArtists.length ? nextIndex : prevIndex
     })
   }
 
@@ -37,6 +37,14 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
       const nextIndex = prevIndex! - 1
       return nextIndex >= 0 ? nextIndex : prevIndex
     })
+  }
+
+  const handleMouseEnter = (artwork: Artwork | null) => {
+    setHoveredArtwork(artwork)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredArtwork(null)
   }
 
   const NextButton = ({ onClick, isDisabled }: { onClick: () => void; isDisabled: boolean }) => (
@@ -96,15 +104,33 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
             <ul className={classes.list}>
               {filteredArtists.map((artist, index) => (
                 <li key={artist.id}>
-                  <button onClick={() => handleArtistClick(index)} className="controls">
+                  <button
+                    onClick={() => handleArtistClick(index)}
+                    onMouseEnter={() => handleMouseEnter(artist.relation.artworks as Artwork)}
+                    // onMouseLeave={handleMouseLeave}
+                    className="controls"
+                  >
                     {artist.name}
                   </button>
                 </li>
               ))}
             </ul>
+
             <div className="relative">
               <div className={classes.image}>
-                <Image src={featuredArtwork.image.url} alt={featuredArtwork.image.title} fill />
+                {hoveredArtwork ? (
+                  <Fade duration={750}>
+                    <Image src={hoveredArtwork.image.url} alt={hoveredArtwork.image.title} fill />
+                  </Fade>
+                ) : (
+                  <Fade duration={750}>
+                    <Image
+                      src={(filteredArtists[0]?.relation.artworks as Artwork)?.image.url || ''}
+                      alt={(filteredArtists[0]?.relation.artworks as Artwork)?.image.title || ''}
+                      fill
+                    />
+                  </Fade>
+                )}
               </div>
             </div>
           </div>
@@ -114,10 +140,9 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
           <div className={classes.artists}>
             <div className={classes.heading}>
               <div className="semibold">
-                <p> {m.artists()}</p>
+                <p>{m.artists()}</p>
               </div>
               <button onClick={handleBackClick} className="controls">
-                {' '}
                 {m.backToList()}
               </button>
 
@@ -142,7 +167,6 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
                   <p>{filteredArtists[selectedArtistIndex].country}</p>
                 </div>
                 <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
-                  {' '}
                   <Image
                     src={filteredArtists[selectedArtistIndex].image.url}
                     alt={filteredArtists[selectedArtistIndex].title}
@@ -154,17 +178,30 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
                   className="padding-y-sm"
                 />
               </div>
-              <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
-                <Image
-                  src={filteredArtists[selectedArtistIndex].image.url}
-                  alt={filteredArtists[selectedArtistIndex].title}
-                  fill
-                />
-              </div>
+              <Fade key={filteredArtists[selectedArtistIndex].id} duration={1000} cascade>
+                <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
+                  <Image
+                    src={filteredArtists[selectedArtistIndex].image.url}
+                    alt={filteredArtists[selectedArtistIndex].title}
+                    fill
+                  />
+                </div>
+              </Fade>
             </div>
             <div className={classes.work}>
               <div className={classes.heading}>
                 <p className="semibold">{m.work()}</p>
+              </div>
+              <div className={classes.image}>
+                <Image
+                  src={
+                    (filteredArtists[selectedArtistIndex].relation.artworks as Artwork).image.url
+                  }
+                  alt={
+                    (filteredArtists[selectedArtistIndex].relation.artworks as Artwork).image.title
+                  }
+                  fill
+                />
               </div>
             </div>
           </div>

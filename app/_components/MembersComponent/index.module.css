@@ -36,6 +36,13 @@
   list-style: none;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
@@ -51,3 +58,4 @@
     border-bottom: 1px solid var(--color-gray);
   }
 }
+

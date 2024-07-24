@@ -1,6 +1,9 @@
+'use client'
+
 import type { TwoColumnBlock, Media } from '@/app/payload-types'
 
 import Image from 'next/image'
+import { Fade, Slide } from 'react-awesome-reveal'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 
@@ -25,22 +28,24 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           .filter(Boolean)
           .join(' ')}
       >
-        {columnText.title && <h1 className={classes.title}>{columnText.title}</h1>}
-        <p className="semibold">{columnText.subtitle}</p>
-        {columnText.content && (
-          <div>
-            <RichText content={columnText.content} />
-          </div>
-        )}
-        {columnText.addLink && columnText.link && (
-          <Button
-            href={columnText.link.reference?.value.slug}
-            newTab={columnText.link.newTab}
-            label={columnText.link.label}
-            appearance={columnText.link.appearance}
-            el={columnText.link.type || 'reference'}
-          />
-        )}
+        <Fade triggerOnce duration={750}>
+          {columnText.title && <h1 className={classes.title}>{columnText.title}</h1>}
+          <p className="semibold">{columnText.subtitle}</p>
+          {columnText.content && (
+            <div>
+              <RichText content={columnText.content} />
+            </div>
+          )}
+          {columnText.addLink && columnText.link && (
+            <Button
+              href={columnText.link.reference?.value.slug}
+              newTab={columnText.link.newTab}
+              label={columnText.link.label}
+              appearance={columnText.link.appearance}
+              el={columnText.link.type || 'reference'}
+            />
+          )}
+        </Fade>
       </div>
       <div
         className={[

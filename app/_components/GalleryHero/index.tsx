@@ -1,9 +1,13 @@
+'use client'
+
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
-import classes from './index.module.css'
 import { RichText } from '../RichText'
+import { Fade, Slide } from 'react-awesome-reveal'
+
+import classes from './index.module.css'
 
 type Props = {
   data: GalleryPage
@@ -25,7 +29,9 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         </div>
       </div>
       <div className={classes.image}>
-        <Image src={imageHero.url} alt={imageHero.title} fill />
+        <Fade triggerOnce duration={1000}>
+          <Image src={imageHero.url} alt={imageHero.title} fill />
+        </Fade>
       </div>
     </section>
   )

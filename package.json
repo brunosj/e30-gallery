@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
     "@inlang/paraglide-next": "0.5.1",
     "embla-carousel": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
@@ -17,8 +18,10 @@
     "hamburger-react": "^2.5.1",
     "next": "^14.2.3",
     "react": "18.3.1",
+    "react-awesome-reveal": "^4.2.13",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.51.5",
+    "react-spinners": "^0.14.1",
     "sharp": "^0.33.4"
   },
   "devDependencies": {

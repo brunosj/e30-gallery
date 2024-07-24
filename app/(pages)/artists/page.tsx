@@ -8,7 +8,7 @@ import classes from './index.module.css'
 async function getData(locale: string) {
   const urls = [
     `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artists-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2`,
   ]
 
   const fetchPromises = urls.map(url =>
@@ -53,14 +53,13 @@ export default async function ArtistsPage() {
   const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) =>
     a.name.localeCompare(b.name),
   )
-  const featuredArtwork = page.featuredArtwork as Artwork
   return (
     <article>
       <div className="container padding-y">
         <div className={classes.text}>
           <RichText content={page.text} />
         </div>
-        <ArtistDetails artists={artists} featuredArtwork={featuredArtwork} />
+        <ArtistDetails artists={artists} />
       </div>
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
     </article>

@@ -33,9 +33,9 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap:var(--base-100);
+  gap:var(--base-600);
   min-height: 30vh;
-  margin:var(--base-300) 0;
+  margin:var(--base-100) 0;
 }
 
 .grid img {
@@ -54,7 +54,8 @@
 }
 
 .image {
-  min-height: 30vh;
+  /* min-height: 30vh; */
+  height: 100%;
   position: relative;
   object-fit: cover;
 }
@@ -89,6 +90,8 @@
   .grid {
     grid-template-columns: repeat(1, 1fr);
     margin:var(--base-100) 0;
+    gap:var(--base-300);
+
   }
 
   .work {

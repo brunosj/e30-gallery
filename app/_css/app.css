@@ -160,6 +160,14 @@ small {
   padding-bottom: var(--base-300);
 }
 
+.m-l-auto {
+  margin-left: auto;
+}
+
+.m-r-auto {
+  margin-right: auto;
+}
+
 .object-cover {
   object-fit: cover;
 }

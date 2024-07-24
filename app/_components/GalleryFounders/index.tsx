@@ -1,7 +1,10 @@
+'use client'
+
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { RichText } from '../RichText'
+import { Fade, Slide } from 'react-awesome-reveal'
 
 import classes from './index.module.css'
 
@@ -15,27 +18,29 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
     <section className="container">
       <div className={classes.grid}>
         <div className={classes.image}>
-          <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
-            {images.length > 0 && (
-              <Image
-                key={images[0].imageFounder.title}
-                src={images[0].imageFounder.url}
-                alt={images[0].imageFounder.title}
-                height={225}
-                width={225}
-              />
-            )}
-            {images.length > 1 && (
-              <Image
-                key={images[1].imageFounder.title}
-                src={images[1].imageFounder.url}
-                alt={images[1].imageFounder.title}
-                className={classes.imageBottomRight}
-                height={225}
-                width={225}
-              />
-            )}
-          </div>
+          <Slide triggerOnce duration={750} direction="left" delay={250}>
+            <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
+              {images.length > 0 && (
+                <Image
+                  key={images[0].imageFounder.title}
+                  src={images[0].imageFounder.url}
+                  alt={images[0].imageFounder.title}
+                  height={225}
+                  width={225}
+                />
+              )}
+              {images.length > 1 && (
+                <Image
+                  key={images[1].imageFounder.title}
+                  src={images[1].imageFounder.url}
+                  alt={images[1].imageFounder.title}
+                  className={classes.imageBottomRight}
+                  height={225}
+                  width={225}
+                />
+              )}
+            </div>
+          </Slide>
         </div>
         <div className={classes.info}>
           <div className="padding-y">

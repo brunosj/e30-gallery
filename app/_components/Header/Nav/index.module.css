@@ -6,6 +6,8 @@
 	 opacity: 1;
 	 transition: opacity 0ms linear;
 	 visibility: visible;
+	 min-width: 30vw;
+
 }
 
  .hide {

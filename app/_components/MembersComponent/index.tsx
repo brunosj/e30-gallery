@@ -8,8 +8,7 @@ import { MembersArtAdvice } from '../MembersArtAdvice'
 import { MembersSpecialEvents } from '../MembersSpecialEvents'
 import { MembersVirtualExhibition } from '../MembersVirtualExhibition'
 import { Button } from '@/components/Button'
-import Image from 'next/image'
-import { RichText } from '../RichText'
+import * as m from '@/paraglide/messages.js'
 
 import classes from './index.module.css'
 
@@ -19,12 +18,14 @@ type Props = {
 
 const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
   const [activeTab, setActiveTab] = useState<string>('home')
+
   const {
     tab_title_home,
     tab_title_virtual_exhibition,
     tab_title_special_events,
     tab_title_art_advice,
   } = data
+
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
@@ -41,7 +42,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
   }
 
   return (
-    <article className={classes.account}>
+    <section className={classes.account}>
       <div className="desktop">
         <nav className={classes.nav}>
           <li className={classes.buttonContainer}>
@@ -76,6 +77,12 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
               {tab_title_art_advice}
             </button>
           </li>
+          <li className={classes.buttonContainer}>
+            <Button href="/exhibitions" label={m.exhibitions()} appearance={'default'} />
+          </li>
+          <li className={classes.buttonContainer}>
+            <Button href="/artists" label={m.artists()} appearance={'default'} />
+          </li>
         </nav>
       </div>
       <section className={[classes.content, 'desktop'].filter(Boolean).join(' ')}>
@@ -87,7 +94,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
         <MembersSpecialEvents data={data} />
         <MembersArtAdvice data={data} />
       </section>
-    </article>
+    </section>
   )
 }
 
