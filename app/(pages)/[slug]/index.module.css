@@ -1,0 +1,14 @@
+.page {
+  display: flex;
+  min-height: 80vh;
+  margin:auto;
+  align-items: center;
+  max-width:80%
+}
+
+
+@media  (max-width: 768px) {
+  .page {
+    max-width:100%
+  } 
+}

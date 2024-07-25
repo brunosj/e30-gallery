@@ -7,6 +7,7 @@ import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { Fade, Slide } from 'react-awesome-reveal'
+import useProcessedImage from '@/utilities/useProcessedImage'
 
 type Props = {
   artists: Artist[]
@@ -182,7 +183,7 @@ export default function ArtistDetails({ artists }: Props) {
                 <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
                   <Image
                     src={filteredArtists[selectedArtistIndex].image.url}
-                    alt={filteredArtists[selectedArtistIndex].title}
+                    alt={filteredArtists[selectedArtistIndex].image.title}
                     fill
                   />
                 </div>

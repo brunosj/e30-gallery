@@ -80,7 +80,7 @@ export const LoginForm: React.FC<Props> = ({ data }: Props) => {
         {m.forgotPassword()}
       </Link>
       <Button
-        type="submit"
+        action="submit"
         disabled={isLoading}
         className={classes.submit}
         label={isLoading ? `${m.processing()}` : `${m.login()}`}

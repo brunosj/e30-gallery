@@ -171,7 +171,7 @@ export const AccountForm: React.FC = () => {
         </Fragment>
       )}
       <Button
-        type="submit"
+        action="submit"
         className={classes.submit}
         label={
           isLoading

@@ -27,10 +27,10 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
         <div className={classes.overlay}>
           <RichText content={text} className={classes.text} />
           <div className="desktop">
-            <Button href={link.url} label={link.label} appearance={link.appearance} />
+            <Button link={link} label={link.label} appearance={link.appearance} />
           </div>
           <div className="mobile">
-            <Button href={link.url} label={link.label} appearance={'primary'} />
+            <Button link={link} label={link.label} appearance={'primary'} />
           </div>
         </div>
       </div>

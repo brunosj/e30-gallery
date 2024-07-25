@@ -1,3 +1,5 @@
+import type { LinkObject } from '@/app/types'
+
 import React, { ElementType } from 'react'
 import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
@@ -5,37 +7,31 @@ import classes from './index.module.css'
 export type Props = {
   label?: string
   appearance?: 'default' | 'primary' | 'secondary' | null
-  el?: 'reference' | 'custom' | 'mailto'
+  type?: 'reference' | 'custom' | 'mailto' | null
   onClick?: () => void
-  href?: string | null
-  newTab?: boolean | null
+  link?: LinkObject | null
   className?: string
-  type?: 'submit' | 'button'
+  action?: 'submit' | 'button'
   disabled?: boolean
   invert?: boolean
-  email?: string
-  subject?: string
-  body?: string
-  url?: string
+  newTab?: boolean | null
+  href?: string | null
 }
 
 export const Button: React.FC<Props> = ({
-  el: elFromProps = 'reference',
+  type = 'reference',
   label,
   newTab = false,
-  href,
   appearance,
   className: classNameFromProps,
   onClick,
-  type = 'button',
+  action = 'button',
   disabled,
   invert,
-  email,
-  subject,
-  body,
-  url,
+  href,
+  link,
 }) => {
-  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+  const newTabProps = link?.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
   const className = [
     classes.button,
     classNameFromProps,
@@ -53,20 +49,27 @@ export const Button: React.FC<Props> = ({
 
   let finalHref = href || ''
 
-  if (elFromProps === 'mailto' && email) {
-    finalHref = `mailto:${email}`
-    if (subject) {
-      finalHref += `?subject=${encodeURIComponent(subject)}`
-      if (body) {
-        finalHref += `&body=${encodeURIComponent(body)}`
+  if (link) {
+    if (link.type === 'mailto' && link.email) {
+      finalHref = `mailto:${link.email}`
+      if (link.subject) {
+        finalHref += `?subject=${encodeURIComponent(link.subject)}`
+        if (link.body) {
+          finalHref += `&body=${encodeURIComponent(link.body)}`
+        }
       }
+    } else if (link.type === 'custom' && link.url) {
+      finalHref = link.url
+    } else if (link.type === 'reference' && link.reference) {
+      finalHref = (link.reference.value as { slug: string }).slug
     }
   }
 
   if (
-    (elFromProps === 'reference' && type !== 'submit') ||
-    (elFromProps === 'custom' && type !== 'submit') ||
-    (elFromProps === 'mailto' && type !== 'submit')
+    (href && action !== 'submit') ||
+    (link?.type === 'reference' && action !== 'submit') ||
+    (link?.type === 'custom' && action !== 'submit') ||
+    (link?.type === 'mailto' && action !== 'submit')
   ) {
     return (
       <Link href={finalHref} className={className} {...newTabProps} onClick={onClick}>
@@ -77,7 +80,7 @@ export const Button: React.FC<Props> = ({
     return (
       <button
         className={className}
-        type={type}
+        type={action}
         onClick={onClick}
         disabled={disabled}
         {...newTabProps}
@@ -86,19 +89,4 @@ export const Button: React.FC<Props> = ({
       </button>
     )
   }
-
-  // const Element: ElementType = elFromProps as ElementType
-
-  // return (
-  //   <Element
-  //     href={finalHref}
-  //     className={className}
-  //     type={type}
-  //     {...newTabProps}
-  //     onClick={onClick}
-  //     disabled={disabled}
-  //   >
-  //     {content}
-  //   </Element>
-  // )
 }

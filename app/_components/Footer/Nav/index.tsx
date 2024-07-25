@@ -17,6 +17,7 @@ type Props = {
 
 export const FooterNav: React.FC<Props> = ({ data }: Props) => {
   const { nav, call_to_action } = data
+
   return (
     <div className="container padding-y">
       <div className={classes.footer}>
@@ -37,10 +38,15 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
                   category.navItem.map((item, idx) => (
                     <li key={idx}>
                       <Button
-                        href={(item.link?.reference?.value as { slug: string })?.slug}
+                        href={
+                          item.link.type === 'reference'
+                            ? item.link?.reference?.value.slug
+                            : item.link?.url
+                        }
                         newTab={item.link.newTab}
                         label={item.link.label}
                         appearance={item.link.appearance}
+                        el={item.link.type}
                       />
                     </li>
                   ))}

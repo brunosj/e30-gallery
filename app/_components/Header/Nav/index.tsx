@@ -65,7 +65,7 @@ export const HeaderNav: React.FC = () => {
             return (
               <li key={index} className={isActive ? classes.activeMenuItem : ''}>
                 <Button
-                  href={(item.link?.reference?.value as { slug: string })?.slug}
+                  link={item.link}
                   newTab={item.link.newTab}
                   label={item.link.label}
                   appearance={item.link.appearance}

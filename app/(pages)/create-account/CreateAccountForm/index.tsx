@@ -108,7 +108,7 @@ export const CreateAccountForm: React.FC = () => {
         error={errors.passwordConfirm}
       />
       <Button
-        type="submit"
+        action="submit"
         className={classes.submit}
         label={loading ? `${m.processing()}` : `${m.createAccount()}`}
         appearance="primary"
