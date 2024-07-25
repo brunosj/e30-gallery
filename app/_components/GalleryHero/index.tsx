@@ -30,7 +30,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
       </div>
       <div className={classes.image}>
         <Fade triggerOnce duration={1000}>
-          <Image src={imageHero.url} alt={imageHero.title} fill />
+          <Image src={imageHero.url} alt={imageHero.title} fill priority />
         </Fade>
       </div>
     </section>

@@ -26,7 +26,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   return (
     <section className={classes.hero}>
-      <Image src={image.url} alt={image.title} fill />
+      <Image src={image.url} alt={image.title} fill priority />
       <div className={classes.contentContainer}>
         <div className={classes.paddingR}>
           <Fade triggerOnce duration={750} delay={250}>

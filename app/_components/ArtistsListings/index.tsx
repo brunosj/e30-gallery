@@ -48,13 +48,7 @@ export default async function ArtistsListings() {
     <section className="container padding-y">
       <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
         <h2 className="uppercase">{m.artistsAtE30()}</h2>
-        <Button
-          href="/artists"
-          newTab={false}
-          label={m.viewAll()}
-          appearance="default"
-          className="padding-t"
-        />
+        <Button href="/artists" newTab={false} label={m.viewAll()} appearance="default" />
       </div>
       <ArtistCarousel slides={data} />
     </section>

@@ -32,7 +32,7 @@ export const MembersHome: React.FC<Props> = ({ data }: Props) => {
                 </h4>
               </div>
               <div className={classes.image}>
-                <Image src={image.url} alt={image.alt} fill />
+                <Image src={image.url} alt={image.alt} fill priority />
               </div>
             </div>
           )

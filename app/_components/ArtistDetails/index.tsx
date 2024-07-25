@@ -121,14 +121,20 @@ export default function ArtistDetails({ artists }: Props) {
               <div className={classes.image}>
                 {hoveredArtwork ? (
                   <Fade duration={750}>
-                    <Image src={hoveredArtwork.image.url} alt={hoveredArtwork.image.title} fill />
+                    <Image
+                      src={hoveredArtwork.image.url}
+                      alt={hoveredArtwork.image.title}
+                      fill
+                      priority
+                    />
                   </Fade>
                 ) : (
                   <Fade duration={750}>
                     <Image
-                      src={(filteredArtists[0]?.relation.artworks as Artwork)?.image.url || ''}
-                      alt={(filteredArtists[0]?.relation.artworks as Artwork)?.image.title || ''}
+                      src={(filteredArtists[0]?.relation.artworks as Artwork)?.image.url}
+                      alt={(filteredArtists[0]?.relation.artworks as Artwork)?.image.title}
                       fill
+                      priority
                     />
                   </Fade>
                 )}

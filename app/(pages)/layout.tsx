@@ -9,6 +9,8 @@ import localFont from 'next/font/local'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import Footer from '@/components/Footer'
 
+import classes from './index.module.css'
+
 const hanken = localFont({
   src: '../../assets/fonts/HankenGrotesk-VariableFont_wght.ttf',
   display: 'swap',
@@ -31,7 +33,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           <AuthProvider api="rest">
             <Header />
             <HeaderMobile />
-            <main>{children}</main>
+            <main className={classes.main}>{children}</main>
             <BannerNewsletter />
             <Footer />
           </AuthProvider>

@@ -63,7 +63,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
         <div className="relative">
           {/* <Slide triggerOnce duration={750} direction="right"> */}
           <div className={classes.image}>
-            <Image src={image.url} alt={image.title} fill />
+            <Image src={image.url} alt={image.title} fill priority />
           </div>
           {/* </Slide> */}
         </div>
