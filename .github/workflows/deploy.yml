@@ -42,7 +42,7 @@ jobs:
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: GitHub Actions - Deploy E30 Frontend Failed
         body: |
-          The GitHub Actions workflow 'Deploy CMS' has failed.
+          The GitHub Actions workflow 'Deploy E30 Frontend' has failed.
           Repository: ${{ github.repository }}
           Workflow: ${{ github.workflow }}
           Job: ${{ github.job }}
