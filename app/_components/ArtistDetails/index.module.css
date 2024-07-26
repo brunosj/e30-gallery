@@ -1,5 +1,3 @@
-
-
 .artists {
 	border-bottom: var(--color-black) 1px solid;
   margin:var(--base-200) 0;
@@ -91,7 +89,6 @@
     grid-template-columns: repeat(1, 1fr);
     margin:var(--base-100) 0;
     gap:var(--base-300);
-
   }
 
   .work {

@@ -33,16 +33,16 @@
 
 }
 
+.appearance--primary:hover {
+	/* outline:var(--color-black) 1px solid; */
+	/* color: var(--color-black); */
+	background-color: var(--color-accent);
+}
+
 .appearance--secondary:hover {
 	background-color: var(--color-black);
 	outline:var(--color-white) 1px solid;
 	color: var(--color-white);
-}
-
-.appearance--primary:hover {
-	outline:var(--color-black) 1px solid;
-	color: var(--color-black);
-	background-color: var(--color-white);
 }
 
  .appearance--default {

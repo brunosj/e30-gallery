@@ -2,6 +2,7 @@ import type { ExhibitionsPage, Exhibition } from '@/app/payload-types'
 
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
+import ExhibitionsPageData from '@/components/ExhibitionsPage/page'
 import { LatestExhibition } from '@/components/LatestExhibition'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
 import classes from './index.module.css'
@@ -52,24 +53,10 @@ export default async function ExhibitionsPage() {
   const { pageData, exhibitionData } = await getData(locale)
   const page: ExhibitionsPage = pageData.docs[0]
   const exhibitions: Exhibition[] = exhibitionData.docs
-  const latestExhibition = exhibitions
-    .map(exhibition => ({
-      ...exhibition,
-      dateEndParsed: new Date(exhibition.dateEnd ?? '').getTime(),
-    }))
-    .sort((a, b) => b.dateEndParsed - a.dateEndParsed)[0]
-  const otherExhibitions = exhibitions.slice(1)
 
   return (
     <article>
-      <LatestExhibition data={latestExhibition} />
-      <div className="container padding-y">
-        <div className={classes.exhibitions}>
-          {otherExhibitions.map(exhibition => (
-            <ExhibitionCard key={exhibition.id} data={exhibition} />
-          ))}
-        </div>
-      </div>
+      <ExhibitionsPageData data={exhibitions} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
     </article>
   )

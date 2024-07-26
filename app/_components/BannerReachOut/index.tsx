@@ -44,11 +44,17 @@ export default async function BannerReachOut() {
 
           <div className={classes.title}>
             <div className="spacedTitle">
-              {banner.title.split(' ').map((word, index) => (
-                <span className={classes.titleElements} key={index}>
-                  {word}
-                </span>
-              ))}
+              {locale === 'en' ? (
+                <>
+                  {banner.title.split(' ').map((word, index) => (
+                    <span className={classes.titleElements} key={index}>
+                      {word}
+                    </span>
+                  ))}
+                </>
+              ) : (
+                <>{banner.title}</>
+              )}
             </div>
           </div>
           <Chevron color="var(--color-white)" size={20} className="iconBottomRight" />

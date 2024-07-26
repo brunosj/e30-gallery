@@ -210,7 +210,7 @@ export interface Artist {
   bio: {
     [k: string]: unknown
   }[]
-  artwork_archive_url: string
+  artworkArchiveCode?: string | null
   meta?: {
     title?: string | null
     description?: string | null

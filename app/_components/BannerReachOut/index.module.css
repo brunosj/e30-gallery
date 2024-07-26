@@ -1,5 +1,5 @@
 .bg {
-  background-color: var(--color-black);
+  background: linear-gradient(45deg, var(--color-accent), var(--color-black));
 }
 
 .reachOut {

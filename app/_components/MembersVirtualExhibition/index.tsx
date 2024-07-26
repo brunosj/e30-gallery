@@ -7,17 +7,14 @@ type Props = {
 }
 
 export const MembersVirtualExhibition: React.FC<Props> = ({ data }: Props) => {
-  const { page_title_virtual_exhibition, virtualExhibition, tab_title_virtual_exhibition } = data
+  const { page_title_virtual_exhibition, virtualExhibition } = data
 
   return (
     <section>
       <div className="container padding-t">
         <h3 className="membersAreaTitle mobile">{page_title_virtual_exhibition}</h3>
       </div>
-      <div
-        className={classes.iframeContainer}
-        dangerouslySetInnerHTML={{ __html: virtualExhibition }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: virtualExhibition }} />
     </section>
   )
 }

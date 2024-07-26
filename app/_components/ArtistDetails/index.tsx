@@ -7,7 +7,7 @@ import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { Fade, Slide } from 'react-awesome-reveal'
-import useProcessedImage from '@/utilities/useProcessedImage'
+import { IFrameComponent } from '@/components/IFrameComponent'
 
 type Props = {
   artists: Artist[]
@@ -199,17 +199,13 @@ export default function ArtistDetails({ artists }: Props) {
               <div className={classes.heading}>
                 <p className="semibold">{m.work()}</p>
               </div>
-              <div className={classes.image}>
-                <Image
-                  src={
-                    (filteredArtists[selectedArtistIndex].relation.artworks as Artwork).image.url
-                  }
-                  alt={
-                    (filteredArtists[selectedArtistIndex].relation.artworks as Artwork).image.title
-                  }
-                  fill
-                />
-              </div>
+            </div>
+            <div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: filteredArtists[selectedArtistIndex].artworkArchiveCode,
+                }}
+              />
             </div>
           </div>
         </div>

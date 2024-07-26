@@ -60,5 +60,8 @@
     "toChangeYourAccountDetails": "To change your account details, fill in the form below:",
     "changeYourPasswordBelowOr": "Change your password below or",
     "cancel": "cancel",
-    "thisIsYourAccount": "This is your account dashboard. Here you can update your account information."
+    "thisIsYourAccount": "This is your account dashboard. Here you can update your account information.",
+    "selectYear": "Select year",
+    "allYears": "All Years"
+
 }

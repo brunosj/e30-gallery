@@ -1,0 +1,36 @@
+.params {
+  margin-top: var(--base);
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.exhibitions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:2rem 4rem;
+}
+
+.filterContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--base-300);
+}
+
+.filterDropdown {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+
+@media  (max-width: 768px) {
+  .exhibitions {
+    grid-template-columns: 1fr;
+  }
+  
+}

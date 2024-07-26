@@ -37,7 +37,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
-    <section className="container padding-y">
+    <section className="padding-b">
       <div className={classes.grid}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>

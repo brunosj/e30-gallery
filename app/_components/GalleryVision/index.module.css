@@ -1,8 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background-color: var(--color-black);
-  color:var(--color-white);
+  background: linear-gradient(-45deg, var(--color-accent), var(--color-black));  color:var(--color-white);
   gap:var(--base-100);
 }
 

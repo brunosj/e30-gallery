@@ -6,6 +6,7 @@
   --color-black: #151515;
   --color-gray: #A9A9A9;
   --color-white: #F5F5F5;
+  --color-accent: #030D84;
   --color-white-rgb: 245, 245, 245;
   --color-gray-rgb: 169, 169, 169;
   --color-blue-link: #0094FF;
@@ -20,8 +21,8 @@
   --base-300: 3rem;
   --base-600: 6rem;
 }
-
-/* * {
+/* 
+* {
   outline: gray solid 1px;
 } */
 

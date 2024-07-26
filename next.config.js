@@ -1,13 +1,18 @@
 const { paraglide } = require('@inlang/paraglide-next/plugin')
 
-const allowedDomains = [process.env.NEXT_PUBLIC_PAYLOAD_URL, process.env.NEXT_PUBLIC_FRONTEND_URL]
+const allowedDomains = [
+  process.env.NEXT_PUBLIC_PAYLOAD_URL,
+  process.env.NEXT_PUBLIC_FRONTEND_URL,
+  'https://art.kunstmatrix.com',
+  'https://www.artworkarchive.com',
+]
 
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
-    frame-src 'self' https://art.kunstmatrix.com;
+    frame-src 'self' https://www.artworkarchive.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
