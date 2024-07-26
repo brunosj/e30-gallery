@@ -34,7 +34,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
     <section className="">
       <div className="relative">
         <div className={classes.artwork}>
-          <Image src={image.url} alt={image.title} fill />
+          <Image src={image.url} alt={image.title} fill className={classes.artwork} />
         </div>
         <div className={classes.content}>
           <p>{title}</p>

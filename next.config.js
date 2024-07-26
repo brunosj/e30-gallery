@@ -5,11 +5,12 @@ const allowedDomains = [
   process.env.NEXT_PUBLIC_FRONTEND_URL,
   'https://art.kunstmatrix.com',
   'https://www.artworkarchive.com',
+  ' https://cdnjs.cloudflare.com',
 ]
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' ${allowedDomains.join(' ')};
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
     frame-src 'self' https://www.artworkarchive.com;

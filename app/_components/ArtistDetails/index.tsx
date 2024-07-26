@@ -1,13 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { Artist, Artwork } from '@/app/payload-types'
 import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
-import { Fade, Slide } from 'react-awesome-reveal'
-import { IFrameComponent } from '@/components/IFrameComponent'
+import { Fade } from 'react-awesome-reveal'
 
 type Props = {
   artists: Artist[]
@@ -17,6 +16,7 @@ export default function ArtistDetails({ artists }: Props) {
   const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
   const [filterType, setFilterType] = useState<'represented' | 'featured'>('represented')
   const [hoveredArtwork, setHoveredArtwork] = useState<Artwork | null>(null)
+  const [scriptUrl, setScriptUrl] = useState<string | null>(null)
 
   const handleArtistClick = (index: number) => {
     setSelectedArtistIndex(index)
@@ -75,6 +75,59 @@ export default function ArtistDetails({ artists }: Props) {
   )
 
   const filteredArtists = artists.filter(artist => artist.type === filterType)
+
+  useEffect(() => {
+    if (selectedArtistIndex !== null) {
+      const embedScriptUrl = filteredArtists[selectedArtistIndex].artworkArchiveCode
+      if (embedScriptUrl) {
+        setScriptUrl(embedScriptUrl)
+      } else {
+        setScriptUrl(null) // Clear scriptUrl if no artworkArchiveCode
+      }
+    } else {
+      setScriptUrl(null) // Clear scriptUrl if no artist is selected
+    }
+  }, [selectedArtistIndex, filteredArtists])
+
+  useEffect(() => {
+    if (scriptUrl) {
+      // Create a script tag
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.async = true
+      script.src = scriptUrl
+      script.onload = () => {
+        console.log('Script loaded successfully')
+      }
+      script.onerror = e => {
+        console.error('Error loading script:', e)
+      }
+
+      // Find the container to append the script
+      const containerId = scriptUrl
+        ? `aa_embed_${scriptUrl.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`
+        : ''
+      const container = document.getElementById(containerId)
+
+      if (container) {
+        container.innerHTML = '' // Clear any existing content
+        container.appendChild(script)
+      }
+
+      // Cleanup function to remove the script when component unmounts or URL changes
+      return () => {
+        if (container) {
+          container.innerHTML = '' // Clear existing content
+        }
+      }
+    } else {
+      // If no scriptUrl, clear out any existing script tags
+      const containers = document.querySelectorAll('[id^="aa_embed_"]')
+      containers.forEach(container => {
+        container.innerHTML = '' // Clear content
+      })
+    }
+  }, [scriptUrl])
 
   return (
     <section className={classes.section}>
@@ -185,7 +238,12 @@ export default function ArtistDetails({ artists }: Props) {
                   className="padding-y-sm"
                 />
               </div>
-              <Fade key={filteredArtists[selectedArtistIndex].id} duration={1000} cascade>
+              <Fade
+                key={filteredArtists[selectedArtistIndex].id}
+                duration={1000}
+                cascade
+                triggerOnce
+              >
                 <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
                   <Image
                     src={filteredArtists[selectedArtistIndex].image.url}
@@ -195,18 +253,21 @@ export default function ArtistDetails({ artists }: Props) {
                 </div>
               </Fade>
             </div>
-            <div className={classes.work}>
-              <div className={classes.heading}>
-                <p className="semibold">{m.work()}</p>
-              </div>
-            </div>
-            <div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: filteredArtists[selectedArtistIndex].artworkArchiveCode,
-                }}
-              />
-            </div>
+            {selectedArtistIndex !== null && (
+              <>
+                <div className={classes.work}>
+                  <div className={classes.heading}>
+                    <p className="semibold">{m.work()}</p>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    id={`aa_embed_${filteredArtists[selectedArtistIndex]?.artworkArchiveCode?.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`}
+                    style={{ clear: 'both', minHeight: '500px' }}
+                  ></div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

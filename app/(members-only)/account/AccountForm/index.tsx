@@ -110,7 +110,7 @@ export const AccountForm: React.FC = () => {
             .
           </p>
 
-          <p>{m.toChangeYourAccountDetails()}</p>
+          {/* <p>{m.toChangeYourAccountDetails()}</p>
 
           <Input
             name="firstName"
@@ -136,7 +136,7 @@ export const AccountForm: React.FC = () => {
             register={register}
             error={errors.email}
             type="email"
-          />
+          /> */}
         </Fragment>
       ) : (
         <Fragment>

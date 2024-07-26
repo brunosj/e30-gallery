@@ -18,6 +18,7 @@
 .avatar img {
   border: var(--color-gray) 0.5px solid;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .artwork {
