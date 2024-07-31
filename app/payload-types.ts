@@ -19,7 +19,6 @@ export interface Config {
     artwork: Artwork
     exhibition: Exhibition
     testimonial: Testimonial
-    form: Form
     media: Media
     'form-submission': FormSubmission
     users: User
@@ -304,15 +303,14 @@ export interface GalleryPage {
     [k: string]: unknown
   }[]
   imageHero: string | Media
-  bio: {
+  alexander_bio: {
     [k: string]: unknown
   }[]
-  images?:
-    | {
-        imageFounder: string | Media
-        id?: string | null
-      }[]
-    | null
+  imageAlexander: string | Media
+  felicitas_bio: {
+    [k: string]: unknown
+  }[]
+  imageFelicitas: string | Media
   main_text: {
     [k: string]: unknown
   }[]
@@ -404,7 +402,6 @@ export interface MembersOnlyPage {
   tab_title_art_advice: string
   page_title_art_advice: string
   individuallArtAdviceBlock: TitleImageInfoBlock[]
-  form?: (string | null) | Form
   meta?: {
     title?: string | null
     description?: string | null
@@ -491,60 +488,6 @@ export interface GenericPage {
   }
   title?: string | null
   slug?: string | null
-  updatedAt: string
-  createdAt: string
-  _status?: ('draft' | 'published') | null
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form".
- */
-export interface Form {
-  id: string
-  title: string
-  text: {
-    [k: string]: unknown
-  }[]
-  form_message_area_placeholder: string
-  link: {
-    type?: ('reference' | 'custom' | 'mailto') | null
-    newTab?: boolean | null
-    reference?:
-      | ({
-          relationTo: 'homepage'
-          value: string | Homepage
-        } | null)
-      | ({
-          relationTo: 'artists-page'
-          value: string | ArtistsPage
-        } | null)
-      | ({
-          relationTo: 'art-society-page'
-          value: string | ArtSocietyPage
-        } | null)
-      | ({
-          relationTo: 'exhibitions-page'
-          value: string | ExhibitionsPage
-        } | null)
-      | ({
-          relationTo: 'gallery-page'
-          value: string | GalleryPage
-        } | null)
-      | ({
-          relationTo: 'members-only-page'
-          value: string | MembersOnlyPage
-        } | null)
-      | ({
-          relationTo: 'generic-pages'
-          value: string | GenericPage
-        } | null)
-    url?: string | null
-    email?: string | null
-    subject?: string | null
-    body?: string | null
-    label: string
-    appearance?: ('default' | 'primary' | 'secondary') | null
-  }
   updatedAt: string
   createdAt: string
   _status?: ('draft' | 'published') | null

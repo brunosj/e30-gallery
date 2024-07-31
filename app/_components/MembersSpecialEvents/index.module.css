@@ -36,7 +36,7 @@
   order:2
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;
     gap: var(--base-100);

@@ -10,6 +10,7 @@ import Settings from '@/components/SVG/Settings'
 import { useAuth } from '@/providers/Auth'
 import * as m from '@/paraglide/messages.js'
 import MobileNavMembersArea from '@/components/HeaderMembersArea/MobileNav'
+import { LogOutLink } from '@/app/_utilities/linkObjects'
 
 import classes from './index.module.css'
 
@@ -34,7 +35,7 @@ export function HeaderMembersArea() {
             <Link href="/account">
               <Settings color="var(--color-white)" size={30} />
             </Link>
-            <Button href="/logout" appearance="secondary" label="Log out" />
+            <Button link={LogOutLink()} />
             <LanguageSwitcher theme="dark" />
           </div>
         </nav>

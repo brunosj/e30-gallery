@@ -52,7 +52,7 @@
   }
    
 
-  @media  (max-width: 768px) {
+  @media  (max-width: 850px) {
     .grid {
       grid-template-columns: repeat(1, 1fr);
       gap:0rem;
@@ -68,11 +68,11 @@
     }
 
     .content {
-      margin: 0rem auto;
+      margin: 2rem auto;
     }
 
     .imageBottomRight {
-      margin-top: -1rem;  
+      margin-top: 0rem;  
     }
 
     .imageColumn {

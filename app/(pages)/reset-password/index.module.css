@@ -37,7 +37,6 @@
 }
 
 .formColumn {
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   margin:auto;
@@ -46,4 +45,24 @@
 .formContainer {
   width: 100%;
   min-width: 600px;
+}
+
+
+@media (max-width: 840px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formContainer {
+    min-width: 100%;
+    padding: 0 var(--base-50);
+  }
+
+  .formColumn {
+    margin:2rem auto;
+  }
+
+  .title {
+    padding: 0 var(--base-50);
+  }
 }

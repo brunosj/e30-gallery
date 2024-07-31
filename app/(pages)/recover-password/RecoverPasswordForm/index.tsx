@@ -45,6 +45,12 @@ export const RecoverPasswordForm: React.FC = () => {
     }
   }, [])
 
+  const recoverPasswordLink = {
+    className: classes.submit,
+    label: `${m.recoverPassword()}`,
+    appearance: 'primary',
+  }
+
   return (
     <Fragment>
       {!success && (
@@ -60,12 +66,7 @@ export const RecoverPasswordForm: React.FC = () => {
                 error={errors.email}
                 type="email"
               />
-              <Button
-                action="submit"
-                className={classes.submit}
-                label={m.recoverPassword()}
-                appearance="primary"
-              />
+              <Button link={recoverPasswordLink} action="submit" />
             </form>
             <Message error={error} className={classes.message} />
           </div>

@@ -1,6 +1,7 @@
 {
     "$schema": "https://inlang.com/schema/inlang-message-format",
     "account": "Konto",
+    "homepage": "Startseite",
     "createAccount": "Konto erstellen",
     "login": "Einloggen",
     "logout": "Ausloggen",
@@ -63,5 +64,6 @@
 "cancel": "abbrechen",
 "thisIsYourAccount": "Dies ist Ihr Kontodashboard. Hier können Sie Ihre Kontoinformationen aktualisieren.",
 "selectYear": "Jahr auswählen",
-"allYears": "Alle Jahre"
+"allYears": "Alle Jahre",
+"pageNotFound": "Seite nicht gefunden, sorry!"
 }

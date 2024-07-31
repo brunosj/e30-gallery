@@ -73,6 +73,12 @@ export const CreateAccountForm: React.FC = () => {
     [login, router, searchParams],
   )
 
+  const createAccountLink = {
+    className: classes.submit,
+    label: loading ? `${m.processing()}` : `${m.createAccount()}`,
+    appearance: 'primary',
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       {/* <p>
@@ -107,12 +113,7 @@ export const CreateAccountForm: React.FC = () => {
         validate={value => value === password.current || `${m.passwordsDontMatch()}`}
         error={errors.passwordConfirm}
       />
-      <Button
-        action="submit"
-        className={classes.submit}
-        label={loading ? `${m.processing()}` : `${m.createAccount()}`}
-        appearance="primary"
-      />
+      <Button link={createAccountLink} action="submit" />
       <Message error={error} className={classes.message} />
 
       <div>

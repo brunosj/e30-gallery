@@ -84,7 +84,7 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 850px) {
   .grid {
     grid-template-columns: repeat(1, 1fr);
     margin:var(--base-100) 0;

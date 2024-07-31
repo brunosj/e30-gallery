@@ -9,6 +9,7 @@
   --slide-spacing-lg: 2rem;
   --slide-size-lg: calc(100% / 4);
 }
+
 .artistCarousel__viewport {
   overflow: hidden;
 }

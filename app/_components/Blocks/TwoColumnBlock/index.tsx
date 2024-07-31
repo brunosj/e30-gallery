@@ -19,7 +19,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
     <div className={classes.grid}>
       <div
         className={[
-          'container',
+          'container padding-y',
           classes.textColumn,
           classes[`${columnText.size}`],
           invertOrder ? classes.order2 : classes.order1,
@@ -36,15 +36,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
               <RichText content={columnText.content} />
             </div>
           )}
-          {columnText.addLink && columnText.link && (
-            <Button
-              href={columnText.link.reference?.value.slug}
-              newTab={columnText.link.newTab}
-              label={columnText.link.label}
-              appearance={columnText.link.appearance}
-              el={columnText.link.type || 'reference'}
-            />
-          )}
+          {columnText.addLink && columnText.link && <Button link={columnText.link} />}
         </Fade>
       </div>
       <div

@@ -53,15 +53,17 @@ export const ResetPasswordForm: React.FC = () => {
         // Automatically log the user in after they successfully reset password
         await login({ email: json.user.email, password: data.password })
 
+        // Extract the translated string
+        const successMessage = m.passwordResetSuccess()
+
         // Redirect them to `/account` with success message in URL
-        router.push(`/account?success=${m.passwordResetSuccess}.'`)
+        router.push(`/account?success=${encodeURIComponent(successMessage)}`)
       } else {
-        setError(`${m.passwordResetFailed()}`)
+        setError(m.passwordResetFailed())
       }
     },
     [router, login],
   )
-
   // when Next.js populates token within router,
   // reset form with new token value
   useEffect(() => {
@@ -70,6 +72,12 @@ export const ResetPasswordForm: React.FC = () => {
 
   // Get the current value of the password field to validate confirmPassword
   const password = watch('password')
+
+  const resetPasswordLink = {
+    className: classes.submit,
+    label: `${m.resetPassword()}`,
+    appearance: 'primary',
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -95,12 +103,7 @@ export const ResetPasswordForm: React.FC = () => {
       />
 
       <input type="hidden" {...register('token')} />
-      <Button
-        action="submit"
-        className={classes.submit}
-        label={m.resetPassword()}
-        appearance="primary"
-      />
+      <Button link={resetPasswordLink} action="submit" />
       <Message error={error} className={classes.message} />
     </form>
   )

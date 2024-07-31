@@ -3,5 +3,16 @@
 }
 
 .logout h1 {
-  margin-bottom:var(--base-200)
+  margin-bottom:var(--base-200);
+  color: var(--color-white);
+}
+
+.logout p { 
+  color: var(--color-white);
+}
+
+.buttons {
+  display: flex;
+  gap: var(--base-100);
+  margin:2rem 0;
 }

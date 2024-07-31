@@ -8,6 +8,7 @@ import * as m from '@/paraglide/messages.js'
 import classes from './index.module.css'
 import Chevron from '@/components/SVG/Chevron'
 import { Fade, Slide } from 'react-awesome-reveal'
+import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 
 type Props = {
   data: Exhibition
@@ -40,12 +41,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
                 </p>
 
                 <div className="right">
-                  <Button
-                    href={'/exhibitions'}
-                    newTab={false}
-                    label={m.viewNow()}
-                    appearance={'primary'}
-                  />
+                  <Button link={ExhibitionLink(m.viewNow(), 'primary')} />
                 </div>
               </div>
               <Chevron color="var(--color-black)" size={20} className="iconBottomRight" />

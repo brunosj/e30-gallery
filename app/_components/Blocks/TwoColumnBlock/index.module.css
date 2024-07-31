@@ -25,6 +25,7 @@
 .textColumn {
   margin: auto;
   order: 1;
+  width: 100%;
 }
 
 .textColumn > * + * {
@@ -52,7 +53,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }

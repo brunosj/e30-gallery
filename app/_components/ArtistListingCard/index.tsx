@@ -1,11 +1,20 @@
+'use client'
+
 import type { Artist } from '@/app/payload-types'
 
+import { useRouter, Link } from '@/lib/i18n'
 import Image from 'next/image'
 import classes from './index.module.css'
 
 export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push(`/artists?id=${item.id}`)
+  }
+
   return (
-    <div className={classes.card}>
+    <button className={classes.card} onClick={handleClick}>
       <div className={classes.content}>
         <div className={classes.avatar}>
           <Image src={item.image.url} alt={item.image.alt} fill />
@@ -23,6 +32,6 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
           fill
         />
       </div>
-    </div>
+    </button>
   )
 }

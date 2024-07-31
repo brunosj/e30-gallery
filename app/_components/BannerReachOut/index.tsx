@@ -40,36 +40,23 @@ export default async function BannerReachOut() {
     <section className={classes.bg}>
       <div className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}>
         <div className={classes.title}>
-          <Chevron color="var(--color-white)" size={20} className="iconTopLeft" />
-
+          <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />
           <div className={classes.title}>
             <div className="spacedTitle">
-              {locale === 'en' ? (
-                <>
-                  {banner.title.split(' ').map((word, index) => (
-                    <span className={classes.titleElements} key={index}>
-                      {word}
-                    </span>
-                  ))}
-                </>
-              ) : (
-                <>{banner.title}</>
-              )}
+              {banner.title.split(' ').map((word, index) => (
+                <span className={classes.titleElements} key={index}>
+                  {word}
+                </span>
+              ))}
             </div>
           </div>
-          <Chevron color="var(--color-white)" size={20} className="iconBottomRight" />
+          <Chevron color="var(--color-white)" size={25} className="iconBottomRight" />
         </div>
         <div className={classes.content}>
           <div className={classes.text}>
             <RichText content={banner.text} />
           </div>
-          <Button
-            href={banner.link.reference?.value.slug}
-            newTab={banner.link.newTab}
-            label={banner.link.label}
-            appearance={banner.link.appearance}
-            el={banner.link.type || 'reference'}
-          />
+          <Button link={banner.link} />
         </div>
       </div>
     </section>

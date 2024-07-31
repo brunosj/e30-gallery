@@ -57,6 +57,13 @@ export const LoginForm: React.FC<Props> = ({ data }: Props) => {
     [login, router],
   )
 
+  const loginLink = {
+    disabled: isLoading,
+    className: classes.submit,
+    label: isLoading ? `${m.processing()}` : `${m.login()}`,
+    appearance: 'primary',
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
       <p className="semibold">{m.memberLogin()}</p>
@@ -79,13 +86,7 @@ export const LoginForm: React.FC<Props> = ({ data }: Props) => {
       <Link href={`/recover-password${allParams}`} className="blueLink">
         {m.forgotPassword()}
       </Link>
-      <Button
-        action="submit"
-        disabled={isLoading}
-        className={classes.submit}
-        label={isLoading ? `${m.processing()}` : `${m.login()}`}
-        appearance="primary"
-      />
+      <Button link={loginLink} action="submit" />
       <RichText content={data?.help_text_} className={classes.richTextHelpText} />
 
       <Message error={error} className={classes.message} />

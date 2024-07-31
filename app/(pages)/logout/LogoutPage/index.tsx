@@ -5,8 +5,8 @@ import { Link } from '@/lib/i18n'
 import * as m from '@/paraglide/messages.js'
 import { Button } from '@/components/Button'
 import { useAuth } from '@/providers/Auth'
-
 import classes from './index.module.css'
+import { LogInLink, HomeLink } from '@/app/_utilities/linkObjects'
 
 export const LogoutPage: React.FC = props => {
   const { logout } = useAuth()
@@ -33,10 +33,10 @@ export const LogoutPage: React.FC = props => {
           <div className={classes.logout}>
             <h1>{error || success}</h1>
             <p>{m.doNext()}</p>
-            {m.toGoToTheHomepage()} <Button href="/" label={m.clickHere()} appearance={'default'} />
-            {'. '}
-            {m.toLogBackIn()}{' '}
-            <Button href="/art-society" label={m.clickHere()} appearance={'default'} />{' '}
+            <div className={classes.buttons}>
+              <Button link={HomeLink(m.homepage(), 'secondary')} />
+              <Button link={LogInLink()} />
+            </div>
           </div>
         </section>
       )}

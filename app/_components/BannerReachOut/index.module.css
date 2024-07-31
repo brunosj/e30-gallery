@@ -1,35 +1,48 @@
 .bg {
   background: linear-gradient(45deg, var(--color-accent), var(--color-black));
+  background-size: 300% 300%;
+  animation: gradientMove 6s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .reachOut {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap:2rem;
+  gap: 2rem;
 }
 
 .content {
   grid-column: span 2; 
   text-align: right;
-  /* padding:2rem 0; */
-  margin:auto 0;
+  margin: auto 0;
 }
 
 .content > * + * {
   margin-top: var(--base-100);
 }
 
-.text  {
+.text {
   color: var(--color-white);
-  margin:auto;
+  margin: auto;
 }
 
 .title {
-  margin:auto 0;
+  margin: auto;
   color: var(--color-white);
   grid-column: span 1; 
   text-transform: uppercase;
-  padding:var(--base-100)
+  padding: var(--base-100);
 }
 
 .titleElements {
@@ -44,6 +57,5 @@
   .content {
     grid-column: span 1;
     padding-bottom: var(--base-150); 
-
   }
 }

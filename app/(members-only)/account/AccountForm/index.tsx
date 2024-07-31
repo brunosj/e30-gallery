@@ -25,7 +25,7 @@ export const AccountForm: React.FC = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const { user, setUser } = useAuth()
-  const [changePassword, setChangePassword] = useState(false)
+  const [changePassword, setChangePassword] = useState(true)
   const router = useRouter()
 
   const {
@@ -94,9 +94,19 @@ export const AccountForm: React.FC = () => {
     }
   }, [user, reset])
 
+  const changePasswordLink = {
+    className: classes.submit,
+    label: isLoading
+      ? `${m.processing()}`
+      : changePassword
+        ? `${m.changePassword()}`
+        : `${m.updateAcount()}`,
+    appearance: 'primary',
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-      {!changePassword ? (
+      {/* {!changePassword ? (
         <Fragment>
           <p>
             {m.toChangeYourPassword()}
@@ -110,7 +120,7 @@ export const AccountForm: React.FC = () => {
             .
           </p>
 
-          {/* <p>{m.toChangeYourAccountDetails()}</p>
+          <p>{m.toChangeYourAccountDetails()}</p>
 
           <Input
             name="firstName"
@@ -136,52 +146,41 @@ export const AccountForm: React.FC = () => {
             register={register}
             error={errors.email}
             type="email"
-          /> */}
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p>
-            {m.changeYourPasswordBelowOr()}{' '}
-            <button
-              type="button"
-              className={classes.changePassword}
-              onClick={() => setChangePassword(!changePassword)}
-            >
-              {m.cancel()}
-            </button>
-            .
-          </p>
-          <Input
-            name="password"
-            type="password"
-            label={m.password()}
-            required
-            register={register}
-            error={errors.password}
-          />
-          <Input
-            name="passwordConfirm"
-            type="password"
-            label={m.confirmPassword()}
-            required
-            register={register}
-            validate={value => value === password.current || `${m.passwordsDontMatch()}`}
-            error={errors.passwordConfirm}
           />
         </Fragment>
-      )}
-      <Button
-        action="submit"
-        className={classes.submit}
-        label={
-          isLoading
-            ? `${m.processing()}`
-            : changePassword
-              ? `${m.changePassword()}`
-              : `${m.updateAcount()}`
-        }
-        appearance="primary"
-      />
+      ) : ( */}
+      <Fragment>
+        {/* <p>
+          {m.changeYourPasswordBelowOr()}{' '}
+          <button
+            type="button"
+            className={classes.changePassword}
+            onClick={() => setChangePassword(!changePassword)}
+          >
+            {m.cancel()}
+          </button>
+          .
+        </p> */}
+        <Input
+          name="password"
+          type="password"
+          label={m.password()}
+          required
+          register={register}
+          error={errors.password}
+        />
+        <Input
+          name="passwordConfirm"
+          type="password"
+          label={m.confirmPassword()}
+          required
+          register={register}
+          validate={value => value === password.current || `${m.passwordsDontMatch()}`}
+          error={errors.passwordConfirm}
+        />
+      </Fragment>
+      {/* )} */}
+      <Button link={changePasswordLink} action="submit" />
       <Message error={error} success={success} className={classes.message} />
     </form>
   )

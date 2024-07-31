@@ -6,11 +6,18 @@ import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { Fade, Slide } from 'react-awesome-reveal'
 import { Button } from '@/components/Button'
+import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 
 import classes from './index.module.css'
 
 type Props = {
   data: Exhibition
+}
+
+const exhibitionLinkWithProps = {
+  ...ExhibitionLink,
+  label: m.viewNow(),
+  appearance: 'primary',
 }
 
 export const LatestExhibition: React.FC<Props> = ({ data }) => {
@@ -51,12 +58,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
               </p>
               <p> {description}</p>
 
-              <Button
-                href={'/exhibitions'}
-                newTab={false}
-                label={m.viewNow()}
-                appearance={'primary'}
-              />
+              <Button link={exhibitionLinkWithProps} />
             </Slide>
           </div>
         </div>

@@ -21,8 +21,8 @@
   --base-300: 3rem;
   --base-600: 6rem;
 }
-/* 
-* {
+
+/* * {
   outline: gray solid 1px;
 } */
 
@@ -94,9 +94,9 @@ small {
 
 .spacedTitle {
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 5px;
-  font-size: 2.25rem;
+  font-size: 2.50rem;
   line-height: 1.2;
 }
 
@@ -274,7 +274,7 @@ display: block;
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .container {
     padding: 0 var(--base-200);
   }
@@ -345,7 +345,7 @@ display: block;
 	}
 
   .spacedTitle {
-    font-size: var(--base-150);
+    font-size: var(--base-200);
   }
 
   .form {

@@ -1,3 +1,10 @@
 .main {
   min-height: 70vh;
 }
+
+
+.notFound {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}

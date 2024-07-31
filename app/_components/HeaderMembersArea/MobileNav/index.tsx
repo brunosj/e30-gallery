@@ -13,6 +13,8 @@ import { usePathname } from 'next/navigation'
 import { Link } from '@/lib/i18n'
 import Settings from '@/components/SVG/Settings'
 import * as m from '@/paraglide/messages.js'
+import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
+import { LogOutLink } from '@/app/_utilities/linkObjects'
 
 const MobileNavMembersArea: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
@@ -86,25 +88,15 @@ const MobileNavMembersArea: React.FC = () => {
         >
           <div className={[classes.flexColumn, 'container'].filter(Boolean).join(' ')}>
             <div className={classes.menuContainer}>
-              <Button
-                href="/exhibitions"
-                label={m.exhibitions()}
-                appearance={'default'}
-                onClick={handleCloseMenu}
-              />
-              <Button
-                href="/artists"
-                label={m.artists()}
-                appearance={'default'}
-                onClick={handleCloseMenu}
-              />
+              <Button link={ExhibitionLink} onClick={handleCloseMenu} />
+              <Button link={ArtistLink} onClick={handleCloseMenu} />
               <Link href="/account" onClick={handleCloseMenu}>
                 <div className={classes.settings}>
                   <p>{m.account()}</p>
                   <Settings color="var(--color-black)" size={22} />
                 </div>
               </Link>
-              <Button href="/logout" appearance="primary" label="Log out" />
+              <Button link={LogOutLink(m.logout(), 'primary')} />
               <Socials />
               <LanguageSwitcher theme="light" />
             </div>

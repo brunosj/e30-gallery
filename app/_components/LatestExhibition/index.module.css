@@ -25,7 +25,7 @@
   min-height: 30vh;
 }
 
-@media  (max-width: 768px) {
+@media  (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;
   }

@@ -13,7 +13,7 @@ const cspHeader = `
     script-src 'self' 'unsafe-eval' 'unsafe-inline' ${allowedDomains.join(' ')};
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
-    frame-src 'self' https://www.artworkarchive.com;
+    frame-src 'self' ${allowedDomains.join(' ')};
     font-src 'self';
     object-src 'none';
     base-uri 'self';

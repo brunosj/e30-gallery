@@ -1,76 +1,76 @@
 import type { LinkObject } from '@/app/types'
 
-import React, { ElementType } from 'react'
+import React from 'react'
 import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
 
 export type Props = {
-  label?: string
-  appearance?: 'default' | 'primary' | 'secondary' | null
-  type?: 'reference' | 'custom' | 'mailto' | null
   onClick?: () => void
   link?: LinkObject | null
   className?: string
   action?: 'submit' | 'button'
   disabled?: boolean
   invert?: boolean
-  newTab?: boolean | null
-  href?: string | null
 }
 
 export const Button: React.FC<Props> = ({
-  type = 'reference',
-  label,
-  newTab = false,
-  appearance,
   className: classNameFromProps,
   onClick,
   action = 'button',
   disabled,
   invert,
-  href,
   link,
 }) => {
   const newTabProps = link?.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
   const className = [
     classes.button,
     classNameFromProps,
-    classes[`appearance--${appearance}`],
-    invert && classes[`${appearance}--invert`],
+    link?.appearance && classes[`appearance--${link.appearance}`],
+    invert && link?.appearance && classes[`${link.appearance}--invert`],
   ]
     .filter(Boolean)
     .join(' ')
 
   const content = (
     <div className={classes.content}>
-      <span className={classes.label}>{label}</span>
+      <span className={classes.label}>{link?.label}</span>
     </div>
   )
 
-  let finalHref = href || ''
+  let finalHref = ''
 
   if (link) {
-    if (link.type === 'mailto' && link.email) {
-      finalHref = `mailto:${link.email}`
-      if (link.subject) {
-        finalHref += `?subject=${encodeURIComponent(link.subject)}`
-        if (link.body) {
-          finalHref += `&body=${encodeURIComponent(link.body)}`
+    switch (link.type) {
+      case 'mailto':
+        if (link.email) {
+          finalHref = `mailto:${link.email}`
+          const queryParams = []
+          if (link.subject) queryParams.push(`subject=${encodeURIComponent(link.subject)}`)
+          if (link.body) queryParams.push(`body=${encodeURIComponent(link.body)}`)
+          if (queryParams.length > 0) {
+            finalHref += `?${queryParams.join('&')}`
+          }
         }
-      }
-    } else if (link.type === 'custom' && link.url) {
-      finalHref = link.url
-    } else if (link.type === 'reference' && link.reference) {
-      finalHref = (link.reference.value as { slug: string }).slug
+        break
+      case 'custom':
+        if (link.url) {
+          finalHref = link.url
+        }
+        break
+      case 'reference':
+        if (link.reference) {
+          finalHref = (link.reference.value as { slug: string }).slug
+        }
+        break
+      default:
+        if (link.url) {
+          finalHref = link.url
+        }
+        break
     }
   }
 
-  if (
-    (href && action !== 'submit') ||
-    (link?.type === 'reference' && action !== 'submit') ||
-    (link?.type === 'custom' && action !== 'submit') ||
-    (link?.type === 'mailto' && action !== 'submit')
-  ) {
+  if (action !== 'submit' && finalHref) {
     return (
       <Link href={finalHref} className={className} {...newTabProps} onClick={onClick}>
         {content}

@@ -8,7 +8,7 @@ import { MembersArtAdvice } from '../MembersArtAdvice'
 import { MembersSpecialEvents } from '../MembersSpecialEvents'
 import { MembersVirtualExhibition } from '../MembersVirtualExhibition'
 import { Button } from '@/components/Button'
-import * as m from '@/paraglide/messages.js'
+import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
 
 import classes from './index.module.css'
 
@@ -78,10 +78,10 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             </button>
           </li>
           <li className={classes.buttonContainer}>
-            <Button href="/exhibitions" label={m.exhibitions()} appearance={'default'} />
+            <Button link={ExhibitionLink()} />
           </li>
           <li className={classes.buttonContainer}>
-            <Button href="/artists" label={m.artists()} appearance={'default'} />
+            <Button link={ArtistLink()} />
           </li>
         </nav>
       </div>

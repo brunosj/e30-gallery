@@ -1,7 +1,5 @@
 import type { Exhibition } from '@/app/payload-types'
-
 import Image from 'next/image'
-import * as m from '@/paraglide/messages.js'
 import classes from './index.module.css'
 
 type Props = {
@@ -9,7 +7,7 @@ type Props = {
 }
 
 export const ExhibitionCard: React.FC<Props> = ({ data }) => {
-  const { title, image, dateBegin, dateEnd } = data
+  const { title, image, dateBegin, dateEnd, description } = data
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
       day: 'numeric',
@@ -31,17 +29,18 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
-    <section className="">
-      <div className="relative">
-        <div className={classes.artwork}>
-          <Image src={image.url} alt={image.title} fill className={classes.artwork} />
-        </div>
-        <div className={classes.content}>
-          <p>{title}</p>
-          <p>
+    <section className={classes.card}>
+      <div className={classes.imageWrapper}>
+        <Image src={image.url} alt={image.title} fill className={classes.image} />
+      </div>
+      <div className={classes.content}>
+        <div className={classes.contentInner}>
+          <p className={classes.title}>{title}</p>
+          <p className={classes.date}>
             {begin} - {end} {endYear}
           </p>
         </div>
+        <p className={classes.description}>{description}</p>
       </div>
     </section>
   )

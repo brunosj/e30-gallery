@@ -21,7 +21,7 @@
 	 margin-top: calc(var(--base) / 2);
 }
  
-@media (max-width: 768px) {
+@media (max-width: 850px) {
 	.form {
 		width: 100%;
 	}

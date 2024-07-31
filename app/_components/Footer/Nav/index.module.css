@@ -32,7 +32,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .footer {
     flex-direction: column;
     gap: var(--base-100);

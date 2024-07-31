@@ -56,7 +56,7 @@
   text-align: left;
 }
 
-@media  (max-width: 768px) {
+@media  (max-width: 850px) {
   .avatar {
     width: 6rem; 
     height: 6rem; 

@@ -37,17 +37,7 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
                 {category.navItem &&
                   category.navItem.map((item, idx) => (
                     <li key={idx}>
-                      <Button
-                        href={
-                          item.link.type === 'reference'
-                            ? item.link?.reference?.value.slug
-                            : item.link?.url
-                        }
-                        newTab={item.link.newTab}
-                        label={item.link.label}
-                        appearance={item.link.appearance}
-                        el={item.link.type}
-                      />
+                      <Button link={item.link} />
                     </li>
                   ))}
               </ul>

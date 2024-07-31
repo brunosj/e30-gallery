@@ -1,4 +1,5 @@
 import type { GenericPage, Artist, Artwork } from '@/app/payload-types'
+import { notFound } from 'next/navigation'
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
 import ArtistDetails from '@/components/ArtistDetails'
@@ -35,6 +36,17 @@ async function getData(locale: string, slug: string) {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
+
+  if (!pageData || !pageData.docs.length) {
+    return {
+      title: '404 - Not Found',
+      description: 'Page not found',
+      openGraph: {
+        title: '404 - Not Found',
+      },
+    }
+  }
+
   const metadata = pageData.docs[0].meta
   return {
     title: metadata.title,
@@ -48,6 +60,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function GenericPage({ params }: { params: { slug: string } }) {
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
+
+  if (!pageData || !pageData.docs.length) {
+    return notFound()
+  }
+
   const page: GenericPage = pageData.docs[0]
 
   return (

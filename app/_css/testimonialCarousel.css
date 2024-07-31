@@ -108,7 +108,7 @@
   box-shadow: inset 0 0 0 0.2rem var(--text-body);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .testimonialCarousel {
     --slide-height: 24rem;
     --slide-spacing: 1.6rem;

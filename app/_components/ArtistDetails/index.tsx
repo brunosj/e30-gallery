@@ -7,37 +7,115 @@ import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { Fade } from 'react-awesome-reveal'
+import { useRouter, Link } from '@/lib/i18n'
+import { useSearchParams } from 'next/navigation'
 
 type Props = {
   artists: Artist[]
 }
 
 export default function ArtistDetails({ artists }: Props) {
+  const searchParams = useSearchParams()
+  const idParam = searchParams.get('id')
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null)
   const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
   const [filterType, setFilterType] = useState<'represented' | 'featured'>('represented')
   const [hoveredArtwork, setHoveredArtwork] = useState<Artwork | null>(null)
   const [scriptUrl, setScriptUrl] = useState<string | null>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (idParam) {
+      const artist = artists.find(artist => artist.id === idParam)
+      if (artist) {
+        setSelectedArtist(artist)
+        const index = artists.findIndex(a => a.id === artist.id)
+        setSelectedArtistIndex(index)
+      } else {
+        console.warn('Artist not found:', idParam)
+        setSelectedArtist(null)
+      }
+    }
+  }, [idParam, artists])
+
+  useEffect(() => {
+    if (selectedArtist) {
+      const embedScriptUrl = selectedArtist.artworkArchiveCode
+      if (embedScriptUrl) {
+        setScriptUrl(embedScriptUrl)
+      } else {
+        setScriptUrl(null)
+      }
+    } else {
+      setScriptUrl(null)
+    }
+  }, [selectedArtist])
+
+  useEffect(() => {
+    if (scriptUrl) {
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.async = true
+      script.src = scriptUrl
+      script.onload = () => {
+        console.log('Script loaded successfully')
+      }
+      script.onerror = e => {
+        console.error('Error loading script:', e)
+      }
+
+      const containerId = scriptUrl
+        ? `aa_embed_${scriptUrl.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`
+        : ''
+      const container = document.getElementById(containerId)
+
+      if (container) {
+        container.innerHTML = ''
+        container.appendChild(script)
+      }
+
+      return () => {
+        if (container) {
+          container.innerHTML = ''
+        }
+      }
+    } else {
+      const containers = document.querySelectorAll('[id^="aa_embed_"]')
+      containers.forEach(container => {
+        container.innerHTML = ''
+      })
+    }
+  }, [scriptUrl])
 
   const handleArtistClick = (index: number) => {
-    setSelectedArtistIndex(index)
+    const artistId = filteredArtists[index]?.id
+    if (artistId) {
+      router.push(`/artists?id=${artistId}`, { scroll: false })
+    }
   }
 
   const handleBackClick = () => {
+    router.push('/artists', { scroll: false })
+    setSelectedArtist(null)
     setSelectedArtistIndex(null)
   }
 
   const handleNextClick = () => {
-    setSelectedArtistIndex(prevIndex => {
-      const nextIndex = prevIndex! + 1
-      return nextIndex < filteredArtists.length ? nextIndex : prevIndex
-    })
+    if (selectedArtistIndex !== null) {
+      const nextIndex = selectedArtistIndex + 1
+      if (nextIndex < filteredArtists.length) {
+        handleArtistClick(nextIndex)
+      }
+    }
   }
 
   const handlePreviousClick = () => {
-    setSelectedArtistIndex(prevIndex => {
-      const nextIndex = prevIndex! - 1
-      return nextIndex >= 0 ? nextIndex : prevIndex
-    })
+    if (selectedArtistIndex !== null) {
+      const prevIndex = selectedArtistIndex - 1
+      if (prevIndex >= 0) {
+        handleArtistClick(prevIndex)
+      }
+    }
   }
 
   const handleMouseEnter = (artwork: Artwork | null) => {
@@ -76,62 +154,9 @@ export default function ArtistDetails({ artists }: Props) {
 
   const filteredArtists = artists.filter(artist => artist.type === filterType)
 
-  useEffect(() => {
-    if (selectedArtistIndex !== null) {
-      const embedScriptUrl = filteredArtists[selectedArtistIndex].artworkArchiveCode
-      if (embedScriptUrl) {
-        setScriptUrl(embedScriptUrl)
-      } else {
-        setScriptUrl(null) // Clear scriptUrl if no artworkArchiveCode
-      }
-    } else {
-      setScriptUrl(null) // Clear scriptUrl if no artist is selected
-    }
-  }, [selectedArtistIndex, filteredArtists])
-
-  useEffect(() => {
-    if (scriptUrl) {
-      // Create a script tag
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.async = true
-      script.src = scriptUrl
-      script.onload = () => {
-        console.log('Script loaded successfully')
-      }
-      script.onerror = e => {
-        console.error('Error loading script:', e)
-      }
-
-      // Find the container to append the script
-      const containerId = scriptUrl
-        ? `aa_embed_${scriptUrl.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`
-        : ''
-      const container = document.getElementById(containerId)
-
-      if (container) {
-        container.innerHTML = '' // Clear any existing content
-        container.appendChild(script)
-      }
-
-      // Cleanup function to remove the script when component unmounts or URL changes
-      return () => {
-        if (container) {
-          container.innerHTML = '' // Clear existing content
-        }
-      }
-    } else {
-      // If no scriptUrl, clear out any existing script tags
-      const containers = document.querySelectorAll('[id^="aa_embed_"]')
-      containers.forEach(container => {
-        container.innerHTML = '' // Clear content
-      })
-    }
-  }, [scriptUrl])
-
   return (
     <section className={classes.section}>
-      {selectedArtistIndex === null ? (
+      {selectedArtist === null ? (
         <div>
           <div className={classes.artists}>
             <div className={classes.heading}>
@@ -221,39 +246,47 @@ export default function ArtistDetails({ artists }: Props) {
           <div>
             <div className={classes.grid}>
               <div>
-                <h2>{filteredArtists[selectedArtistIndex].name}</h2>
+                <h2>{selectedArtist.name}</h2>
                 <div className={classes.additionalInfo}>
-                  <p>{filteredArtists[selectedArtistIndex].additional_info}</p>
-                  <p>{filteredArtists[selectedArtistIndex].country}</p>
+                  <p>{selectedArtist.additional_info}</p>
+                  <p>{selectedArtist.country}</p>
                 </div>
                 <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
                   <Image
-                    src={filteredArtists[selectedArtistIndex].image.url}
-                    alt={filteredArtists[selectedArtistIndex].title}
+                    src={
+                      typeof selectedArtist.image === 'string'
+                        ? selectedArtist.image
+                        : selectedArtist.image.url
+                    }
+                    alt={
+                      typeof selectedArtist.image === 'string'
+                        ? 'Artist Image'
+                        : selectedArtist.image.alt || selectedArtist.name
+                    }
                     fill
                   />
                 </div>
-                <RichText
-                  content={filteredArtists[selectedArtistIndex].bio}
-                  className="padding-y-sm"
-                />
+                <RichText content={selectedArtist.bio} className="padding-y-sm" />
               </div>
-              <Fade
-                key={filteredArtists[selectedArtistIndex].id}
-                duration={1000}
-                cascade
-                triggerOnce
-              >
+              <Fade key={selectedArtist.id} duration={1000} cascade triggerOnce>
                 <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
                   <Image
-                    src={filteredArtists[selectedArtistIndex].image.url}
-                    alt={filteredArtists[selectedArtistIndex].image.title}
+                    src={
+                      typeof selectedArtist.image === 'string'
+                        ? selectedArtist.image
+                        : selectedArtist.image.url
+                    }
+                    alt={
+                      typeof selectedArtist.image === 'string'
+                        ? 'Artist Image'
+                        : selectedArtist.image.alt || selectedArtist.name
+                    }
                     fill
                   />
                 </div>
               </Fade>
             </div>
-            {selectedArtistIndex !== null && (
+            {selectedArtist.artworkArchiveCode && (
               <>
                 <div className={classes.work}>
                   <div className={classes.heading}>
@@ -262,7 +295,7 @@ export default function ArtistDetails({ artists }: Props) {
                 </div>
                 <div>
                   <div
-                    id={`aa_embed_${filteredArtists[selectedArtistIndex]?.artworkArchiveCode?.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`}
+                    id={`aa_embed_${selectedArtist.artworkArchiveCode.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`}
                     style={{ clear: 'both', minHeight: '500px' }}
                   ></div>
                 </div>

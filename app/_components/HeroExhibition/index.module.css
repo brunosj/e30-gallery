@@ -41,7 +41,7 @@
 	padding-right: var(--base-600);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .paddingR {
     padding-right: 0;
   }

@@ -13,40 +13,73 @@ type Props = {
 }
 
 export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
-  const { bio, images } = data
+  const { alexander_bio, felicitas_bio, imageAlexander, imageFelicitas } = data
   return (
     <section className="container">
-      <div className={classes.grid}>
-        <div className={classes.image}>
-          <Slide triggerOnce duration={750} direction="left" delay={250}>
-            <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
-              {images.length > 0 && (
+      <div className="desktop">
+        <div className={classes.grid}>
+          <div className={classes.image}>
+            <Slide triggerOnce duration={750} direction="left" delay={250}>
+              <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
                 <Image
-                  key={images[0].imageFounder.title}
-                  src={images[0].imageFounder.url}
-                  alt={images[0].imageFounder.title}
+                  key={imageAlexander.title}
+                  src={imageAlexander.url}
+                  alt={imageAlexander.title}
                   height={225}
                   width={225}
                 />
-              )}
-              {images.length > 1 && (
                 <Image
-                  key={images[1].imageFounder.title}
-                  src={images[1].imageFounder.url}
-                  alt={images[1].imageFounder.title}
+                  key={imageFelicitas.title}
+                  src={imageFelicitas.url}
+                  alt={imageFelicitas.title}
                   className={classes.imageBottomRight}
                   height={225}
                   width={225}
                 />
-              )}
+              </div>
+            </Slide>
+          </div>
+          <div className={classes.info}>
+            <div className="padding-y">
+              <div className={classes.content}>
+                <RichText content={alexander_bio} className={classes.richTextFounders} />{' '}
+                <RichText content={felicitas_bio} className={classes.richTextFounders} />
+              </div>
             </div>
-          </Slide>
+          </div>
         </div>
+      </div>
+      <div className="mobile">
         <div className={classes.info}>
-          <div className="padding-y">
-            <div className={classes.content}>
-              <RichText content={bio} className={classes.richTextFounders} />
-            </div>
+          <div className={classes.image}>
+            <Slide triggerOnce duration={750} direction="left" delay={250}>
+              <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
+                <Image
+                  key={imageAlexander.title}
+                  src={imageAlexander.url}
+                  alt={imageAlexander.title}
+                  height={225}
+                  width={225}
+                />
+                <div className={classes.content}>
+                  <RichText content={alexander_bio} className={classes.richTextFounders} />
+                </div>
+                <Image
+                  key={imageFelicitas.title}
+                  src={imageFelicitas.url}
+                  alt={imageFelicitas.title}
+                  className={classes.imageBottomRight}
+                  height={225}
+                  width={225}
+                />
+                <div className={classes.content}>
+                  <RichText
+                    content={felicitas_bio}
+                    className={[classes.richTextFounders, 'text-right'].filter(Boolean).join(' ')}
+                  />
+                </div>
+              </div>
+            </Slide>
           </div>
         </div>
       </div>

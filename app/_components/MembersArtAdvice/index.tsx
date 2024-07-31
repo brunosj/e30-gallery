@@ -35,14 +35,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
                   </span> */}
                 </h4>
                 <RichText content={info} className={classes.richText} />
-                <Button
-                  label={link.label}
-                  appearance={link.appearance}
-                  el={link.type}
-                  email={link.email}
-                  subject={link.subject}
-                  body={link.body}
-                />
+                <Button link={link} />
               </div>
             </div>
           )
@@ -67,14 +60,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
                     </span> */}
                 </h4>
                 <RichText content={info} className={classes.richText} />
-                <Button
-                  label={link.label}
-                  appearance={link.appearance}
-                  el={link.type}
-                  email={link.email}
-                  subject={link.subject}
-                  body={link.body}
-                />
+                <Button link={link} />
               </div>
             </div>
           )
