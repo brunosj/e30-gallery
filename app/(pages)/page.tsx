@@ -59,7 +59,6 @@ export default async function Home() {
       dateEndParsed: new Date(exhibition.dateEnd ?? '').getTime(),
     }))
     .sort((a, b) => b.dateEndParsed - a.dateEndParsed)[0]
-
   return (
     <article>
       <HeroExhibition data={latestExhibition} />
