@@ -54,7 +54,7 @@ export const ResetPasswordForm: React.FC = () => {
         await login({ email: json.user.email, password: data.password })
 
         // Redirect them to `/account` with success message in URL
-        router.push(`'/account?success=${m.passwordResetSuccess}.'`)
+        router.push(`/account?success=${m.passwordResetSuccess}.'`)
       } else {
         setError(`${m.passwordResetFailed()}`)
       }

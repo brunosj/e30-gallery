@@ -10,7 +10,6 @@ async function getData(locale: string) {
   const urls = [
     `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`,
   ]
-  console.log(process.env.NEXT_PUBLIC_PAYLOAD_URL)
 
   const fetchPromises = urls.map(url =>
     fetch(url, {
