@@ -1,8 +1,11 @@
+'use client'
+
 import type { ArtSocietyPage, Media } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { LoginForm } from '@/app/(pages)/art-society/LoginForm'
 import Chevron from '@/components/SVG/Chevron'
+
 import classes from './index.module.css'
 
 type Props = {

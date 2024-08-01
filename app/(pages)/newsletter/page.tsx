@@ -1,14 +1,12 @@
-import type { Homepage, Exhibition } from '@/app/payload-types'
-import type { Layout } from '@/app/_components/Blocks/RenderBlocks'
+import type { NewsletterPage } from '@/app/payload-types'
 
-import RenderBlocks from '@/components/Blocks/RenderBlocks'
 import { languageTag } from '@/paraglide/runtime'
-import { HeroExhibition } from '@/components/HeroExhibition'
-import BannerReachOut from '@/components/BannerReachOut'
-import ArtistsListings from '@/components/ArtistsListings'
+import NewsletterEmbed from '@/components/NewsletterEmbed'
 
 async function getData(locale: string) {
-  const urls = [`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/homepage?locale=${locale}&depth=2`]
+  const urls = [
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/newsletter-page?locale=${locale}&depth=1`,
+  ]
 
   const fetchPromises = urls.map(url =>
     fetch(url, {
@@ -24,8 +22,7 @@ async function getData(locale: string) {
     const responses = await Promise.all(fetchPromises)
     const data = await Promise.all(responses.map(res => res.json()))
     const pageData = data[0]
-    const exhibitionData = data[1]
-    return { pageData, exhibitionData }
+    return { pageData }
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
@@ -45,19 +42,17 @@ export async function generateMetadata() {
   }
 }
 
-export default async function Home() {
+export default async function Newsletter() {
   const locale = languageTag()
   const { pageData } = await getData(locale)
-  const page: Homepage = pageData.docs[0]
-  const featuredExhibitions: Exhibition[] = page.featuredExhibitions.filter(
-    item => typeof item !== 'string',
-  )
+  const page: NewsletterPage = pageData.docs[0]
+
   return (
     <article>
-      <HeroExhibition data={featuredExhibitions} />
-      <RenderBlocks layout={page.layout as Layout[]} />
-      {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      <ArtistsListings />
+      <div className="container padding-y">
+        <h1>{page.title}</h1>
+        <NewsletterEmbed />
+      </div>
     </article>
   )
 }

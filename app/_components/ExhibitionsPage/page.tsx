@@ -11,6 +11,7 @@ import classes from './index.module.css'
 
 type Props = {
   data: Exhibition[]
+  featuredExhibitions: Exhibition[]
 }
 
 type OptionType = {
@@ -35,19 +36,15 @@ export const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>
   }),
 }
 
-export default function ExhibitionsPageData({ data }: Props) {
+export default function ExhibitionsPageData({ data, featuredExhibitions }: Props) {
   const exhibitions = data
 
   const [selectedYear, setSelectedYear] = useState<string | null>(null)
 
-  const latestExhibition = exhibitions
-    .map(exhibition => ({
-      ...exhibition,
-      dateEndParsed: new Date(exhibition.dateEnd ?? '').getTime(),
-    }))
-    .sort((a, b) => b.dateEndParsed - a.dateEndParsed)[0]
-
-  const otherExhibitions = exhibitions.slice(1)
+  const featuredExhibitionIds = new Set(featuredExhibitions.map(exhibition => exhibition.id))
+  const otherExhibitions = exhibitions.filter(
+    exhibition => !featuredExhibitionIds.has(exhibition.id),
+  )
 
   const uniqueYears = Array.from(
     new Set(
@@ -62,15 +59,17 @@ export default function ExhibitionsPageData({ data }: Props) {
     ...uniqueYears.map(year => ({ value: year, label: year })),
   ]
 
-  const filteredExhibitions = selectedYear
-    ? otherExhibitions.filter(
-        exhibition => new Date(exhibition.dateEnd ?? '').getFullYear().toString() === selectedYear,
-      )
-    : otherExhibitions
+  const filteredExhibitions = otherExhibitions
+    .filter(
+      exhibition =>
+        !selectedYear ||
+        new Date(exhibition.dateEnd ?? '').getFullYear().toString() === selectedYear,
+    )
+    .sort((a, b) => new Date(b.dateEnd ?? '').getTime() - new Date(a.dateEnd ?? '').getTime())
 
   return (
     <div className="container padding-y">
-      <LatestExhibition data={latestExhibition} />
+      <LatestExhibition data={featuredExhibitions} />
       <div className={classes.filterContainer}>
         <Select
           options={yearOptions}

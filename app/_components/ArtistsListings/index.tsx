@@ -5,6 +5,7 @@ import * as m from '@/paraglide/messages.js'
 import { Button } from '../Button'
 import ArtistCarousel from '@/components/ArtistCarousel/ArtistCarousel'
 import classes from './index.module.css'
+import { ArtistLink } from '@/app/_utilities/linkObjects'
 
 async function getData(locale: string) {
   let data
@@ -43,17 +44,11 @@ export default async function ArtistsListings() {
   const data: Artist[] = await getData(locale)
   shuffleArray(data)
 
-  const ArtistLink = {
-    href: '/artists',
-    label: m.viewAll(),
-    appearance: 'default',
-  }
-
   return (
     <section className="container padding-y">
       <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
         <h2 className="uppercase">{m.artistsAtE30()}</h2>
-        <Button link={ArtistLink} />
+        <Button link={ArtistLink(m.viewAll(), 'default')} />
       </div>
       <ArtistCarousel slides={data} />
     </section>

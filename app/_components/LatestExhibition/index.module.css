@@ -25,15 +25,33 @@
   min-height: 30vh;
 }
 
+.order1 {
+  order: 1;
+}
+
+.order2 {
+  order: 2;
+}
+
 @media  (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;
   }
+  
   .contentContainer {
     flex-direction: column;
   }
+
   .content {
     margin: auto;
+  }
+
+  .order1 {
+    order: 1;
+  }
+  
+  .order2 {
+    order: 1;
   }
   
 }

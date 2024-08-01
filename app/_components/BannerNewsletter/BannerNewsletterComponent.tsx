@@ -11,7 +11,7 @@ import classes from './index.module.css'
 export default function BannerNewsletterComponent({ banner }: { banner: NewsletterBanner }) {
   return (
     <React.Fragment>
-      <Link href={banner.link.url} target="_blank" className={classes.link}>
+      <Link href={banner.link.reference?.value.slug} className={classes.link}>
         <Fade triggerOnce duration={750}>
           <Chevron color="var(--color-black)" size={35} className="iconTopLeft" />
           <div className={classes.title}>

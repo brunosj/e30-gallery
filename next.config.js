@@ -5,14 +5,16 @@ const allowedDomains = [
   process.env.NEXT_PUBLIC_FRONTEND_URL,
   'https://art.kunstmatrix.com',
   'https://www.artworkarchive.com',
-  ' https://cdnjs.cloudflare.com',
+  'https://cdnjs.cloudflare.com',
+  'https://assets.mailerlite.com',
+  'https://storage.mlcdn.com',
 ]
 
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' ${allowedDomains.join(' ')};
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    style-src 'self' 'unsafe-inline' ${allowedDomains.join(' ')};
+    img-src 'self' ${allowedDomains.join(' ')};
     frame-src 'self' ${allowedDomains.join(' ')};
     font-src 'self';
     object-src 'none';
@@ -22,6 +24,8 @@ const cspHeader = `
     connect-src 'self' ${allowedDomains.join(' ')};
     upgrade-insecure-requests;
 `
+  .replace(/\s{2,}/g, ' ')
+  .trim()
 
 module.exports = paraglide({
   paraglide: {

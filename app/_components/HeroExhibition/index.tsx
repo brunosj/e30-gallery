@@ -11,19 +11,31 @@ import { Fade, Slide } from 'react-awesome-reveal'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 
 type Props = {
-  data: Exhibition
+  data: Exhibition[]
 }
 
 export const HeroExhibition: React.FC<Props> = ({ data }) => {
-  const { title, description, image, dateBegin, dateEnd } = data
-  const begin = new Date(dateBegin || '').toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-  })
-  const end = new Date(dateEnd || '').toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-  })
+  const { title, description, image, dateBegin, dateEnd } = data[0]
+  const begin = new Date(dateBegin || '')
+    .toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+    })
+    .split(' ')
+    .reverse()
+    .join(' ')
+
+  const end = new Date(dateEnd || '')
+    .toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+    })
+    .split(' ')
+    .reverse()
+    .join(' ')
+
+  const beginYear = new Date(dateBegin || '').getFullYear()
+  const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
     <section className={classes.hero}>
@@ -37,7 +49,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
                 <p className="spacedTitle">{title}</p>
                 <p>{description}</p>
                 <p className="uppercase">
-                  {begin} - {end}
+                  {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
                 </p>
 
                 <div className="right">

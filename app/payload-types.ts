@@ -15,6 +15,7 @@ export interface Config {
     'art-society-page': ArtSocietyPage
     'members-only-page': MembersOnlyPage
     'generic-pages': GenericPage
+    'newsletter-page': NewsletterPage
     artist: Artist
     artwork: Artwork
     exhibition: Exhibition
@@ -39,8 +40,10 @@ export interface Config {
  */
 export interface Homepage {
   id: string
+  featuredExhibitions: (string | Exhibition)[]
   layout: (
     | TwoColumnBlock
+    | CallToAction
     | {
         content: {
           [k: string]: unknown
@@ -67,104 +70,22 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TwoColumnBlock".
+ * via the `definition` "exhibition".
  */
-export interface TwoColumnBlock {
-  invertOrder?: boolean | null
-  columnText: {
-    size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
-    title?: string | null
-    subtitle: string
-    content?:
-      | {
-          [k: string]: unknown
-        }[]
-      | null
-    addLink?: boolean | null
-    link?: {
-      type?: ('reference' | 'custom' | 'mailto') | null
-      newTab?: boolean | null
-      reference?:
-        | ({
-            relationTo: 'homepage'
-            value: string | Homepage
-          } | null)
-        | ({
-            relationTo: 'artists-page'
-            value: string | ArtistsPage
-          } | null)
-        | ({
-            relationTo: 'art-society-page'
-            value: string | ArtSocietyPage
-          } | null)
-        | ({
-            relationTo: 'exhibitions-page'
-            value: string | ExhibitionsPage
-          } | null)
-        | ({
-            relationTo: 'gallery-page'
-            value: string | GalleryPage
-          } | null)
-        | ({
-            relationTo: 'members-only-page'
-            value: string | MembersOnlyPage
-          } | null)
-        | ({
-            relationTo: 'generic-pages'
-            value: string | GenericPage
-          } | null)
-      url?: string | null
-      email?: string | null
-      subject?: string | null
-      body?: string | null
-      label: string
-      appearance?: ('default' | 'primary' | 'secondary') | null
-    }
-  }
-  columnImage: {
-    size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
-    image: string | Media
-  }
-  id?: string | null
-  blockName?: string | null
-  blockType: 'two-column-block'
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "artists-page".
- */
-export interface ArtistsPage {
+export interface Exhibition {
   id: string
-  text: {
-    [k: string]: unknown
-  }[]
-  featuredArtwork: string | Artwork
+  title: string
+  description: string
+  image: string | Media
+  dateBegin?: string | null
+  dateEnd?: string | null
   meta?: {
     title?: string | null
     description?: string | null
     keywords?: string | null
   }
-  title?: string | null
-  Banners?: {
-    reachOutBoolean?: boolean | null
-    newsletterBoolean?: boolean | null
-  }
-  slug?: string | null
-  updatedAt: string
-  createdAt: string
-  _status?: ('draft' | 'published') | null
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "artwork".
- */
-export interface Artwork {
-  id: string
-  title: string
-  description: string
-  image: string | Media
-  relation: {
-    artist: string | Artist
+  relation?: {
+    artists?: (string | null) | Artist
   }
   updatedAt: string
   createdAt: string
@@ -224,6 +145,115 @@ export interface Artist {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artwork".
+ */
+export interface Artwork {
+  id: string
+  title: string
+  description: string
+  image: string | Media
+  relation: {
+    artist: string | Artist
+  }
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock".
+ */
+export interface TwoColumnBlock {
+  invertOrder?: boolean | null
+  columnText: {
+    size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
+    title?: string | null
+    subtitle: string
+    content?:
+      | {
+          [k: string]: unknown
+        }[]
+      | null
+    addLink?: boolean | null
+    link?: {
+      type?: ('reference' | 'custom' | 'mailto') | null
+      newTab?: boolean | null
+      reference?:
+        | ({
+            relationTo: 'homepage'
+            value: string | Homepage
+          } | null)
+        | ({
+            relationTo: 'artists-page'
+            value: string | ArtistsPage
+          } | null)
+        | ({
+            relationTo: 'art-society-page'
+            value: string | ArtSocietyPage
+          } | null)
+        | ({
+            relationTo: 'exhibitions-page'
+            value: string | ExhibitionsPage
+          } | null)
+        | ({
+            relationTo: 'gallery-page'
+            value: string | GalleryPage
+          } | null)
+        | ({
+            relationTo: 'members-only-page'
+            value: string | MembersOnlyPage
+          } | null)
+        | ({
+            relationTo: 'generic-pages'
+            value: string | GenericPage
+          } | null)
+        | ({
+            relationTo: 'newsletter-page'
+            value: string | NewsletterPage
+          } | null)
+      url?: string | null
+      email?: string | null
+      subject?: string | null
+      body?: string | null
+      label: string
+      appearance?: ('default' | 'primary' | 'secondary') | null
+    }
+  }
+  columnImage: {
+    size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
+    image: string | Media
+  }
+  id?: string | null
+  blockName?: string | null
+  blockType: 'two-column-block'
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists-page".
+ */
+export interface ArtistsPage {
+  id: string
+  text: {
+    [k: string]: unknown
+  }[]
+  featuredArtwork: string | Artwork
+  meta?: {
+    title?: string | null
+    description?: string | null
+    keywords?: string | null
+  }
+  title?: string | null
+  Banners?: {
+    reachOutBoolean?: boolean | null
+    newsletterBoolean?: boolean | null
+  }
+  slug?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "art-society-page".
  */
 export interface ArtSocietyPage {
@@ -275,6 +305,7 @@ export interface Testimonial {
  */
 export interface ExhibitionsPage {
   id: string
+  featuredExhibitions: (string | Exhibition)[]
   meta?: {
     title?: string | null
     description?: string | null
@@ -354,6 +385,10 @@ export interface GalleryPage {
       | ({
           relationTo: 'generic-pages'
           value: string | GenericPage
+        } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
         } | null)
     url?: string | null
     email?: string | null
@@ -460,6 +495,10 @@ export interface TitleImageInfoBlock {
           relationTo: 'generic-pages'
           value: string | GenericPage
         } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -494,26 +533,81 @@ export interface GenericPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibition".
+ * via the `definition` "newsletter-page".
  */
-export interface Exhibition {
+export interface NewsletterPage {
   id: string
-  title: string
-  description: string
-  image: string | Media
-  dateBegin?: string | null
-  dateEnd?: string | null
   meta?: {
     title?: string | null
     description?: string | null
     keywords?: string | null
   }
-  relation?: {
-    artists?: (string | null) | Artist
+  title?: string | null
+  Banners?: {
+    reachOutBoolean?: boolean | null
+    newsletterBoolean?: boolean | null
   }
+  slug?: string | null
   updatedAt: string
   createdAt: string
   _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToAction".
+ */
+export interface CallToAction {
+  backgroundColor: 'white' | 'black' | 'blue'
+  title: string
+  text: {
+    [k: string]: unknown
+  }[]
+  featuredImage: string | Media
+  link: {
+    type?: ('reference' | 'custom' | 'mailto') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'homepage'
+          value: string | Homepage
+        } | null)
+      | ({
+          relationTo: 'artists-page'
+          value: string | ArtistsPage
+        } | null)
+      | ({
+          relationTo: 'art-society-page'
+          value: string | ArtSocietyPage
+        } | null)
+      | ({
+          relationTo: 'exhibitions-page'
+          value: string | ExhibitionsPage
+        } | null)
+      | ({
+          relationTo: 'gallery-page'
+          value: string | GalleryPage
+        } | null)
+      | ({
+          relationTo: 'members-only-page'
+          value: string | MembersOnlyPage
+        } | null)
+      | ({
+          relationTo: 'generic-pages'
+          value: string | GenericPage
+        } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
+        } | null)
+    url?: string | null
+    email?: string | null
+    subject?: string | null
+    body?: string | null
+    label: string
+  }
+  id?: string | null
+  blockName?: string | null
+  blockType: 'cta'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -622,6 +716,10 @@ export interface Menu {
                 relationTo: 'generic-pages'
                 value: string | GenericPage
               } | null)
+            | ({
+                relationTo: 'newsletter-page'
+                value: string | NewsletterPage
+              } | null)
           url?: string | null
           email?: string | null
           subject?: string | null
@@ -680,6 +778,10 @@ export interface Footer {
                   | ({
                       relationTo: 'generic-pages'
                       value: string | GenericPage
+                    } | null)
+                  | ({
+                      relationTo: 'newsletter-page'
+                      value: string | NewsletterPage
                     } | null)
                 url?: string | null
                 email?: string | null
@@ -755,6 +857,10 @@ export interface ReachOut {
           relationTo: 'generic-pages'
           value: string | GenericPage
         } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -803,6 +909,10 @@ export interface NewsletterBanner {
       | ({
           relationTo: 'generic-pages'
           value: string | GenericPage
+        } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
         } | null)
     url?: string | null
     email?: string | null

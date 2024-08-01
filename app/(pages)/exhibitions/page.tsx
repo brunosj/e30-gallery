@@ -9,7 +9,7 @@ import classes from './index.module.css'
 
 async function getData(locale: string) {
   const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=2`,
     `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
   ]
 
@@ -52,11 +52,14 @@ export default async function ExhibitionsPage() {
   const locale = languageTag()
   const { pageData, exhibitionData } = await getData(locale)
   const page: ExhibitionsPage = pageData.docs[0]
+  const featuredExhibitions: Exhibition[] = page.featuredExhibitions.filter(
+    item => typeof item !== 'string',
+  )
   const exhibitions: Exhibition[] = exhibitionData.docs
 
   return (
     <article>
-      <ExhibitionsPageData data={exhibitions} />
+      <ExhibitionsPageData data={exhibitions} featuredExhibitions={featuredExhibitions} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
     </article>
   )

@@ -22,7 +22,7 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
     <div className="container padding-y">
       <div className={classes.footer}>
         {/* Call to Action column */}
-        <div className={classes.column}>
+        <div className={classes.textColumn}>
           <div className={classes.text}>
             <RichText content={call_to_action} />
           </div>

@@ -5,6 +5,7 @@ import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carou
 import useEmblaCarousel from 'embla-carousel-react'
 import { NextButton, PrevButton, usePrevNextButtons } from './ArrowButtons'
 import { TestimonialCard } from '@/components/TestimonialCard'
+import Autoplay from 'embla-carousel-autoplay'
 
 const TWEEN_FACTOR_BASE = 0.84
 const MIN_OPACITY = 0.5
@@ -19,11 +20,14 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = props => {
   const { slides, options } = props
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    ...options,
-    align: 'center',
-    loop: true,
-  })
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      ...options,
+      align: 'center',
+      loop: true,
+    },
+    [Autoplay({ playOnInit: true, delay: 3000, stopOnMouseEnter: true, stopOnInteraction: true })],
+  )
   const tweenFactor = useRef(0)
 
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =

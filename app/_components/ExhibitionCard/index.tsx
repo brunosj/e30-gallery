@@ -26,6 +26,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
     .reverse()
     .join(' ')
 
+  const beginYear = new Date(dateBegin || '').getFullYear()
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
@@ -37,7 +38,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
         <div className={classes.contentInner}>
           <p className={classes.title}>{title}</p>
           <p className={classes.date}>
-            {begin} - {end} {endYear}
+            {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}{' '}
           </p>
         </div>
         <p className={classes.description}>{description}</p>

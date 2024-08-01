@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   min-height: 60vh;
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .oneThird {

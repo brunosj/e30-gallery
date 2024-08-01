@@ -30,29 +30,8 @@ export default async function MembersArea() {
 
   return (
     <article className="container padding-y">
-      <div className={classes.account}>
-        <h1>{m.account()}</h1>
-        <p>{m.thisIsYourAccount()}</p>
-
-        {/* <div className={classes.details}>
-          <div>
-          <p className="semibold">{m.firstName()}</p>
-          <p>{firstName}</p>
-          </div>
-          
-          <div>
-          <p className="semibold">{m.lastName()}</p>
-          <p>{lastName}</p>
-          </div>
-          
-          <div>
-          <p className="semibold">{m.email()}</p>
-          <p>{email}</p>
-          </div>
-          </div> */}
-        <AccountForm />
-        <RenderParams className={classes.params} />
-      </div>
+      <AccountForm />
+      <RenderParams className={classes.params} />
     </article>
   )
 }

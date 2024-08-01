@@ -24,19 +24,24 @@ export default function ArtistDetails({ artists }: Props) {
   const [scriptUrl, setScriptUrl] = useState<string | null>(null)
   const router = useRouter()
 
+  const filteredArtists = artists.filter(artist => artist.type === filterType)
+
   useEffect(() => {
-    if (idParam) {
-      const artist = artists.find(artist => artist.id === idParam)
+    const artistId = searchParams.get('id')
+    if (artistId) {
+      const artist = artists.find(a => a.id === artistId)
       if (artist) {
         setSelectedArtist(artist)
-        const index = artists.findIndex(a => a.id === artist.id)
-        setSelectedArtistIndex(index)
+        const index = filteredArtists.findIndex(a => a.id === artistId)
+        setSelectedArtistIndex(index >= 0 ? index : null)
       } else {
-        console.warn('Artist not found:', idParam)
+        console.warn('Artist not found:', artistId)
         setSelectedArtist(null)
       }
+    } else {
+      setSelectedArtist(null)
     }
-  }, [idParam, artists])
+  }, [searchParams, artists, filterType, filteredArtists])
 
   useEffect(() => {
     if (selectedArtist) {
@@ -65,7 +70,7 @@ export default function ArtistDetails({ artists }: Props) {
       }
 
       const containerId = scriptUrl
-        ? `aa_embed_${scriptUrl.match(/\/collection\/([^\/]+)\/embed_js\.js/)?.[1]}`
+        ? `aa_embed_${scriptUrl.match(/\/(collection|artist)\/([^\/]+)\/embed_js\.js/)?.[2]}`
         : ''
       const container = document.getElementById(containerId)
 
@@ -88,16 +93,19 @@ export default function ArtistDetails({ artists }: Props) {
   }, [scriptUrl])
 
   const handleArtistClick = (index: number) => {
-    const artistId = filteredArtists[index]?.id
-    if (artistId) {
-      router.push(`/artists?id=${artistId}`, { scroll: false })
+    if (index >= 0 && index < filteredArtists.length) {
+      const artistId = filteredArtists[index]?.id
+      if (artistId) {
+        setSelectedArtistIndex(index)
+        router.push(`/artists?id=${artistId}`, { scroll: false })
+      }
     }
   }
 
   const handleBackClick = () => {
-    router.push('/artists', { scroll: false })
     setSelectedArtist(null)
     setSelectedArtistIndex(null)
+    router.push('/artists', { scroll: false })
   }
 
   const handleNextClick = () => {
@@ -151,8 +159,6 @@ export default function ArtistDetails({ artists }: Props) {
       {m.previous()}
     </button>
   )
-
-  const filteredArtists = artists.filter(artist => artist.type === filterType)
 
   return (
     <section className={classes.section}>
@@ -234,11 +240,14 @@ export default function ArtistDetails({ artists }: Props) {
               <div className={classes.navigationButtons}>
                 <PreviousButton
                   onClick={handlePreviousClick}
-                  isDisabled={selectedArtistIndex === 0}
+                  isDisabled={selectedArtistIndex === 0 || filteredArtists.length === 0}
                 />
                 <NextButton
                   onClick={handleNextClick}
-                  isDisabled={selectedArtistIndex === filteredArtists.length - 1}
+                  isDisabled={
+                    selectedArtistIndex === filteredArtists.length - 1 ||
+                    filteredArtists.length === 0
+                  }
                 />
               </div>
             </div>

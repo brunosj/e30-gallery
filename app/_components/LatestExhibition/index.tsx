@@ -11,7 +11,7 @@ import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import classes from './index.module.css'
 
 type Props = {
-  data: Exhibition
+  data: Exhibition[]
 }
 
 const exhibitionLinkWithProps = {
@@ -21,55 +21,72 @@ const exhibitionLinkWithProps = {
 }
 
 export const LatestExhibition: React.FC<Props> = ({ data }) => {
-  const { title, description, image, dateBegin, dateEnd } = data
-  const begin = new Date(dateBegin || '')
-    .toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
-
-  const end = new Date(dateEnd || '')
-    .toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
-
-  const beginYear = new Date(dateBegin || '').getFullYear()
-  const endYear = new Date(dateEnd || '').getFullYear()
-
   return (
-    <section className="padding-b">
-      <div className={classes.grid}>
-        <div className={classes.contentContainer}>
-          <div className={classes.content}>
-            <Slide triggerOnce duration={750} direction="left">
-              <h3 className="">{m.latestExhibition()}</h3>
-              <p className="spacedTitle">{title}</p>
-              <p>
-                <span className="block">
-                  {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
-                </span>
-              </p>
-              <p> {description}</p>
+    <section>
+      {data.map((exhibition, index) => {
+        const { title, description, image, dateBegin, dateEnd } = exhibition
+        const begin = new Date(dateBegin || '')
+          .toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+          })
+          .split(' ')
+          .reverse()
+          .join(' ')
 
-              <Button link={exhibitionLinkWithProps} />
-            </Slide>
+        const end = new Date(dateEnd || '')
+          .toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+          })
+          .split(' ')
+          .reverse()
+          .join(' ')
+
+        const beginYear = new Date(dateBegin || '').getFullYear()
+        const endYear = new Date(dateEnd || '').getFullYear()
+
+        const invertOrder = index % 2 !== 0
+
+        return (
+          <div key={title} className="padding-b">
+            <div className={classes.grid}>
+              <div
+                className={[
+                  classes.contentContainer,
+                  invertOrder ? classes.order2 : classes.order1,
+                  invertOrder ? 'text-right' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <div className={classes.content}>
+                  <Slide triggerOnce duration={750} direction={index % 2 === 0 ? 'left' : 'right'}>
+                    <h3 className="">{m.featuredExhibition()}</h3>
+                    <p className="spacedTitle">{title}</p>
+                    <p>
+                      <span className="block">
+                        {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
+                      </span>
+                    </p>
+                    <p> {description}</p>
+                    <Button link={exhibitionLinkWithProps} />
+                  </Slide>
+                </div>
+              </div>
+              <div
+                className={[invertOrder ? classes.order1 : classes.order2, 'relative']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <div className={classes.image}>
+                  <Image src={image.url} alt={image.title} fill priority />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="relative">
-          {/* <Slide triggerOnce duration={750} direction="right"> */}
-          <div className={classes.image}>
-            <Image src={image.url} alt={image.title} fill priority />
-          </div>
-          {/* </Slide> */}
-        </div>
-      </div>
+        )
+      })}
     </section>
   )
 }

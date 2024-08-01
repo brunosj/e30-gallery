@@ -105,7 +105,7 @@ export const AccountForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
       {/* {!changePassword ? (
         <Fragment>
           <p>
@@ -150,6 +150,9 @@ export const AccountForm: React.FC = () => {
         </Fragment>
       ) : ( */}
       <Fragment>
+        <h1>{m.account()}</h1>
+        <p>{m.thisIsYourAccount()}</p>
+
         {/* <p>
           {m.changeYourPasswordBelowOr()}{' '}
           <button

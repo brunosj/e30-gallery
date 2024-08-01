@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: var(--base-200);
+  flex-wrap: wrap; /* Ensure items wrap if they can't fit side-by-side */
 }
 
 .column {
@@ -31,16 +32,17 @@
   max-width: 80%;
 }
 
-
 @media (max-width: 850px) {
   .footer {
-    flex-direction: column;
+    flex-direction: row; 
+    flex-wrap: wrap; 
     gap: var(--base-100);
   }
 
   .column {
-    flex: none;
-    width: 100%;
+    flex: 0 0 45%; 
+    max-width: 50%; 
+    box-sizing: border-box; 
   }
 
   .column h4 {
@@ -56,4 +58,3 @@
     max-width: 100%;
   }
 }
-
