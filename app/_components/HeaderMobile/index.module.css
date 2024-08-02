@@ -10,23 +10,34 @@
 
 .logo {
   width: 100px;
-  padding:var(--base-50)
+  padding: var(--base-50);
 }
 
 :global([data-theme="light"]) .logo {
   filter: invert(1);
 }
 
-
 @media (max-width: 850px) {
   .header {
-    padding:  0;
-    height:4rem;
+    padding: 0;
+    height: 4rem;
   }
 
   .logo {
     width: 75px;
-    padding:var(--base-50)
+    padding: var(--base-50);
   }
-  
-}  
+}
+
+@media (max-width: 480px) {
+  .header {
+    justify-content: space-between;
+    padding: var(--base-50);
+    height: 4rem;
+  }
+
+  .logo {
+    width: 60px;
+    padding: var(--base-50);
+  }
+}
