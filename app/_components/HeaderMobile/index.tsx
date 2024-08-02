@@ -10,7 +10,7 @@ import classes from './index.module.css'
 
 export function HeaderMobile() {
   return (
-    <header className="container border-b-black mobile">
+    <header className="container border-b-black mobile sticky">
       <div className={classes.header}>
         <Link href="/" className={classes.logo}>
           <Image alt="E30 Logo" src={Logo} />

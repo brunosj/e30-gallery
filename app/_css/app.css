@@ -189,6 +189,14 @@ small {
   position: relative;
 }
 
+.sticky {
+  position: -webkit-sticky; 
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+}
+
 .gray {
   color: var(--color-gray);
 }

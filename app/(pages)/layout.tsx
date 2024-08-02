@@ -29,7 +29,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <html lang={languageTag()} className={`${hanken.className}`}>
-        <body>
+        <body className="relative">
           <AuthProvider api="rest">
             <Header />
             <HeaderMobile />
