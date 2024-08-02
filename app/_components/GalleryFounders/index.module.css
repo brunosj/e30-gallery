@@ -77,7 +77,11 @@
 
     .imageColumn {
       padding-right: 0rem;
+    } 
+  }
+
+  @media (min-width: 850px) and (max-width: 1080px) {
+    .imageBottomRight {
+      margin-top: 2rem;  
     }
-     
-    
   }

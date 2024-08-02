@@ -40,23 +40,29 @@
   height:100%;
   width:100%;
   aspect-ratio: 1/1;
-
 }
 
-.image img {
-  aspect-ratio: 1/1;
 
-}
 
-@media screen and (max-width: 850px) {
+@media (max-width: 850px) {
   .grid {
     flex-direction: column;
   }
+
   .contentContainer {
     flex-direction: column;
   }
+
   .content {
     margin: 2rem auto;
   }
-  
+}
+
+@media (min-width: 850px) and (max-width: 1080px) {
+  .grid {
+    flex-direction: column;
+  }
+  .image {
+    aspect-ratio: 16/9;
+  }
 }

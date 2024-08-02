@@ -18,7 +18,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <section className={classes.grid}>
-      <div className="container flex">
+      <div className="container flex padding-y">
         <div className={classes.content}>
           <p className="">{m.aboutTheGallery()}</p>
           <RichText content={about_text} />

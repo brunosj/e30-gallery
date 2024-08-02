@@ -35,7 +35,7 @@
   padding: var(--base-200);
   background-color: #fff;
   position: relative;
-  flex: 1; /* Allow content to grow */
+  flex: 1;
 }
 
 .contentInner {
@@ -69,10 +69,7 @@
   font-weight: bold;
 }
 
-.date {
-  font-size: 1rem;
-  color: #666;
-}
+
 
 @media (max-width: 850px) {
   .content {

@@ -11,7 +11,7 @@ import classes from './index.module.css'
 const getTextColor = (backgroundColor: string) => {
   switch (backgroundColor) {
     case 'blue':
-      return 'var(--color-accent)'
+      return 'var(--color-white)'
     case 'white':
       return 'var(--color-black)'
     case 'black':

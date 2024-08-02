@@ -31,9 +31,7 @@ const ArtistCarousel: React.FC<PropType> = props => {
         <div className="artistCarousel__container">
           {slides.map((slide, index) => (
             <div className="artistCarousel__slide" key={index}>
-              <div className="artistCarousel__slide__number">
-                <ArtistListingCard item={slide} />
-              </div>
+              <ArtistListingCard item={slide} />
             </div>
           ))}
         </div>

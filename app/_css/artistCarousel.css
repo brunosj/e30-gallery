@@ -4,7 +4,7 @@
   --slide-height: 100%;
   --slide-spacing: var(--base-100);
   --slide-size: 80%;
-  --slide-spacing-sm: 1.var(--base-600);
+  --slide-spacing-sm: var(--base-100);
   --slide-size-sm: 50%;
   --slide-spacing-lg: 2rem;
   --slide-size-lg: calc(100% / 4);
@@ -16,7 +16,7 @@
 .artistCarousel__container {
   backface-visibility: hidden;
   display: flex;
-  padding-top:var(--base-100);
+  padding-top:var(--base-50);
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
 }
@@ -24,6 +24,7 @@
 @media (min-width: 750px) {
   .artistCarousel__container {
     margin-left: calc(var(--slide-spacing-sm) * -1);
+    padding-top:var(--base-200);
   }
 }
 @media (min-width: 1200px) {
@@ -36,6 +37,7 @@
   flex: 0 0 var(--slide-size);
   padding-left: var(--slide-spacing);
 }
+
 @media (min-width: 750px) {
   .artistCarousel__slide {
     flex: 0 0 var(--slide-size-sm);
@@ -58,6 +60,7 @@
   justify-content: center;
   height: var(--slide-height);
 }
+
 .artistCarousel__controls {
   margin-top: var(--base-150);
   display: flex;

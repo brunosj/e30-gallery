@@ -7,7 +7,6 @@
 	 transition: opacity 0ms linear;
 	 visibility: visible;
 	 min-width: 30vw;
-
 }
 
  .hide {
@@ -24,7 +23,7 @@
 
 .activeMenuItem {
 	padding: 0 0.var(--base-100);
-	 position: relative;
+	position: relative;
 }
 
 .activeMenuItem:after {

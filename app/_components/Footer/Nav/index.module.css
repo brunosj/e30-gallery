@@ -9,6 +9,10 @@
   flex: 1;
 }
 
+.textColumn {
+  width: 100%;
+}
+
 .column h4 {
   margin-bottom: var(--base-150);
   text-transform: uppercase;
