@@ -32,10 +32,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <html lang={languageTag()} className={`${hanken.className}`}>
         <body className="relative">
           <AuthProvider api="rest">
-            {/* <Header /> */}
-            {/* <HeaderMobile /> */}
+            <Header />
+            <HeaderMobile />
             <main className={classes.main}>{children}</main>
-            {/* <Footer /> */}
+            <Footer />
           </AuthProvider>
         </body>
       </html>
