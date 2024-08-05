@@ -57,6 +57,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   classes.contentContainer,
                   invertOrder ? classes.order2 : classes.order1,
                   invertOrder ? 'text-right' : '',
+                  invertOrder ? classes.marginLeft : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
