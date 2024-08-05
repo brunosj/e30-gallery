@@ -20,14 +20,11 @@ const ArtistInfo: React.FC<Props> = ({
   handleBackClick,
   handleNextClick,
   handlePreviousClick,
-  selectedArtistIndex,
-  filteredArtists,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     setImageLoaded(false)
-    console.log('artist', artist)
   }, [artist])
 
   const handleImageLoad = () => {
@@ -46,28 +43,10 @@ const ArtistInfo: React.FC<Props> = ({
           </button>
 
           <div className={classes.navigationButtons}>
-            <button
-              onClick={handlePreviousClick}
-              className={
-                selectedArtistIndex === 0 || filteredArtists.length === 0
-                  ? classes.disabled
-                  : 'controls'
-              }
-              disabled={selectedArtistIndex === 0 || filteredArtists.length === 0}
-            >
+            <button onClick={handlePreviousClick} className={'controls'}>
               {m.previous()}
             </button>
-            <button
-              onClick={handleNextClick}
-              className={
-                selectedArtistIndex === filteredArtists.length - 1 || filteredArtists.length === 0
-                  ? classes.disabled
-                  : 'controls'
-              }
-              disabled={
-                selectedArtistIndex === filteredArtists.length - 1 || filteredArtists.length === 0
-              }
-            >
+            <button onClick={handleNextClick} className={'controls'}>
               {m.next()}
             </button>
           </div>
@@ -93,7 +72,7 @@ const ArtistInfo: React.FC<Props> = ({
                 onLoadingComplete={handleImageLoad}
               />
             </div>
-            {imageLoaded && <RichText content={artist.bio} className="padding-y-sm" />}
+            <RichText content={artist.bio} className="padding-y-sm" />
           </div>
           <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
             <Image
@@ -106,7 +85,7 @@ const ArtistInfo: React.FC<Props> = ({
             />
           </div>
         </div>
-        {imageLoaded && artist.artworkArchiveCode && (
+        {artist.artworkArchiveCode && (
           <>
             <div className={classes.work}>
               <div className={classes.heading}>
