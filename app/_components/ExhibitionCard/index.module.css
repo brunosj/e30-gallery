@@ -69,10 +69,6 @@
   font-weight: bold;
 }
 
-.description p {
-  margin: 0;
-  line-height: 1;
-}
 
 
 @media (max-width: 850px) {

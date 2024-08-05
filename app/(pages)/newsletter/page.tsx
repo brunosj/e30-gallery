@@ -51,7 +51,7 @@ export default async function Newsletter() {
     <article>
       <div className="container padding-y">
         <h1>{page.title}</h1>
-        <NewsletterEmbed data={page} />
+        <NewsletterEmbed />
       </div>
     </article>
   )

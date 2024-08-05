@@ -40,11 +40,6 @@
   margin-left: auto;
 }
 
-.description p {
-  margin: 0;
-  line-height: 1.3;
-}
-
 @media (max-width: 850px) {
   .hero {
     padding: var(--base-200) var(--base-100);

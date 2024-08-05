@@ -108,15 +108,19 @@ export default function ArtistDetails({ artists }: Props) {
 
   const handleNextClick = () => {
     if (selectedArtistIndex !== null) {
-      const nextIndex = (selectedArtistIndex + 1) % filteredArtists.length
-      handleArtistClick(nextIndex)
+      const nextIndex = selectedArtistIndex + 1
+      if (nextIndex < filteredArtists.length) {
+        handleArtistClick(nextIndex)
+      }
     }
   }
 
   const handlePreviousClick = () => {
     if (selectedArtistIndex !== null) {
-      const prevIndex = (selectedArtistIndex - 1 + filteredArtists.length) % filteredArtists.length
-      handleArtistClick(prevIndex)
+      const prevIndex = selectedArtistIndex - 1
+      if (prevIndex >= 0) {
+        handleArtistClick(prevIndex)
+      }
     }
   }
 

@@ -27,6 +27,7 @@ const ArtistInfo: React.FC<Props> = ({
 
   useEffect(() => {
     setImageLoaded(false)
+    console.log('artist', artist)
   }, [artist])
 
   const handleImageLoad = () => {
@@ -45,10 +46,28 @@ const ArtistInfo: React.FC<Props> = ({
           </button>
 
           <div className={classes.navigationButtons}>
-            <button onClick={handlePreviousClick} className={'controls'}>
+            <button
+              onClick={handlePreviousClick}
+              className={
+                selectedArtistIndex === 0 || filteredArtists.length === 0
+                  ? classes.disabled
+                  : 'controls'
+              }
+              disabled={selectedArtistIndex === 0 || filteredArtists.length === 0}
+            >
               {m.previous()}
             </button>
-            <button onClick={handleNextClick} className={'controls'}>
+            <button
+              onClick={handleNextClick}
+              className={
+                selectedArtistIndex === filteredArtists.length - 1 || filteredArtists.length === 0
+                  ? classes.disabled
+                  : 'controls'
+              }
+              disabled={
+                selectedArtistIndex === filteredArtists.length - 1 || filteredArtists.length === 0
+              }
+            >
               {m.next()}
             </button>
           </div>
@@ -74,7 +93,7 @@ const ArtistInfo: React.FC<Props> = ({
                 onLoadingComplete={handleImageLoad}
               />
             </div>
-            <RichText content={artist.bio} className="padding-y-sm" />
+            {imageLoaded && <RichText content={artist.bio} className="padding-y-sm" />}
           </div>
           <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
             <Image
@@ -87,7 +106,7 @@ const ArtistInfo: React.FC<Props> = ({
             />
           </div>
         </div>
-        {artist.artworkArchiveCode && (
+        {imageLoaded && artist.artworkArchiveCode && (
           <>
             <div className={classes.work}>
               <div className={classes.heading}>

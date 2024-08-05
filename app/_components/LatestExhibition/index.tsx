@@ -7,7 +7,6 @@ import * as m from '@/paraglide/messages.js'
 import { Fade, Slide } from 'react-awesome-reveal'
 import { Button } from '@/components/Button'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
-import { RichText } from '../RichText'
 
 import classes from './index.module.css'
 
@@ -25,7 +24,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
   return (
     <section>
       {data.map((exhibition, index) => {
-        const { title, text, image, dateBegin, dateEnd } = exhibition
+        const { title, description, image, dateBegin, dateEnd } = exhibition
         const begin = new Date(dateBegin || '')
           .toLocaleDateString('en-US', {
             day: 'numeric',
@@ -71,7 +70,8 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                       </span>
                     </p>
 
-                    <RichText content={text} />
+                    <p> {description}</p>
+
                     <Button link={exhibitionLinkWithProps} />
                   </Slide>
                 </div>
