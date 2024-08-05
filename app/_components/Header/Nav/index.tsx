@@ -8,16 +8,19 @@ import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
+import { RiseLoader } from 'react-spinners'
 
 export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
   const { user } = useAuth()
   const [menu, setMenu] = useState<Menu | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
   const locale = languageTag() || 'en'
 
   useEffect(() => {
     const fetchMenu = async () => {
+      setLoading(true)
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/menu?locale=${locale}&depth=1`,
@@ -41,35 +44,43 @@ export const HeaderNav: React.FC = () => {
       } catch (error) {
         console.error('Failed to fetch menu:', error)
         setError('Failed to fetch menu')
+      } finally {
+        setLoading(false)
       }
     }
 
     fetchMenu()
   }, [locale])
 
+  if (loading) {
+    return
+  }
+
   if (error) {
     return <div>Error: {error}</div>
   }
 
+  if (!menu || !menu.nav) {
+    return <div>No menu data available</div>
+  }
+
   return (
     <nav className="desktop">
-      {menu && menu.nav && (
-        <ul className={classes.menu}>
-          {menu.nav.map((item, index) => {
-            const normalizedPathname = pathname.startsWith('/de/')
-              ? pathname.replace('/de', '')
-              : pathname
+      <ul className={classes.menu}>
+        {menu.nav.map((item, index) => {
+          const normalizedPathname = pathname.startsWith('/de/')
+            ? pathname.replace('/de', '')
+            : pathname
 
-            const isActive =
-              normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
-            return (
-              <li key={index} className={isActive ? classes.activeMenuItem : ''}>
-                <Button link={item.link} />
-              </li>
-            )
-          })}
-        </ul>
-      )}
+          const isActive =
+            normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
+          return (
+            <li key={index} className={isActive ? classes.activeMenuItem : ''}>
+              <Button link={item.link} />
+            </li>
+          )
+        })}
+      </ul>
     </nav>
   )
 }
