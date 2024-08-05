@@ -9,13 +9,14 @@ import classes from './index.module.css'
 import Chevron from '@/components/SVG/Chevron'
 import { Fade, Slide } from 'react-awesome-reveal'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
+import { RichText } from '@/components/RichText'
 
 type Props = {
   data: Exhibition[]
 }
 
 export const HeroExhibition: React.FC<Props> = ({ data }) => {
-  const { title, description, image, dateBegin, dateEnd } = data[0]
+  const { title, image, dateBegin, dateEnd, text } = data[0]
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
       day: 'numeric',
@@ -47,7 +48,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
               <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
               <div className={classes.info}>
                 <p className="spacedTitle">{title}</p>
-                <p>{description}</p>
+                <RichText content={text} />
                 <p className="uppercase">
                   {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
                 </p>

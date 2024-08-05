@@ -288,6 +288,7 @@ display: block;
   min-height: 90vh;
 }
 
+
 /* Responsive Styles */
 @media (max-width: 850px) {
   .container {

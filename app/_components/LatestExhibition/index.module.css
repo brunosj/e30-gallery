@@ -38,6 +38,8 @@
   order: 2;
 }
 
+
+
 @media  (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;

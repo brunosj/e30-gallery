@@ -40,6 +40,8 @@
   margin-left: auto;
 }
 
+
+
 @media (max-width: 850px) {
   .hero {
     padding: var(--base-200) var(--base-100);
