@@ -1,5 +1,7 @@
 import type { Exhibition } from '@/app/payload-types'
 import Image from 'next/image'
+import { RichText } from '../RichText'
+
 import classes from './index.module.css'
 
 type Props = {
@@ -7,7 +9,7 @@ type Props = {
 }
 
 export const ExhibitionCard: React.FC<Props> = ({ data }) => {
-  const { title, image, dateBegin, dateEnd, description } = data
+  const { title, image, dateBegin, dateEnd, text } = data
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
       day: 'numeric',
@@ -41,7 +43,9 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
             {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}{' '}
           </p>
         </div>
-        <p className={classes.description}>{description}</p>
+        <div className={classes.description}>
+          <RichText content={text} />
+        </div>
       </div>
     </section>
   )

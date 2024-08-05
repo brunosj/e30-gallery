@@ -75,7 +75,9 @@ export interface Homepage {
 export interface Exhibition {
   id: string
   title: string
-  description: string
+  text: {
+    [k: string]: unknown
+  }[]
   image: string | Media
   dateBegin?: string | null
   dateEnd?: string | null
@@ -537,6 +539,7 @@ export interface GenericPage {
  */
 export interface NewsletterPage {
   id: string
+  newsletter?: string | null
   meta?: {
     title?: string | null
     description?: string | null
