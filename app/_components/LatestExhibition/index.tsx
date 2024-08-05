@@ -72,7 +72,6 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                     </p>
 
                     <RichText content={text} />
-
                     <Button link={exhibitionLinkWithProps} />
                   </Slide>
                 </div>
