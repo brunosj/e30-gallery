@@ -4,14 +4,12 @@ import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import ExhibitionsPageData from '@/components/ExhibitionsPage/page'
-import { LatestExhibition } from '@/components/LatestExhibition'
-import { ExhibitionCard } from '@/components/ExhibitionCard'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
   const urls = [
     `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1&limit=0`,
   ]
 
   const fetchPromises = urls.map(url =>
