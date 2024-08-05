@@ -2,6 +2,7 @@ import type { ExhibitionsPage, Exhibition } from '@/app/payload-types'
 
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
 import ExhibitionsPageData from '@/components/ExhibitionsPage/page'
 import { LatestExhibition } from '@/components/LatestExhibition'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
@@ -61,6 +62,7 @@ export default async function ExhibitionsPage() {
     <article>
       <ExhibitionsPageData data={exhibitions} featuredExhibitions={featuredExhibitions} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
     </article>
   )
 }

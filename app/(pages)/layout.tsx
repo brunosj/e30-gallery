@@ -1,5 +1,6 @@
 import '../_css/app.css'
 
+import { useRouter } from 'next/router'
 import { LanguageProvider } from '@inlang/paraglide-next'
 import { languageTag } from '@/paraglide/runtime.js'
 import { Header } from '@/components/Header'
@@ -34,7 +35,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <Header />
             <HeaderMobile />
             <main className={classes.main}>{children}</main>
-            <BannerNewsletter />
             <Footer />
           </AuthProvider>
         </body>

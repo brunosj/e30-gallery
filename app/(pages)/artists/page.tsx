@@ -1,6 +1,7 @@
 import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
 import ArtistDetails from '@/components/ArtistDetails'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
@@ -62,6 +63,7 @@ export default async function ArtistsPage() {
         <ArtistDetails artists={artists} />
       </div>
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
     </article>
   )
 }

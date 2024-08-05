@@ -1,5 +1,5 @@
 .logout { 
-  min-height: 60vh;
+  min-height: 80vh;
   background-color: var(--color-black);
   /* color: var(--color-white); */
   display:flex;

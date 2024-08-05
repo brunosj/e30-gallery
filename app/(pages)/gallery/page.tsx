@@ -2,6 +2,7 @@ import type { GalleryPage } from '@/app/payload-types'
 
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
 import { GalleryHero } from '@/app/_components/GalleryHero'
 import { GalleryFounders } from '@/components/GalleryFounders'
 import { GalleryVision } from '@/components/GalleryVision'
@@ -55,6 +56,7 @@ export default async function GalleryPage() {
       <GalleryVision data={page} />
       <GalleryCTA data={page} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
     </article>
   )
 }

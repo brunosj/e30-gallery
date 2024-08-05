@@ -2,15 +2,16 @@
   display: flex;
   justify-content: space-between;
   gap: var(--base-200);
-  flex-wrap: wrap; /* Ensure items wrap if they can't fit side-by-side */
+  flex-wrap: wrap; 
+}
+
+.content {
+  margin: auto;
+
 }
 
 .column {
   flex: 1;
-}
-
-.textColumn {
-  width: 100%;
 }
 
 .column h4 {
@@ -61,4 +62,9 @@
   .text {
     max-width: 100%;
   }
+
+  .textColumn {
+    width: 100%;
+  }
+  
 }

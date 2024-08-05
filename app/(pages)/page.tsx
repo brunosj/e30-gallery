@@ -5,6 +5,7 @@ import RenderBlocks from '@/components/Blocks/RenderBlocks'
 import { languageTag } from '@/paraglide/runtime'
 import { HeroExhibition } from '@/components/HeroExhibition'
 import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
 import ArtistsListings from '@/components/ArtistsListings'
 
 async function getData(locale: string) {
@@ -58,6 +59,7 @@ export default async function Home() {
       <RenderBlocks layout={page.layout as Layout[]} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
       <ArtistsListings />
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
     </article>
   )
 }
