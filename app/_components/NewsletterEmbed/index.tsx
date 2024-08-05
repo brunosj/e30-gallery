@@ -1,18 +1,15 @@
+import type { NewsletterPage } from '@/app/payload-types'
+
 import Script from 'next/script'
 
-const NewsletterEmbed = () => {
+type Props = {
+  data: NewsletterPage
+}
+const NewsletterEmbed = ({ data }: Props) => {
   return (
     <div className="padding-y">
       {/* MailerLite Universal */}
-      <Script id="mailerlite-script">
-        {`
-          (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-          .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-          n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-          (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-          ml('account', '892300');
-        `}
-      </Script>
+      <Script id="mailerlite-script">{data.newsletter}</Script>
       {/* End MailerLite Universal */}
 
       {/* MailerLite Form */}
