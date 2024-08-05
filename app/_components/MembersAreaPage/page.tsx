@@ -56,7 +56,7 @@ export default function MembersAreaPage() {
 
   if (loading) {
     return (
-      <div className={classes.loader}>
+      <div className="loader">
         <RiseLoader />
       </div>
     )

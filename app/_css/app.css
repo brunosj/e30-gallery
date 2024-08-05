@@ -281,6 +281,13 @@ display: block;
 	background-color: white;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
 /* Responsive Styles */
 @media (max-width: 850px) {
   .container {
