@@ -43,8 +43,11 @@
 
 
 .list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  column-count: 2; 
+}
+
+.list li {
+  margin-bottom:var(--base-50);
 }
 
 .artwork {

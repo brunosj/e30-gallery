@@ -10,9 +10,10 @@ import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
 
 type Props = {
   artists: Artist[]
+  featuredArtwork: Artwork
 }
 
-export default function ArtistDetails({ artists }: Props) {
+export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   const searchParams = useSearchParams()
   const idParam = searchParams.get('id')
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null)
@@ -23,6 +24,10 @@ export default function ArtistDetails({ artists }: Props) {
   const router = useRouter()
 
   const filteredArtists = artists.filter(artist => artist.type === filterType)
+
+  useEffect(() => {
+    setHoveredArtwork(featuredArtwork)
+  }, [featuredArtwork])
 
   useEffect(() => {
     const artistId = searchParams.get('id')
@@ -125,7 +130,7 @@ export default function ArtistDetails({ artists }: Props) {
   }
 
   const handleMouseLeave = () => {
-    setHoveredArtwork(null)
+    setHoveredArtwork(featuredArtwork)
   }
 
   return (

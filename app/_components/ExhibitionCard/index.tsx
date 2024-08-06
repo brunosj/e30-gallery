@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const ExhibitionCard: React.FC<Props> = ({ data }) => {
-  const { title, image, dateBegin, dateEnd, text } = data
+  const { title, image, homepageImage, dateBegin, dateEnd, text } = data
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
       day: 'numeric',

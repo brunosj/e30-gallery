@@ -51,16 +51,26 @@ export default async function ArtistsPage() {
   const locale = languageTag()
   const { pageData, artistData } = await getData(locale)
   const page: ArtistsPage = pageData.docs[0]
-  const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) =>
-    a.name.localeCompare(b.name),
-  )
+  const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) => {
+    const getLastName = (name: string) => {
+      const parts = name.split(' ')
+      return parts[parts.length - 1]
+    }
+
+    const lastNameA = getLastName(a.name)
+    const lastNameB = getLastName(b.name)
+
+    return lastNameA.localeCompare(lastNameB)
+  })
+  const featuredArtwork = page.featuredArtwork as Artwork
+
   return (
     <article>
       <div className="container padding-y">
         <div className={classes.text}>
           <RichText content={page.text} />
         </div>
-        <ArtistDetails artists={artists} />
+        <ArtistDetails artists={artists} featuredArtwork={featuredArtwork} />
       </div>
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
       {page.Banners?.newsletterBoolean && <BannerNewsletter />}

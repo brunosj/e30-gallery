@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const HeroExhibition: React.FC<Props> = ({ data }) => {
-  const { title, image, dateBegin, dateEnd, text } = data[0]
+  const { title, homepageImage, image, dateBegin, dateEnd, text } = data[0]
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
       day: 'numeric',
@@ -40,7 +40,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   return (
     <section className={classes.hero}>
-      <Image src={image.url} alt={image.title} fill priority />
+      <Image src={homepageImage?.url || image.url} alt={image.title} fill priority />
       <div className={classes.contentContainer}>
         <div className={classes.paddingR}>
           <Fade triggerOnce duration={750} delay={250}>

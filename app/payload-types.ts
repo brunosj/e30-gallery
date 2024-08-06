@@ -75,10 +75,10 @@ export interface Homepage {
 export interface Exhibition {
   id: string
   title: string
-  description: string
   text: {
     [k: string]: unknown
   }[]
+  homepageImage?: string | Media | null
   image: string | Media
   dateBegin?: string | null
   dateEnd?: string | null

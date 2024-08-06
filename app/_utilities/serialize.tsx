@@ -77,13 +77,20 @@ const serialize = (children: Children): React.ReactNode[] =>
         return <ol key={i}>{serialize(node.children)}</ol>
       case 'li':
         return <li key={i}>{serialize(node.children)}</li>
-      case 'link':
+      case 'link': {
+        const url = escapeHTML(node.url)
+        const isExternal = url.startsWith('https') || url.startsWith('www')
         return (
-          <a href={escapeHTML(node.url)} key={i}>
+          <a
+            href={url}
+            target={isExternal ? '_blank' : undefined}
+            key={i}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+          >
             {serialize(node.children)}
           </a>
         )
-
+      }
       default:
         return <p key={i}>{serialize(node.children)}</p>
     }

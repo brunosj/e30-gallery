@@ -46,7 +46,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
           const { title, info, image, textJustification, link } = block
           return (
             <div key={index} className={classes.grid}>
-              <div className={classes.image}>
+              <div className={classes.imageLast}>
                 <Image src={image.url} alt={image.alt} fill />
               </div>
               <div

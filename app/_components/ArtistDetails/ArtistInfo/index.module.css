@@ -83,6 +83,14 @@
   font-style: italic;
 }
 
+.loader {
+  width: 100%;
+  display: flex;
+  margin:auto;
+  justify-content: center;
+  align-items: center;
+}
+
 
 @media screen and (max-width: 850px) {
   .grid {

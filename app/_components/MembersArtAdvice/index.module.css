@@ -25,6 +25,8 @@
 .text {
   position: relative;
   max-width: 90%;
+  margin:auto;
+
 
 }
 
@@ -33,7 +35,7 @@
 }
 
 .textLast {
-  max-width: 70%;
+  max-width: 90%;
   margin:auto;
 }
 
@@ -44,6 +46,13 @@
   aspect-ratio: 16/9;
   overflow: hidden;
 }
+
+.imageLast {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
 
 
 .richText p {
