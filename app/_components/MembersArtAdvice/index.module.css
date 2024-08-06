@@ -1,9 +1,15 @@
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--base-600);
 }
+
+.gridLast {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--base-600);
+}
+
 
 .block {
   position: relative;
@@ -26,8 +32,6 @@
   position: relative;
   max-width: 90%;
   margin:auto;
-
-
 }
 
 .textLast > * {
@@ -70,6 +74,11 @@
     gap: var(--base-100);
   }
 
+  .gridLast {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
   .title {
     font-weight: 600;
     margin-top:var(--base-200) 
@@ -85,14 +94,23 @@
     text-align: center;
   }
   
-  
   .text > * {
     margin-bottom: var(--base-100);
   }
   
-  
   .textLast > * {
     margin-bottom: var(--base-100);
+  }
+
+  .imageLast {
+    position: relative;
+    aspect-ratio: 16/9;
+  }
+  
+  .imageLast img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
   }
   
 }

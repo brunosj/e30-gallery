@@ -45,7 +45,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
         {individuallArtAdviceBlock.slice(2).map((block, index) => {
           const { title, info, image, textJustification, link } = block
           return (
-            <div key={index} className={classes.grid}>
+            <div key={index} className={classes.gridLast}>
               <div className={classes.imageLast}>
                 <Image src={image.url} alt={image.alt} fill />
               </div>
