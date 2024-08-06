@@ -49,10 +49,14 @@
 
 .imageLast {
   position: relative;
-  width: 100%;
-  overflow: hidden;
+
 }
 
+.imageLast img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
 
 
 .richText p {

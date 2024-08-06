@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
-  const { page_title_art_advice, text_home, individuallArtAdviceBlock } = data
+  const { page_title_art_advice, individuallArtAdviceBlock } = data
   return (
     <section className="container padding-y">
       <h3 className="membersAreaTitle">{page_title_art_advice}</h3>
