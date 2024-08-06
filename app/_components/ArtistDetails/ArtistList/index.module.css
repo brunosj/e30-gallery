@@ -94,6 +94,11 @@
     gap:var(--base-300);
   }
 
+  .list {
+    column-count: 1; 
+  }
+
+  
   .work {
     margin:var(--base-100) 0;
   }

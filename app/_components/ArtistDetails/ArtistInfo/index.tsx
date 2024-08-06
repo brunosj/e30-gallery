@@ -83,6 +83,7 @@ const ArtistInfo: React.FC<Props> = ({
                     : artist.image.alt || artist.name
                 }
                 fill
+                onLoad={handleImageLoad}
               />
             </div>
             {imageLoaded && <RichText content={artist.bio} className="padding-y-sm" />}
