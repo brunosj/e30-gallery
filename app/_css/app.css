@@ -22,9 +22,9 @@
   --base-600: 6rem;
 }
 
-* {
+/* * {
   outline: gray solid 1px;
-}
+} */
 
 body {
 	background-color: var(--color-white);
