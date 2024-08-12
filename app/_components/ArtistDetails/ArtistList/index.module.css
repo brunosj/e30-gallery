@@ -50,6 +50,11 @@
   margin-bottom:var(--base-50);
 }
 
+.list button  {
+  display: block;
+  text-align: left;
+}
+
 .artwork {
   position: relative;
 }

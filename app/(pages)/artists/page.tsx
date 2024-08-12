@@ -54,11 +54,11 @@ export default async function ArtistsPage() {
   const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) => {
     const getLastName = (name: string) => {
       const parts = name.split(' ')
-      return parts[parts.length - 1]
+      return parts.length > 1 ? parts[parts.length - 1] : name
     }
 
-    const lastNameA = getLastName(a.name)
-    const lastNameB = getLastName(b.name)
+    const lastNameA = getLastName(a.full_name)
+    const lastNameB = getLastName(b.full_name)
 
     return lastNameA.localeCompare(lastNameB)
   })

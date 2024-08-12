@@ -28,6 +28,7 @@
   aspect-ratio: 16/9;
   /* height: 200px; */
   overflow: hidden;
+  cursor: pointer;
 }
 
 .tooltip {

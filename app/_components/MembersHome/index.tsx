@@ -7,9 +7,10 @@ import { getTextJustificationClass } from '@/utilities/geTextJustification'
 
 type Props = {
   data: MembersOnlyPage
+  setActiveTab: (tab: string) => void
 }
 
-export const MembersHome: React.FC<Props> = ({ data }: Props) => {
+export const MembersHome: React.FC<Props> = ({ data, setActiveTab }: Props) => {
   const { page_title_home, text_home, homeBlocks } = data
   return (
     <section className="container padding-y">
@@ -18,10 +19,21 @@ export const MembersHome: React.FC<Props> = ({ data }: Props) => {
       <div className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')}>
         {homeBlocks.map((block, index) => {
           const { title, info, image, textJustification } = block
+
+          const handleClick = () => {
+            if (index === 0) {
+              setActiveTab('virtualExhibition')
+            } else if (index === 1 || index === 2) {
+              setActiveTab('individualArtAdvice')
+            }
+          }
+
           return (
             <div key={index} className={classes.block}>
               <div
-                className={`${classes.text} ${getTextJustificationClass(textJustification || 'left')}`}
+                className={`${classes.text} ${getTextJustificationClass(
+                  textJustification || 'left',
+                )}`}
               >
                 <h4>
                   {title}
@@ -31,7 +43,7 @@ export const MembersHome: React.FC<Props> = ({ data }: Props) => {
                   </span>
                 </h4>
               </div>
-              <div className={classes.image}>
+              <div className={classes.image} onClick={handleClick}>
                 <Image src={image.url} alt={image.alt} fill priority />
               </div>
             </div>

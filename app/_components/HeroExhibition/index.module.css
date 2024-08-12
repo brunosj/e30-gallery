@@ -41,6 +41,10 @@
 }
 
 
+.hero img {
+  object-fit: contain;
+}
+
 
 @media (max-width: 850px) {
   .hero {

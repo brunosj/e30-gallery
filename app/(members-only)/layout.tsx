@@ -1,5 +1,6 @@
 import '../_css/app.css'
 
+import type { Viewport } from 'next'
 import { LanguageProvider } from '@inlang/paraglide-next'
 import { languageTag } from '@/paraglide/runtime.js'
 import { HeaderMembersArea } from '@/components/HeaderMembersArea'
@@ -10,6 +11,12 @@ import Footer from '@/components/Footer'
 import { getMeUser } from '@/utilities/getMeUser'
 import { redirect } from '@/lib/i18n'
 import * as m from '@/paraglide/messages.js'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
 
 const hanken = localFont({
   src: '../../assets/fonts/HankenGrotesk-VariableFont_wght.ttf',

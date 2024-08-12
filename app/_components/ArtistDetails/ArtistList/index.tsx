@@ -55,15 +55,14 @@ const ArtistList: React.FC<Props> = ({
                 onClick={() => handleArtistClick(index)}
                 onMouseEnter={() => handleMouseEnter(artist.relation.artworks as Artwork)}
                 onMouseLeave={handleMouseLeave}
-                className="controls"
               >
-                {artist.name}
+                {artist.full_name}
               </button>
             </li>
           ))}
         </ul>
 
-        <div className="relative">
+        <div className="relative desktop">
           <div className={classes.image}>
             {hoveredArtwork ? (
               <Fade duration={750}>

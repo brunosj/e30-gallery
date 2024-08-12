@@ -1,7 +1,6 @@
 'use client'
 
 import type { MembersOnlyPage } from '@/app/payload-types'
-
 import React, { useState } from 'react'
 import { MembersHome } from '../MembersHome'
 import { MembersArtAdvice } from '../MembersArtAdvice'
@@ -9,7 +8,6 @@ import { MembersSpecialEvents } from '../MembersSpecialEvents'
 import { MembersVirtualExhibition } from '../MembersVirtualExhibition'
 import { Button } from '@/components/Button'
 import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
-
 import classes from './index.module.css'
 
 type Props = {
@@ -29,7 +27,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
-        return <MembersHome data={data} />
+        return <MembersHome data={data} setActiveTab={setActiveTab} />
       case 'virtualExhibition':
         return <MembersVirtualExhibition data={data} />
       case 'specialEvents':
@@ -37,7 +35,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
       case 'individualArtAdvice':
         return <MembersArtAdvice data={data} />
       default:
-        return <MembersHome data={data} />
+        return <MembersHome data={data} setActiveTab={setActiveTab} />
     }
   }
 
@@ -89,7 +87,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
         <div>{renderContent()}</div>
       </section>
       <section className="mobile">
-        <MembersHome data={data} />
+        <MembersHome data={data} setActiveTab={setActiveTab} />
         <MembersVirtualExhibition data={data} />
         <MembersSpecialEvents data={data} />
         <MembersArtAdvice data={data} />

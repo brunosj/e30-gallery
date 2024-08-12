@@ -56,7 +56,9 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
 
   const yearOptions = [
     { value: '', label: `${m.allYears()}` },
-    ...uniqueYears.sort((a, b) => a - b).map(year => ({ value: year, label: year })),
+    ...uniqueYears
+      .sort((a, b) => parseInt(b) - parseInt(a))
+      .map(year => ({ value: year, label: year })),
   ]
 
   const filteredExhibitions = otherExhibitions

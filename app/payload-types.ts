@@ -125,6 +125,7 @@ export interface Media {
  */
 export interface Artist {
   id: string
+  full_name: string
   name: string
   country: string
   additional_info: string

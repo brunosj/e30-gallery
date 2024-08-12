@@ -67,7 +67,7 @@ const ArtistInfo: React.FC<Props> = ({
           <div>
             {imageLoaded && (
               <>
-                <h2>{artist.name}</h2>
+                <h2>{artist.full_name}</h2>
                 <div className={classes.additionalInfo}>
                   <p>{artist.additional_info}</p>
                   <p>{artist.country}</p>
@@ -80,7 +80,7 @@ const ArtistInfo: React.FC<Props> = ({
                 alt={
                   typeof artist.image === 'string'
                     ? 'Artist Image'
-                    : artist.image.alt || artist.name
+                    : artist.image.alt || artist.full_name
                 }
                 fill
                 onLoad={handleImageLoad}
@@ -93,7 +93,9 @@ const ArtistInfo: React.FC<Props> = ({
               key={currentArtist.image.url}
               src={typeof artist.image === 'string' ? artist.image : artist.image.url}
               alt={
-                typeof artist.image === 'string' ? 'Artist Image' : artist.image.alt || artist.name
+                typeof artist.image === 'string'
+                  ? 'Artist Image'
+                  : artist.image.alt || artist.full_name
               }
               fill
               onLoad={handleImageLoad}
