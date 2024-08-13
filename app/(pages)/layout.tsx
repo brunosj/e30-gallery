@@ -12,6 +12,7 @@ import { AuthProvider } from '@/providers/Auth'
 import localFont from 'next/font/local'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import Footer from '@/components/Footer'
+import { siteMetadata } from '@/components/Metadata'
 
 import classes from './index.module.css'
 
@@ -29,31 +30,7 @@ const hanken = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://preview.e30gallery.com'),
-  title: 'E30 Gallery',
-  description: 'An art gallery located in Frankfurt am Main, Germany',
-  openGraph: {
-    title: 'E30 Gallery',
-    description: 'An art gallery located in Frankfurt am Main, Germany',
-    url: 'https://e30gallery.com',
-    siteName: 'E30 Gallery',
-    images: [
-      {
-        url: '/e30-gallery.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'E30 Gallery Image',
-      },
-    ],
-    twitter: {
-      card: 'summary_large_image',
-      title: 'E30 Gallery',
-      description: 'An art gallery located in Frankfurt am Main, Germany',
-      images: ['/e30-gallery.jpg'],
-    },
-    locale: 'en_US, de_DE',
-    type: 'website',
-  },
+  ...siteMetadata,
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
