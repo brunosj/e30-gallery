@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 
 const siteMetadata: Metadata = {
+  metadataBase: new URL('https://preview.e30gallery.com'),
   title: 'E30 Gallery',
   description: 'An art gallery located in Frankfurt am Main, Germany',
 
