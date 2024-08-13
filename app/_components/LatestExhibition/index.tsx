@@ -4,10 +4,11 @@ import type { Exhibition } from '@/app/payload-types'
 
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
-import { Fade, Slide } from 'react-awesome-reveal'
 import { Button } from '@/components/Button'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
+import { fadeInVariants } from '@/utilities/animationVariants'
+import { motion } from 'framer-motion'
 
 import classes from './index.module.css'
 
@@ -15,17 +16,11 @@ type Props = {
   data: Exhibition[]
 }
 
-const exhibitionLinkWithProps = {
-  ...ExhibitionLink,
-  label: m.viewNow(),
-  appearance: 'primary',
-}
-
 export const LatestExhibition: React.FC<Props> = ({ data }) => {
   return (
     <section>
       {data.map((exhibition, index) => {
-        const { title, image, dateBegin, dateEnd, text } = exhibition
+        const { title, image, dateBegin, dateEnd, text, link, addLink } = exhibition
         const begin = new Date(dateBegin || '')
           .toLocaleDateString('en-US', {
             day: 'numeric',
@@ -62,21 +57,24 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   .filter(Boolean)
                   .join(' ')}
               >
-                <div className={classes.content}>
-                  <Slide triggerOnce duration={750} direction={index % 2 === 0 ? 'left' : 'right'}>
-                    <h3 className="">{m.featuredExhibition()}</h3>
-                    <p className="spacedTitle">{title}</p>
-                    <p>
-                      <span className="block">
-                        {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
-                      </span>
-                    </p>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.9 }}
+                  variants={fadeInVariants}
+                  className={classes.content}
+                >
+                  <h3 className="">{m.featuredExhibition()}</h3>
+                  <p className="spacedTitle">{title}</p>
+                  <p>
+                    <span className="block">
+                      {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
+                    </span>
+                  </p>
 
-                    <RichText content={text} />
-
-                    <Button link={exhibitionLinkWithProps} />
-                  </Slide>
-                </div>
+                  <RichText content={text} />
+                  {addLink && <Button link={link} />}
+                </motion.div>
               </div>
               <div
                 className={[invertOrder ? classes.order1 : classes.order2, 'relative']

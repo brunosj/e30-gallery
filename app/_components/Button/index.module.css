@@ -76,9 +76,10 @@
   padding: 0;
   color: var(--theme-text);
   position: relative;
+  transition: transform 0.3s ease
 }
 
-.appearance--default::after {
+/* .appearance--default::after {
   content: ''; 
   position: absolute;
   bottom: 0; 
@@ -93,4 +94,7 @@
 
 .appearance--default:hover::after {
   opacity: 1;
-}
+} */
+
+.appearance--default:hover {
+  transform: scale(1.07); }

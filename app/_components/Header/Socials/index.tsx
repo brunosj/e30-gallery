@@ -57,7 +57,7 @@ export const Socials: React.FC = () => {
   }
 
   return (
-    <nav>
+    <>
       {socials && socials.socials && (
         <ul className={classes.socials}>
           {socials.socials.map((item, index) => (
@@ -72,6 +72,6 @@ export const Socials: React.FC = () => {
           </li>
         </ul>
       )}
-    </nav>
+    </>
   )
 }

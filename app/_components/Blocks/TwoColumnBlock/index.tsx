@@ -3,9 +3,10 @@
 import type { TwoColumnBlock, Media } from '@/app/payload-types'
 
 import Image from 'next/image'
-import { Fade, Slide } from 'react-awesome-reveal'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
+import { motion } from 'framer-motion'
+import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
 
 import classes from './index.module.css'
 
@@ -17,7 +18,11 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
   const image = columnImage.image as Media
   return (
     <div className={classes.grid}>
-      <div
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.9 }}
+        variants={fadeInVariants}
         className={[
           'container padding-y',
           classes.textColumn,
@@ -28,17 +33,15 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           .filter(Boolean)
           .join(' ')}
       >
-        <Fade triggerOnce duration={750}>
-          {columnText.title && <h1 className={classes.title}>{columnText.title}</h1>}
-          <p className="semibold">{columnText.subtitle}</p>
-          {columnText.content && (
-            <div>
-              <RichText content={columnText.content} />
-            </div>
-          )}
-          {columnText.addLink && columnText.link && <Button link={columnText.link} />}
-        </Fade>
-      </div>
+        {columnText.title && <h1 className={classes.title}>{columnText.title}</h1>}
+        <p className="semibold">{columnText.subtitle}</p>
+        {columnText.content && (
+          <div>
+            <RichText content={columnText.content} />
+          </div>
+        )}
+        {columnText.addLink && columnText.link && <Button link={columnText.link} />}
+      </motion.div>
       <div
         className={[
           classes.imageColumn,

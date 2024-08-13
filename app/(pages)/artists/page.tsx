@@ -5,6 +5,7 @@ import BannerNewsletter from '@/components/BannerNewsletter'
 import ArtistDetails from '@/components/ArtistDetails'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
+import { ArtistPageHero } from '@/components/ArtistPageHero'
 
 async function getData(locale: string) {
   const urls = [
@@ -63,13 +64,12 @@ export default async function ArtistsPage() {
     return lastNameA.localeCompare(lastNameB)
   })
   const featuredArtwork = page.featuredArtwork as Artwork
+  console.log(artists)
 
   return (
     <article>
       <div className="container padding-y">
-        <div className={classes.text}>
-          <RichText content={page.text} />
-        </div>
+        <ArtistPageHero data={page} />
         <ArtistDetails artists={artists} featuredArtwork={featuredArtwork} />
       </div>
       {page.Banners?.reachOutBoolean && <BannerReachOut />}

@@ -4,7 +4,15 @@
 
 .richText a {
   text-decoration: underline;
+  transition: opacity 0.3s ease;
+  opacity:1
 }
+
+.richText a:hover {
+  opacity:0.6
+}
+
+
 
 .richText h1 {
   font-size: var(--base-300);

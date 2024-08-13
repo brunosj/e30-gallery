@@ -65,7 +65,7 @@ export const HeaderNav: React.FC = () => {
   }
 
   return (
-    <nav className="desktop">
+    <div className="desktop">
       <ul className={classes.menu}>
         {menu.nav.map((item, index) => {
           const normalizedPathname = pathname.startsWith('/de/')
@@ -81,6 +81,6 @@ export const HeaderNav: React.FC = () => {
           )
         })}
       </ul>
-    </nav>
+    </div>
   )
 }

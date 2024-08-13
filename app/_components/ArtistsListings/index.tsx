@@ -11,7 +11,7 @@ async function getData(locale: string) {
   let data
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2&limit=0`,
       {
         method: 'GET',
         headers: {

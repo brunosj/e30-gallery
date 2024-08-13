@@ -2,6 +2,7 @@ import type { NewsletterPage } from '@/app/payload-types'
 
 import { languageTag } from '@/paraglide/runtime'
 import NewsletterEmbed from '@/components/NewsletterEmbed'
+import { RichText } from '@/components/RichText'
 
 async function getData(locale: string) {
   const urls = [
@@ -50,7 +51,7 @@ export default async function Newsletter() {
   return (
     <article>
       <div className="container padding-y">
-        <h1>{page.title}</h1>
+        <RichText content={page.text} />
         <NewsletterEmbed data={page} />
       </div>
     </article>

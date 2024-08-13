@@ -5,7 +5,8 @@ import type { GalleryPage } from '@/app/payload-types'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { RichText } from '../RichText'
-import { Fade, Slide } from 'react-awesome-reveal'
+import { fadeInVariants } from '@/utilities/animationVariants'
+import { motion } from 'framer-motion'
 
 import classes from './index.module.css'
 
@@ -18,21 +19,27 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <section className={classes.grid}>
-      <div className="container flex padding-y">
-        <div className={classes.content}>
-          <p className="">{m.aboutTheGallery()}</p>
-          <RichText content={about_text} />
-          <div className={classes.flex}>
-            <div className={classes.line} />
-            <RichText content={mission_statement} />
+      <div className={classes.contentColumn}>
+        <div className="container flex padding-y">
+          <div className={classes.content}>
+            <p className="">{m.aboutTheGallery()}</p>
+            <RichText content={about_text} />
+            <div className={classes.flex}>
+              <div className={classes.line} />
+              <RichText content={mission_statement} />
+            </div>
           </div>
         </div>
       </div>
-      <div className={classes.image}>
-        <Fade triggerOnce duration={1000}>
-          <Image src={imageHero.url} alt={imageHero.title} fill priority />
-        </Fade>
-      </div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.9 }}
+        variants={fadeInVariants}
+        className={classes.image}
+      >
+        <Image src={imageHero.url} alt={imageHero.title} fill priority />
+      </motion.div>
     </section>
   )
 }

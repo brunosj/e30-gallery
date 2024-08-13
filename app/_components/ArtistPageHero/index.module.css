@@ -1,0 +1,10 @@
+.text {
+max-width: 66%;
+}
+
+
+@media  (max-width: 850px) {
+  .text {
+    max-width: 100%;
+  }
+}

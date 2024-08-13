@@ -46,6 +46,10 @@
   margin-bottom: 1rem;
 }
 
+.info span {
+  font-size:1.3rem;
+}
+
 .info p {
   color: var(--color-gray);
   font-weight: 300;
@@ -59,7 +63,7 @@
 .artwork {
   position: relative;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   aspect-ratio: 1 / 1;
   background-color: #fff;
 }
@@ -85,20 +89,36 @@
   }
 }
 
-@media  (min-width: 450px) and (max-width: 850px)  {
+@media  (min-width: 400px) and (max-width: 850px)  {
   .content {
     min-height: 15vh;
   }
 }
 
-@media (min-width: 850px) and (max-width: 1600px) {
+@media  (min-width: 400px) and (max-width: 850px) and (max-height: 500px)  {
+  .content {
+    min-height: 40vh;
+  }
+}
+
+@media (min-width: 850px) and  (max-width: 1600px) {
   .content {
     min-height: 20vh;
   }
 }
 
+@media (min-width: 850px) and (max-height: 500px) {
+  .content {
+    min-height: 35vh;
+  }
+}
+
 @media (min-width: 1601px) {
   .content {
-    min-height: 15vh;
+    min-height: 18vh;
+  }
+
+  .info span {
+    font-size:1.5rem;
   }
 }

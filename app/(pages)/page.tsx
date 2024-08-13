@@ -58,7 +58,7 @@ export default async function Home() {
       <HeroExhibition data={featuredExhibitions} />
       <RenderBlocks layout={page.layout as Layout[]} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      {/* <ArtistsListings /> */}
+      <ArtistsListings />
       {page.Banners?.newsletterBoolean && <BannerNewsletter />}
     </article>
   )

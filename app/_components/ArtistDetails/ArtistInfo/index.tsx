@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Fade } from 'react-awesome-reveal'
 import { Artist } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
-import { RiseLoader } from 'react-spinners'
 
 type Props = {
   artist: Artist

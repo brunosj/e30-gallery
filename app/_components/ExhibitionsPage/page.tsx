@@ -83,8 +83,8 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
         />
       </div>
       <div className={classes.exhibitions}>
-        {filteredExhibitions.map(exhibition => (
-          <ExhibitionCard key={exhibition.id} data={exhibition} />
+        {filteredExhibitions.map((exhibition, index) => (
+          <ExhibitionCard key={exhibition.id} data={exhibition} index={index} />
         ))}
       </div>
     </div>

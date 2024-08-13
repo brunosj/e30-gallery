@@ -20,8 +20,7 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
       </div>
       <div className={classes.content}>
         <div className={classes.info}>
-          <h3 className="desktop">{item.full_name}</h3>
-          <h4 className="mobile">{item.full_name}</h4>
+          <span>{item.full_name}</span>
           <p>{item.country}</p>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Fade } from 'react-awesome-reveal'
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
@@ -65,23 +64,19 @@ const ArtistList: React.FC<Props> = ({
         <div className="relative desktop">
           <div className={classes.image}>
             {hoveredArtwork ? (
-              <Fade duration={750}>
-                <Image
-                  src={hoveredArtwork.image.url}
-                  alt={hoveredArtwork.image.title}
-                  fill
-                  priority
-                />
-              </Fade>
+              <Image
+                src={hoveredArtwork.image.url}
+                alt={hoveredArtwork.image.title}
+                fill
+                priority
+              />
             ) : (
-              <Fade duration={750}>
-                <Image
-                  src={(artists[0]?.relation.artworks as Artwork)?.image.url}
-                  alt={(artists[0]?.relation.artworks as Artwork)?.image.title}
-                  fill
-                  priority
-                />
-              </Fade>
+              <Image
+                src={(artists[0]?.relation.artworks as Artwork)?.image.url}
+                alt={(artists[0]?.relation.artworks as Artwork)?.image.title}
+                fill
+                priority
+              />
             )}
           </div>
         </div>

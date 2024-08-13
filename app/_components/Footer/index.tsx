@@ -37,7 +37,7 @@ export default async function Footer() {
   const footer = data
 
   return (
-    <section className={classes.bg}>
+    <footer className={classes.bg}>
       <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
         <div className={classes.content}>
           <FooterNav data={footer} />
@@ -51,6 +51,6 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   )
 }

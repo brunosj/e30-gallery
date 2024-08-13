@@ -1,3 +1,5 @@
+'use client'
+
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
@@ -5,6 +7,8 @@ import * as m from '@/paraglide/messages.js'
 import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
+import { textVariants, clipPathVariants } from '@/utilities/animationVariants'
+import { motion } from 'framer-motion'
 
 type Props = {
   data: GalleryPage
@@ -24,7 +28,13 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
             className={classes.backgroundImage}
           />
         </div>
-        <div className={classes.overlay}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.9 }}
+          variants={clipPathVariants}
+          className={classes.overlay}
+        >
           <RichText content={text} className={classes.text} />
           <div className="desktop">
             <Button link={link} label={link.label} appearance={link.appearance} />
@@ -32,7 +42,7 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
           <div className="mobile">
             <Button link={link} label={link.label} appearance={'primary'} />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

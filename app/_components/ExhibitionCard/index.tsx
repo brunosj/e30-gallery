@@ -1,13 +1,23 @@
+import React, { useRef } from 'react'
 import type { Exhibition } from '@/app/payload-types'
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
+import { motion, useInView } from 'framer-motion'
+import { cardVariants } from '@/app/_utilities/animationVariants'
 
 type Props = {
   data: Exhibition
+  index: number
 }
 
-export const ExhibitionCard: React.FC<Props> = ({ data }) => {
+export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
+  const ref = useRef(null)
+  const inView = useInView(ref, {
+    once: true,
+    amount: 0.2,
+  })
+
   const { title, image, homepageImage, dateBegin, dateEnd, text } = data
   const begin = new Date(dateBegin || '')
     .toLocaleDateString('en-US', {
@@ -31,7 +41,13 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
-    <section className={classes.card}>
+    <motion.div
+      ref={ref}
+      variants={cardVariants(index)}
+      initial="hidden"
+      animate={inView ? 'visible' : 'hidden'}
+      className={classes.card}
+    >
       <div className={classes.imageWrapper}>
         <Image src={image.url} alt={image.title} fill className={classes.image} />
       </div>
@@ -46,6 +62,6 @@ export const ExhibitionCard: React.FC<Props> = ({ data }) => {
           <RichText content={text} />
         </div>
       </div>
-    </section>
+    </motion.div>
   )
 }

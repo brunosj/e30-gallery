@@ -3,7 +3,7 @@ import { languageTag } from '@/paraglide/runtime'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components//Button'
 import Chevron from '@/components/SVG/Chevron'
-
+import BannerReachOutComponent from '@/components/BannerReachOut/BannerReachOutComponent'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -37,28 +37,29 @@ export default async function BannerReachOut() {
   const banner = data
 
   return (
-    <section className={classes.bg}>
-      <div className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}>
-        <div className={classes.title}>
-          <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />
-          <div className={classes.title}>
-            <div className="spacedTitle">
-              {banner.title.split(' ').map((word, index) => (
-                <span className={classes.titleElements} key={index}>
-                  {word}
-                </span>
-              ))}
-            </div>
-          </div>
-          <Chevron color="var(--color-white)" size={25} className="iconBottomRight" />
-        </div>
-        <div className={classes.content}>
-          <div className={classes.text}>
-            <RichText content={banner.text} />
-          </div>
-          <Button link={banner.link} />
-        </div>
-      </div>
-    </section>
+    <BannerReachOutComponent data={banner} />
+    // <section className={classes.bg}>
+    //   <div className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}>
+    //     <div className={classes.title}>
+    //       <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />
+    //       <div className={classes.title}>
+    //         <div className="spacedTitle">
+    //           {banner.title.split(' ').map((word, index) => (
+    //             <span className={classes.titleElements} key={index}>
+    //               {word}
+    //             </span>
+    //           ))}
+    //         </div>
+    //       </div>
+    //       <Chevron color="var(--color-white)" size={25} className="iconBottomRight" />
+    //     </div>
+    //     <div className={classes.content}>
+    //       <div className={classes.text}>
+    //         <RichText content={banner.text} />
+    //       </div>
+    //       <Button link={banner.link} />
+    //     </div>
+    //   </div>
+    // </section>
   )
 }

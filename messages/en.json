@@ -65,5 +65,7 @@
     "thisIsYourAccount": "This is your account dashboard. Here you can update your account information.",
     "selectYear": "Select year",
     "allYears": "All Years",
-    "pageNotFound": "Page not found, sorry!"
+    "pageNotFound": "Page not found, sorry!",
+    "withArtworksBy": "With artworks by"
+
 }
