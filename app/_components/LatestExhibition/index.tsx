@@ -7,7 +7,12 @@ import * as m from '@/paraglide/messages.js'
 import { Button } from '@/components/Button'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
-import { fadeInVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  clipPathVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 
 import classes from './index.module.css'
@@ -61,7 +66,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.5 }}
-                  variants={fadeInVariants}
+                  variants={invertOrder ? slideInFromRightVariants : slideInFromLeftVariants}
                   className={classes.content}
                 >
                   <h3 className="">{m.featuredExhibition()}</h3>
@@ -76,15 +81,19 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   {addLink && <Button link={link} />}
                 </motion.div>
               </div>
-              <div
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                variants={invertOrder ? slideInFromLeftVariants : slideInFromRightVariants}
                 className={[invertOrder ? classes.order1 : classes.order2, 'relative']
                   .filter(Boolean)
                   .join(' ')}
               >
                 <div className={classes.image}>
-                  <Image src={image.url} alt={image.title} fill priority />
+                  <Image src={image.url || ''} alt={image.title} fill priority />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         )

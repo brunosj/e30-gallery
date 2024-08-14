@@ -1,6 +1,10 @@
 .bg {
   background: linear-gradient(-90deg, var(--color-accent), var(--color-black));
   min-height:100vh;
+  position:fixed;
+  bottom:0;
+  width: 100%;
+  z-index: -1;
 }
 
 
@@ -59,8 +63,14 @@
   overflow: visible; 
 }
 
+.spacer {
+  min-height:100vh;
+  display:block;
+  pointer-events: none;
+  box-sizing: border-box;
+}
 
-@media (max-width:850px) {
+@media (max-width:1300px) {
   .bg {
     min-height:100%;
   }

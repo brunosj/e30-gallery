@@ -19,7 +19,7 @@ const cspHeader = `
     font-src 'self';
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
+    form-action 'self' ${allowedDomains.join(' ')};
     frame-ancestors 'none';
     connect-src 'self' ${allowedDomains.join(' ')};
     upgrade-insecure-requests;

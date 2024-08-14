@@ -13,9 +13,6 @@ export const TestimonialCard: React.FC<{ item: Testimonial }> = ({ item }) => {
             <Star key={index} color="var(--color-yellow)" size={30} />
           ))}
         </div>
-        {/* <div className={classes.avatar}>
-          <Image src={item.picture.url} alt={item.picture.title} fill />
-        </div> */}
         <div className={classes.info}>
           <h3 className="desktop">{`"${item.testimonial}"`}</h3>
           <h4 className="mobile">{`"${item.testimonial}"`}</h4>

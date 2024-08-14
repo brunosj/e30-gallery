@@ -6,7 +6,11 @@ import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import { motion } from 'framer-motion'
-import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 
 import classes from './index.module.css'
 
@@ -21,8 +25,8 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={fadeInVariants}
+        viewport={{ amount: 0.5 }}
+        variants={invertOrder ? slideInFromRightVariants : slideInFromLeftVariants}
         className={[
           'container padding-y',
           classes.textColumn,
@@ -51,7 +55,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           .filter(Boolean)
           .join(' ')}
       >
-        <Image src={image.url} alt={image.title} fill />
+        <Image src={image.url || ''} alt={image.title} fill />
       </div>
     </div>
   )

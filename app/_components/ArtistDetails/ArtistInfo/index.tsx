@@ -6,6 +6,12 @@ import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
+import { motion } from 'framer-motion'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 
 type Props = {
   artist: Artist
@@ -64,45 +70,70 @@ const ArtistInfo: React.FC<Props> = ({
         <div className={classes.grid}>
           <div>
             {imageLoaded && (
-              <>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={slideInFromLeftVariants}
+              >
                 <h2>{artist.full_name}</h2>
                 <div className={classes.additionalInfo}>
                   <p>{artist.additional_info}</p>
                   <p>{artist.country}</p>
                 </div>
-              </>
+              </motion.div>
             )}
             <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
               <Image
-                src={typeof artist.image === 'string' ? artist.image : artist.image.url}
+                src={typeof artist.image === 'string' ? artist.image : artist.image.url || ''}
                 alt={
                   typeof artist.image === 'string'
                     ? 'Artist Image'
-                    : artist.image.alt || artist.full_name
+                    : artist.image.title || artist.full_name
                 }
                 fill
                 onLoad={handleImageLoad}
               />
             </div>
-            {imageLoaded && <RichText content={artist.bio} className="padding-y-sm" />}
+            {imageLoaded && (
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={slideInFromLeftVariants}
+              >
+                <RichText content={artist.bio} className="padding-y-sm" />
+              </motion.div>
+            )}
           </div>
-          <div className={[classes.image, 'desktop'].filter(Boolean).join(' ')}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInFromRightVariants}
+            className={[classes.image, 'desktop'].filter(Boolean).join(' ')}
+          >
             <Image
               key={currentArtist.image.url}
-              src={typeof artist.image === 'string' ? artist.image : artist.image.url}
+              src={typeof artist.image === 'string' ? artist.image : artist.image.url || ''}
               alt={
                 typeof artist.image === 'string'
                   ? 'Artist Image'
-                  : artist.image.alt || artist.full_name
+                  : artist.image.title || artist.full_name
               }
               fill
               onLoad={handleImageLoad}
               priority
             />
-          </div>
+          </motion.div>
         </div>
         {artist.artworkArchiveCode && (
-          <>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInVariants}
+          >
             <div className={classes.work}>
               <div className={classes.heading}>
                 <p className="semibold">{m.work()}</p>
@@ -114,7 +145,7 @@ const ArtistInfo: React.FC<Props> = ({
                 style={{ clear: 'both', minHeight: '500px' }}
               ></div>
             </div>
-          </>
+          </motion.div>
         )}
       </div>
     </div>

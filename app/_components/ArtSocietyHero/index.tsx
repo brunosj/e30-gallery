@@ -5,7 +5,12 @@ import type { ArtSocietyPage, Media } from '@/app/payload-types'
 import Image from 'next/image'
 import { LoginForm } from '@/app/(pages)/art-society/LoginForm'
 import Chevron from '@/components/SVG/Chevron'
-
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
+import { motion } from 'framer-motion'
 import classes from './index.module.css'
 
 type Props = {
@@ -17,8 +22,14 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <div className={classes.grid}>
-      <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
-        <Image src={imageHero.url} alt={imageHero.title} className={classes.image} fill />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={slideInFromLeftVariants}
+        className={[classes.imageColumn].filter(Boolean).join(' ')}
+      >
+        <Image src={imageHero.url || ''} alt={imageHero.title} className={classes.image} fill />
         <div className={classes.textOverlay}>
           <div>
             <Chevron color="var(--color-white)" size={20} className={'iconTopLeft'} />
@@ -26,12 +37,18 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
             <Chevron color="var(--color-white)" size={20} className={'iconBottomRight'} />
           </div>
         </div>
-      </div>
-      <div className={classes.formColumn}>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={slideInFromRightVariants}
+        className={classes.formColumn}
+      >
         <div className={classes.formContainer}>
           <LoginForm data={data} />
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

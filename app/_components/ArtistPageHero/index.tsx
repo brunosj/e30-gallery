@@ -3,7 +3,11 @@
 import { RichText } from '@/components/RichText'
 import type { ArtistsPage } from '@/app/payload-types'
 import classes from './index.module.css'
-import { fadeInVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  clipPathVariants,
+} from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 
 type Props = {
@@ -15,7 +19,7 @@ export const ArtistPageHero = ({ data }: Props) => {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      variants={fadeInVariants}
+      variants={clipPathVariants}
       viewport={{ once: true, amount: 0.2 }}
       className={classes.text}
     >

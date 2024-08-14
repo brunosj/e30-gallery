@@ -25,7 +25,11 @@ export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
         className={classes.leftColumn}
       >
         <div className={classes.image}>
-          <Image src={textImageBlock.imageVision.url} alt={textImageBlock.imageVision.title} fill />
+          <Image
+            src={textImageBlock.imageVision.url || ''}
+            alt={textImageBlock.imageVision.title}
+            fill
+          />
         </div>
         <div className={classes.line} />
         <RichText content={textImageBlock.text_under_image} />

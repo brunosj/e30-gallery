@@ -11,6 +11,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 import classes from './index.module.css'
 import { set, throttle } from 'lodash'
 import { motion } from 'framer-motion'
+import { fadeInVariants } from '@/app/_utilities/animationVariants'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -34,8 +35,7 @@ export function Header() {
     setIsScrolled(!isScrolled)
   }
   return (
-    <motion.header
-      layout
+    <header
       className={`container sticky desktop ${isScrolled ? classes.scrolledDown : ''} ${classes.wrapper}`}
     >
       <div className={classes.header}>
@@ -61,7 +61,7 @@ export function Header() {
           </div>
         </div>
       </div>
-    </motion.header>
+    </header>
   )
 }
 

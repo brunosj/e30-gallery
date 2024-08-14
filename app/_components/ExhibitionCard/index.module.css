@@ -61,6 +61,10 @@
   scrollbar-color: var(--color-gray) transparent; 
 }
 
+.richTextInner p {
+  line-height: 1;
+}
+
 .card:hover .contentInner {
   opacity: 0;
 }

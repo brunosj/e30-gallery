@@ -28,14 +28,14 @@ export default function BannerReachOutComponen({ data }: Props) {
   }, [inView, controls])
 
   return (
-    <motion.section
-      ref={ref}
-      variants={fadeInVariants}
-      initial="initial"
-      animate={controls}
-      className={classes.bg}
-    >
-      <div className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}>
+    <section className={classes.bg}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.75 }}
+        variants={fadeInVariants}
+        className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}
+      >
         <div className={classes.title}>
           <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />
           <div className={classes.title}>
@@ -55,7 +55,7 @@ export default function BannerReachOutComponen({ data }: Props) {
           </div>
           <Button link={data.link} />
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   )
 }

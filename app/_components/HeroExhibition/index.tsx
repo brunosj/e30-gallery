@@ -10,7 +10,11 @@ import Chevron from '@/components/SVG/Chevron'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
 import { motion } from 'framer-motion'
-import { fadeInVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 
 type Props = {
   data: Exhibition[]
@@ -41,12 +45,12 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   return (
     <section className={classes.hero}>
-      <Image src={homepageImage?.url || image.url} alt={image.title} fill priority />
+      <Image src={homepageImage?.url || image.url || ''} alt={image.title} fill priority />
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={fadeInVariants}
+        viewport={{ amount: 0.2 }}
+        variants={slideInFromRightVariants}
         className={classes.contentContainer}
       >
         <div className={classes.paddingR}>

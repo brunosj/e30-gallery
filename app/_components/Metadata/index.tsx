@@ -10,7 +10,6 @@ const siteMetadata: Metadata = {
   authors: [{ name: 'Bruno SJ', url: 'https://landozone.net' }],
   keywords: ['art gallery', 'Frankfurt', 'art exhibitions'],
   referrer: 'origin-when-cross-origin',
-  viewport: 'width=device-width, initial-scale=1',
   creator: 'landozone',
   publisher: 'E30 Gallery',
 

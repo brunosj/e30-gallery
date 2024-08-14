@@ -5,7 +5,7 @@ import type { GalleryPage } from '@/app/payload-types'
 import Image from 'next/image'
 import { RichText } from '../RichText'
 import { motion } from 'framer-motion'
-import { slideInFromLeftVariants } from '@/utilities/animationVariants'
+import { fadeInVariants, slideInFromLeftVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
   const { alexander_bio, felicitas_bio, imageAlexander, imageFelicitas } = data
   return (
-    <section className="container">
+    <motion.section className="container">
       <div className="desktop">
         <div className={classes.grid}>
           <div className={classes.image}>
@@ -43,14 +43,20 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               />
             </motion.div>
           </div>
-          <div className={classes.info}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInVariants}
+            viewport={{ once: true, amount: 0.5 }}
+            className={classes.info}
+          >
             <div className="padding-y">
               <div className={classes.content}>
                 <RichText content={alexander_bio} className={classes.richTextFounders} />{' '}
                 <RichText content={felicitas_bio} className={classes.richTextFounders} />
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="mobile">
@@ -85,6 +91,6 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

@@ -5,7 +5,7 @@ import type { CallToAction, Media } from '@/app/payload-types'
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
-import { textVariants, clipPathVariants } from '@/utilities/animationVariants'
+import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 
 import classes from './index.module.css'
@@ -48,14 +48,14 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
 
   return (
     <section className={[classes.bg, classes[backgroundColor]].filter(Boolean).join(' ')}>
-      <div className={[classes.cta, 'container padding-y'].filter(Boolean).join(' ')}>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={clipPathVariants}
-          className={classes.content}
-        >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.75 }}
+        variants={fadeInVariants}
+        className={[classes.cta, 'container padding-y'].filter(Boolean).join(' ')}
+      >
+        <div className={classes.content}>
           <h1 className="uppercase" style={{ color: textColor }}>
             {title}
           </h1>
@@ -63,11 +63,11 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
             <RichText content={text} />
           </div>
           <Button link={{ ...link, appearance: buttonAppearance }} />
-        </motion.div>
-        <div className={classes.image}>
-          <Image src={image.url} alt={image.title} fill />
         </div>
-      </div>
+        <div className={classes.image}>
+          <Image src={image.url || ''} alt={image.title} fill />
+        </div>
+      </motion.div>
     </section>
   )
 }

@@ -6,7 +6,7 @@ import classes from './index.module.css'
 
 export type Props = {
   onClick?: () => void
-  link?: LinkObject | null
+  link?: LinkObject
   className?: string
   action?: 'submit' | 'button'
   disabled?: boolean

@@ -8,6 +8,7 @@
   transition: height 0.3s ease, padding 0.3s ease;
   height: var(--header-height-expanded);
   position: relative;
+  z-index: 100;
 }
 
 .navContainer {

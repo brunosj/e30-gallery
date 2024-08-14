@@ -4,6 +4,7 @@ import React from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import { RecoverPasswordForm } from './RecoverPasswordForm'
 import Image from 'next/image'
+import BannerNewsletter from '@/components/BannerNewsletter'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -50,20 +51,23 @@ export default async function RecoverPassword() {
   const { pageData } = await getData(locale)
   const page: ArtSocietyPage = pageData.docs[0]
   return (
-    <div className={classes.grid}>
-      <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
-        <Image
-          src={page.resetPasswordImage.url}
-          alt={page.resetPasswordImage.title}
-          className={classes.image}
-          fill
-        />
-      </div>
-      <div className={classes.formColumn}>
-        <div className={classes.formContainer}>
-          <RecoverPasswordForm />
+    <>
+      <article className={classes.grid}>
+        <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
+          <Image
+            src={page.resetPasswordImage.url ?? ''}
+            alt={page.resetPasswordImage.title ?? ''}
+            className={classes.image}
+            fill
+          />
         </div>
-      </div>
-    </div>
+        <div className={classes.formColumn}>
+          <div className={classes.formContainer}>
+            <RecoverPasswordForm />
+          </div>
+        </div>
+      </article>
+      <BannerNewsletter />
+    </>
   )
 }

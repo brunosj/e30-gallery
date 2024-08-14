@@ -81,8 +81,8 @@ export interface Exhibition {
   text: {
     [k: string]: unknown
   }[]
-  homepageImage?: string | Media | null
-  image: string | Media
+  homepageImage?: Media | null
+  image: Media
   addLink?: boolean | null
   link?: {
     type?: ('reference' | 'custom' | 'mailto') | null
@@ -197,7 +197,7 @@ export interface Artwork {
   id: string
   title: string
   description: string
-  image: string | Media
+  image: Media
   relation: {
     artist: string | Artist
   }
@@ -214,7 +214,7 @@ export interface Artist {
   full_name: string
   country: string
   additional_info: string
-  image: string | Media
+  image: Media
   type: 'represented' | 'featured'
   bio: {
     [k: string]: unknown
@@ -239,17 +239,17 @@ export interface Artist {
 export interface ArtSocietyPage {
   id: string
   call_to_action_text: string
-  imageHero: string | Media
+  imageHero: Media
   help_text_: {
     [k: string]: unknown
   }[]
   benefits: {
     [k: string]: unknown
   }[]
-  benefitsVideo: string | Media
+  benefitsVideo: Media
   title_sentence: string
   testimonialsItems?: (string | Testimonial)[] | null
-  resetPasswordImage: string | Media
+  resetPasswordImage: Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -273,7 +273,7 @@ export interface Testimonial {
   id: string
   name: string
   testimonial: string
-  picture?: string | Media | null
+  picture?: Media | null
   stars?: number | null
   updatedAt: string
   createdAt: string
@@ -313,20 +313,20 @@ export interface GalleryPage {
   mission_statement: {
     [k: string]: unknown
   }[]
-  imageHero: string | Media
+  imageHero: Media
   alexander_bio: {
     [k: string]: unknown
   }[]
-  imageAlexander: string | Media
+  imageAlexander: Media
   felicitas_bio: {
     [k: string]: unknown
   }[]
-  imageFelicitas: string | Media
+  imageFelicitas: Media
   main_text: {
     [k: string]: unknown
   }[]
   textImageBlock: {
-    imageVision: string | Media
+    imageVision: Media
     text_under_image: {
       [k: string]: unknown
     }[]
@@ -377,7 +377,7 @@ export interface GalleryPage {
     label: string
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
-  backgroundImage: string | Media
+  backgroundImage: Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -413,7 +413,7 @@ export interface MembersOnlyPage {
   text_special_events: {
     [k: string]: unknown
   }[]
-  specialEventsImage: string | Media
+  specialEventsImage: Media
   tab_title_art_advice: string
   page_title_art_advice: string
   individuallArtAdviceBlock: TitleImageInfoBlock[]
@@ -486,7 +486,7 @@ export interface TitleImageInfoBlock {
     label: string
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
-  image: string | Media
+  image: Media
   id?: string | null
   blockName?: string | null
   blockType: 'title-image-info-block'
@@ -598,7 +598,7 @@ export interface TwoColumnBlock {
   }
   columnImage: {
     size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
-    image: string | Media
+    image: Media
   }
   id?: string | null
   blockName?: string | null
@@ -614,7 +614,7 @@ export interface CallToAction {
   text: {
     [k: string]: unknown
   }[]
-  featuredImage: string | Media
+  featuredImage: Media
   link: {
     type?: ('reference' | 'custom' | 'mailto') | null
     newTab?: boolean | null

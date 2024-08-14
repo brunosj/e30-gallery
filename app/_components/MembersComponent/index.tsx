@@ -46,7 +46,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
           <li className={classes.buttonContainer}>
             <button
               onClick={() => setActiveTab('home')}
-              className={activeTab === 'home' ? classes.active : 'controls'}
+              className={activeTab === 'home' ? 'activeMenuItem' : 'controls'}
             >
               {tab_title_home}
             </button>
@@ -54,7 +54,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
           <li className={classes.buttonContainer}>
             <button
               onClick={() => setActiveTab('virtualExhibition')}
-              className={activeTab === 'virtualExhibition' ? classes.active : 'controls'}
+              className={activeTab === 'virtualExhibition' ? 'activeMenuItem' : 'controls'}
             >
               {tab_title_virtual_exhibition}
             </button>
@@ -62,7 +62,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
           <li className={classes.buttonContainer}>
             <button
               onClick={() => setActiveTab('specialEvents')}
-              className={activeTab === 'specialEvents' ? classes.active : 'controls'}
+              className={activeTab === 'specialEvents' ? 'activeMenuItem' : 'controls'}
             >
               {tab_title_special_events}
             </button>
@@ -70,7 +70,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
           <li className={classes.buttonContainer}>
             <button
               onClick={() => setActiveTab('individualArtAdvice')}
-              className={activeTab === 'individualArtAdvice' ? classes.active : 'controls'}
+              className={activeTab === 'individualArtAdvice' ? 'activeMenuItem' : 'controls'}
             >
               {tab_title_art_advice}
             </button>

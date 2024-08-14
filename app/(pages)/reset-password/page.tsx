@@ -4,6 +4,7 @@ import React, { Suspense } from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import Image from 'next/image'
 import { ResetPasswordForm } from './ResetPasswordForm'
+import BannerNewsletter from '@/components/BannerNewsletter'
 
 import classes from './index.module.css'
 
@@ -51,20 +52,23 @@ export default async function ResetPassword() {
   const { pageData } = await getData(locale)
   const page: ArtSocietyPage = pageData.docs[0]
   return (
-    <div className={classes.grid}>
-      <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
-        <Image
-          src={page.resetPasswordImage.url}
-          alt={page.resetPasswordImage.title}
-          className={classes.image}
-          fill
-        />
-      </div>
-      <div className={classes.formColumn}>
-        <div className={classes.formContainer}>
-          <ResetPasswordForm />
+    <>
+      <article className={classes.grid}>
+        <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
+          <Image
+            src={page.resetPasswordImage.url ?? ''}
+            alt={page.resetPasswordImage.title}
+            className={classes.image}
+            fill
+          />
         </div>
-      </div>
-    </div>
+        <div className={classes.formColumn}>
+          <div className={classes.formContainer}>
+            <ResetPasswordForm />
+          </div>
+        </div>
+      </article>
+      <BannerNewsletter />
+    </>
   )
 }

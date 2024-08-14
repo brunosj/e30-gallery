@@ -37,7 +37,7 @@ export default async function BannerNewsletter() {
   const banner = data
 
   return (
-    <section className="container padding-y-sm border-t-black">
+    <section className="container bgWhite padding-y-sm border-t-black">
       <BannerNewsletterComponent banner={banner} />
     </section>
   )

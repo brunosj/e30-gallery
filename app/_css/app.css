@@ -248,7 +248,12 @@ small {
   text-decoration: underline;
 }
 
-.controls:after {
+.bgWhite {
+  background-color: var(--color-white);
+}
+
+
+/* .controls:after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -263,11 +268,32 @@ small {
 
 .controls:hover:after {
   opacity: 1;
+} */
+
+.activeMenuItem {
+font-weight: bold;
 }
+
+/* .activeMenuItem:after {
+	content: ''; 
+	position: absolute;
+	bottom: 0; 
+	left: 0;
+	width: 100%; 
+	height: 1.5px; 
+	background-color: var(--color-black); 
+	margin-bottom: -2px;
+} */
 
 .controls {
   position: relative;
+  display: block;
+  transition: transform 0.3s ease
 }
+
+.controls:hover {
+  transform: scale(1.07);}
+
 
 .desktop {
 display: block;

@@ -12,6 +12,8 @@ import { getMeUser } from '@/utilities/getMeUser'
 import { redirect } from '@/lib/i18n'
 import * as m from '@/paraglide/messages.js'
 
+import classes from './index.module.css'
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -44,10 +46,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <html lang={languageTag()} className={`${hanken.className}`}>
-        <body>
+        <body className="relative">
           <AuthProvider api="rest">
             <HeaderMembersArea />
-            <main>{children}</main>
+            <main className={classes.main}>{children}</main>
             <BannerNewsletter />
             <Footer />
           </AuthProvider>

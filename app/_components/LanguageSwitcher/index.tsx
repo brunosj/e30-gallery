@@ -1,6 +1,21 @@
 import { Link, usePathname } from '@/lib/i18n'
 import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
+import { motion } from 'framer-motion'
+
+const fadeInVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.75,
+      ease: 'easeOut',
+      delay: 0.5,
+    },
+  },
+}
 
 type Props = {
   theme: 'light' | 'dark'
@@ -18,7 +33,13 @@ export default function LanguageSwitcher({ theme = 'light' }: Props) {
   }
 
   return (
-    <div className={classes.switcher}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeInVariants}
+      className={classes.switcher}
+    >
       <Link href={pathname} locale="en">
         <span className={getLanguageClass('en')}>EN</span>
       </Link>
@@ -26,6 +47,6 @@ export default function LanguageSwitcher({ theme = 'light' }: Props) {
       <Link href={pathname} locale="de">
         <span className={getLanguageClass('de')}>DE</span>
       </Link>
-    </div>
+    </motion.div>
   )
 }

@@ -1,7 +1,16 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
+import { motion } from 'framer-motion'
+import {
+  fadeInVariants,
+  cascadeVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 import classes from './index.module.css'
 
 type Props = {
@@ -24,7 +33,12 @@ const ArtistList: React.FC<Props> = ({
   handleMouseLeave,
 }) => {
   return (
-    <div>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeInVariants}
+    >
       <div className={classes.artists}>
         <div className={classes.heading}>
           <p className="semibold">{m.artists()}</p>
@@ -49,7 +63,13 @@ const ArtistList: React.FC<Props> = ({
       <div className={classes.grid}>
         <ul className={classes.list}>
           {artists.map((artist, index) => (
-            <li key={artist.id}>
+            <motion.li
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={cascadeVariants(index)}
+              key={index}
+            >
               <button
                 onClick={() => handleArtistClick(index)}
                 onMouseEnter={() => handleMouseEnter(artist.relation.artworks as Artwork)}
@@ -57,7 +77,7 @@ const ArtistList: React.FC<Props> = ({
               >
                 {artist.full_name}
               </button>
-            </li>
+            </motion.li>
           ))}
         </ul>
 
@@ -81,7 +101,7 @@ const ArtistList: React.FC<Props> = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

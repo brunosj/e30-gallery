@@ -64,7 +64,6 @@ export default async function ArtistsPage() {
     return lastNameA.localeCompare(lastNameB)
   })
   const featuredArtwork = page.featuredArtwork as Artwork
-  console.log(artists)
 
   return (
     <article>

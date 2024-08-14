@@ -6,8 +6,23 @@ import React, { useEffect, useState } from 'react'
 import { Link } from '@/lib/i18n'
 import Insta from '@/components/SVG/Insta'
 import Maps from '@/components/SVG/Maps'
-
+import { motion } from 'framer-motion'
 import classes from './index.module.css'
+import { delay } from 'lodash'
+
+const fadeInVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.75,
+      ease: 'easeOut',
+      delay: 0.5,
+    },
+  },
+}
 
 export const Socials: React.FC = () => {
   const [socials, setSocials] = useState<Social | null>(null)
@@ -59,7 +74,13 @@ export const Socials: React.FC = () => {
   return (
     <>
       {socials && socials.socials && (
-        <ul className={classes.socials}>
+        <motion.ul
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInVariants}
+          className={classes.socials}
+        >
           {socials.socials.map((item, index) => (
             <li key={index}>
               <Link href={item.url as string} target="_blank">
@@ -70,7 +91,7 @@ export const Socials: React.FC = () => {
           <li className="desktop">
             <p>Egenolff30 St. Frankfurt</p>
           </li>
-        </ul>
+        </motion.ul>
       )}
     </>
   )

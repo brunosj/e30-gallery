@@ -37,24 +37,27 @@ export default async function Footer() {
   const footer = data
 
   return (
-    <footer className={classes.bg}>
-      <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
-        <div className={classes.content}>
-          <div className={classes.footerNav}>
-            <FooterNav data={footer} />
-          </div>
-          <div className={classes.copyright}>
-            <div className={[classes.logo, 'container padding-y-sm'].filter(Boolean).join(' ')}>
-              <LongLogo />
+    <>
+      <section className={classes.spacer} />
+      <footer className={classes.bg}>
+        <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
+          <div className={classes.content}>
+            <div className={classes.footerNav}>
+              <FooterNav data={footer} />
             </div>
-            <div className="container padding-y-sm">
-              <p>
-                © {new Date().getFullYear()}. E30 Gallery, {m.allRightsReserved()}.
-              </p>
+            <div className={classes.copyright}>
+              <div className={[classes.logo, 'container padding-y-sm'].filter(Boolean).join(' ')}>
+                <LongLogo />
+              </div>
+              <div className="container padding-y-sm">
+                <p>
+                  © {new Date().getFullYear()}. E30 Gallery, {m.allRightsReserved()}.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   )
 }

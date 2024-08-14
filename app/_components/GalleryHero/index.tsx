@@ -5,7 +5,11 @@ import type { GalleryPage } from '@/app/payload-types'
 import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { RichText } from '../RichText'
-import { fadeInVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 
 import classes from './index.module.css'
@@ -19,7 +23,13 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <section className={classes.grid}>
-      <div className={classes.contentColumn}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={slideInFromLeftVariants}
+        className={classes.contentColumn}
+      >
         <div className="container flex padding-y">
           <div className={classes.content}>
             <p className="">{m.aboutTheGallery()}</p>
@@ -30,15 +40,15 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        variants={fadeInVariants}
+        viewport={{ once: true }}
+        variants={slideInFromRightVariants}
         className={classes.image}
       >
-        <Image src={imageHero.url} alt={imageHero.title} fill priority />
+        <Image src={imageHero.url || ''} alt={imageHero.title} fill priority />
       </motion.div>
     </section>
   )

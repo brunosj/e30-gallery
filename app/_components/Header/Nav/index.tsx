@@ -9,6 +9,8 @@ import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
 import { RiseLoader } from 'react-spinners'
+import { motion } from 'framer-motion'
+import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
 
 export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
@@ -65,7 +67,13 @@ export const HeaderNav: React.FC = () => {
   }
 
   return (
-    <div className="desktop">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeInVariants}
+      className="desktop"
+    >
       <ul className={classes.menu}>
         {menu.nav.map((item, index) => {
           const normalizedPathname = pathname.startsWith('/de/')
@@ -75,12 +83,12 @@ export const HeaderNav: React.FC = () => {
           const isActive =
             normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
           return (
-            <li key={index} className={isActive ? classes.activeMenuItem : ''}>
+            <li key={index} className={isActive ? 'activeMenuItem' : ''}>
               <Button link={item.link} />
             </li>
           )
         })}
       </ul>
-    </div>
+    </motion.div>
   )
 }

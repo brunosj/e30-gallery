@@ -18,7 +18,6 @@
 }
 
 .label {
-  text-align: center;
   display: flex;
   align-items: center;
   font-size: var(--base-100);

@@ -16,7 +16,7 @@ export default function BannerNewsletterComponent({ banner }: { banner: Newslett
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           variants={fadeInVariants}
         >
           <Chevron color="var(--color-black)" size={35} className="iconTopLeft" />

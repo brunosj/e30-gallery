@@ -52,6 +52,24 @@ export const cardVariants = (index: number) => ({
   },
 })
 
+export const cascadeVariants = (index: number) => ({
+  hidden: {
+    opacity: 0,
+    y: 0,
+    scale: 1.1,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+      delay: index * 0.05,
+    },
+  },
+})
+
 export const fadeInVariants = {
   hidden: {
     opacity: 0,
@@ -69,6 +87,21 @@ export const slideInFromLeftVariants = {
   hidden: {
     opacity: 0,
     x: -100,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+}
+
+export const slideInFromRightVariants = {
+  hidden: {
+    opacity: 0,
+    x: 100,
   },
   visible: {
     opacity: 1,

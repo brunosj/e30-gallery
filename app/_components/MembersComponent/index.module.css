@@ -19,7 +19,6 @@
 
 .nav button.active {
   font-weight: bold;
-  /* text-decoration: underline; */
 }
 
 .buttonContainer:not(:last-child) {
@@ -35,6 +34,16 @@
 .nav li {
   list-style: none;
 }
+
+.buttonContainer button  {
+  display: block;
+  text-align: left;
+  transition: transform 0.3s ease
+}
+
+.buttonContainer button:hover {
+  transform: scale(1.07);}
+
 
 .loader {
   display: flex;

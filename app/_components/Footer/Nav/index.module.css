@@ -1,7 +1,7 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  gap: var(--base-200);
+  gap: var(--base-100);
   flex-wrap: wrap; 
 }
 
@@ -36,6 +36,8 @@
   padding:0 1rem;
 }
 
+
+
 .text {
   max-width: 80%;
 }
@@ -64,7 +66,8 @@
 
   .text {
     max-width: 100%;
-    margin-bottom: var(--base-100)
+    margin-bottom: var(--base-100);
+    padding:0 1rem;
   }
 
   .textColumn {

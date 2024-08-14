@@ -7,6 +7,8 @@ import { EmblaOptionsType } from 'embla-carousel'
 import { DotButton, useDotButton } from './DotButtons'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArtistListingCard } from '../ArtistListingCard'
+import { fadeInVariants } from '@/utilities/animationVariants'
+import { motion } from 'framer-motion'
 
 type PropType = {
   slides: Artist[]
@@ -30,9 +32,16 @@ const ArtistCarousel: React.FC<PropType> = props => {
       <div className="artistCarousel__viewport" ref={emblaRef}>
         <div className="artistCarousel__container">
           {slides.map((slide, index) => (
-            <div className="artistCarousel__slide" key={index}>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.5 }}
+              variants={fadeInVariants}
+              className="artistCarousel__slide"
+              key={index}
+            >
               <ArtistListingCard item={slide} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

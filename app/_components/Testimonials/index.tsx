@@ -1,9 +1,9 @@
-import type { ArtSocietyPage } from '@/app/payload-types'
+'use client'
 
-import { languageTag } from '@/paraglide/runtime'
-import * as m from '@/paraglide/messages.js'
-import { Button } from '../Button'
+import type { ArtSocietyPage } from '@/app/payload-types'
 import TestimonialCarousel from '@/components//TestimonialCarousel/TestimonialCarousel'
+import { motion } from 'framer-motion'
+import { clipPathVariants, fadeInVariants } from '@/app/_utilities/animationVariants'
 
 import classes from './index.module.css'
 
@@ -15,7 +15,15 @@ export const Testimonials: React.FC<Props> = ({ data }: Props) => {
   return (
     <section className="container padding-y">
       <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
-        <h2 className="semibold">{title_sentence}</h2>
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={clipPathVariants}
+          className="semibold"
+        >
+          {title_sentence}
+        </motion.h2>
       </div>
       <div className="">
         <TestimonialCarousel slides={testimonialsItems} />

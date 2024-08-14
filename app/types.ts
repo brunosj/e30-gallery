@@ -6,6 +6,7 @@ import type {
   GalleryPage,
   MembersOnlyPage,
   GenericPage,
+  NewsletterPage,
 } from '@/app/payload-types'
 
 export type LinkObject = {
@@ -39,6 +40,10 @@ export type LinkObject = {
     | ({
         relationTo: 'generic-pages'
         value: string | GenericPage
+      } | null)
+    | ({
+        relationTo: 'newsletter-page'
+        value: string | NewsletterPage
       } | null)
   url?: string | null
   email?: string | null
