@@ -65,7 +65,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
           <Button link={{ ...link, appearance: buttonAppearance }} />
         </div>
         <div className={classes.image}>
-          <Image src={image.url || ''} alt={image.title} fill />
+          <Image src={image.url as string} alt={image.title} fill />
         </div>
       </motion.div>
     </section>

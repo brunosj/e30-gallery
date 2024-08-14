@@ -45,7 +45,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   return (
     <section className={classes.hero}>
-      <Image src={homepageImage?.url || image.url || ''} alt={image.title} fill priority />
+      <Image src={homepageImage?.url || (image.url as string)} alt={image.title} fill priority />
       <motion.div
         initial="hidden"
         whileInView="visible"

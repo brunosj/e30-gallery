@@ -43,7 +43,7 @@ export const ArtSocietyBenefits: React.FC<Props> = ({ data }: Props) => {
       >
         <div className={classes.imageContents}>
           <div className={[classes.imageContainer].filter(Boolean).join(' ')}>
-            <Image src={image.url || ''} alt={image.title} className={classes.image} fill />
+            <Image src={image.url as string} alt={image.title} className={classes.image} fill />
           </div>
         </div>
       </motion.div>

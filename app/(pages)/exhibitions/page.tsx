@@ -3,7 +3,7 @@ import type { ExhibitionsPage, Exhibition } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
-import ExhibitionsPageData from '@/components/ExhibitionsPage/page'
+import ExhibitionsPageData from '@/components/ExhibitionsPage'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -51,7 +51,7 @@ export default async function ExhibitionsPage() {
   const locale = languageTag()
   const { pageData, exhibitionData } = await getData(locale)
   const page: ExhibitionsPage = pageData.docs[0]
-  const featuredExhibitions: Exhibition[] = page.featuredExhibitions.filter(
+  const featuredExhibitions: Exhibition[] = page.featuredExhibitions?.filter(
     item => typeof item !== 'string',
   )
   const exhibitions: Exhibition[] = exhibitionData.docs

@@ -19,7 +19,7 @@ type OptionType = {
   value: string
 }
 
-export const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> = {
+const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> = {
   container: (base: any) => ({
     ...base,
     width: 200,

@@ -37,7 +37,7 @@ export const MembersSpecialEvents: React.FC<Props> = ({ data }: Props) => {
           className={classes.imageColumn}
         >
           <div className={classes.imageContainer}>
-            <Image src={specialEventsImage.url || ''} alt={specialEventsImage.title} fill />
+            <Image src={specialEventsImage.url as string} alt={specialEventsImage.title} fill />
           </div>
           <p className={classes.caption}>{specialEventsImage.title}</p>
         </motion.div>

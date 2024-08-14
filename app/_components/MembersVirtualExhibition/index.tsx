@@ -14,7 +14,7 @@ export const MembersVirtualExhibition: React.FC<Props> = ({ data }: Props) => {
       <div className="container padding-t">
         <h3 className="membersAreaTitle mobile">{page_title_virtual_exhibition}</h3>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: virtualExhibition }} />
+      <div dangerouslySetInnerHTML={{ __html: virtualExhibition || '' }} />
     </section>
   )
 }

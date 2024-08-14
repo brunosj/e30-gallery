@@ -26,7 +26,7 @@ export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
       >
         <div className={classes.image}>
           <Image
-            src={textImageBlock.imageVision.url || ''}
+            src={textImageBlock.imageVision.url as string}
             alt={textImageBlock.imageVision.title}
             fill
           />

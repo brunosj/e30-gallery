@@ -6,7 +6,7 @@ interface PageSEOProps {
   canonicalUrl?: string
   ogType?: string
   ogImage?: string
-  twitterCard?: string
+  twitterCard?: 'summary_large_image' | 'summary' | 'player' | 'app' | undefined
   keywords?: string[]
 }
 
@@ -14,7 +14,6 @@ export function customMetaDataGenerator({
   title,
   description = 'An art gallery located in Frankfurt am Main, Germany',
   canonicalUrl = 'https://e30gallery.com',
-  ogType = 'website',
   keywords = ['art gallery', 'Frankfurt', 'art exhibitions'],
   ogImage = 'https://preview.e30gallery.com/e30-gallery.jpg',
   twitterCard = 'summary_large_image',
@@ -30,7 +29,7 @@ export function customMetaDataGenerator({
     openGraph: {
       title: fullTitle,
       description,
-      type: ogType,
+      type: 'website',
       url: canonicalUrl,
       images: [
         {

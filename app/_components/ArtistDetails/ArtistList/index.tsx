@@ -85,14 +85,14 @@ const ArtistList: React.FC<Props> = ({
           <div className={classes.image}>
             {hoveredArtwork ? (
               <Image
-                src={hoveredArtwork.image.url}
+                src={hoveredArtwork.image.url as string}
                 alt={hoveredArtwork.image.title}
                 fill
                 priority
               />
             ) : (
               <Image
-                src={(artists[0]?.relation.artworks as Artwork)?.image.url}
+                src={(artists[0]?.relation.artworks as Artwork)?.image.url as string}
                 alt={(artists[0]?.relation.artworks as Artwork)?.image.title}
                 fill
                 priority

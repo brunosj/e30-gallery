@@ -12,7 +12,10 @@ import classes from './index.module.css'
 export default function BannerNewsletterComponent({ banner }: { banner: NewsletterBanner }) {
   return (
     <React.Fragment>
-      <Link href={banner.link.reference?.value.slug} className={classes.link}>
+      <Link
+        href={(banner.link.reference?.value as { slug: string })?.slug}
+        className={classes.link}
+      >
         <motion.div
           initial="hidden"
           whileInView="visible"

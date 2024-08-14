@@ -28,14 +28,14 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
             >
               <Image
                 key={imageAlexander.title}
-                src={imageAlexander.url}
+                src={imageAlexander.url as string}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
               />
               <Image
                 key={imageFelicitas.title}
-                src={imageFelicitas.url}
+                src={imageFelicitas.url as string}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}
@@ -65,7 +65,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
             <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
               <Image
                 key={imageAlexander.title}
-                src={imageAlexander.url}
+                src={imageAlexander.url as string}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
@@ -75,7 +75,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               </div>
               <Image
                 key={imageFelicitas.title}
-                src={imageFelicitas.url}
+                src={imageFelicitas.url as string}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}

@@ -68,7 +68,7 @@ export const MembersHome: React.FC<Props> = ({ data, setActiveTab }: Props) => {
                 </h4>
               </div>
               <div className={classes.image} onClick={handleClick}>
-                <Image src={image.url || ''} alt={image.title} fill priority />
+                <Image src={image.url as string} alt={image.title} fill priority />
               </div>
             </motion.div>
           )

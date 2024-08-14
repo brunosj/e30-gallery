@@ -48,7 +48,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         variants={slideInFromRightVariants}
         className={classes.image}
       >
-        <Image src={imageHero.url || ''} alt={imageHero.title} fill priority />
+        <Image src={imageHero.url as string} alt={imageHero.title} fill priority />
       </motion.div>
     </section>
   )

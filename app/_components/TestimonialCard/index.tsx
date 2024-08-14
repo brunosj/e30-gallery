@@ -1,6 +1,5 @@
 import type { Testimonial } from '@/app/payload-types'
 
-import Image from 'next/image'
 import classes from './index.module.css'
 import Star from '@/components/SVG/Stars'
 

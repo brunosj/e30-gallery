@@ -43,7 +43,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.block}
             >
               <div className={classes.image}>
-                <Image src={image.url || ''} alt={image.title} fill />
+                <Image src={image.url as string} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.text} ${getTextJustificationClass(textJustification || 'left')}`}
@@ -69,7 +69,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.gridLast}
             >
               <div className={classes.imageLast}>
-                <Image src={image.url || ''} alt={image.title} fill />
+                <Image src={image.url as string} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.textLast} ${getTextJustificationClass(textJustification || 'left')}`}

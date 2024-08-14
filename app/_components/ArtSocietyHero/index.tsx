@@ -29,7 +29,7 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
         variants={slideInFromLeftVariants}
         className={[classes.imageColumn].filter(Boolean).join(' ')}
       >
-        <Image src={imageHero.url || ''} alt={imageHero.title} className={classes.image} fill />
+        <Image src={imageHero.url as string} alt={imageHero.title} className={classes.image} fill />
         <div className={classes.textOverlay}>
           <div>
             <Chevron color="var(--color-white)" size={20} className={'iconTopLeft'} />

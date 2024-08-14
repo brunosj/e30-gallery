@@ -22,7 +22,7 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
       <div className={classes.cta}>
         <div className={classes.backgroundImageWrapper}>
           <Image
-            src={backgroundImage.url}
+            src={backgroundImage.url as string}
             alt={backgroundImage.title}
             fill
             className={classes.backgroundImage}
@@ -37,10 +37,10 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
         >
           <RichText content={text} className={classes.text} />
           <div className="desktop">
-            <Button link={link} label={link.label} appearance={link.appearance} />
+            <Button link={link} />
           </div>
           <div className="mobile">
-            <Button link={link} label={link.label} appearance={'primary'} />
+            <Button link={link} />
           </div>
         </motion.div>
       </div>

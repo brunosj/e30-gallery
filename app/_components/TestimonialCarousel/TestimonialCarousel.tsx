@@ -1,5 +1,6 @@
 'use client'
 
+import type { Testimonial } from '@/app/payload-types'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -14,7 +15,7 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max)
 
 type PropType = {
-  slides: number[]
+  slides: Testimonial[]
   options?: EmblaOptionsType
 }
 

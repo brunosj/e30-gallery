@@ -1,6 +1,6 @@
 'use client'
 
-import type { ArtSocietyPage } from '@/app/payload-types'
+import type { ArtSocietyPage, Testimonial } from '@/app/payload-types'
 import TestimonialCarousel from '@/components//TestimonialCarousel/TestimonialCarousel'
 import { motion } from 'framer-motion'
 import { clipPathVariants, fadeInVariants } from '@/app/_utilities/animationVariants'
@@ -26,7 +26,7 @@ export const Testimonials: React.FC<Props> = ({ data }: Props) => {
         </motion.h2>
       </div>
       <div className="">
-        <TestimonialCarousel slides={testimonialsItems} />
+        <TestimonialCarousel slides={testimonialsItems as Testimonial[]} />
       </div>
     </section>
   )

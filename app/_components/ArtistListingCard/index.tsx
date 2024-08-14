@@ -16,7 +16,7 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
   return (
     <button className={classes.card} onClick={handleClick}>
       <div className={classes.avatar}>
-        <Image src={item.image.url || ''} alt={item.image.title} fill />
+        <Image src={item.image.url as string} alt={item.image.title} fill />
       </div>
       <div className={classes.content}>
         <div className={classes.info}>
@@ -26,8 +26,12 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
       </div>
       <div className={classes.artwork}>
         <Image
-          src={item.relation.artworks.image.url || ''}
-          alt={item.relation.artworks.image.title || ''}
+          src={
+            typeof item.relation.artworks === 'object'
+              ? (item.relation.artworks.image.url as string)
+              : ''
+          }
+          alt={typeof item.relation.artworks === 'object' ? item.relation.artworks.image.title : ''}
           fill
         />
       </div>

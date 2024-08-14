@@ -88,8 +88,8 @@ const MobileNavMembersArea: React.FC = () => {
         >
           <div className={[classes.flexColumn, 'container'].filter(Boolean).join(' ')}>
             <div className={classes.menuContainer}>
-              <Button link={ExhibitionLink} onClick={handleCloseMenu} />
-              <Button link={ArtistLink} onClick={handleCloseMenu} />
+              <Button link={ExhibitionLink()} onClick={handleCloseMenu} />
+              <Button link={ArtistLink()} onClick={handleCloseMenu} />
               <Link href="/account" onClick={handleCloseMenu}>
                 <div className={classes.settings}>
                   <p>{m.account()}</p>

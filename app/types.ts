@@ -50,5 +50,5 @@ export type LinkObject = {
   subject?: string | null
   body?: string | null
   label: string
-  appearance?: ('default' | 'primary' | 'secondary') | null
+  appearance?: 'default' | 'primary' | 'secondary' | string | null
 }

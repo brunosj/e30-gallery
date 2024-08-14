@@ -91,7 +91,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   .join(' ')}
               >
                 <div className={classes.image}>
-                  <Image src={image.url || ''} alt={image.title} fill priority />
+                  <Image src={image.url as string} alt={image.title} fill priority />
                 </div>
               </motion.div>
             </div>

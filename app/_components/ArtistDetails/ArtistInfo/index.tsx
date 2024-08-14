@@ -85,7 +85,7 @@ const ArtistInfo: React.FC<Props> = ({
             )}
             <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
               <Image
-                src={typeof artist.image === 'string' ? artist.image : artist.image.url || ''}
+                src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
                 alt={
                   typeof artist.image === 'string'
                     ? 'Artist Image'
@@ -115,7 +115,7 @@ const ArtistInfo: React.FC<Props> = ({
           >
             <Image
               key={currentArtist.image.url}
-              src={typeof artist.image === 'string' ? artist.image : artist.image.url || ''}
+              src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
               alt={
                 typeof artist.image === 'string'
                   ? 'Artist Image'

@@ -55,7 +55,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           .filter(Boolean)
           .join(' ')}
       >
-        <Image src={image.url || ''} alt={image.title} fill />
+        <Image src={image.url as string} alt={image.title} fill />
       </div>
     </div>
   )
