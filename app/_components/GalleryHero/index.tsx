@@ -34,7 +34,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.9 }}
+        viewport={{ once: true, amount: 0.5 }}
         variants={fadeInVariants}
         className={classes.image}
       >

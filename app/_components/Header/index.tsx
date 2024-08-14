@@ -9,7 +9,8 @@ import { HeaderNav } from '@/components/Header/Nav'
 import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import classes from './index.module.css'
-import { throttle } from 'lodash'
+import { set, throttle } from 'lodash'
+import { motion } from 'framer-motion'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -28,26 +29,39 @@ export function Header() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  const handleToggle = () => {
+    setIsScrolled(!isScrolled)
+  }
   return (
-    <header
-      className={`container border-b-black sticky desktop ${isScrolled ? classes.scrolledDown : ''} `}
+    <motion.header
+      layout
+      className={`container sticky desktop ${isScrolled ? classes.scrolledDown : ''} ${classes.wrapper}`}
     >
       <div className={classes.header}>
-        <Link href="/" className={classes.logo}>
-          <Image alt="E30 Logo" src={Logo} />
-        </Link>
-        <div className={classes.navContainer}>
-          <HeaderNav />
-          <Socials />
-        </div>
-        <div className={classes.languageSwitcher}>
-          <LanguageSwitcher theme="light" />
-        </div>
-        <div className={classes.hamburgerContainer}>
-          <Hamburger size={20} color="var(--color-black)" />
+        {!isScrolled && (
+          <>
+            <Link href="/" className={classes.logo}>
+              <Image alt="E30 Logo" src={Logo} />
+            </Link>
+            <div className={classes.navContainer}>
+              <HeaderNav />
+              <Socials />
+            </div>
+            <div className={classes.languageSwitcher}>
+              <LanguageSwitcher theme="light" />
+            </div>
+          </>
+        )}
+      </div>
+      <div className={classes.hamburgerContainer}>
+        <div className={`container`}>
+          <div className={classes.hamburgerBg}>
+            <Hamburger size={20} color="var(--color-black)" toggle={handleToggle} />
+          </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   )
 }
 

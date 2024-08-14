@@ -52,7 +52,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.9 }}
+          viewport={{ once: true, amount: 0.5 }}
           variants={clipPathVariants}
           className={classes.content}
         >

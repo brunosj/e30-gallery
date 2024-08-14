@@ -25,7 +25,7 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.9 }}
+            viewport={{ once: true, amount: 0.7 }}
             variants={clipPathVariants}
             className={classes.scaledContainer}
           >
@@ -42,7 +42,7 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.9 }}
+                viewport={{ once: true, amount: 0.5 }}
                 variants={clipPathVariants}
                 className={classes.scaledContainer}
               >

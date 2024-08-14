@@ -10,7 +10,6 @@
 
 }
 
-
 .column {
   flex: 1;
 }
@@ -65,6 +64,7 @@
 
   .text {
     max-width: 100%;
+    margin-bottom: var(--base-100)
   }
 
   .textColumn {

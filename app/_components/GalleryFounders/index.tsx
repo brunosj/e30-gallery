@@ -23,7 +23,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               initial="hidden"
               whileInView="visible"
               variants={slideInFromLeftVariants}
-              viewport={{ once: true, amount: 0.9 }}
+              viewport={{ once: true, amount: 0.5 }}
               className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}
             >
               <Image

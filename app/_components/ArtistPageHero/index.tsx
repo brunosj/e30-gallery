@@ -16,7 +16,7 @@ export const ArtistPageHero = ({ data }: Props) => {
       initial="hidden"
       whileInView="visible"
       variants={fadeInVariants}
-      viewport={{ once: true, amount: 0.9 }}
+      viewport={{ once: true, amount: 0.2 }}
       className={classes.text}
     >
       <RichText content={data.text} />
