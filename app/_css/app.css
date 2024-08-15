@@ -26,6 +26,15 @@
   outline: gray solid 1px;
 } */
 
+
+/* * {
+  box-sizing: border-box;
+} */
+
+/* nav {
+  width: 98vw;
+} */
+
 body {
 	background-color: var(--color-white);
 }

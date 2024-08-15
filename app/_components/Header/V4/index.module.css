@@ -1,0 +1,65 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  background: var(--color-accent);
+  overflow: hidden;
+  z-index: 10; 
+}
+
+.hamburger {
+  position: fixed;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 10; 
+  top: calc(45px);
+  right: calc(2vw); 
+  transform: translate(0%, -50%);
+}
+
+.menu {
+  position: fixed;
+  z-index: 10; 
+  width: 100%;
+  display: flex;
+  height: 90px;
+}
+
+.menuList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+  width: 100%;
+}
+
+.logo {
+  width: 75px;
+}
+
+.navbar-open {
+  border-bottom: 0.5px solid var(--color-black);
+}
+
+.navbar-closed .menuList .menu {
+  pointer-events: none;
+}
+
+
+@media (min-width: 1300px) {
+  .hamburger {
+    transform: translate(30%, -50%);
+  }
+
+  .logo {
+    width: 75px;
+  }
+
+}

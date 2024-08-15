@@ -1,6 +1,7 @@
 .bg {
-  background: linear-gradient(180deg, black 0%, var(--color-accent) 100%);
+  /* background: linear-gradient(180deg, black 0%, var(--color-accent) 100%); */
   overflow: hidden;
+  position: relative;
 }
 
 .reachOut {
@@ -35,6 +36,7 @@
 .titleElements {
   display: block;
 }
+
 
 @media (max-width: 480px) {
   .reachOut {

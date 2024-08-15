@@ -78,6 +78,8 @@
   display: flex;
   /* margin:auto; */
 }
+
+
 .artistCarousel__buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -116,7 +118,7 @@
 .artistCarousel__dots {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: flex-end; */
+  justify-content: center;
   align-items: center;
   margin:auto;
   gap:var(--base-100);

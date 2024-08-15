@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
@@ -23,12 +23,6 @@ type Props = {
   handleMouseLeave: () => void
 }
 
-const anim = {
-  initial: { width: 0 },
-  open: { width: 'auto', transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] } },
-  closed: { width: 0 },
-}
-
 const ArtistList: React.FC<Props> = ({
   artists,
   filterType,
@@ -38,8 +32,6 @@ const ArtistList: React.FC<Props> = ({
   handleMouseEnter,
   handleMouseLeave,
 }) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
-
   return (
     <motion.div
       initial="hidden"
@@ -68,46 +60,46 @@ const ArtistList: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      <div>
+      <div className={classes.grid}>
         <ul className={classes.list}>
-          {artists.map((artist, index) => {
-            const firstName = artist.full_name.split(' ')[0]
-            const lastNames = artist.full_name.split(' ').slice(1).join(' ')
-
-            return (
-              <motion.li
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={cascadeVariants(index)}
-                key={index}
+          {artists.map((artist, index) => (
+            <motion.li
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={cascadeVariants(index)}
+              key={index}
+            >
+              <button
+                onClick={() => handleArtistClick(index)}
+                onMouseEnter={() => handleMouseEnter(artist.relation.artworks as Artwork)}
+                onMouseLeave={handleMouseLeave}
               >
-                <div
-                  onClick={() => handleArtistClick(index)}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(null)}
-                  className={classes.project}
-                >
-                  <p>{firstName}</p>
-                  <motion.div
-                    variants={anim}
-                    animate={activeIndex === index ? 'open' : 'closed'}
-                    className={classes.imgContainer}
-                  >
-                    <Image
-                      src={(artist.relation.artworks as Artwork)?.image.url as string}
-                      alt={(artist.relation.artworks as Artwork)?.image.title}
-                      width={100}
-                      height={100}
-                      priority
-                    />
-                  </motion.div>
-                  <p>{lastNames}</p>
-                </div>
-              </motion.li>
-            )
-          })}
+                {artist.full_name}
+              </button>
+            </motion.li>
+          ))}
         </ul>
+
+        <div className="relative desktop">
+          <div className={classes.image}>
+            {hoveredArtwork ? (
+              <Image
+                src={hoveredArtwork.image.url as string}
+                alt={hoveredArtwork.image.title}
+                fill
+                priority
+              />
+            ) : (
+              <Image
+                src={(artists[0]?.relation.artworks as Artwork)?.image.url as string}
+                alt={(artists[0]?.relation.artworks as Artwork)?.image.title}
+                fill
+                priority
+              />
+            )}
+          </div>
+        </div>
       </div>
     </motion.div>
   )

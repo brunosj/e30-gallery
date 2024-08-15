@@ -55,7 +55,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
         variants={fadeInVariants}
         className={[classes.cta, 'container padding-y'].filter(Boolean).join(' ')}
       >
-        <div className={classes.content}>
+        <div className={[classes.content, ' padding-y'].filter(Boolean).join(' ')}>
           <h1 className="uppercase" style={{ color: textColor }}>
             {title}
           </h1>

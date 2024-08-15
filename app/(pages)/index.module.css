@@ -1,6 +1,7 @@
 .main {
   min-height: 70vh;
-  z-index: 100;
+  margin-top:90px;
+  /* z-index: 100; */
   /* position: relative; */
   background-color: var(--color-white);
   overflow: hidden;
@@ -10,4 +11,11 @@
   height: 70vh;
   display: flex;
   align-items: center;
+}
+
+
+@media (max-width: 850px) {
+  .main {
+    margin-top: 0px;
+  } 
 }

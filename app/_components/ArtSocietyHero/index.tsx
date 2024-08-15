@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { LoginForm } from '@/app/(pages)/art-society/LoginForm'
 import Chevron from '@/components/SVG/Chevron'
 import {
+  clipPathVariants,
   fadeInVariants,
   slideInFromLeftVariants,
   slideInFromRightVariants,
@@ -42,7 +43,7 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={slideInFromRightVariants}
+        variants={clipPathVariants}
         className={classes.formColumn}
       >
         <div className={classes.formContainer}>

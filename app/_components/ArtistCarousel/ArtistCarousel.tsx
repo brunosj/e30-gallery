@@ -30,20 +30,19 @@ const ArtistCarousel: React.FC<PropType> = props => {
   return (
     <section className="artistCarousel">
       <div className="artistCarousel__viewport" ref={emblaRef}>
-        <div className="artistCarousel__container">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeInVariants}
+          className="artistCarousel__container"
+        >
           {slides.map((slide, index) => (
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.5 }}
-              variants={fadeInVariants}
-              className="artistCarousel__slide"
-              key={index}
-            >
+            <div key={index} className="artistCarousel__slide">
               <ArtistListingCard item={slide} />
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <div className="artistCarousel__controls">

@@ -66,7 +66,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.5 }}
-                  variants={invertOrder ? slideInFromRightVariants : slideInFromLeftVariants}
+                  variants={clipPathVariants}
                   className={classes.content}
                 >
                   <h3 className="">{m.featuredExhibition()}</h3>

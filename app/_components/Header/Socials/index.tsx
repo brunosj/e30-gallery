@@ -19,7 +19,7 @@ const fadeInVariants = {
     transition: {
       duration: 0.75,
       ease: 'easeOut',
-      delay: 0.5,
+      delay: 0.2,
     },
   },
 }

@@ -38,7 +38,6 @@ export default async function Footer() {
 
   return (
     <>
-      <section className={classes.spacer} />
       <footer className={classes.bg}>
         <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
           <div className={classes.content}>

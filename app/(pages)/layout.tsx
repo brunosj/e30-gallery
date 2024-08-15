@@ -3,16 +3,14 @@ import '../_css/app.css'
 import type { Metadata } from 'next'
 
 import type { Viewport } from 'next'
-import { useRouter } from 'next/router'
 import { LanguageProvider } from '@inlang/paraglide-next'
 import { languageTag } from '@/paraglide/runtime.js'
-import { Header } from '@/components/Header'
 import { HeaderMobile } from '@/components/HeaderMobile'
 import { AuthProvider } from '@/providers/Auth'
 import localFont from 'next/font/local'
-import BannerNewsletter from '@/components/BannerNewsletter'
 import Footer from '@/components/Footer'
 import { siteMetadata } from '@/components/Metadata'
+import HeaderV4 from '@/components/Header/V4'
 
 import classes from './index.module.css'
 
@@ -41,7 +39,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <html lang={languageTag()} className={`${hanken.className}`}>
         <body className="relative">
           <AuthProvider api="rest">
-            <Header />
+            <HeaderV4 />
             <HeaderMobile />
             <main className={classes.main}>{children}</main>
             <Footer />

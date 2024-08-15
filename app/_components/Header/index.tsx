@@ -35,7 +35,7 @@ export function Header() {
     setIsScrolled(!isScrolled)
   }
   return (
-    <header
+    <motion.header
       className={`container sticky desktop ${isScrolled ? classes.scrolledDown : ''} ${classes.wrapper}`}
     >
       <div className={classes.header}>
@@ -61,7 +61,7 @@ export function Header() {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   )
 }
 

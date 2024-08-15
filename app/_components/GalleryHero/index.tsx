@@ -6,6 +6,7 @@ import Image from 'next/image'
 import * as m from '@/paraglide/messages.js'
 import { RichText } from '../RichText'
 import {
+  clipPathVariants,
   fadeInVariants,
   slideInFromLeftVariants,
   slideInFromRightVariants,
@@ -27,7 +28,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={slideInFromLeftVariants}
+        variants={clipPathVariants}
         className={classes.contentColumn}
       >
         <div className="container flex padding-y">
