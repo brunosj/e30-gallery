@@ -49,7 +49,6 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ amount: 0.2 }}
         variants={slideInFromRightVariants}
         className={classes.contentContainer}
       >

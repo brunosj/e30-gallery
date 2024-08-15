@@ -33,7 +33,7 @@ const ArtistCarousel: React.FC<PropType> = props => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInVariants}
           className="artistCarousel__container"
         >

@@ -21,7 +21,7 @@
   z-index: 10; 
   top: calc(45px);
   right: calc(2vw); 
-  transform: translate(0%, -50%);
+  transform: translate(0%, -45%);
 }
 
 .menu {

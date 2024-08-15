@@ -15,42 +15,33 @@ type Props = {
 
 const backgroundVariants = {
   initial: {
-    backgroundImage: 'linear-gradient(180deg, var(--color-black) 0%, var(--color-black) 100%)',
+    backgroundColor: 'var(--color-black)',
     transition: {
       duration: 0,
     },
   },
   enter: {
-    backgroundImage: 'linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent) 100%)',
+    backgroundColor: 'var(--color-accent)',
     transition: {
-      type: 'spring',
-      stiffness: 20,
-      restDelta: 2,
-      backgroundImage: {
+      backgroundColor: {
         duration: 2,
         ease: 'easeInOut',
       },
     },
   },
   middle: {
-    backgroundImage: 'linear-gradient(180deg, black 0%, var(--color-accent) 100%)',
+    backgroundColor: 'var(--color-accent)',
     transition: {
-      type: 'spring',
-      stiffness: 20,
-      restDelta: 2,
-      backgroundImage: {
+      backgroundColor: {
         duration: 2,
         ease: 'easeInOut',
       },
     },
   },
   end: {
-    backgroundImage: 'linear-gradient(180deg, var(--color-black) 0%, var(--color-black) 100%)',
+    backgroundColor: 'var(--color-accent)',
     transition: {
-      type: 'spring',
-      stiffness: 20,
-      restDelta: 2,
-      backgroundImage: {
+      backgroundColor: {
         duration: 2,
         ease: 'easeInOut',
       },
@@ -96,7 +87,7 @@ export default function BannerReachOutComponentV2({ data }: Props) {
   }, [scrollY, inView, controls])
 
   useEffect(() => {
-    if (!inView) {
+    if (!inView && scrollY >= 0.25) {
       controls.start('initial')
     }
   }, [inView, controls])

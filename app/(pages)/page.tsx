@@ -53,7 +53,6 @@ export default async function Home() {
   const featuredExhibitions: Exhibition[] = page.featuredExhibitions.filter(
     item => typeof item !== 'string',
   )
-
   return (
     <article>
       <HeroExhibition data={featuredExhibitions} />
