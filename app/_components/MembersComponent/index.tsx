@@ -9,6 +9,7 @@ import { MembersVirtualExhibition } from '../MembersVirtualExhibition'
 import { Button } from '@/components/Button'
 import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: MembersOnlyPage
@@ -83,7 +84,7 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
           </li>
         </nav>
       </div>
-      <section className={[classes.content, 'desktop'].filter(Boolean).join(' ')}>
+      <section className={cn(classes.content, 'desktop')}>
         <div>{renderContent()}</div>
       </section>
       <section className="mobile">

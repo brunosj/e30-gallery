@@ -3,6 +3,7 @@ import type { LinkObject } from '@/app/types'
 import React from 'react'
 import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 export type Props = {
   onClick?: () => void
@@ -22,14 +23,12 @@ export const Button: React.FC<Props> = ({
   link,
 }) => {
   const newTabProps = link?.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
-  const className = [
+  const className = cn(
     classes.button,
     classNameFromProps,
     link?.appearance && classes[`appearance--${link.appearance}`],
     invert && link?.appearance && classes[`${link.appearance}--invert`],
-  ]
-    .filter(Boolean)
-    .join(' ')
+  )
 
   const content = (
     <div className={classes.content}>

@@ -9,6 +9,7 @@ import {
   clipPathVariants,
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
+import cn from 'classnames'
 
 type Props = {
   data: ArtistsPage
@@ -21,7 +22,7 @@ export const ArtistPageHero = ({ data }: Props) => {
       whileInView="visible"
       variants={clipPathVariants}
       viewport={{ once: true, amount: 0.2 }}
-      className={classes.text}
+      className={cn(classes.text, 'padding-y')}
     >
       <RichText content={data.text} />
     </motion.div>

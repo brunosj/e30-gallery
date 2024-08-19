@@ -11,7 +11,7 @@ import {
   slideInFromLeftVariants,
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
-
+import cn from 'classnames'
 import classes from './index.module.css'
 
 export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
@@ -25,17 +25,15 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ amount: 0.5 }}
+        viewport={{ amount: 0.3 }}
         variants={invertOrder ? slideInFromRightVariants : slideInFromLeftVariants}
-        className={[
+        className={cn(
           'container padding-y',
           classes.textColumn,
           classes[`${columnText.size}`],
           invertOrder ? classes.order2 : classes.order1,
           invertOrder ? 'text-right' : '',
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        )}
       >
         {columnText.title && <h1 className={classes.title}>{columnText.title}</h1>}
         <p className="semibold">{columnText.subtitle}</p>
@@ -47,13 +45,11 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
         {columnText.addLink && columnText.link && <Button link={columnText.link} />}
       </motion.div>
       <div
-        className={[
+        className={cn(
           classes.imageColumn,
           classes[`${columnImage.size}`],
           invertOrder ? classes.order1 : classes.order2,
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        )}
       >
         <Image src={image.url as string} alt={image.title} fill />
       </div>

@@ -7,6 +7,7 @@ import { RichText } from '../RichText'
 import { motion } from 'framer-motion'
 import { fadeInVariants, slideInFromLeftVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: GalleryPage
@@ -24,7 +25,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               whileInView="visible"
               variants={slideInFromLeftVariants}
               viewport={{ once: true, amount: 0.5 }}
-              className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}
+              className={cn(classes.imageColumn, 'padding-y')}
             >
               <Image
                 key={imageAlexander.title}
@@ -62,7 +63,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
       <div className="mobile">
         <div className={classes.info}>
           <div className={classes.image}>
-            <div className={[classes.imageColumn, 'padding-y'].filter(Boolean).join(' ')}>
+            <div className={cn(classes.imageColumn, 'padding-y')}>
               <Image
                 key={imageAlexander.title}
                 src={imageAlexander.url as string}
@@ -84,7 +85,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               <div className={classes.content}>
                 <RichText
                   content={felicitas_bio}
-                  className={[classes.richTextFounders, 'text-right'].filter(Boolean).join(' ')}
+                  className={cn(classes.richTextFounders, 'text-right')}
                 />
               </div>
             </div>

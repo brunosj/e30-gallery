@@ -17,7 +17,7 @@
 .artistCarousel__container {
   backface-visibility: hidden;
   display: flex;
-  padding-top:var(--base-50);
+  padding-top:var(--base-100);
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
 }

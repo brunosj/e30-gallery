@@ -135,3 +135,39 @@ export const gradientVariants: Variants = {
     },
   },
 }
+
+export const backgroundVariants = {
+  initial: {
+    backgroundColor: 'var(--color-black)',
+    transition: {
+      duration: 0,
+    },
+  },
+  enter: {
+    backgroundColor: 'var(--color-accent)',
+    transition: {
+      backgroundColor: {
+        duration: 2,
+        ease: 'easeInOut',
+      },
+    },
+  },
+  middle: {
+    backgroundColor: 'var(--color-accent)',
+    transition: {
+      backgroundColor: {
+        duration: 2,
+        ease: 'easeInOut',
+      },
+    },
+  },
+  end: {
+    backgroundColor: 'var(--color-accent)',
+    transition: {
+      backgroundColor: {
+        duration: 2,
+        ease: 'easeInOut',
+      },
+    },
+  },
+}

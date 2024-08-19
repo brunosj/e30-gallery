@@ -5,6 +5,7 @@ import { languageTag } from '@/paraglide/runtime'
 import Image from 'next/image'
 import { ResetPasswordForm } from './ResetPasswordForm'
 import BannerNewsletter from '@/components/BannerNewsletter'
+import cn from 'classnames'
 
 import classes from './index.module.css'
 
@@ -54,7 +55,7 @@ export default async function ResetPassword() {
   return (
     <>
       <article className={classes.grid}>
-        <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
+        <div className={cn(classes.imageColumn)}>
           <Image
             src={page.resetPasswordImage.url ?? ''}
             alt={page.resetPasswordImage.title}

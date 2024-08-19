@@ -13,7 +13,6 @@
 }
 
 
-
 .richText h1 {
   font-size: var(--base-300);
   line-height: 1.2;
@@ -62,6 +61,7 @@
 
   .richText h3 {
     font-size: var(--base-100);
+    line-height: 1.5;
   }
 
   .richText p {

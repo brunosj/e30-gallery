@@ -15,7 +15,6 @@ type Props = {
 
 export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   const searchParams = useSearchParams()
-  const idParam = searchParams.get('id')
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null)
   const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
   const [filterType, setFilterType] = useState<'represented' | 'featured'>('represented')

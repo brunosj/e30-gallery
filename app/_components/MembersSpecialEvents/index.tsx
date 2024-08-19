@@ -7,8 +7,10 @@ import {
   fadeInVariants,
   slideInFromLeftVariants,
   slideInFromRightVariants,
+  clipPathVariants,
 } from '@/utilities/animationVariants'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: MembersOnlyPage
@@ -21,19 +23,19 @@ export const MembersSpecialEvents: React.FC<Props> = ({ data }: Props) => {
       <motion.h3
         initial="hidden"
         whileInView="visible"
-        variants={slideInFromLeftVariants}
-        viewport={{ once: true, amount: 0 }}
+        variants={clipPathVariants}
+        viewport={{ once: true }}
         className="membersAreaTitle"
       >
         {page_title_special_events}
       </motion.h3>
 
-      <div className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')}>
+      <div className={cn(classes.grid, 'padding-y')}>
         <motion.div
           initial="hidden"
           whileInView="visible"
           variants={slideInFromLeftVariants}
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true }}
           className={classes.imageColumn}
         >
           <div className={classes.imageContainer}>
@@ -45,7 +47,7 @@ export const MembersSpecialEvents: React.FC<Props> = ({ data }: Props) => {
           initial="hidden"
           whileInView="visible"
           variants={slideInFromRightVariants}
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true }}
           className={classes.textContainer}
         >
           <RichText content={text_special_events} />

@@ -3,6 +3,7 @@ import type { ArtSocietyPage } from '@/app/payload-types'
 import React from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import { RecoverPasswordForm } from './RecoverPasswordForm'
+import cn from 'classnames'
 import Image from 'next/image'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import classes from './index.module.css'
@@ -53,7 +54,7 @@ export default async function RecoverPassword() {
   return (
     <>
       <article className={classes.grid}>
-        <div className={[classes.imageColumn].filter(Boolean).join(' ')}>
+        <div className={classes.imageColumn}>
           <Image
             src={page.resetPasswordImage.url ?? ''}
             alt={page.resetPasswordImage.title ?? ''}

@@ -345,8 +345,8 @@ display: block;
 
 	
   .padding-y {
-    padding-top: var(--base-150);
-    padding-bottom: var(--base-150);
+    padding-top: var(--base-300);
+    padding-bottom: var(--base-300);
   }
 
   .padding-x {

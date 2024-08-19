@@ -1,6 +1,7 @@
 import React from 'react'
 import type { TwoColumnBlock, CallToAction } from '@/app/payload-types'
 import { components } from '@/components/Blocks'
+import cn from 'classnames'
 
 // need to list all possible block types here
 
@@ -20,7 +21,7 @@ type Props = {
 }
 
 const RenderBlocks: React.FC<Props> = ({ layout, className }) => (
-  <div className={[className].filter(Boolean).join(' ')}>
+  <div className={cn(className)}>
     {layout.map((block, i) => {
       const Block: React.FC<any> = components[block.blockType]
       if (Block) {

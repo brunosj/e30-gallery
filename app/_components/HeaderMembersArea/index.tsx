@@ -11,6 +11,7 @@ import { useAuth } from '@/providers/Auth'
 import * as m from '@/paraglide/messages.js'
 import MobileNavMembersArea from '@/components/HeaderMembersArea/MobileNav'
 import { LogOutLink } from '@/app/_utilities/linkObjects'
+import cn from 'classnames'
 
 import classes from './index.module.css'
 
@@ -18,7 +19,7 @@ export function HeaderMembersArea() {
   const { user } = useAuth()
   return (
     <header className={classes.header}>
-      <div className={[classes.wrap, 'container'].filter(Boolean).join(' ')}>
+      <div className={cn(classes.wrap, 'container')}>
         <div className={classes.left}>
           <Link href="/" className={classes.logo}>
             <Image alt="E30 Logo" src={Logo} />

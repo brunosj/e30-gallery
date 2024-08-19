@@ -5,10 +5,12 @@ import type { MembersOnlyPage } from '@/app/payload-types'
 import classes from './index.module.css'
 import { getTextJustificationClass } from '@/utilities/geTextJustification'
 import { motion, useInView } from 'framer-motion'
+import cn from 'classnames'
 import {
   fadeInVariants,
   slideInFromLeftVariants,
   cardVariants,
+  clipPathVariants,
 } from '@/utilities/animationVariants'
 
 type Props = {
@@ -27,13 +29,13 @@ export const MembersHome: React.FC<Props> = ({ data, setActiveTab }: Props) => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        variants={slideInFromLeftVariants}
+        variants={clipPathVariants}
         viewport={{ once: true, amount: 0 }}
       >
         <h3 className="membersAreaTitle">{page_title_home}</h3>
         <RichText content={text_home} />
       </motion.div>
-      <div className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')}>
+      <div className={cn(classes.grid, 'padding-y')}>
         {homeBlocks.map((block, index) => {
           const { title, info, image, textJustification } = block
 

@@ -6,7 +6,13 @@ import classes from './index.module.css'
 import { getTextJustificationClass } from '@/utilities/geTextJustification'
 import { Button } from '@/components/Button'
 import { motion, useInView } from 'framer-motion'
-import { fadeInVariants, cardVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  cardVariants,
+  slideInFromLeftVariants,
+  clipPathVariants,
+} from '@/utilities/animationVariants'
+import cn from 'classnames'
 
 type Props = {
   data: MembersOnlyPage
@@ -29,9 +35,17 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <section className="container padding-y">
-      <h3 className="membersAreaTitle">{page_title_art_advice}</h3>
+      <motion.h3
+        initial="hidden"
+        whileInView="visible"
+        variants={clipPathVariants}
+        viewport={{ once: true }}
+        className="membersAreaTitle"
+      >
+        {page_title_art_advice}
+      </motion.h3>
 
-      <div className={[classes.grid, 'padding-y'].filter(Boolean).join(' ')} ref={refFirstSet}>
+      <div className={cn(classes.grid, 'padding-y')} ref={refFirstSet}>
         {individuallArtAdviceBlock.slice(0, 2).map((block, index) => {
           const { title, info, image, textJustification, link } = block
           return (

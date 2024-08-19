@@ -3,6 +3,7 @@ import { languageTag } from '@/paraglide/runtime'
 import LongLogo from '@/components/SVG/LongLogo'
 import * as m from '@/paraglide/messages.js'
 import { FooterNav } from '@/components/Footer/Nav'
+import cn from 'classnames'
 
 import classes from './index.module.css'
 
@@ -39,13 +40,13 @@ export default async function Footer() {
   return (
     <>
       <footer className={classes.bg}>
-        <div className={[classes.footer, ''].filter(Boolean).join(' ')}>
+        <div className={classes.footer}>
           <div className={classes.content}>
             <div className={classes.footerNav}>
               <FooterNav data={footer} />
             </div>
             <div className={classes.copyright}>
-              <div className={[classes.logo, 'container padding-y-sm'].filter(Boolean).join(' ')}>
+              <div className={cn(classes.logo, 'container padding-y-sm')}>
                 <LongLogo />
               </div>
               <div className="container padding-y-sm">

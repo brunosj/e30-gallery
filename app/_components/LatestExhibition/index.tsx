@@ -7,6 +7,7 @@ import * as m from '@/paraglide/messages.js'
 import { Button } from '@/components/Button'
 import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
+import cn from 'classnames'
 import {
   fadeInVariants,
   clipPathVariants,
@@ -53,19 +54,17 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
           <div key={title} className="padding-b">
             <div className={classes.grid}>
               <div
-                className={[
+                className={cn(
                   classes.contentContainer,
                   invertOrder ? classes.order2 : classes.order1,
                   invertOrder ? 'text-right' : '',
                   invertOrder ? classes.marginLeft : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                )}
               >
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
+                  viewport={{ once: true }}
                   variants={clipPathVariants}
                   className={classes.content}
                 >
@@ -84,11 +83,9 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
+                viewport={{ once: true }}
                 variants={invertOrder ? slideInFromLeftVariants : slideInFromRightVariants}
-                className={[invertOrder ? classes.order1 : classes.order2, 'relative']
-                  .filter(Boolean)
-                  .join(' ')}
+                className={cn(invertOrder ? classes.order1 : classes.order2, 'relative')}
               >
                 <div className={classes.image}>
                   <Image src={image.url as string} alt={image.title} fill priority />

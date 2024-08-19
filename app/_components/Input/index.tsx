@@ -1,6 +1,7 @@
 import React from 'react'
 import { FieldValues, UseFormRegister, Validate } from 'react-hook-form'
 import * as m from '@/paraglide/messages.js'
+import cn from 'classnames'
 
 import classes from './index.module.css'
 
@@ -29,7 +30,7 @@ export const Input: React.FC<Props> = ({
         {`${label} ${required ? '' : ''}`}
       </label>
       <input
-        className={[classes.input, error && classes.error].filter(Boolean).join(' ')}
+        className={cn(classes.input, error && classes.error)}
         {...{ type }}
         {...register(name, {
           required,

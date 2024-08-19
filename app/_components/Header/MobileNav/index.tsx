@@ -10,6 +10,7 @@ import { languageTag } from '@/paraglide/runtime'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
+import cn from 'classnames'
 
 const MobileNav: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
@@ -81,7 +82,7 @@ const MobileNav: React.FC = () => {
           ref={menuRef}
           className={`${classes.bgFixed} ${isOpen ? classes.open : classes.closed}`}
         >
-          <div className={[classes.flexColumn, 'container'].filter(Boolean).join(' ')}>
+          <div className={cn(classes.flexColumn, 'container')}>
             <div className={classes.menuContainer}>
               {menu && menu.nav && (
                 <ul className={classes.menu}>

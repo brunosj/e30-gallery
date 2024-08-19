@@ -3,10 +3,12 @@
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
-import classes from './index.module.css'
+import { useEffect, useRef, useState } from 'react'
 import { RichText } from '../RichText'
-import { fadeInVariants } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
+import { fadeInVariants, backgroundVariants } from '@/app/_utilities/animationVariants'
+import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: GalleryPage
@@ -14,9 +16,56 @@ type Props = {
 
 export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
   const { main_text, textImageBlock } = data
+  const controls = useAnimation()
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, {
+    amount: 0.5,
+  })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end end'],
+  })
+
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(scrollYProgress.get())
+    }
+
+    const unsubscribe = scrollYProgress.onChange(handleScroll)
+
+    return () => {
+      unsubscribe()
+    }
+  }, [scrollYProgress])
+
+  useEffect(() => {
+    if (inView) {
+      if (scrollY <= 0.25) {
+        controls.start('enter')
+      } else if (scrollY <= 0.75) {
+        controls.start('middle')
+      } else {
+        controls.start('end')
+      }
+    }
+  }, [scrollY, inView, controls])
+
+  useEffect(() => {
+    if (!inView && scrollY >= 0.25) {
+      controls.start('initial')
+    }
+  }, [inView, scrollY, controls])
 
   return (
-    <section className={[classes.grid, 'container padding-y'].filter(Boolean).join(' ')}>
+    <motion.section
+      ref={ref}
+      initial="initial"
+      animate={controls}
+      variants={backgroundVariants}
+      className={cn(classes.grid, 'container padding-y')}
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -45,6 +94,6 @@ export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
           <RichText content={main_text} />
         </div>
       </motion.div>
-    </section>
+    </motion.section>
   )
 }

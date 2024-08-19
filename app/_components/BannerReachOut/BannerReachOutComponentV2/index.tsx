@@ -3,50 +3,15 @@
 import type { ReachOut } from '@/app/payload-types'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
+import { fadeInVariants, backgroundVariants } from '@/app/_utilities/animationVariants'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import Chevron from '@/components/SVG/Chevron'
 import classes from './index.module.css'
-import { fadeInVariants } from '@/app/_utilities/animationVariants'
+import cn from 'classnames'
 
 type Props = {
   data: ReachOut
-}
-
-const backgroundVariants = {
-  initial: {
-    backgroundColor: 'var(--color-black)',
-    transition: {
-      duration: 0,
-    },
-  },
-  enter: {
-    backgroundColor: 'var(--color-accent)',
-    transition: {
-      backgroundColor: {
-        duration: 2,
-        ease: 'easeInOut',
-      },
-    },
-  },
-  middle: {
-    backgroundColor: 'var(--color-accent)',
-    transition: {
-      backgroundColor: {
-        duration: 2,
-        ease: 'easeInOut',
-      },
-    },
-  },
-  end: {
-    backgroundColor: 'var(--color-accent)',
-    transition: {
-      backgroundColor: {
-        duration: 2,
-        ease: 'easeInOut',
-      },
-    },
-  },
 }
 
 export default function BannerReachOutComponentV2({ data }: Props) {
@@ -90,7 +55,7 @@ export default function BannerReachOutComponentV2({ data }: Props) {
     if (!inView && scrollY >= 0.25) {
       controls.start('initial')
     }
-  }, [inView, controls])
+  }, [inView, scrollY, controls])
 
   return (
     <motion.section
@@ -105,7 +70,7 @@ export default function BannerReachOutComponentV2({ data }: Props) {
         whileInView="visible"
         viewport={{ once: false, amount: 0.75 }}
         variants={fadeInVariants}
-        className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}
+        className={cn(classes.reachOut, 'container', 'padding-y-sm')}
       >
         <div className={classes.title}>
           <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />

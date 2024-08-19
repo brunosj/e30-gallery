@@ -13,6 +13,7 @@ import {
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: ArtSocietyPage
@@ -28,7 +29,7 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
         whileInView="visible"
         viewport={{ once: true }}
         variants={slideInFromLeftVariants}
-        className={[classes.imageColumn].filter(Boolean).join(' ')}
+        className={classes.imageColumn}
       >
         <Image src={imageHero.url as string} alt={imageHero.title} className={classes.image} fill />
         <div className={classes.textOverlay}>

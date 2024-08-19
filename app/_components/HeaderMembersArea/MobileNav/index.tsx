@@ -15,6 +15,7 @@ import Settings from '@/components/SVG/Settings'
 import * as m from '@/paraglide/messages.js'
 import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
 import { LogOutLink } from '@/app/_utilities/linkObjects'
+import cn from 'classnames'
 
 const MobileNavMembersArea: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
@@ -86,7 +87,7 @@ const MobileNavMembersArea: React.FC = () => {
           ref={menuRef}
           className={`${classes.bgFixed} ${isOpen ? classes.open : classes.closed}`}
         >
-          <div className={[classes.flexColumn, 'container'].filter(Boolean).join(' ')}>
+          <div className={cn(classes.flexColumn, 'container')}>
             <div className={classes.menuContainer}>
               <Button link={ExhibitionLink()} onClick={handleCloseMenu} />
               <Button link={ArtistLink()} onClick={handleCloseMenu} />

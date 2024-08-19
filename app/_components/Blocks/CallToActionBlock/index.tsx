@@ -4,6 +4,7 @@ import type { CallToAction, Media } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
+import cn from 'classnames'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
@@ -47,15 +48,15 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
   const buttonAppearance = getButtonAppearance(backgroundColor)
 
   return (
-    <section className={[classes.bg, classes[backgroundColor]].filter(Boolean).join(' ')}>
+    <section className={cn(classes.bg, classes[backgroundColor])}>
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.75 }}
+        viewport={{ once: false, amount: 0.5 }}
         variants={fadeInVariants}
-        className={[classes.cta, 'container padding-y'].filter(Boolean).join(' ')}
+        className={cn(classes.cta, 'container padding-y')}
       >
-        <div className={[classes.content, ' padding-y'].filter(Boolean).join(' ')}>
+        <div className={classes.content}>
           <h1 className="uppercase" style={{ color: textColor }}>
             {title}
           </h1>

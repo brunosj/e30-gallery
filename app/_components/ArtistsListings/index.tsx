@@ -6,6 +6,7 @@ import { Button } from '../Button'
 import ArtistCarousel from '@/components/ArtistCarousel/ArtistCarousel'
 import classes from './index.module.css'
 import { ArtistLink } from '@/app/_utilities/linkObjects'
+import cn from 'classnames'
 
 async function getData(locale: string) {
   let data
@@ -46,7 +47,7 @@ export default async function ArtistsListings() {
 
   return (
     <section className="container padding-y">
-      <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
+      <div className={cn(classes.info, 'centered')}>
         <h2 className="uppercase">{m.artistsAtE30()}</h2>
         <Button link={ArtistLink(m.viewAll(), 'default')} />
       </div>

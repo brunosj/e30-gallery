@@ -12,6 +12,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
+import cn from 'classnames'
 
 type Props = {
   data: ArtSocietyPage
@@ -42,7 +43,7 @@ export const ArtSocietyBenefits: React.FC<Props> = ({ data }: Props) => {
         className={classes.columnRight}
       >
         <div className={classes.imageContents}>
-          <div className={[classes.imageContainer].filter(Boolean).join(' ')}>
+          <div className={cn(classes.imageContainer)}>
             <Image src={image.url as string} alt={image.title} className={classes.image} fill />
           </div>
         </div>

@@ -98,6 +98,7 @@
 
   .textColumn,
   .imageColumn {
-    padding: var(--base-200);
+    padding-right: var(--base-200);
+    padding-left: var(--base-200);
   }
 }

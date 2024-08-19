@@ -6,6 +6,7 @@ import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
+import cn from 'classnames'
 import { motion } from 'framer-motion'
 import {
   fadeInVariants,
@@ -83,7 +84,7 @@ const ArtistInfo: React.FC<Props> = ({
                 </div>
               </motion.div>
             )}
-            <div className={[classes.imageArtist, 'mobile'].filter(Boolean).join(' ')}>
+            <div className={cn(classes.imageArtist, 'mobile')}>
               <Image
                 src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
                 alt={
@@ -111,7 +112,7 @@ const ArtistInfo: React.FC<Props> = ({
             whileInView="visible"
             viewport={{ once: true }}
             variants={slideInFromRightVariants}
-            className={[classes.image, 'desktop'].filter(Boolean).join(' ')}
+            className={cn(classes.image, 'desktop')}
           >
             <Image
               key={currentArtist.image.url}

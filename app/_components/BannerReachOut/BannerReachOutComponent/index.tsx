@@ -8,6 +8,7 @@ import { Button } from '@/components/Button'
 import Chevron from '@/components/SVG/Chevron'
 import { fadeInVariants, gradientVariants } from '@/app/_utilities/animationVariants'
 import classes from './index.module.css'
+import cn from 'classnames'
 
 type Props = {
   data: ReachOut
@@ -34,7 +35,7 @@ export default function BannerReachOutComponen({ data }: Props) {
         whileInView="visible"
         viewport={{ once: false, amount: 0.75 }}
         variants={fadeInVariants}
-        className={[classes.reachOut, 'container', 'padding-y-sm'].filter(Boolean).join(' ')}
+        className={cn(classes.reachOut, 'container', 'padding-y-sm')}
       >
         <div className={classes.title}>
           <Chevron color="var(--color-white)" size={25} className="iconTopLeft" />

@@ -5,7 +5,7 @@ import { redirect } from '@/lib/i18n'
 import { languageTag } from '@/paraglide/runtime'
 import { RenderParams } from '@/components/RenderParams'
 import { getMeUser } from '../../_utilities/getMeUser'
-import * as m from '@/paraglide/messages.js'
+import cn from 'classnames'
 import { ArtSocietyHero } from '@/components/ArtSocietyHero'
 import { ArtSocietyBenefits } from '@/components/ArtSocietyBenefits'
 import { Testimonials } from '@/components/Testimonials'
@@ -65,7 +65,7 @@ export default async function Login() {
 
   return (
     <article>
-      <RenderParams className={[classes.params, 'container'].filter(Boolean).join(' ')} />
+      <RenderParams className={cn(classes.params, 'container')} />
       <ArtSocietyHero data={page} />
       <ArtSocietyBenefits data={page} />
       <Testimonials data={page} />

@@ -4,7 +4,7 @@ import type { ArtSocietyPage, Testimonial } from '@/app/payload-types'
 import TestimonialCarousel from '@/components//TestimonialCarousel/TestimonialCarousel'
 import { motion } from 'framer-motion'
 import { clipPathVariants, fadeInVariants } from '@/app/_utilities/animationVariants'
-
+import cn from 'classnames'
 import classes from './index.module.css'
 
 type Props = {
@@ -14,7 +14,7 @@ export const Testimonials: React.FC<Props> = ({ data }: Props) => {
   const { title_sentence, testimonialsItems } = data
   return (
     <section className="container padding-y">
-      <div className={[classes.info, 'centered'].filter(Boolean).join(' ')}>
+      <div className={cn(classes.info, 'centered')}>
         <motion.h2
           initial="hidden"
           whileInView="visible"
