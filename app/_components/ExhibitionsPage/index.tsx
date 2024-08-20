@@ -6,6 +6,9 @@ import * as m from '@/paraglide/messages.js'
 import type { Exhibition } from '@/app/payload-types'
 import { LatestExhibition } from '@/components/LatestExhibition'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
+import ArrowScroll from '@/components/SVG/ArrowScroll'
+import { motion, AnimatePresence } from 'framer-motion'
+import { fadeInVariants } from '@/utilities/animationVariants'
 
 import classes from './index.module.css'
 
@@ -40,6 +43,8 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
   const exhibitions = data
 
   const [selectedYear, setSelectedYear] = useState<string | null>(null)
+  const [showScrollArrow, setShowScrollArrow] = useState(false)
+  const [lastScrollTop, setLastScrollTop] = useState(0)
 
   const featuredExhibitionIds = new Set(featuredExhibitions.map(exhibition => exhibition.id))
   const otherExhibitions = exhibitions.filter(
@@ -69,6 +74,29 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
     )
     .sort((a, b) => new Date(b.dateEnd ?? '').getTime() - new Date(a.dateEnd ?? '').getTime())
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollTop = window.scrollY
+      const exhibitionsElement = document.querySelector(`.${classes.exhibitions}`)
+      const exhibitionsBottom = exhibitionsElement
+        ? exhibitionsElement.getBoundingClientRect().bottom + window.scrollY
+        : 0
+
+      const scrolledDown = currentScrollTop > 300
+      const scrollingUp = currentScrollTop < lastScrollTop
+      const reachedExhibitionsBottom = window.innerHeight + currentScrollTop >= exhibitionsBottom
+
+      setShowScrollArrow(scrolledDown && !scrollingUp && !reachedExhibitionsBottom)
+      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [lastScrollTop])
+
   return (
     <div className="container padding-y">
       <LatestExhibition data={featuredExhibitions} />
@@ -87,6 +115,29 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
           <ExhibitionCard key={exhibition.id} data={exhibition} index={index} />
         ))}
       </div>
+      <AnimatePresence>
+        {showScrollArrow && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={fadeInVariants}
+            className={classes.scrollDown}
+          >
+            <motion.div
+              animate={{
+                opacity: [1, 0.5, 1],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 1,
+              }}
+            >
+              <ArrowScroll color="var(--color-white)" size={15} className={classes.icon} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

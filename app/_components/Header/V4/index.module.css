@@ -53,10 +53,10 @@
 }
 
 
-@media (min-width: 1700px) {
-  /* .hamburger {
+@media (min-width: 1400px) {
+  .hamburger {
     transform: translate(30%, -50%);
-  } */
+  }
 
   .logo {
     width: 75px;
