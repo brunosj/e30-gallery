@@ -15,6 +15,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
+import { languageTag } from '@/paraglide/runtime'
 
 import classes from './index.module.css'
 
@@ -23,12 +24,13 @@ type Props = {
 }
 
 export const LatestExhibition: React.FC<Props> = ({ data }) => {
+  const locale = languageTag() || 'en'
   return (
     <section>
       {data.map((exhibition, index) => {
         const { title, image, dateBegin, dateEnd, text, link, addLink } = exhibition
         const begin = new Date(dateBegin || '')
-          .toLocaleDateString('en-US', {
+          .toLocaleDateString(locale, {
             day: 'numeric',
             month: 'long',
           })
@@ -37,7 +39,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
           .join(' ')
 
         const end = new Date(dateEnd || '')
-          .toLocaleDateString('en-US', {
+          .toLocaleDateString(locale, {
             day: 'numeric',
             month: 'long',
           })

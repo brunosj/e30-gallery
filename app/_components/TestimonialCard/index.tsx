@@ -13,8 +13,7 @@ export const TestimonialCard: React.FC<{ item: Testimonial }> = ({ item }) => {
           ))}
         </div>
         <div className={classes.info}>
-          <h3 className="desktop">{`"${item.testimonial}"`}</h3>
-          <h4 className="mobile">{`"${item.testimonial}"`}</h4>
+          <p>{`"${item.testimonial}"`}</p>
           <p className="semibold">{item.name}</p>
         </div>
       </div>

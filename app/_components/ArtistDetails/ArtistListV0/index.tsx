@@ -23,7 +23,7 @@ type Props = {
   handleMouseLeave: () => void
 }
 
-const ArtistList: React.FC<Props> = ({
+const ArtistListV1: React.FC<Props> = ({
   artists,
   filterType,
   setFilterType,
@@ -105,4 +105,4 @@ const ArtistList: React.FC<Props> = ({
   )
 }
 
-export default ArtistList
+export default ArtistListV1

@@ -7,6 +7,7 @@ import { useRouter } from '@/lib/i18n'
 import { useSearchParams } from 'next/navigation'
 import ArtistList from '@/components/ArtistDetails/ArtistList'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
+import ArtistListV1 from '@/components/ArtistDetails/ArtistListV0'
 
 type Props = {
   artists: Artist[]
@@ -135,7 +136,7 @@ export default function ArtistDetails({ artists, featuredArtwork }: Props) {
   return (
     <section className={classes.section}>
       {selectedArtist === null ? (
-        <ArtistList
+        <ArtistListV1
           artists={filteredArtists}
           filterType={filterType}
           setFilterType={setFilterType}

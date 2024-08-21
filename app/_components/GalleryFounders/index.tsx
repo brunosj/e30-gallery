@@ -5,7 +5,11 @@ import type { GalleryPage } from '@/app/payload-types'
 import Image from 'next/image'
 import { RichText } from '../RichText'
 import { motion } from 'framer-motion'
-import { fadeInVariants, slideInFromLeftVariants } from '@/utilities/animationVariants'
+import {
+  fadeInVariants,
+  slideInFromLeftVariants,
+  slideInFromRightVariants,
+} from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
 
@@ -24,7 +28,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               initial="hidden"
               whileInView="visible"
               variants={slideInFromLeftVariants}
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ once: false, amount: 0.5 }}
               className={cn(classes.imageColumn, 'padding-y')}
             >
               <Image
@@ -47,7 +51,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            variants={fadeInVariants}
+            variants={slideInFromRightVariants}
             viewport={{ once: true, amount: 0.5 }}
             className={classes.info}
           >

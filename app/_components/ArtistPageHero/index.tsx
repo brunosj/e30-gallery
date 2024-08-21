@@ -20,8 +20,8 @@ export const ArtistPageHero = ({ data }: Props) => {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      variants={clipPathVariants}
-      viewport={{ once: true, amount: 0.2 }}
+      variants={slideInFromLeftVariants}
+      viewport={{ once: false }}
       className={cn(classes.text, 'padding-y')}
     >
       <RichText content={data.text} />

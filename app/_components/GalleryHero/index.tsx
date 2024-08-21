@@ -28,7 +28,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={clipPathVariants}
+        variants={slideInFromLeftVariants}
         className={classes.contentColumn}
       >
         <div className="container flex padding-y">
@@ -42,13 +42,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
           </div>
         </div>
       </motion.div>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={slideInFromRightVariants}
-        className={classes.image}
-      >
+      <motion.div className={classes.image}>
         <Image src={imageHero.url as string} alt={imageHero.title} fill priority />
       </motion.div>
     </section>

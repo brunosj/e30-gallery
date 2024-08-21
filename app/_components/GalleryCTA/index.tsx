@@ -31,7 +31,7 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false }}
           variants={clipPathVariants}
           className={classes.overlay}
         >

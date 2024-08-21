@@ -5,6 +5,7 @@ import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import { motion, useInView } from 'framer-motion'
 import { cardVariants } from '@/app/_utilities/animationVariants'
+import { languageTag } from '@/paraglide/runtime'
 
 type Props = {
   data: Exhibition
@@ -12,6 +13,8 @@ type Props = {
 }
 
 export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
+  const locale = languageTag() || 'en'
+
   const ref = useRef(null)
   const inView = useInView(ref, {
     once: true,
@@ -19,7 +22,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
 
   const { title, image, homepageImage, dateBegin, dateEnd, text } = data
   const begin = new Date(dateBegin || '')
-    .toLocaleDateString('en-US', {
+    .toLocaleDateString(locale, {
       day: 'numeric',
       month: 'long',
     })
@@ -28,7 +31,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
     .join(' ')
 
   const end = new Date(dateEnd || '')
-    .toLocaleDateString('en-US', {
+    .toLocaleDateString(locale, {
       day: 'numeric',
       month: 'long',
     })

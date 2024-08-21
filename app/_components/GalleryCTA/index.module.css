@@ -23,11 +23,12 @@
   top: 50%;
   left: 50%;
   object-fit: cover;
+ 
 }
 
 .overlay {
   position: relative;
-  z-index: 2;
+  z-index: 100;
   text-align: center;
   padding: var(--base-100);
   width:40%;
