@@ -8,6 +8,8 @@ const allowedDomains = [
   'https://cdnjs.cloudflare.com',
   'https://assets.mailerlite.com',
   'https://storage.mlcdn.com',
+  'https://groot.mailerlite.com',
+  'https://assets.mlcdn.com',
 ]
 
 const cspHeader = `

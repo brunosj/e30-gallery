@@ -1,3 +1,5 @@
+'use client'
+
 import type { NewsletterPage } from '@/app/payload-types'
 
 import Script from 'next/script'

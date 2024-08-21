@@ -19,9 +19,9 @@
   border-radius: 50%;
   background: transparent;
   z-index: 10; 
-  top: calc(45px);
-  right: calc(2vw); 
-  transform: translate(0%, -45%);
+  top: calc(45px) !important;
+  right: calc(2vw) !important;
+  transform: translate(0%, -45%) !important;
 }
 
 .menu {
@@ -54,9 +54,9 @@
 
 
 @media (min-width: 1400px) {
-  .hamburger {
+  /* .hamburger {
     transform: translate(30%, -50%);
-  }
+  } */
 
   .logo {
     width: 75px;

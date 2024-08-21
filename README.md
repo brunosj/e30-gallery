@@ -8,7 +8,7 @@ This repo contains the website of [E30 Gallery](https://e30gallery.com), an art 
 
 ## Technologies
 
-This is a [Next.js](https://nextjs.org) app using the [App Router](https://nextjs.org/docs/app). Data is sourced from [Payload](https://payloadcms.com/) and styling is done with [Tailwind CSS](https://tailwindcss.com). It is a bilingual site (English and German), using <code>paraglide-js</code> to handle localizations and translations. SMTP functionality is handled by [Resend](https://resend.com/emails).
+This is a [Next.js](https://nextjs.org) app using the [App Router](https://nextjs.org/docs/app). Data is sourced from [Payload](https://payloadcms.com/). It is a bilingual site (English and German), using <code>paraglide-js</code> to handle localizations and translations. SMTP functionality is handled by [Resend](https://resend.com/emails).
 
 
 ## Installation

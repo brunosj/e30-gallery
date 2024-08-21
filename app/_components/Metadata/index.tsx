@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 const siteMetadata: Metadata = {
-  metadataBase: new URL('https://preview.e30gallery.com'),
+  metadataBase: new URL('https://e30gallery.com'),
   title: 'E30 Gallery',
   description: 'An art gallery located in Frankfurt am Main, Germany',
 
@@ -21,7 +21,7 @@ const siteMetadata: Metadata = {
     siteName: 'E30 Gallery',
     images: [
       {
-        url: 'https://preview.e30gallery.com/e30-gallery.jpg',
+        url: 'https://e30gallery.com/e30-gallery.jpg',
         width: 1200,
         height: 630,
         alt: 'E30 Gallery Image',
@@ -36,7 +36,7 @@ const siteMetadata: Metadata = {
     card: 'summary_large_image',
     title: 'E30 Gallery',
     description: 'An art gallery located in Frankfurt am Main, Germany',
-    images: ['https://preview.e30gallery.com/e30-gallery.jpg'],
+    images: ['https://e30gallery.com/e30-gallery.jpg'],
   },
 
   // Verification for search engines

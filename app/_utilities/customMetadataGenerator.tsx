@@ -15,7 +15,7 @@ export function customMetaDataGenerator({
   description = 'An art gallery located in Frankfurt am Main, Germany',
   canonicalUrl = 'https://e30gallery.com',
   keywords = ['art gallery', 'Frankfurt', 'art exhibitions'],
-  ogImage = 'https://preview.e30gallery.com/e30-gallery.jpg',
+  ogImage = 'https://e30gallery.com/e30-gallery.jpg',
   twitterCard = 'summary_large_image',
 }: PageSEOProps): Metadata {
   // Create Site Title

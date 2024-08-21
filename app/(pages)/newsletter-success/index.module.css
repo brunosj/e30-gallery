@@ -1,0 +1,15 @@
+.success { 
+  min-height: 100vh;
+  display:flex;
+  align-items: center;
+  margin: auto;
+}
+
+
+@media (max-width: 850px) {
+  .success {
+   min-height: 80vh;
+  }
+  
+
+}

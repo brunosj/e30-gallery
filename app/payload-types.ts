@@ -520,6 +520,9 @@ export interface NewsletterPage {
   text: {
     [k: string]: unknown
   }[]
+  success_message: {
+    [k: string]: unknown
+  }[]
   newsletter?: string | null
   meta?: {
     title?: string | null
