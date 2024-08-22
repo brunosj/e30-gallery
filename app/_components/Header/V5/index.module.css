@@ -4,21 +4,24 @@
   left: 0;
   width: 100vw;
   height: 90px;
-  background: var(--color-accent);
+  background: var(--color-white);
   overflow: hidden;
   z-index: 10; 
+  border-bottom: 0.5px solid var(--color-black);
 }
 
 .hamburgerContainer {
   position: fixed;
   top: calc(22px); 
-  right: calc(3vw); 
+  right: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
   z-index: 10; 
+  background-color: var(--color-accent);
+  border-radius: 50%;
 }
 
 .hamburger {
@@ -27,13 +30,11 @@
   cursor: pointer;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   background: transparent;
   padding:0.9rem;
 }
 
 .menu {
-  position: fixed;
   z-index: 10; 
   width: 100%;
   display: flex;

@@ -11,6 +11,7 @@ import localFont from 'next/font/local'
 import Footer from '@/components/Footer'
 import { siteMetadata } from '@/components/Metadata'
 import HeaderV4 from '@/components/Header/V4'
+import HeaderV5 from '@/components/Header/V5'
 
 import classes from './index.module.css'
 
@@ -39,7 +40,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <html lang={languageTag()} className={`${hanken.className}`}>
         <body className="relative">
           <AuthProvider api="rest">
-            <HeaderV4 />
+            <HeaderV5 />
             <HeaderMobile />
             <main className={classes.main}>{children}</main>
             <Footer />
