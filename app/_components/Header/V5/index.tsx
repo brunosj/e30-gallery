@@ -34,7 +34,7 @@ export default function HeaderV4() {
   }, [lastScrollY])
 
   return (
-    <>
+    <div className="desktop">
       <AnimatePresence>
         {isVisible && (
           <motion.nav
@@ -55,6 +55,6 @@ export default function HeaderV4() {
           </div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }
