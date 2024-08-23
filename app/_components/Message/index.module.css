@@ -1,7 +1,7 @@
  .message {
-	 padding: calc(var(--base) / 2) calc(var(--base) / 2);
+	 /* padding: 1rem; */
 	 line-height: 1.25;
-	 width: 100%;
+	 /* width: 100%; */
 }
  .default {
 	 background-color: var(--theme-elevation-100);

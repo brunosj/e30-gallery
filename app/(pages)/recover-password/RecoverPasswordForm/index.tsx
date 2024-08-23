@@ -2,8 +2,6 @@
 
 import React, { Fragment, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from '@/lib/i18n'
-
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Message } from '@/components/Message'
@@ -26,22 +24,46 @@ export const RecoverPasswordForm: React.FC = () => {
   } = useForm<FormData>()
 
   const onSubmit = useCallback(async (data: FormData) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/forgot-password`,
-      {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      // Step 1: Check if the email exists by calling the custom CMS endpoint
+      const emailCheckResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/check-email`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ email: data.email }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    )
+      )
 
-    if (response.ok) {
-      setSuccess(true)
-      setError('')
-    } else {
-      setError(`${m.emailSendingFailed()}`)
+      const emailCheckData = await emailCheckResponse.json()
+
+      if (!emailCheckData.exists) {
+        setError(`${m.emailNotFound()}`)
+        return
+      }
+
+      // Step 2: If email exists, proceed with the password recovery
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/forgot-password`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+
+      if (response.ok) {
+        setSuccess(true)
+        setError('')
+      } else {
+        setError(`${m.emailSendingFailed()}`)
+      }
+    } catch (error) {
+      setError(`${m.emailNotFound()}`)
     }
   }, [])
 
@@ -67,8 +89,8 @@ export const RecoverPasswordForm: React.FC = () => {
                 type="email"
               />
               <Button link={recoverPasswordLink} action="submit" />
+              <Message error={error} className={classes.message} />
             </form>
-            <Message error={error} className={classes.message} />
           </div>
         </React.Fragment>
       )}

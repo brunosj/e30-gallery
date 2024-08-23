@@ -66,6 +66,7 @@
     "selectYear": "Select year",
     "allYears": "All Years",
     "pageNotFound": "Page not found, sorry!",
-    "withArtworksBy": "With artworks by"
+    "withArtworksBy": "With artworks by",
+    "emailNotFound" : "An account with this email address does not exist."
 
 }
