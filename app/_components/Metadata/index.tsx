@@ -27,7 +27,7 @@ const siteMetadata: Metadata = {
         alt: 'E30 Gallery Image',
       },
     ],
-    locale: 'en_US, de_DE', // Adjust locale if needed
+    locale: 'en_US, de_DE',
     type: 'website',
   },
 

@@ -42,9 +42,10 @@ export async function generateMetadata() {
   const { pageData } = await getData(locale)
   const metadata = pageData.docs[0].meta
   return {
-    title: metadata.title,
+    title: pageData.docs[0].title,
     description: metadata.description,
     openGraph: {
+      description: metadata.description,
       title: metadata.title,
     },
   }
