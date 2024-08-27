@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Link } from '@/lib/i18n'
-import Logo from '../../../public/E30_logo.png'
+import Logo from '@/public/E30_logo.png'
 import { Squash as Hamburger } from 'hamburger-react'
 import { HeaderNav } from '@/components/Header/Nav'
 import { Socials } from '@/components/Header/Socials'

@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Link } from '@/lib/i18n'
-import Logo from '../../../public/E30_logo.png'
+import Logo from '@/public/E30_logo.png'
 import MobileNav from '@/components/Header/MobileNav'
 
 import classes from './index.module.css'

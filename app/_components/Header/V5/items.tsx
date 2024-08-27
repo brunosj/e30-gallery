@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Link } from '@/lib/i18n'
-import Logo from '../../../../public/E30_logo.png'
+import Logo from '@/public/E30_logo.png'
 import Image from 'next/image'
 import { HeaderNav } from '@/components/Header/Nav'
 import { Socials } from '@/components/Header/Socials'
