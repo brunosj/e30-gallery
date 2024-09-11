@@ -16,22 +16,22 @@ export const MenuToggle = ({ toggle }: { toggle: () => void }) => (
           d="M 2 2.5 L 20 2.5"
           fill="transparent"
           stroke="var(--color-white)"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
         />
         <path
           d="M 2 9.423 L 20 9.423"
           fill="transparent"
           stroke="var(--color-white)"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
         />
         <path
           d="M 2 16.346 L 20 16.346"
           fill="transparent"
           stroke="var(--color-white)"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
         />
       </svg>
     </button>

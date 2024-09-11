@@ -83,7 +83,7 @@ export const Socials: React.FC = () => {
         >
           {socials.socials.map((item, index) => (
             <li key={index}>
-              <Link href={item.url as string} target="_blank">
+              <Link href={item.url as string} target="_blank" aria-label={item.platform}>
                 {renderSocialIcon(item.platform)}
               </Link>
             </li>

@@ -1,6 +1,9 @@
+import { ReactNode } from 'react'
 import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
-import ArtistDetailsV2 from '@/components/ArtistDetails'
+import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
+import { ArtistPageHero } from '@/components/ArtistPageHero'
 
 async function getData(locale: string) {
   const urls = [
@@ -44,26 +47,19 @@ export async function generateMetadata() {
   }
 }
 
-export default async function ArtistsPage() {
+export default async function ArtistsLayout({ children }: { children: ReactNode }) {
   const locale = languageTag()
   const { pageData, artistData } = await getData(locale)
   const page: ArtistsPage = pageData.docs[0]
 
-  const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) => {
-    const getLastName = (name: string): string => {
-      const parts = name.split(' ')
-      return parts.length > 1 ? parts[parts.length - 1] : name
-    }
-
-    const lastNameA = getLastName(a.full_name)
-    const lastNameB = getLastName(b.full_name)
-
-    return lastNameA.localeCompare(lastNameB)
-  })
-  const featuredArtwork = page.featuredArtwork as Artwork
   return (
-    <section className="">
-      <ArtistDetailsV2 artists={artists} featuredArtwork={featuredArtwork} />
-    </section>
+    <article>
+      <div className="container padding-y">
+        <ArtistPageHero data={page} />
+        {children}
+      </div>
+      {page.Banners?.reachOutBoolean && <BannerReachOut />}
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+    </article>
   )
 }

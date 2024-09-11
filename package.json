@@ -11,20 +11,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@inlang/paraglide-next": "0.5.1",
+    "@inlang/paraglide-next": "0.5.2",
     "classnames": "^2.5.1",
-    "embla-carousel": "^8.2.0",
-    "embla-carousel-autoplay": "^8.2.0",
-    "embla-carousel-react": "^8.2.0",
+    "embla-carousel": "^8.2.1",
+    "embla-carousel-autoplay": "^8.2.1",
+    "embla-carousel-react": "^8.2.1",
     "escape-html": "^1.0.3",
-    "framer-motion": "^11.3.29",
+    "framer-motion": "^11.5.4",
     "hamburger-react": "^2.5.1",
     "lodash": "^4.17.21",
-    "next": "^14.2.6",
+    "next": "^14.2.9",
     "next-sitemap": "^4.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-hook-form": "^7.52.2",
+    "react-hook-form": "^7.53.0",
     "react-select": "^5.8.0",
     "react-spinners": "^0.14.1",
     "sharp": "^0.33.5"
@@ -33,8 +33,8 @@
     "@inlang/paraglide-js": "1.11.1",
     "@types/escape-html": "^1.0.4",
     "@types/lodash": "^4.17.7",
-    "@types/node": "20.14.1",
-    "@types/react": "^18.3.4",
+    "@types/node": "22.5.4",
+    "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
@@ -47,6 +47,6 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier": "^3.3.3",
     "slate": "^0.103.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }

@@ -1,23 +1,18 @@
 'use client'
 
 import React from 'react'
+import { Link } from '@/lib/i18n'
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
 import { motion } from 'framer-motion'
-import {
-  fadeInVariants,
-  cascadeVariants,
-  slideInFromLeftVariants,
-  slideInFromRightVariants,
-} from '@/utilities/animationVariants'
+import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 
 type Props = {
   artists: Artist[]
   filterType: 'represented' | 'featured'
   setFilterType: (filterType: 'represented' | 'featured') => void
-  handleArtistClick: (index: number) => void
   hoveredArtwork: Artwork | null
   handleMouseEnter: (artwork: Artwork | null) => void
   handleMouseLeave: () => void
@@ -27,7 +22,6 @@ const ArtistListV1: React.FC<Props> = ({
   artists,
   filterType,
   setFilterType,
-  handleArtistClick,
   hoveredArtwork,
   handleMouseEnter,
   handleMouseLeave,
@@ -70,13 +64,13 @@ const ArtistListV1: React.FC<Props> = ({
               variants={cascadeVariants(index)}
               key={index}
             >
-              <button
-                onClick={() => handleArtistClick(index)}
+              <Link
+                href={`/artists/${artist.slug}`}
                 onMouseEnter={() => handleMouseEnter(artist.relation.artworks as Artwork)}
                 onMouseLeave={handleMouseLeave}
               >
                 {artist.full_name}
-              </button>
+              </Link>
             </motion.li>
           ))}
         </ul>

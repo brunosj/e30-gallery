@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from '@/lib/i18n'
 import Image from 'next/image'
 import { Artist } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
@@ -16,19 +17,13 @@ import {
 
 type Props = {
   artist: Artist
-  handleBackClick: () => void
   handleNextClick: () => void
   handlePreviousClick: () => void
   selectedArtistIndex: number | null
   filteredArtists: Artist[]
 }
 
-const ArtistInfo: React.FC<Props> = ({
-  artist,
-  handleBackClick,
-  handleNextClick,
-  handlePreviousClick,
-}) => {
+const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousClick }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [currentArtist, setCurrentArtist] = useState(artist)
 
@@ -48,9 +43,9 @@ const ArtistInfo: React.FC<Props> = ({
           <div className="semibold desktop">
             <p>{m.artists()}</p>
           </div>
-          <button onClick={handleBackClick} className="controls">
+          <Link href="/artists" className="controls">
             {m.backToList()}
-          </button>
+          </Link>
 
           <div className={classes.navigationButtons}>
             <button onClick={handlePreviousClick}>
@@ -70,20 +65,20 @@ const ArtistInfo: React.FC<Props> = ({
         )} */}
         <div className={classes.grid}>
           <div>
-            {imageLoaded && (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={slideInFromLeftVariants}
-              >
-                <h2>{artist.full_name}</h2>
-                <div className={classes.additionalInfo}>
-                  <p>{artist.additional_info}</p>
-                  <p>{artist.country}</p>
-                </div>
-              </motion.div>
-            )}
+            {/* <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeftVariants}
+            > */}
+            <div>
+              <h2>{artist.full_name}</h2>
+              <div className={classes.additionalInfo}>
+                <p>{artist.additional_info}</p>
+                <p>{artist.country}</p>
+              </div>
+            </div>
+            {/* </motion.div> */}
             <div className={cn(classes.imageArtist, 'mobile')}>
               <Image
                 src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
@@ -96,24 +91,25 @@ const ArtistInfo: React.FC<Props> = ({
                 onLoad={handleImageLoad}
               />
             </div>
-            {imageLoaded && (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={slideInFromLeftVariants}
-              >
-                <RichText content={artist.bio} className="padding-y-sm" />
-              </motion.div>
-            )}
+            {/* <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={slideInFromLeftVariants}
+            > */}
+            <div>
+              <RichText content={artist.bio} className="padding-y-sm" />
+            </div>
+            {/* </motion.div> */}
           </div>
-          <motion.div
+          {/* <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={slideInFromRightVariants}
             className={cn(classes.image, 'desktop')}
-          >
+          > */}
+          <div className={cn(classes.image, 'desktop')}>
             <Image
               key={currentArtist.image.url}
               src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
@@ -126,7 +122,8 @@ const ArtistInfo: React.FC<Props> = ({
               onLoad={handleImageLoad}
               priority
             />
-          </motion.div>
+          </div>
+          {/* </motion.div> */}
         </div>
         {artist.artworkArchiveCode && (
           <motion.div

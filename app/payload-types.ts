@@ -228,6 +228,7 @@ export interface Artist {
   relation: {
     artworks: string | Artwork
   }
+  slug?: string | null
   updatedAt: string
   createdAt: string
   _status?: ('draft' | 'published') | null

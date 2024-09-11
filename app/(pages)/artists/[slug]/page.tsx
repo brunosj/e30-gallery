@@ -1,14 +1,12 @@
-import type { GenericPage, Artist, Artwork } from '@/app/payload-types'
-import { notFound } from 'next/navigation'
+import type { Artist } from '@/app/payload-types'
+
 import { languageTag } from '@/paraglide/runtime'
-import BannerReachOut from '@/components/BannerReachOut'
-import BannerNewsletter from '@/components/BannerNewsletter'
-import { RichText } from '@/components/RichText'
-import classes from './index.module.css'
+import { notFound } from 'next/navigation'
+import ArtistPageClient from '@/components/ArtistPageClient'
 
 async function getData(locale: string, slug: string) {
   const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/generic-pages?where[slug][equals]=${slug}&locale=${locale}&depth=1`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?where[slug][equals]=${slug}&locale=${locale}&depth=2`,
   ]
 
   const fetchPromises = urls.map(url =>
@@ -25,8 +23,7 @@ async function getData(locale: string, slug: string) {
     const responses = await Promise.all(fetchPromises)
     const data = await Promise.all(responses.map(res => res.json()))
     const pageData = data[0]
-    const artistData = data[1]
-    return { pageData, artistData }
+    return { pageData }
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
@@ -36,7 +33,6 @@ async function getData(locale: string, slug: string) {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
-
   if (!pageData || !pageData.docs.length) {
     return {
       title: '404 - Not Found',
@@ -47,18 +43,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
   }
 
-  const metadata = pageData.docs[0].meta
+  const artist: Artist = pageData.docs[0]
   return {
-    title: pageData.docs[0].title,
-    description: metadata.description,
+    title: artist.full_name,
+    description: artist.additional_info,
     openGraph: {
-      title: metadata.title,
-      description: metadata.description,
+      title: artist.full_name,
+      description: artist.additional_info,
+      images: [
+        {
+          url:
+            typeof artist.relation.artworks !== 'string' ? artist.relation.artworks.image.url : '',
+          alt: artist.full_name,
+        },
+      ],
     },
   }
 }
 
-export default async function GenericPage({ params }: { params: { slug: string } }) {
+export default async function ArtistPage({ params }: { params: { slug: string } }) {
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
 
@@ -66,16 +69,11 @@ export default async function GenericPage({ params }: { params: { slug: string }
     return notFound()
   }
 
-  const page: GenericPage = pageData.docs[0]
+  const artist: Artist = pageData.docs[0]
 
   return (
-    <article className={classes.page}>
-      <div className="container padding-y">
-        <div className={classes.text}>
-          <h2 className="padding-b">{page.title}</h2>
-          <RichText content={page.text} />
-        </div>
-      </div>
-    </article>
+    <div>
+      <ArtistPageClient artist={artist} locale={locale} />
+    </div>
   )
 }

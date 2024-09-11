@@ -9,12 +9,8 @@ import classes from './index.module.css'
 export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
   const router = useRouter()
 
-  const handleClick = () => {
-    router.push(`/artists?id=${item.id}`)
-  }
-
   return (
-    <button className={classes.card} onClick={handleClick}>
+    <Link className={classes.card} href={`/artists/${item.slug}`}>
       <div className={classes.avatar}>
         <Image src={item.image.url as string} alt={item.image.title} fill />
       </div>
@@ -35,6 +31,6 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
           fill
         />
       </div>
-    </button>
+    </Link>
   )
 }
