@@ -5,6 +5,8 @@
   /* position: relative; */
   background-color: var(--color-white);
   overflow: hidden;
+  border-top: 0.5px solid var(--color-black);
+
 }
 
 .notFound {

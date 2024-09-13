@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
 import type { Artist } from '@/app/payload-types'
+import { useRouter, usePathname } from 'next/navigation'
+import { languageTag } from '@/paraglide/runtime.js'
 
 type ArtistPageClientProps = {
   artist: Artist
@@ -15,6 +17,10 @@ export default function ArtistPageClient({ artist, locale }: ArtistPageClientPro
   const [filteredArtists, setFilteredArtists] = useState<Artist[]>([])
   const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
   const [scriptUrl, setScriptUrl] = useState<string | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const clientLocale = languageTag()
 
   // Fetch all artists based on locale for navigation
   useEffect(() => {
@@ -50,6 +56,8 @@ export default function ArtistPageClient({ artist, locale }: ArtistPageClientPro
   const handleNavigation = (index: number) => {
     const targetArtist = filteredArtists[index]
     if (targetArtist) {
+      const localePrefix = clientLocale === 'en' ? '' : `/${clientLocale}`
+      router.replace(`${localePrefix}/artists/${targetArtist.slug}`)
       setSelectedArtist(targetArtist)
       setSelectedArtistIndex(index)
     }

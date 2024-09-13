@@ -53,17 +53,18 @@ export const Button: React.FC<Props> = ({
         break
       case 'custom':
         if (link.url) {
-          finalHref = link.url
+          finalHref = link.url.startsWith('http') ? link.url : `/${link.url}`
         }
         break
       case 'reference':
         if (link.reference) {
-          finalHref = (link.reference.value as { slug: string }).slug
+          const slug = (link.reference.value as { slug: string }).slug
+          finalHref = `/${slug}`
         }
         break
       default:
         if (link.url) {
-          finalHref = link.url
+          finalHref = link.url.startsWith('http') ? link.url : `/${link.url}`
         }
         break
     }
