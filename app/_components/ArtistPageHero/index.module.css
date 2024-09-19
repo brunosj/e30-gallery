@@ -9,8 +9,10 @@ max-width: 50%;
   }
 }
 
-@media (max-width: 1600px) {
+@media (min-width: 850px) and (max-width: 1600px) {
   .text {
     max-width: 66.6%;
+    padding-top: var(--base-300);
+    padding-bottom: var(--base-300);
   }
 }

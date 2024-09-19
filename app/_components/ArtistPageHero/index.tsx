@@ -17,14 +17,15 @@ type Props = {
 
 export const ArtistPageHero = ({ data }: Props) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      variants={slideInFromLeftVariants}
-      viewport={{ once: false }}
-      className={cn(classes.text, 'padding-y')}
-    >
-      <RichText content={data.text} />
-    </motion.div>
+    <section className={classes.text}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        variants={slideInFromLeftVariants}
+        viewport={{ once: false }}
+      >
+        <RichText content={data.text} />
+      </motion.div>
+    </section>
   )
 }
