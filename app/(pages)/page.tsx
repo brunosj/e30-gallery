@@ -7,6 +7,7 @@ import { HeroExhibition } from '@/components/HeroExhibition'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import ArtistsListings from '@/components/ArtistsListings'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/homepage?locale=${locale}&depth=2`]
@@ -40,6 +41,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

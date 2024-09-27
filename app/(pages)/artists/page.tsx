@@ -1,6 +1,7 @@
 import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import ArtistDetailsV2 from '@/components/ArtistDetails'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [
@@ -37,6 +38,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

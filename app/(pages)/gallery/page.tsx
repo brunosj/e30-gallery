@@ -7,6 +7,7 @@ import { GalleryHero } from '@/app/_components/GalleryHero'
 import { GalleryFounders } from '@/components/GalleryFounders'
 import { GalleryVision } from '@/components/GalleryVision'
 import { GalleryCTA } from '@/components/GalleryCTA'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/gallery-page?locale=${locale}&depth=2`]
@@ -39,6 +40,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

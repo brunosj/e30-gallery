@@ -64,7 +64,7 @@ export const Button: React.FC<Props> = ({
         break
       default:
         if (link.url) {
-          finalHref = link.url.startsWith('http') ? link.url : `/${link.url}`
+          finalHref = link.url.startsWith('http') ? link.url : `${link.url}`
         }
         break
     }

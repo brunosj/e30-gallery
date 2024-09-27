@@ -5,6 +5,7 @@ import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string, slug: string) {
   const urls = [
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

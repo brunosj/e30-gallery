@@ -3,6 +3,7 @@ import type { NewsletterPage } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import NewsletterEmbed from '@/components/NewsletterEmbed'
 import { RichText } from '@/components/RichText'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [
@@ -37,6 +38,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

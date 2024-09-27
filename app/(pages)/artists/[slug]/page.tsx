@@ -3,6 +3,7 @@ import type { Artist } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import { notFound } from 'next/navigation'
 import ArtistPageClient from '@/components/ArtistPageClient'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string, slug: string) {
   const urls = [
@@ -45,11 +46,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   const artist: Artist = pageData.docs[0]
   return {
-    title: artist.full_name,
-    description: artist.additional_info,
+    title: artist.meta?.title || artist.full_name,
+    description: artist.meta?.description || artist.additional_info,
+    keywords: [parseKeywords(artist.meta?.keywords || '')],
     openGraph: {
-      title: artist.full_name,
-      description: artist.additional_info,
+      title: artist.meta?.title || artist.full_name,
+      description: artist.meta?.description || artist.additional_info,
       images: [
         {
           url:

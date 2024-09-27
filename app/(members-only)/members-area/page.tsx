@@ -1,7 +1,7 @@
 import React from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import MembersAreaPage from '@/components/MembersAreaPage/page'
-
+import { parseKeywords } from '@/utilities/parseKeywords'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -37,6 +37,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       title: metadata.title,
       description: metadata.description,

@@ -4,6 +4,7 @@ import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { ArtistPageHero } from '@/components/ArtistPageHero'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [
@@ -39,6 +40,7 @@ export async function generateMetadata() {
   const metadata = pageData.docs[0].meta
   return {
     title: pageData.docs[0].title,
+    keywords: [parseKeywords(metadata.keywords)],
     description: metadata.description,
     openGraph: {
       title: metadata.title,

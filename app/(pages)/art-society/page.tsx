@@ -10,6 +10,7 @@ import { ArtSocietyHero } from '@/components/ArtSocietyHero'
 import { ArtSocietyBenefits } from '@/components/ArtSocietyBenefits'
 import { Testimonials } from '@/components/Testimonials'
 import classes from './index.module.css'
+import { parseKeywords } from '@/utilities/parseKeywords'
 
 async function getData(locale: string) {
   const urls = [
@@ -44,6 +45,7 @@ export async function generateMetadata() {
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
+    keywords: [parseKeywords(metadata.keywords)],
     openGraph: {
       description: metadata.description,
       title: metadata.title,
