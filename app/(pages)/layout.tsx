@@ -35,9 +35,11 @@ export const metadata: Metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
+  const locale = languageTag()
+
   return (
     <LanguageProvider>
-      <html lang={languageTag()} className={`${hanken.className}`}>
+      <html lang={locale} className={`${hanken.className}`}>
         <body className="relative">
           <AuthProvider api="rest">
             <HeaderV5 />

@@ -43,8 +43,6 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
   const beginYear = new Date(dateBegin || '').getFullYear()
   const endYear = new Date(dateEnd || '').getFullYear()
 
-  console.log(ExhibitionLink())
-
   return (
     <section className={classes.hero}>
       <Image src={homepageImage?.url || (image.url as string)} alt={image.title} fill priority />
