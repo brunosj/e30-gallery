@@ -11,7 +11,7 @@ import localFont from 'next/font/local'
 import Footer from '@/components/Footer'
 import { siteMetadata } from '@/components/Metadata'
 import HeaderV5 from '@/components/Header/V5'
-import { parseKeywords } from '@/utilities/parseKeywords'
+import PlausibleProvider from 'next-plausible'
 
 import classes from './index.module.css'
 
@@ -40,6 +40,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <html lang={locale} className={`${hanken.className}`}>
+        <PlausibleProvider domain="plausible.e30gallery.com" />
         <body className="relative">
           <AuthProvider api="rest">
             <HeaderV5 />

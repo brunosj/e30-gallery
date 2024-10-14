@@ -1,4 +1,5 @@
 const { paraglide } = require('@inlang/paraglide-next/plugin')
+const { withPlausibleProxy } = require('next-plausible')
 
 const allowedDomains = [
   process.env.NEXT_PUBLIC_PAYLOAD_URL,
@@ -29,43 +30,45 @@ const cspHeader = `
   .replace(/\s{2,}/g, ' ')
   .trim()
 
-module.exports = paraglide({
-  paraglide: {
-    project: './project.inlang',
-    outdir: './paraglide',
-  },
-  // env: {
-  //   NEXT_PUBLIC_PAYLOAD_URL: 'http://localhost:3000',
-  // },
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: false,
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          // { key: 'Access-Control-Allow-Origin', value: 'http://localhost:5173' },
-          {
-            key: 'Content-Security-Policy',
-            value: cspHeader.replace(/\n/g, ''),
-          },
-        ],
-      },
-    ]
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/e30/image/upload/**',
-      },
-    ],
-  },
-})
+module.exports = withPlausibleProxy()(
+  paraglide({
+    paraglide: {
+      project: './project.inlang',
+      outdir: './paraglide',
+    },
+    // env: {
+    //   NEXT_PUBLIC_PAYLOAD_URL: 'http://localhost:3000',
+    // },
+    typescript: {
+      // !! WARN !!
+      // Dangerously allow production builds to successfully complete even if
+      // your project has type errors.
+      // !! WARN !!
+      ignoreBuildErrors: false,
+    },
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: [
+            // { key: 'Access-Control-Allow-Origin', value: 'http://localhost:5173' },
+            {
+              key: 'Content-Security-Policy',
+              value: cspHeader.replace(/\n/g, ''),
+            },
+          ],
+        },
+      ]
+    },
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'res.cloudinary.com',
+          port: '',
+          pathname: '/e30/image/upload/**',
+        },
+      ],
+    },
+  }),
+)
