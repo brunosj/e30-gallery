@@ -40,7 +40,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <html lang={locale} className={`${hanken.className}`}>
-        <PlausibleProvider domain="plausible.e30gallery.com" />
+        <PlausibleProvider domain="e30gallery.com" />
         <body className="relative">
           <AuthProvider api="rest">
             <HeaderV5 />
