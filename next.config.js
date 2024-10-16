@@ -30,7 +30,9 @@ const cspHeader = `
   .replace(/\s{2,}/g, ' ')
   .trim()
 
-module.exports = withPlausibleProxy()(
+module.exports = withPlausibleProxy({
+  customDomain: 'https://plausible.e30gallery.com',
+})(
   paraglide({
     paraglide: {
       project: './project.inlang',
