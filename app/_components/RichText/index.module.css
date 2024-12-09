@@ -35,6 +35,12 @@
   font-weight: 400;
 }
 
+.richText h4 {
+  font-size: var(--base-150);
+  margin-bottom: var(--base-100);
+  font-weight: 500;
+}
+
 .richText p {
   font-size: var(--base-100);
   line-height: 2;
@@ -62,6 +68,11 @@
   .richText h3 {
     font-size: var(--base-100);
     line-height: 1.5;
+  }
+
+  .richText h4 {
+    font-size: var(--base-100);
+    font-weight:700;
   }
 
   .richText p {
