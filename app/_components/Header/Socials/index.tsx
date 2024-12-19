@@ -89,7 +89,7 @@ export const Socials: React.FC = () => {
             </li>
           ))}
           <li className="desktop">
-            <p>Egenolff30 St. Frankfurt</p>
+            <p>Egenolffstr. 30 Frankfurt</p>
           </li>
         </motion.ul>
       )}
