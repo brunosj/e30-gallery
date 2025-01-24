@@ -22,7 +22,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
       run: |
         set -e
-        ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "cd ~ && ./frontend.sh"
+        ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "cd ~/scripts && ./frontend.sh"
         EXIT_STATUS=$?
         echo "Deployment script exited with status $EXIT_STATUS"
         exit $EXIT_STATUS
