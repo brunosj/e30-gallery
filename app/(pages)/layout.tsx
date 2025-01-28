@@ -12,6 +12,7 @@ import Footer from '@/components/Footer'
 import { siteMetadata } from '@/components/Metadata'
 import HeaderV5 from '@/components/Header/V5'
 import PlausibleProvider from 'next-plausible'
+import { Suspense } from 'react'
 
 import classes from './index.module.css'
 
@@ -46,7 +47,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <HeaderV5 />
             <HeaderMobile />
             <main className={classes.main}>{children}</main>
-            <Footer />
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
           </AuthProvider>
         </body>
       </html>

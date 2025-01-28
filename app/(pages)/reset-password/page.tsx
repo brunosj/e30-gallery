@@ -58,8 +58,16 @@ export default async function ResetPassword() {
       <article className={classes.grid}>
         <div className={cn(classes.imageColumn)}>
           <Image
-            src={page.resetPasswordImage.url ?? ''}
-            alt={page.resetPasswordImage.title}
+            src={
+              typeof page.resetPasswordImage === 'string'
+                ? page.resetPasswordImage
+                : (page.resetPasswordImage?.url ?? '')
+            }
+            alt={
+              typeof page.resetPasswordImage === 'string'
+                ? ''
+                : (page.resetPasswordImage?.title ?? '')
+            }
             className={classes.image}
             fill
           />
@@ -70,7 +78,11 @@ export default async function ResetPassword() {
           </div>
         </div>
       </article>
-      <BannerNewsletter />
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </>
   )
 }

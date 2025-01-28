@@ -8,6 +8,7 @@ import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import ArtistsListings from '@/components/ArtistsListings'
 import { parseKeywords } from '@/utilities/parseKeywords'
+import { Suspense } from 'react'
 
 async function getData(locale: string) {
   const urls = [`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/homepage?locale=${locale}&depth=2`]
@@ -49,8 +50,13 @@ export async function generateMetadata() {
   }
 }
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
   const locale = languageTag()
+  const resolvedSearchParams = await searchParams
   const { pageData } = await getData(locale)
   const page: Homepage = pageData.docs[0]
   const featuredExhibitions: Exhibition[] = page.featuredExhibitions.filter(
@@ -60,9 +66,19 @@ export default async function Home() {
     <article>
       <HeroExhibition data={featuredExhibitions} />
       <RenderBlocks layout={page.layout as Layout[]} />
-      {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      <ArtistsListings />
-      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.reachOutBoolean && (
+        <Suspense fallback={null}>
+          <BannerReachOut />
+        </Suspense>
+      )}
+      <Suspense fallback={null}>
+        <ArtistsListings />
+      </Suspense>
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </article>
   )
 }

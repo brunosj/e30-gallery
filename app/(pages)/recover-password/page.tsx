@@ -1,6 +1,6 @@
 import type { ArtSocietyPage } from '@/app/payload-types'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import { RecoverPasswordForm } from './RecoverPasswordForm'
 import cn from 'classnames'
@@ -56,8 +56,16 @@ export default async function RecoverPassword() {
       <article className={classes.grid}>
         <div className={classes.imageColumn}>
           <Image
-            src={page.resetPasswordImage.url ?? ''}
-            alt={page.resetPasswordImage.title ?? ''}
+            src={
+              typeof page.resetPasswordImage === 'string'
+                ? page.resetPasswordImage
+                : (page.resetPasswordImage?.url ?? '')
+            }
+            alt={
+              typeof page.resetPasswordImage === 'string'
+                ? ''
+                : (page.resetPasswordImage?.title ?? '')
+            }
             className={classes.image}
             fill
           />
@@ -68,7 +76,11 @@ export default async function RecoverPassword() {
           </div>
         </div>
       </article>
-      <BannerNewsletter />
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </>
   )
 }

@@ -111,7 +111,7 @@ const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousCl
           > */}
           <div className={cn(classes.image, 'desktop')}>
             <Image
-              key={currentArtist.image.url}
+              key={currentArtist.id}
               src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
               alt={
                 typeof artist.image === 'string'

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
@@ -60,8 +60,16 @@ export default async function ArtistsLayout({ children }: { children: ReactNode 
         <ArtistPageHero data={page} />
         {children}
       </div>
-      {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.reachOutBoolean && (
+        <Suspense fallback={null}>
+          <BannerReachOut />
+        </Suspense>
+      )}
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </article>
   )
 }

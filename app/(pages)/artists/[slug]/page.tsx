@@ -1,4 +1,4 @@
-import type { Artist } from '@/app/payload-types'
+import type { Artist, Media } from '@/app/payload-types'
 
 import { languageTag } from '@/paraglide/runtime'
 import { notFound } from 'next/navigation'
@@ -31,7 +31,12 @@ async function getData(locale: string, slug: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+export async function generateMetadata(props: { params: Params; searchParams: SearchParams }) {
+  const params = await props.params
+  const searchParams = await props.searchParams
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
   if (!pageData || !pageData.docs.length) {
@@ -55,7 +60,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       images: [
         {
           url:
-            typeof artist.relation.artworks !== 'string' ? artist.relation.artworks.image.url : '',
+            typeof artist.relation.artworks !== 'string'
+              ? (artist.relation.artworks as Media).url
+              : '',
           alt: artist.full_name,
         },
       ],
@@ -63,7 +70,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function ArtistPage({ params }: { params: { slug: string } }) {
+export default async function ArtistPage(props: { params: Params; searchParams: SearchParams }) {
+  const params = await props.params
+  const searchParams = await props.searchParams
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
 

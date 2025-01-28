@@ -1,5 +1,5 @@
 import type { GalleryPage } from '@/app/payload-types'
-
+import { Suspense } from 'react'
 import { languageTag } from '@/paraglide/runtime'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
@@ -52,14 +52,23 @@ export default async function GalleryPage() {
   const locale = languageTag()
   const { pageData } = await getData(locale)
   const page: GalleryPage = pageData.docs[0]
+
   return (
     <article>
       <GalleryHero data={page} />
       <GalleryFounders data={page} />
       <GalleryVision data={page} />
       <GalleryCTA data={page} />
-      {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.reachOutBoolean && (
+        <Suspense fallback={null}>
+          <BannerReachOut />
+        </Suspense>
+      )}
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </article>
   )
 }

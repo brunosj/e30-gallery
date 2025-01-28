@@ -6,6 +6,7 @@ import BannerNewsletter from '@/components/BannerNewsletter'
 import ExhibitionsPageData from '@/components/ExhibitionsPage'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import classes from './index.module.css'
+import { Suspense } from 'react'
 
 async function getData(locale: string) {
   const urls = [
@@ -62,8 +63,16 @@ export default async function ExhibitionsPage() {
   return (
     <article>
       <ExhibitionsPageData data={exhibitions} featuredExhibitions={featuredExhibitions} />
-      {page.Banners?.reachOutBoolean && <BannerReachOut />}
-      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.reachOutBoolean && (
+        <Suspense fallback={null}>
+          <BannerReachOut />
+        </Suspense>
+      )}
+      {page.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
     </article>
   )
 }

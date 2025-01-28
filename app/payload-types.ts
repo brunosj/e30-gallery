@@ -14,10 +14,11 @@ export interface Config {
     'gallery-page': GalleryPage
     'art-society-page': ArtSocietyPage
     'members-only-page': MembersOnlyPage
-    'generic-pages': GenericPage
     'newsletter-page': NewsletterPage
+    'generic-pages': GenericPage
     artist: Artist
     artwork: Artwork
+    blog: Blog
     exhibition: Exhibition
     testimonial: Testimonial
     media: Media
@@ -664,6 +665,52 @@ export interface CallToAction {
   id?: string | null
   blockName?: string | null
   blockType: 'cta'
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
+  id: string
+  title?: string | null
+  summary?: string | null
+  layout: (
+    | {
+        content: {
+          [k: string]: unknown
+        }[]
+        id?: string | null
+        blockName?: string | null
+        blockType: 'content'
+      }
+    | MediaBlock
+    | CallToAction
+  )[]
+  meta?: {
+    title?: string | null
+    description?: string | null
+    keywords?: string | null
+  }
+  Banners?: {
+    reachOutBoolean?: boolean | null
+    newsletterBoolean?: boolean | null
+  }
+  slug?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  invertBackground?: boolean | null
+  position?: ('default' | 'fullscreen') | null
+  media: Media
+  id?: string | null
+  blockName?: string | null
+  blockType: 'mediaBlock'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -11,7 +11,7 @@ export const getMeUser = async (args?: {
   redirectUrl?: string
 }> => {
   const { nullUserRedirect, validUserRedirect } = args || {}
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get('payload-token')?.value
 
   if (!token) {

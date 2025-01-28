@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { LogoutPage } from './LogoutPage'
 import BannerNewsletter from '@/components/BannerNewsletter'
@@ -11,7 +11,9 @@ export default async function Logout() {
       <article className={classes.logout}>
         <LogoutPage />
       </article>
-      <BannerNewsletter />
+      <Suspense fallback={null}>
+        <BannerNewsletter />
+      </Suspense>
     </>
   )
 }

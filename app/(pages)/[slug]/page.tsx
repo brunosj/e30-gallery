@@ -6,6 +6,7 @@ import BannerNewsletter from '@/components/BannerNewsletter'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import { parseKeywords } from '@/utilities/parseKeywords'
+import { Metadata } from 'next'
 
 async function getData(locale: string, slug: string) {
   const urls = [
@@ -34,7 +35,12 @@ async function getData(locale: string, slug: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+export async function generateMetadata(props: { params: Params; searchParams: SearchParams }) {
+  const params = await props.params
+  const searchParams = await props.searchParams
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
 
@@ -60,7 +66,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function GenericPage({ params }: { params: { slug: string } }) {
+export default async function GenericPage(props: { params: Params; searchParams: SearchParams }) {
+  const params = await props.params
+  const searchParams = await props.searchParams
   const locale = languageTag()
   const { pageData } = await getData(locale, params.slug)
 
