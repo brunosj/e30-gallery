@@ -4,7 +4,7 @@ import LongLogo from '@/components/SVG/LongLogo'
 import * as m from '@/paraglide/messages.js'
 import { FooterNav } from '@/components/Footer/Nav'
 import cn from 'classnames'
-
+import Link from 'next/link'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -51,7 +51,16 @@ export default async function Footer() {
               </div>
               <div className="container padding-y-sm">
                 <p>
-                  © {new Date().getFullYear()}. E30 Gallery, {m.allRightsReserved()}.
+                  © {new Date().getFullYear()} E30 Gallery, {m.allRightsReserved()}. Website by{' '}
+                  <Link
+                    href="https://landozone.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes.link}
+                  >
+                    landozone
+                  </Link>
+                  .
                 </p>
               </div>
             </div>

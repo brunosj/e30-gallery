@@ -48,5 +48,5 @@ jobs:
           Job: ${{ github.job }}
           Commit: ${{ github.sha }}
           Author: ${{ github.actor }}
-        to: contact@landozone.net
+        to: system@landozone.net
         from: sender@landozone.net
