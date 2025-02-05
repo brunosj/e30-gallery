@@ -1,9 +1,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
+  border-radius: var(--rounded-md);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   transition: transform 0.2s ease;
   text-decoration: none;
   color: inherit;

@@ -5,6 +5,9 @@ import { notFound } from 'next/navigation'
 import BlogPostClient from './BlogPostClient'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import classes from './index.module.css'
+import { Suspense } from 'react'
+import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
 
 async function getData(locale: string, slug: string) {
   const urls = [
@@ -80,8 +83,20 @@ export default async function BlogPostPage(props: { params: Params; searchParams
   const blogPost: Blogpost = pageData.docs[0]
 
   return (
-    <div className={classes.page}>
-      <BlogPostClient blogPost={blogPost} locale={locale} />
-    </div>
+    <>
+      <div className={classes.page}>
+        <BlogPostClient blogPost={blogPost} locale={locale} />
+      </div>
+      {blogPost.Banners?.reachOutBoolean && (
+        <Suspense fallback={null}>
+          <BannerReachOut />
+        </Suspense>
+      )}
+      {blogPost.Banners?.newsletterBoolean && (
+        <Suspense fallback={null}>
+          <BannerNewsletter />
+        </Suspense>
+      )}
+    </>
   )
 }

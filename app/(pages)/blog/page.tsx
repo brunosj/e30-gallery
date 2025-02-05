@@ -57,7 +57,7 @@ export default async function BlogPage() {
   )
 
   return (
-    <section className={classes.blogGrid}>
+    <section className="container padding-y">
       {page.text && (
         <div className={classes.pageContent}>
           <RichText content={page.text} />

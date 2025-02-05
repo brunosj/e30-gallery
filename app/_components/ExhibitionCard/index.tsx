@@ -21,23 +21,20 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
   })
 
   const { title, image, homepageImage, dateBegin, dateEnd, text } = data
-  const begin = new Date(dateBegin || '')
-    .toLocaleDateString(locale, {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
 
-  const end = new Date(dateEnd || '')
-    .toLocaleDateString(locale, {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
+  const begin = new Date(dateBegin || '').toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'long',
+  })
+
+  const end = new Date(dateEnd || '').toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'long',
+  })
+
+  // Reverse the date only if the locale is 'en'
+  const formattedBegin = locale === 'en' ? begin.split(' ').reverse().join(' ') : begin
+  const formattedEnd = locale === 'en' ? end.split(' ').reverse().join(' ') : end
 
   const beginYear = new Date(dateBegin || '').getFullYear()
   const endYear = new Date(dateEnd || '').getFullYear()
@@ -57,7 +54,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
         <div className={classes.contentInner}>
           <p className={classes.title}>{title}</p>
           <p className={classes.date}>
-            {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}{' '}
+            {formattedBegin} {beginYear !== endYear ? beginYear : ''} - {formattedEnd} {endYear}{' '}
           </p>
         </div>
         <div className={classes.description}>
