@@ -1,5 +1,5 @@
 import React from 'react'
-import type { TwoColumnBlock, CallToAction } from '@/app/payload-types'
+import type { TwoColumnBlock, CallToAction, MediaBlock, TextBlock } from '@/app/payload-types'
 import { components } from '@/components/Blocks'
 import cn from 'classnames'
 
@@ -13,7 +13,15 @@ interface CallToActionBlockProps extends CallToAction {
   blockType: 'cta'
 }
 
-export type Layout = TwoColumnBlockProps | CallToActionBlockProps
+interface MediaBlockProps extends MediaBlock {
+  blockType: 'mediaBlock'
+}
+
+interface TextBlockProps extends TextBlock {
+  blockType: 'textBlock'
+}
+
+export type Layout = TwoColumnBlockProps | CallToActionBlockProps | MediaBlockProps | TextBlockProps
 
 type Props = {
   layout: Layout[]

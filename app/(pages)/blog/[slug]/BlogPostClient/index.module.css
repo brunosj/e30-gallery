@@ -1,0 +1,35 @@
+.article {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .article {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

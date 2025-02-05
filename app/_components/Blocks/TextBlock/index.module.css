@@ -1,0 +1,24 @@
+.wrapper {
+  width: 100%;
+  padding: var(--base-200) 0;
+}
+
+.container {
+  max-width: var(--max-width-s);
+  margin: 0 auto;
+  padding: 0 var(--base-200);
+}
+
+.container > * + * {
+  margin-top: var(--base-100);
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: var(--base-100) 0;
+  }
+  
+  .container {
+    padding: 0 var(--base-100);
+  }
+} 

@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  background-color: var(--color-white);
+}
+
+.wrapper.inverted {
+  background-color: var(--color-black);
+}
+
+.mediaContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.wrapper.fullscreen .mediaContainer {
+  height: 100vh;
+  aspect-ratio: unset;
+}
+
+.image {
+  object-fit: contain;
+}
+
+@media (max-width: 480px) {
+  .wrapper.fullscreen .mediaContainer {
+    height: 50vh;
+  }
+} 

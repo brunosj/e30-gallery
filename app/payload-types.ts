@@ -15,10 +15,11 @@ export interface Config {
     'art-society-page': ArtSocietyPage
     'members-only-page': MembersOnlyPage
     'newsletter-page': NewsletterPage
+    'blog-page': BlogPage
     'generic-pages': GenericPage
     artist: Artist
     artwork: Artwork
-    blog: Blog
+    blogpost: Blogpost
     exhibition: Exhibition
     testimonial: Testimonial
     media: Media
@@ -42,18 +43,7 @@ export interface Config {
 export interface Homepage {
   id: string
   featuredExhibitions: (string | Exhibition)[]
-  layout: (
-    | TwoColumnBlock
-    | CallToAction
-    | {
-        content: {
-          [k: string]: unknown
-        }[]
-        id?: string | null
-        blockName?: string | null
-        blockType: 'content'
-      }
-  )[]
+  layout: (TextBlock | TwoColumnBlock | CallToAction)[]
   meta?: {
     title?: string | null
     description?: string | null
@@ -543,6 +533,18 @@ export interface NewsletterPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  text_block: {
+    [k: string]: unknown
+  }[]
+  id?: string | null
+  blockName?: string | null
+  blockType: 'textBlock'
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TwoColumnBlock".
  */
 export interface TwoColumnBlock {
@@ -668,24 +670,37 @@ export interface CallToAction {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog".
+ * via the `definition` "blog-page".
  */
-export interface Blog {
+export interface BlogPage {
+  id: string
+  text: {
+    [k: string]: unknown
+  }[]
+  meta?: {
+    title?: string | null
+    description?: string | null
+    keywords?: string | null
+  }
+  title?: string | null
+  Banners?: {
+    reachOutBoolean?: boolean | null
+    newsletterBoolean?: boolean | null
+  }
+  slug?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogpost".
+ */
+export interface Blogpost {
   id: string
   title?: string | null
   summary?: string | null
-  layout: (
-    | {
-        content: {
-          [k: string]: unknown
-        }[]
-        id?: string | null
-        blockName?: string | null
-        blockType: 'content'
-      }
-    | MediaBlock
-    | CallToAction
-  )[]
+  layout: (TextBlock | MediaBlock | CallToAction)[]
   meta?: {
     title?: string | null
     description?: string | null
