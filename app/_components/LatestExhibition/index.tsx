@@ -29,7 +29,17 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
   return (
     <section>
       {data.map((exhibition, index) => {
-        const { title, image, dateBegin, dateEnd, text, link, addLink } = exhibition
+        const {
+          title,
+          image,
+          dateBegin,
+          dateEnd,
+          text,
+          exhibitionLink,
+          extraLink,
+          addLink,
+          addOtherLink,
+        } = exhibition
         const begin = new Date(dateBegin || '')
           .toLocaleDateString(locale, {
             day: 'numeric',
@@ -80,7 +90,10 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   </p>
 
                   <RichText content={text} />
-                  {addLink && <Button link={link} />}
+                  <div className={classes.links}>
+                    {addLink && <Button link={exhibitionLink} />}
+                    {addOtherLink && <Button link={extraLink} />}
+                  </div>
                 </motion.div>
               </div>
               <motion.div

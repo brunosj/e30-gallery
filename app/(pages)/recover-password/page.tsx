@@ -7,6 +7,7 @@ import cn from 'classnames'
 import Image from 'next/image'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import classes from './index.module.css'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 async function getData(locale: string) {
   const urls = [
@@ -59,7 +60,7 @@ export default async function RecoverPassword() {
             src={
               typeof page.resetPasswordImage === 'string'
                 ? page.resetPasswordImage
-                : (page.resetPasswordImage?.url ?? '')
+                : getImageUrl(page.resetPasswordImage?.url ?? '')
             }
             alt={
               typeof page.resetPasswordImage === 'string'

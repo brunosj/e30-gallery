@@ -34,22 +34,25 @@ export const Socials: React.FC = () => {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/socials?locale=en&depth=1`,
           {
+            credentials: 'include',
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
             },
           },
         )
 
         if (!res.ok) {
+          console.error('Failed to fetch:', res.status, res.statusText)
           throw new Error(`API call failed with status: ${res.status}`)
         }
 
         const data: Social = await res.json()
         setSocials(data)
       } catch (error) {
-        console.error('Failed to fetch menu:', error)
-        setError('Failed to fetch menu')
+        console.error('Failed to fetch socials:', error)
+        setError('Failed to fetch socials')
       }
     }
 

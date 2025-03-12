@@ -10,8 +10,8 @@ import { Suspense } from 'react'
 
 async function getData(locale: string) {
   const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=1&limit=0`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibitions-page?locale=${locale}&depth=3`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=3&limit=0`,
   ]
 
   const fetchPromises = urls.map(url =>

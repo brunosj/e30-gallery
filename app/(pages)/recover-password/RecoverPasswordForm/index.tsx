@@ -25,7 +25,7 @@ export const RecoverPasswordForm: React.FC = () => {
 
   const onSubmit = useCallback(async (data: FormData) => {
     try {
-      // Step 1: Check if the email exists by calling the custom CMS endpoint
+      // Step 1: First check if the email exists
       const emailCheckResponse = await fetch(
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/check-email`,
         {
@@ -34,10 +34,12 @@ export const RecoverPasswordForm: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
         },
       )
 
       const emailCheckData = await emailCheckResponse.json()
+      console.log('emailCheckData', emailCheckData)
 
       if (!emailCheckData.exists) {
         setError(`${m.emailNotFound()}`)
@@ -49,21 +51,26 @@ export const RecoverPasswordForm: React.FC = () => {
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/forgot-password`,
         {
           method: 'POST',
-          body: JSON.stringify(data),
+          body: JSON.stringify({ email: data.email }),
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
         },
       )
+
+      const responseData = await response.json()
 
       if (response.ok) {
         setSuccess(true)
         setError('')
       } else {
-        setError(`${m.emailSendingFailed()}`)
+        // Handle Payload error messages
+        setError(responseData.errors?.[0]?.message || `${m.emailSendingFailed()}`)
       }
     } catch (error) {
-      setError(`${m.emailNotFound()}`)
+      console.error('Password recovery error:', error)
+      setError(`${m.emailSendingFailed()}`)
     }
   }, [])
 

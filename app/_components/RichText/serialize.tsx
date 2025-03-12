@@ -1,18 +1,46 @@
 import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 import { Text } from 'slate'
-
+import { Link } from '@/lib/i18n'
+import classes from './index.module.css'
 // eslint-disable-next-line no-use-before-define
 type Children = Leaf[]
 
+type DocValue = {
+  slug?: string
+  meta?: {
+    title?: string
+    description?: string
+    keywords?: string
+  }
+  title?: string
+  _status?: string
+  id?: string
+}
+
+type Doc = {
+  relationTo: string
+  value: DocValue
+}
+
+type LinkFields = {
+  link: {
+    type: 'reference' | 'custom' | 'mailto'
+    appearance?: 'default' | 'primary' | 'secondary'
+    url?: string
+    email?: string
+    subject?: string
+    body?: string
+  }
+}
+
 type Leaf = {
   type: string
-  value?: {
-    url: string
-    alt: string
-  }
   children: Children
   url?: string
+  doc?: Doc
+  fields?: LinkFields
+  linkType?: 'internal' | 'external'
   [key: string]: unknown
 }
 
@@ -78,10 +106,68 @@ const serialize = (children: Children): React.ReactNode[] =>
       case 'li':
         return <li key={i}>{serialize(node.children)}</li>
       case 'link':
+        // Handle internal references
+        if (node.linkType === 'internal' && node.doc) {
+          const { relationTo, value } = node.doc
+          const slug = value?.slug || ''
+          return (
+            <Link
+              href={`/${relationTo === 'homepage' ? '' : slug}`}
+              key={i}
+              className={classes.link}
+            >
+              {serialize(node.children)}
+            </Link>
+          )
+        }
+
+        // Handle custom URLs
+        if (node.fields?.link.type === 'custom' && node.fields.link.url) {
+          return (
+            <Link
+              href={node.fields.link.url}
+              key={i}
+              className={classes.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {serialize(node.children)}
+            </Link>
+          )
+        }
+
+        // Handle mailto links
+        if (node.fields?.link.type === 'mailto' && node.fields.link.email) {
+          const subject = node.fields.link.subject
+            ? `?subject=${encodeURIComponent(node.fields.link.subject)}`
+            : ''
+          const body = node.fields.link.body
+            ? `${subject ? '&' : '?'}body=${encodeURIComponent(node.fields.link.body)}`
+            : ''
+          return (
+            <a
+              href={`mailto:${node.fields.link.email}${subject}${body}`}
+              key={i}
+              className={classes.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {serialize(node.children)}
+            </a>
+          )
+        }
+
+        // Fallback for legacy or malformed links
         return (
-          <a href={escapeHTML(node.url)} key={i}>
+          <Link
+            href={node.url || '#'}
+            key={i}
+            className={classes.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {serialize(node.children)}
-          </a>
+          </Link>
         )
 
       default:

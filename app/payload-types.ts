@@ -6,7 +6,65 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji'
+
 export interface Config {
+  auth: {
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
     homepage: Homepage
     'exhibitions-page': ExhibitionsPage
@@ -25,8 +83,37 @@ export interface Config {
     media: Media
     'form-submission': FormSubmission
     users: User
+    'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
     'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
+  collectionsSelect: {
+    homepage: HomepageSelect<false> | HomepageSelect<true>
+    'exhibitions-page': ExhibitionsPageSelect<false> | ExhibitionsPageSelect<true>
+    'artists-page': ArtistsPageSelect<false> | ArtistsPageSelect<true>
+    'gallery-page': GalleryPageSelect<false> | GalleryPageSelect<true>
+    'art-society-page': ArtSocietyPageSelect<false> | ArtSocietyPageSelect<true>
+    'members-only-page': MembersOnlyPageSelect<false> | MembersOnlyPageSelect<true>
+    'newsletter-page': NewsletterPageSelect<false> | NewsletterPageSelect<true>
+    'blog-page': BlogPageSelect<false> | BlogPageSelect<true>
+    'generic-pages': GenericPagesSelect<false> | GenericPagesSelect<true>
+    artist: ArtistSelect<false> | ArtistSelect<true>
+    artwork: ArtworkSelect<false> | ArtworkSelect<true>
+    blogpost: BlogpostSelect<false> | BlogpostSelect<true>
+    exhibition: ExhibitionSelect<false> | ExhibitionSelect<true>
+    testimonial: TestimonialSelect<false> | TestimonialSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    'form-submission': FormSubmissionSelect<false> | FormSubmissionSelect<true>
+    users: UsersSelect<false> | UsersSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
+  db: {
+    defaultIDType: string
   }
   globals: {
     menu: Menu
@@ -34,6 +121,39 @@ export interface Config {
     socials: Social
     'reach-out': ReachOut
     'newsletter-banner': NewsletterBanner
+  }
+  globalsSelect: {
+    menu: MenuSelect<false> | MenuSelect<true>
+    footer: FooterSelect<false> | FooterSelect<true>
+    socials: SocialsSelect<false> | SocialsSelect<true>
+    'reach-out': ReachOutSelect<false> | ReachOutSelect<true>
+    'newsletter-banner': NewsletterBannerSelect<false> | NewsletterBannerSelect<true>
+  }
+  locale: 'en' | 'de'
+  user: User & {
+    collection: 'users'
+  }
+  jobs: {
+    tasks: unknown
+    workflows: unknown
+  }
+}
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string
+    password: string
+  }
+  login: {
+    email: string
+    password: string
+  }
+  registerFirstUser: {
+    email: string
+    password: string
+  }
+  unlock: {
+    email: string
+    password: string
   }
 }
 /**
@@ -72,10 +192,16 @@ export interface Exhibition {
   text: {
     [k: string]: unknown
   }[]
-  homepageImage?: Media | null
+  /**
+   * Optimal aspect-ratio: 16/9
+   */
+  homepageImage?: Media
+  /**
+   * Optimal aspect-ratio: N/A
+   */
   image: Media
   addLink?: boolean | null
-  link?: {
+  exhibitionLink?: {
     type?: ('reference' | 'custom' | 'mailto') | null
     newTab?: boolean | null
     reference?:
@@ -116,6 +242,56 @@ export interface Exhibition {
     subject?: string | null
     body?: string | null
     label: string
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'primary' | 'secondary') | null
+  }
+  addOtherLink?: boolean | null
+  extraLink?: {
+    type?: ('reference' | 'custom' | 'mailto') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'homepage'
+          value: string | Homepage
+        } | null)
+      | ({
+          relationTo: 'artists-page'
+          value: string | ArtistsPage
+        } | null)
+      | ({
+          relationTo: 'art-society-page'
+          value: string | ArtSocietyPage
+        } | null)
+      | ({
+          relationTo: 'exhibitions-page'
+          value: string | ExhibitionsPage
+        } | null)
+      | ({
+          relationTo: 'gallery-page'
+          value: string | GalleryPage
+        } | null)
+      | ({
+          relationTo: 'members-only-page'
+          value: string | MembersOnlyPage
+        } | null)
+      | ({
+          relationTo: 'generic-pages'
+          value: string | GenericPage
+        } | null)
+      | ({
+          relationTo: 'newsletter-page'
+          value: string | NewsletterPage
+        } | null)
+    url?: string | null
+    email?: string | null
+    subject?: string | null
+    body?: string | null
+    label: string
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
   meta?: {
@@ -124,7 +300,7 @@ export interface Exhibition {
     keywords?: string | null
   }
   relation?: {
-    artists?: (string | null) | Artist
+    artists?: (string | Artist)[] | null
   }
   updatedAt: string
   createdAt: string
@@ -137,16 +313,10 @@ export interface Exhibition {
 export interface Media {
   id: string
   title: string
-  cloudinary?: {
-    public_id?: string | null
-    original_filename?: string | null
-    format?: string | null
-    secure_url?: string | null
-    resource_type?: string | null
-  }
   updatedAt: string
   createdAt: string
   url?: string | null
+  thumbnailURL?: string | null
   filename?: string | null
   mimeType?: string | null
   filesize?: number | null
@@ -164,6 +334,9 @@ export interface ArtistsPage {
   text: {
     [k: string]: unknown
   }[]
+  /**
+   * Shown when no artist name is hovered in the list
+   */
   featuredArtwork: string | Artwork
   meta?: {
     title?: string | null
@@ -188,6 +361,9 @@ export interface Artwork {
   id: string
   title: string
   description: string
+  /**
+   * Optimal aspect-ratio: N/A
+   */
   image: Media
   relation: {
     artist: string | Artist
@@ -205,6 +381,9 @@ export interface Artist {
   full_name: string
   country: string
   additional_info: string
+  /**
+   * Optimal aspect-ratio: 1/1 for avatar (other aspect ratios can also work as long as the person is centered)
+   */
   image: Media
   type: 'represented' | 'featured'
   bio: {
@@ -231,6 +410,9 @@ export interface Artist {
 export interface ArtSocietyPage {
   id: string
   call_to_action_text: string
+  /**
+   * Optimal aspect-ratio: 1/1
+   */
   imageHero: Media
   help_text_: {
     [k: string]: unknown
@@ -238,9 +420,15 @@ export interface ArtSocietyPage {
   benefits: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: 16/9
+   */
   benefitsVideo: Media
   title_sentence: string
   testimonialsItems?: (string | Testimonial)[] | null
+  /**
+   * Optimal aspect-ratio: 1/1
+   */
   resetPasswordImage: Media
   meta?: {
     title?: string | null
@@ -265,7 +453,10 @@ export interface Testimonial {
   id: string
   name: string
   testimonial: string
-  picture?: Media | null
+  /**
+   * Optimal aspect-ratio: 1:1
+   */
+  picture?: (string | null) | Media
   stars?: number | null
   updatedAt: string
   createdAt: string
@@ -305,19 +496,31 @@ export interface GalleryPage {
   mission_statement: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: 1/1
+   */
   imageHero: Media
   alexander_bio: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: 1/1
+   */
   imageAlexander: Media
   felicitas_bio: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: 1/1
+   */
   imageFelicitas: Media
   main_text: {
     [k: string]: unknown
   }[]
   textImageBlock: {
+    /**
+     * Optimal aspect-ratio: 4/3
+     */
     imageVision: Media
     text_under_image: {
       [k: string]: unknown
@@ -367,8 +570,14 @@ export interface GalleryPage {
     subject?: string | null
     body?: string | null
     label: string
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
+  /**
+   * Optimal aspect-ratio:  N/A
+   */
   backgroundImage: Media
   meta?: {
     title?: string | null
@@ -399,12 +608,18 @@ export interface MembersOnlyPage {
   homeBlocks: TitleImageInfoBlock[]
   tab_title_virtual_exhibition: string
   page_title_virtual_exhibition: string
+  /**
+   * Paste the iframe code here. It should start be formatted similar to <iframe allowfullscreen="true" frameborder="0" scrolling="no" src="https://art.kunstmatrix.com/apps/artspaces/?external=true&uid=103202&exhibition=13090739" width="100%" height="600"></iframe>
+   */
   virtualExhibition?: string | null
   tab_title_special_events: string
   page_title_special_events: string
   text_special_events: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: N/A
+   */
   specialEventsImage: Media
   tab_title_art_advice: string
   page_title_art_advice: string
@@ -476,8 +691,14 @@ export interface TitleImageInfoBlock {
     subject?: string | null
     body?: string | null
     label: string
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
+  /**
+   * Optimal aspect-ratio: 16/9
+   */
   image: Media
   id?: string | null
   blockName?: string | null
@@ -515,6 +736,9 @@ export interface NewsletterPage {
   success_message: {
     [k: string]: unknown
   }[]
+  /**
+   * Paste the script code for the newsletter here, without the <script> tag. It should start with (function([rest of script here])); (make sure to include the semicolon at the end)
+   */
   newsletter?: string | null
   meta?: {
     title?: string | null
@@ -600,11 +824,17 @@ export interface TwoColumnBlock {
       subject?: string | null
       body?: string | null
       label: string
+      /**
+       * Choose how the link should be rendered.
+       */
       appearance?: ('default' | 'primary' | 'secondary') | null
     }
   }
   columnImage: {
     size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null
+    /**
+     * Optimal aspect-ratio: 1/1
+     */
     image: Media
   }
   id?: string | null
@@ -621,6 +851,9 @@ export interface CallToAction {
   text: {
     [k: string]: unknown
   }[]
+  /**
+   * Optimal aspect-ratio: 16/9
+   */
   featuredImage: Media
   link: {
     type?: ('reference' | 'custom' | 'mailto') | null
@@ -758,7 +991,90 @@ export interface User {
   hash?: string | null
   loginAttempts?: number | null
   lockUntil?: string | null
-  password: string | null
+  password?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string
+  document?:
+    | ({
+        relationTo: 'homepage'
+        value: string | Homepage
+      } | null)
+    | ({
+        relationTo: 'exhibitions-page'
+        value: string | ExhibitionsPage
+      } | null)
+    | ({
+        relationTo: 'artists-page'
+        value: string | ArtistsPage
+      } | null)
+    | ({
+        relationTo: 'gallery-page'
+        value: string | GalleryPage
+      } | null)
+    | ({
+        relationTo: 'art-society-page'
+        value: string | ArtSocietyPage
+      } | null)
+    | ({
+        relationTo: 'members-only-page'
+        value: string | MembersOnlyPage
+      } | null)
+    | ({
+        relationTo: 'newsletter-page'
+        value: string | NewsletterPage
+      } | null)
+    | ({
+        relationTo: 'blog-page'
+        value: string | BlogPage
+      } | null)
+    | ({
+        relationTo: 'generic-pages'
+        value: string | GenericPage
+      } | null)
+    | ({
+        relationTo: 'artist'
+        value: string | Artist
+      } | null)
+    | ({
+        relationTo: 'artwork'
+        value: string | Artwork
+      } | null)
+    | ({
+        relationTo: 'blogpost'
+        value: string | Blogpost
+      } | null)
+    | ({
+        relationTo: 'exhibition'
+        value: string | Exhibition
+      } | null)
+    | ({
+        relationTo: 'testimonial'
+        value: string | Testimonial
+      } | null)
+    | ({
+        relationTo: 'media'
+        value: Media
+      } | null)
+    | ({
+        relationTo: 'form-submission'
+        value: string | FormSubmission
+      } | null)
+    | ({
+        relationTo: 'users'
+        value: string | User
+      } | null)
+  globalSlug?: string | null
+  user: {
+    relationTo: 'users'
+    value: string | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -793,6 +1109,625 @@ export interface PayloadMigration {
   batch?: number | null
   updatedAt: string
   createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  featuredExhibitions?: T
+  layout?:
+    | T
+    | {
+        textBlock?: T | TextBlockSelect<T>
+        'two-column-block'?: T | TwoColumnBlockSelect<T>
+        cta?: T | CallToActionSelect<T>
+      }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  text_block?: T
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock_select".
+ */
+export interface TwoColumnBlockSelect<T extends boolean = true> {
+  invertOrder?: T
+  columnText?:
+    | T
+    | {
+        size?: T
+        title?: T
+        subtitle?: T
+        content?: T
+        addLink?: T
+        link?:
+          | T
+          | {
+              type?: T
+              newTab?: T
+              reference?: T
+              url?: T
+              email?: T
+              subject?: T
+              body?: T
+              label?: T
+              appearance?: T
+            }
+      }
+  columnImage?:
+    | T
+    | {
+        size?: T
+        image?: T
+      }
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToAction_select".
+ */
+export interface CallToActionSelect<T extends boolean = true> {
+  backgroundColor?: T
+  title?: T
+  text?: T
+  featuredImage?: T
+  link?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+      }
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions-page_select".
+ */
+export interface ExhibitionsPageSelect<T extends boolean = true> {
+  featuredExhibitions?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists-page_select".
+ */
+export interface ArtistsPageSelect<T extends boolean = true> {
+  text?: T
+  featuredArtwork?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-page_select".
+ */
+export interface GalleryPageSelect<T extends boolean = true> {
+  about_text?: T
+  mission_statement?: T
+  imageHero?: T
+  alexander_bio?: T
+  imageAlexander?: T
+  felicitas_bio?: T
+  imageFelicitas?: T
+  main_text?: T
+  textImageBlock?:
+    | T
+    | {
+        imageVision?: T
+        text_under_image?: T
+      }
+  text?: T
+  link?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  backgroundImage?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "art-society-page_select".
+ */
+export interface ArtSocietyPageSelect<T extends boolean = true> {
+  call_to_action_text?: T
+  imageHero?: T
+  help_text_?: T
+  benefits?: T
+  benefitsVideo?: T
+  title_sentence?: T
+  testimonialsItems?: T
+  resetPasswordImage?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members-only-page_select".
+ */
+export interface MembersOnlyPageSelect<T extends boolean = true> {
+  tab_title_home?: T
+  page_title_home?: T
+  text_home?: T
+  homeBlocks?:
+    | T
+    | {
+        'title-image-info-block'?: T | TitleImageInfoBlockSelect<T>
+      }
+  tab_title_virtual_exhibition?: T
+  page_title_virtual_exhibition?: T
+  virtualExhibition?: T
+  tab_title_special_events?: T
+  page_title_special_events?: T
+  text_special_events?: T
+  specialEventsImage?: T
+  tab_title_art_advice?: T
+  page_title_art_advice?: T
+  individuallArtAdviceBlock?:
+    | T
+    | {
+        'title-image-info-block'?: T | TitleImageInfoBlockSelect<T>
+      }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleImageInfoBlock_select".
+ */
+export interface TitleImageInfoBlockSelect<T extends boolean = true> {
+  textJustification?: T
+  title?: T
+  info?: T
+  addLink?: T
+  link?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  image?: T
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-page_select".
+ */
+export interface NewsletterPageSelect<T extends boolean = true> {
+  text?: T
+  success_message?: T
+  newsletter?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-page_select".
+ */
+export interface BlogPageSelect<T extends boolean = true> {
+  text?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generic-pages_select".
+ */
+export interface GenericPagesSelect<T extends boolean = true> {
+  text?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  title?: T
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artist_select".
+ */
+export interface ArtistSelect<T extends boolean = true> {
+  full_name?: T
+  country?: T
+  additional_info?: T
+  image?: T
+  type?: T
+  bio?: T
+  artworkArchiveCode?: T
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  relation?:
+    | T
+    | {
+        artworks?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artwork_select".
+ */
+export interface ArtworkSelect<T extends boolean = true> {
+  title?: T
+  description?: T
+  image?: T
+  relation?:
+    | T
+    | {
+        artist?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogpost_select".
+ */
+export interface BlogpostSelect<T extends boolean = true> {
+  title?: T
+  summary?: T
+  layout?:
+    | T
+    | {
+        textBlock?: T | TextBlockSelect<T>
+        mediaBlock?: T | MediaBlockSelect<T>
+        cta?: T | CallToActionSelect<T>
+      }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  Banners?:
+    | T
+    | {
+        reachOutBoolean?: T
+        newsletterBoolean?: T
+      }
+  slug?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock_select".
+ */
+export interface MediaBlockSelect<T extends boolean = true> {
+  invertBackground?: T
+  position?: T
+  media?: T
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibition_select".
+ */
+export interface ExhibitionSelect<T extends boolean = true> {
+  title?: T
+  dateBegin?: T
+  dateEnd?: T
+  artworks_by?: T
+  text?: T
+  homepageImage?: T
+  image?: T
+  addLink?: T
+  exhibitionLink?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  addOtherLink?: T
+  extraLink?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        keywords?: T
+      }
+  relation?:
+    | T
+    | {
+        artists?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonial_select".
+ */
+export interface TestimonialSelect<T extends boolean = true> {
+  name?: T
+  testimonial?: T
+  picture?: T
+  stars?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  title?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submission_select".
+ */
+export interface FormSubmissionSelect<T extends boolean = true> {
+  name?: T
+  email?: T
+  message?: T
+  source?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  firstName?: T
+  lastName?: T
+  roles?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -843,6 +1778,9 @@ export interface Menu {
           subject?: string | null
           body?: string | null
           label: string
+          /**
+           * Choose how the link should be rendered.
+           */
           appearance?: ('default' | 'primary' | 'secondary') | null
         }
         id?: string | null
@@ -906,6 +1844,9 @@ export interface Footer {
                 subject?: string | null
                 body?: string | null
                 label: string
+                /**
+                 * Choose how the link should be rendered.
+                 */
                 appearance?: ('default' | 'primary' | 'secondary') | null
               }
               id?: string | null
@@ -984,6 +1925,9 @@ export interface ReachOut {
     subject?: string | null
     body?: string | null
     label: string
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
   updatedAt?: string | null
@@ -1037,8 +1981,142 @@ export interface NewsletterBanner {
     subject?: string | null
     body?: string | null
     label: string
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
   updatedAt?: string | null
   createdAt?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_select".
+ */
+export interface MenuSelect<T extends boolean = true> {
+  nav?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T
+              newTab?: T
+              reference?: T
+              url?: T
+              email?: T
+              subject?: T
+              body?: T
+              label?: T
+              appearance?: T
+            }
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  call_to_action?: T
+  nav?:
+    | T
+    | {
+        category?: T
+        navItem?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T
+                    newTab?: T
+                    reference?: T
+                    url?: T
+                    email?: T
+                    subject?: T
+                    body?: T
+                    label?: T
+                    appearance?: T
+                  }
+              id?: T
+            }
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socials_select".
+ */
+export interface SocialsSelect<T extends boolean = true> {
+  socials?:
+    | T
+    | {
+        platform?: T
+        url?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reach-out_select".
+ */
+export interface ReachOutSelect<T extends boolean = true> {
+  title?: T
+  text?: T
+  link?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-banner_select".
+ */
+export interface NewsletterBannerSelect<T extends boolean = true> {
+  title?: T
+  link?:
+    | T
+    | {
+        type?: T
+        newTab?: T
+        reference?: T
+        url?: T
+        email?: T
+        subject?: T
+        body?: T
+        label?: T
+        appearance?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown
 }
