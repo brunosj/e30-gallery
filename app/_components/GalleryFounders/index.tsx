@@ -12,6 +12,7 @@ import {
 } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: GalleryPage
@@ -33,14 +34,14 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
             >
               <Image
                 key={imageAlexander.title}
-                src={imageAlexander.url as string}
+                src={getImageUrl(imageAlexander?.url || '')}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
               />
               <Image
                 key={imageFelicitas.title}
-                src={imageFelicitas.url as string}
+                src={getImageUrl(imageFelicitas?.url || '')}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}
@@ -70,7 +71,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
             <div className={cn(classes.imageColumn, 'padding-y')}>
               <Image
                 key={imageAlexander.title}
-                src={imageAlexander.url as string}
+                src={getImageUrl(imageAlexander?.url || '')}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
@@ -80,7 +81,7 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               </div>
               <Image
                 key={imageFelicitas.title}
-                src={imageFelicitas.url as string}
+                src={getImageUrl(imageFelicitas?.url || '')}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}

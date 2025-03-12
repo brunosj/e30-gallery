@@ -3,6 +3,7 @@
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import * as m from '@/paraglide/messages.js'
 import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
@@ -22,7 +23,7 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
       <div className={classes.cta}>
         <div className={classes.backgroundImageWrapper}>
           <Image
-            src={backgroundImage.url as string}
+            src={getImageUrl(backgroundImage?.url || '')}
             alt={backgroundImage.title}
             fill
             className={classes.backgroundImage}

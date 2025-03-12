@@ -6,6 +6,7 @@ import cn from 'classnames'
 import { motion } from 'framer-motion'
 import { fadeInVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 export const MediaBlockComponent: React.FC<MediaBlock> = ({
   invertBackground = false,
@@ -28,7 +29,12 @@ export const MediaBlockComponent: React.FC<MediaBlock> = ({
         viewport={{ once: false, amount: 0.3 }}
         variants={fadeInVariants}
       >
-        <Image src={image.url as string} alt={image.title} fill className={classes.image} />
+        <Image
+          src={getImageUrl(image?.url || '')}
+          alt={image.title}
+          fill
+          className={classes.image}
+        />
       </motion.div>
     </section>
   )

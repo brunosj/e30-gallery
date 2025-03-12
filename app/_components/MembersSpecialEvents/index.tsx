@@ -11,6 +11,7 @@ import {
 } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: MembersOnlyPage
@@ -39,7 +40,11 @@ export const MembersSpecialEvents: React.FC<Props> = ({ data }: Props) => {
           className={classes.imageColumn}
         >
           <div className={classes.imageContainer}>
-            <Image src={specialEventsImage.url as string} alt={specialEventsImage.title} fill />
+            <Image
+              src={getImageUrl(specialEventsImage?.url || '')}
+              alt={specialEventsImage.title}
+              fill
+            />
           </div>
           <p className={classes.caption}>{specialEventsImage.title}</p>
         </motion.div>

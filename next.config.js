@@ -70,6 +70,12 @@ module.exports = withPlausibleProxy({
           port: '',
           pathname: '/e30/image/upload/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'cms.e30gallery.com',
+          port: '',
+          pathname: '/**',
+        },
       ],
     },
   }),

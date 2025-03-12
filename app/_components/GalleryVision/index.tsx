@@ -9,6 +9,7 @@ import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
 import { fadeInVariants, backgroundVariants } from '@/app/_utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: GalleryPage
@@ -75,7 +76,7 @@ export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
       >
         <div className={classes.image}>
           <Image
-            src={textImageBlock.imageVision.url as string}
+            src={getImageUrl(textImageBlock.imageVision?.url || '')}
             alt={textImageBlock.imageVision.title}
             fill
           />

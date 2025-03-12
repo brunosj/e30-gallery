@@ -4,6 +4,7 @@ import type { Artist } from '@/app/payload-types'
 
 import { useRouter, Link } from '@/lib/i18n'
 import Image from 'next/image'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import classes from './index.module.css'
 
 export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
@@ -12,7 +13,7 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
   return (
     <Link className={classes.card} href={`/artists/${item.slug}`}>
       <div className={classes.avatar}>
-        <Image src={item.image.url as string} alt={item.image.title} fill />
+        <Image src={getImageUrl(item.image?.url || '')} alt={item.image.title} fill />
       </div>
       <div className={classes.content}>
         <div className={classes.info}>
@@ -24,7 +25,7 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
         <Image
           src={
             typeof item.relation.artworks === 'object'
-              ? (item.relation.artworks.image.url as string)
+              ? getImageUrl(item.relation.artworks.image?.url || '')
               : ''
           }
           alt={typeof item.relation.artworks === 'object' ? item.relation.artworks.image.title : ''}

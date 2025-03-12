@@ -12,6 +12,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
 
@@ -43,7 +44,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         </div>
       </motion.div>
       <motion.div className={classes.image}>
-        <Image src={imageHero.url as string} alt={imageHero.title} fill priority />
+        <Image src={getImageUrl(imageHero?.url || '')} alt={imageHero.title} fill priority />
       </motion.div>
     </section>
   )

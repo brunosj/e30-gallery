@@ -8,6 +8,7 @@ import cn from 'classnames'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
 
@@ -66,7 +67,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
           <Button link={{ ...link, appearance: buttonAppearance }} />
         </div>
         <div className={classes.image}>
-          <Image src={image.url as string} alt={image.title} fill />
+          <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
         </div>
       </motion.div>
     </section>

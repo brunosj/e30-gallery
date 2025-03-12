@@ -16,6 +16,7 @@ import {
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 import { languageTag } from '@/paraglide/runtime'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
 
@@ -90,7 +91,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 className={cn(invertOrder ? classes.order1 : classes.order2, 'relative')}
               >
                 <div className={classes.image}>
-                  <Image src={image.url as string} alt={image.title} fill priority />
+                  <Image src={getImageUrl(image?.url || '')} alt={image.title} fill priority />
                 </div>
               </motion.div>
             </div>

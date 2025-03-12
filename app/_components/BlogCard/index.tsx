@@ -5,6 +5,7 @@ import type { Blogpost } from '@/app/payload-types'
 import styles from './index.module.css'
 import { languageTag } from '@/paraglide/runtime'
 import { formatDate } from '@/app/_utilities/formatDate'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 interface BlogCardProps {
   post: Blogpost
@@ -22,7 +23,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       {firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media && (
         <div className={styles.imageWrapper}>
           <Image
-            src={firstMediaBlock.media.url || ''}
+            src={getImageUrl(firstMediaBlock.media?.url || '')}
             alt={post.title || ''}
             width={400}
             height={250}

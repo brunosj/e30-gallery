@@ -13,6 +13,7 @@ import {
   clipPathVariants,
 } from '@/utilities/animationVariants'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: MembersOnlyPage
@@ -57,7 +58,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.block}
             >
               <div className={classes.image}>
-                <Image src={image.url as string} alt={image.title} fill />
+                <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.text} ${getTextJustificationClass(textJustification || 'left')}`}
@@ -83,7 +84,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.gridLast}
             >
               <div className={classes.imageLast}>
-                <Image src={image.url as string} alt={image.title} fill />
+                <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.textLast} ${getTextJustificationClass(textJustification || 'left')}`}

@@ -13,6 +13,7 @@ import {
 } from '@/utilities/animationVariants'
 import cn from 'classnames'
 import classes from './index.module.css'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
   invertOrder,
@@ -51,7 +52,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           invertOrder ? classes.order1 : classes.order2,
         )}
       >
-        <Image src={image.url as string} alt={image.title} fill />
+        <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
       </div>
     </div>
   )

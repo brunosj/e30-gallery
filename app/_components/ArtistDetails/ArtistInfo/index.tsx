@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from '@/lib/i18n'
 import Image from 'next/image'
-import { Artist } from '@/app/payload-types'
+import { Artist, Artwork } from '@/app/payload-types'
 import * as m from '@/paraglide/messages.js'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
@@ -14,6 +14,7 @@ import {
   slideInFromLeftVariants,
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   artist: Artist
@@ -81,7 +82,11 @@ const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousCl
             {/* </motion.div> */}
             <div className={cn(classes.imageArtist, 'mobile')}>
               <Image
-                src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
+                src={
+                  typeof artist.image === 'string'
+                    ? artist.image
+                    : getImageUrl(artist.image?.url || '')
+                }
                 alt={
                   typeof artist.image === 'string'
                     ? 'Artist Image'
@@ -112,7 +117,11 @@ const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousCl
           <div className={cn(classes.image, 'desktop')}>
             <Image
               key={currentArtist.id}
-              src={typeof artist.image === 'string' ? artist.image : (artist.image.url as string)}
+              src={
+                typeof artist.image === 'string'
+                  ? artist.image
+                  : getImageUrl(artist.image?.url || '')
+              }
               alt={
                 typeof artist.image === 'string'
                   ? 'Artist Image'

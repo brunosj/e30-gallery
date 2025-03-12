@@ -14,6 +14,7 @@ import {
 import { motion } from 'framer-motion'
 import classes from './index.module.css'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: ArtSocietyPage
@@ -31,7 +32,12 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
         variants={slideInFromLeftVariants}
         className={classes.imageColumn}
       >
-        <Image src={imageHero.url as string} alt={imageHero.title} className={classes.image} fill />
+        <Image
+          src={getImageUrl(imageHero?.url || '')}
+          alt={imageHero.title}
+          className={classes.image}
+          fill
+        />
         <div className={classes.textOverlay}>
           <div>
             <Chevron color="var(--color-white)" size={20} className={'iconTopLeft'} />

@@ -12,6 +12,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import classes from './index.module.css'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   artists: Artist[]
@@ -95,7 +96,7 @@ const ArtistList: React.FC<Props> = ({
                     className={classes.imgContainer}
                   >
                     <Image
-                      src={(artist.relation.artworks as Artwork)?.image.url as string}
+                      src={getImageUrl((artist.relation.artworks as Artwork)?.image?.url || '')}
                       alt={(artist.relation.artworks as Artwork)?.image.title}
                       width={100}
                       height={100}

@@ -8,6 +8,7 @@ import * as m from '@/paraglide/messages.js'
 import { motion } from 'framer-motion'
 import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   artists: Artist[]
@@ -79,15 +80,15 @@ const ArtistListV1: React.FC<Props> = ({
           <div className={classes.image}>
             {hoveredArtwork ? (
               <Image
-                src={hoveredArtwork.image.url as string}
-                alt={hoveredArtwork.image.title}
+                src={getImageUrl(hoveredArtwork.image?.url || '')}
+                alt={hoveredArtwork.image?.title}
                 fill
                 priority
               />
             ) : (
               <Image
-                src={(artists[0]?.relation.artworks as Artwork)?.image.url as string}
-                alt={(artists[0]?.relation.artworks as Artwork)?.image.title}
+                src={getImageUrl((artists[0]?.relation.artworks as Artwork)?.image?.url || '')}
+                alt={(artists[0]?.relation.artworks as Artwork)?.image?.title}
                 fill
                 priority
               />

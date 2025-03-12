@@ -13,6 +13,7 @@ import {
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 import cn from 'classnames'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: ArtSocietyPage
@@ -44,7 +45,12 @@ export const ArtSocietyBenefits: React.FC<Props> = ({ data }: Props) => {
       >
         <div className={classes.imageContents}>
           <div className={cn(classes.imageContainer)}>
-            <Image src={image.url as string} alt={image.title} className={classes.image} fill />
+            <Image
+              src={getImageUrl(image?.url || '')}
+              alt={image.title}
+              className={classes.image}
+              fill
+            />
           </div>
         </div>
       </motion.div>

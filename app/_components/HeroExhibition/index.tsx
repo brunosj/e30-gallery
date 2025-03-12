@@ -15,6 +15,7 @@ import {
   slideInFromLeftVariants,
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: Exhibition[]
@@ -45,7 +46,12 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   return (
     <section className={classes.hero}>
-      <Image src={homepageImage?.url || (image.url as string)} alt={image.title} fill priority />
+      <Image
+        src={getImageUrl(homepageImage?.url ?? image?.url ?? '')}
+        alt={image?.title ?? ''}
+        fill
+        priority
+      />
       <motion.div
         initial="hidden"
         whileInView="visible"

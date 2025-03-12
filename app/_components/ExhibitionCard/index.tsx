@@ -6,6 +6,7 @@ import classes from './index.module.css'
 import { motion, useInView } from 'framer-motion'
 import { cardVariants } from '@/app/_utilities/animationVariants'
 import { languageTag } from '@/paraglide/runtime'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: Exhibition
@@ -48,7 +49,12 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
       className={classes.card}
     >
       <div className={classes.imageWrapper}>
-        <Image src={image.url as string} alt={image.title} fill className={classes.image} />
+        <Image
+          src={getImageUrl(image?.url || '')}
+          alt={image.title}
+          fill
+          className={classes.image}
+        />
       </div>
       <div className={classes.content}>
         <div className={classes.contentInner}>
