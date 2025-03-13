@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
 import type { Artist } from '@/app/payload-types'
 import { useRouter, usePathname } from 'next/navigation'

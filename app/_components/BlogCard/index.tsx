@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from '@/lib/i18n'
 import Image from 'next/image'
 import type { Blogpost } from '@/app/payload-types'
 import styles from './index.module.css'

@@ -4,7 +4,7 @@ import LongLogo from '@/components/SVG/LongLogo'
 import * as m from '@/paraglide/messages.js'
 import { FooterNav } from '@/components/Footer/Nav'
 import cn from 'classnames'
-import Link from 'next/link'
+import { Link } from '@/lib/i18n'
 import classes from './index.module.css'
 
 async function getData(locale: string) {
