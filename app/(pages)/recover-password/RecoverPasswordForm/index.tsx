@@ -16,6 +16,7 @@ type FormData = {
 export const RecoverPasswordForm: React.FC = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -25,58 +26,79 @@ export const RecoverPasswordForm: React.FC = () => {
 
   const onSubmit = useCallback(async (data: FormData) => {
     try {
-      // Step 1: First check if the email exists
-      const emailCheckResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/check-email`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ email: data.email }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
+      setIsLoading(true)
+
+      // Step 1: First check if the email exists using our Next.js API route
+      const emailCheckResponse = await fetch('/api/auth/check-email', {
+        method: 'POST',
+        body: JSON.stringify({ email: data.email }),
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
 
-      const emailCheckData = await emailCheckResponse.json()
-      console.log('emailCheckData', emailCheckData)
+      // Try to get the response text for debugging
+      const responseText = await emailCheckResponse.text()
 
-      if (!emailCheckData.exists) {
-        setError(`${m.emailNotFound()}`)
+      // Parse the JSON if possible
+      let emailCheckData
+      try {
+        emailCheckData = JSON.parse(responseText)
+      } catch (e) {
+        console.error('Failed to parse JSON response:', e)
+        setError(`${m.emailSendingFailed()}`)
+        setIsLoading(false)
         return
       }
 
-      // Step 2: If email exists, proceed with the password recovery
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/forgot-password`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ email: data.email }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        },
-      )
+      if (!emailCheckData.exists) {
+        setError(`${m.emailNotFound()}`)
+        setIsLoading(false)
+        return
+      }
 
-      const responseData = await response.json()
+      // Step 2: If email exists, proceed with the password recovery using our Next.js API route
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email: data.email }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      // Try to get the response text for debugging
+      const forgotPasswordText = await response.text()
+
+      // Parse the JSON if possible
+      let responseData
+      try {
+        responseData = JSON.parse(forgotPasswordText)
+      } catch (e) {
+        console.error('Failed to parse JSON response for password recovery:', e)
+        setError(`${m.emailSendingFailed()}`)
+        setIsLoading(false)
+        return
+      }
 
       if (response.ok) {
         setSuccess(true)
         setError('')
       } else {
-        // Handle Payload error messages
+        console.error('Password recovery failed:', responseData)
+        // Handle error messages
         setError(responseData.errors?.[0]?.message || `${m.emailSendingFailed()}`)
       }
     } catch (error) {
       console.error('Password recovery error:', error)
       setError(`${m.emailSendingFailed()}`)
+    } finally {
+      setIsLoading(false)
     }
   }, [])
 
   const recoverPasswordLink = {
     className: classes.submit,
-    label: `${m.recoverPassword()}`,
+    label: isLoading ? 'Loading...' : `${m.recoverPassword()}`,
     appearance: 'primary',
   }
 
@@ -95,7 +117,7 @@ export const RecoverPasswordForm: React.FC = () => {
                 error={errors.email}
                 type="email"
               />
-              <Button link={recoverPasswordLink} action="submit" />
+              <Button link={recoverPasswordLink} action="submit" disabled={isLoading} />
               <Message error={error} className={classes.message} />
             </form>
           </div>

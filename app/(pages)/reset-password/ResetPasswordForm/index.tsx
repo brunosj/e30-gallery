@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from '@/lib/i18n'
-import { useSearchParams } from 'next/navigation'
-
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Message } from '@/components/Message'
-import { useAuth } from '@/providers/Auth'
+import { useAuth } from '@/app/_providers/Auth'
 import * as m from '@/paraglide/messages.js'
 
 import classes from './index.module.css'
@@ -16,7 +14,7 @@ import classes from './index.module.css'
 type FormData = {
   password: string
   confirmPassword: string
-  token: string
+  token?: string
 }
 
 export const ResetPasswordForm: React.FC = () => {
@@ -36,34 +34,39 @@ export const ResetPasswordForm: React.FC = () => {
 
   const onSubmit = useCallback(
     async (data: FormData) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/reset-password`,
-        {
+      try {
+        // Use our Next.js API route instead of directly calling Payload
+        const response = await fetch('/api/auth/reset-password', {
           method: 'POST',
           body: JSON.stringify({ password: data.password, token: data.token }),
           headers: {
             'Content-Type': 'application/json',
           },
-        },
-      )
+        })
 
-      if (response.ok) {
-        const json = await response.json()
+        if (response.ok) {
+          const json = await response.json()
 
-        // Automatically log the user in after they successfully reset password
-        await login({ email: json.user.email, password: data.password })
+          // Automatically log the user in after they successfully reset password
+          await login({ email: json.user.email, password: data.password })
 
-        // Extract the translated string
-        const successMessage = m.passwordResetSuccess()
+          // Extract the translated string
+          const successMessage = m.passwordResetSuccess()
 
-        // Redirect them to `/account` with success message in URL
-        router.push(`/account?success=${encodeURIComponent(successMessage)}`)
-      } else {
+          // Redirect them to `/account` with success message in URL
+          router.push(`/account?success=${encodeURIComponent(successMessage)}`)
+        } else {
+          const responseData = await response.json()
+          setError(responseData.errors?.[0]?.message || m.passwordResetFailed())
+        }
+      } catch (error) {
+        console.error('Password reset error:', error)
         setError(m.passwordResetFailed())
       }
     },
     [router, login],
   )
+
   // when Next.js populates token within router,
   // reset form with new token value
   useEffect(() => {
