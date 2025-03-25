@@ -195,11 +195,11 @@ export interface Exhibition {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  homepageImage?: (string | null) | Media
+  homepageImage?: Media
   /**
    * Optimal aspect-ratio: N/A
    */
-  image: string | Media
+  image: Media
   addLink?: boolean | null
   exhibitionLink?: {
     type?: ('reference' | 'custom' | 'mailto') | null
@@ -364,7 +364,7 @@ export interface Artwork {
   /**
    * Optimal aspect-ratio: N/A
    */
-  image: string | Media
+  image: Media
   relation: {
     artist: string | Artist
   }
@@ -384,7 +384,7 @@ export interface Artist {
   /**
    * Optimal aspect-ratio: 1/1 for avatar (other aspect ratios can also work as long as the person is centered)
    */
-  image: string | Media
+  image: Media
   type: 'represented' | 'featured'
   bio: {
     [k: string]: unknown
@@ -413,7 +413,7 @@ export interface ArtSocietyPage {
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageHero: string | Media
+  imageHero: Media
   help_text_: {
     [k: string]: unknown
   }[]
@@ -423,13 +423,13 @@ export interface ArtSocietyPage {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  benefitsVideo: string | Media
+  benefitsVideo: Media
   title_sentence: string
   testimonialsItems?: (string | Testimonial)[] | null
   /**
    * Optimal aspect-ratio: 1/1
    */
-  resetPasswordImage: string | Media
+  resetPasswordImage: Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -456,7 +456,7 @@ export interface Testimonial {
   /**
    * Optimal aspect-ratio: 1:1
    */
-  picture?: (string | null) | Media
+  picture?: Media
   stars?: number | null
   updatedAt: string
   createdAt: string
@@ -499,21 +499,21 @@ export interface GalleryPage {
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageHero: string | Media
+  imageHero: Media
   alexander_bio: {
     [k: string]: unknown
   }[]
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageAlexander: string | Media
+  imageAlexander: Media
   felicitas_bio: {
     [k: string]: unknown
   }[]
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageFelicitas: string | Media
+  imageFelicitas: Media
   main_text: {
     [k: string]: unknown
   }[]
@@ -521,7 +521,7 @@ export interface GalleryPage {
     /**
      * Optimal aspect-ratio: 4/3
      */
-    imageVision: string | Media
+    imageVision: Media
     text_under_image: {
       [k: string]: unknown
     }[]
@@ -578,7 +578,7 @@ export interface GalleryPage {
   /**
    * Optimal aspect-ratio:  N/A
    */
-  backgroundImage: string | Media
+  backgroundImage: Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -620,7 +620,7 @@ export interface MembersOnlyPage {
   /**
    * Optimal aspect-ratio: N/A
    */
-  specialEventsImage: string | Media
+  specialEventsImage: Media
   tab_title_art_advice: string
   page_title_art_advice: string
   individuallArtAdviceBlock: TitleImageInfoBlock[]
@@ -699,7 +699,7 @@ export interface TitleImageInfoBlock {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  image: string | Media
+  image: Media
   id?: string | null
   blockName?: string | null
   blockType: 'title-image-info-block'
@@ -835,7 +835,7 @@ export interface TwoColumnBlock {
     /**
      * Optimal aspect-ratio: 1/1
      */
-    image: string | Media
+    image: Media
   }
   id?: string | null
   blockName?: string | null
@@ -854,7 +854,7 @@ export interface CallToAction {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  featuredImage: string | Media
+  featuredImage: Media
   link: {
     type?: ('reference' | 'custom' | 'mailto') | null
     newTab?: boolean | null
@@ -971,7 +971,7 @@ export interface Blogpost {
 export interface MediaBlock {
   invertBackground?: boolean | null
   position?: ('default' | 'fullscreen') | null
-  media: string | Media
+  media: Media
   id?: string | null
   blockName?: string | null
   blockType: 'mediaBlock'
@@ -1074,7 +1074,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'media'
-        value: string | Media
+        value: Media
       } | null)
     | ({
         relationTo: 'form-submission'
