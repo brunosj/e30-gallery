@@ -163,7 +163,7 @@ export interface UserAuthOperations {
 export interface Homepage {
   id: string
   featuredExhibitions: (string | Exhibition)[]
-  layout: (TextBlock | TwoColumnBlock | CallToAction)[]
+  layout: (TextBlock | TwoColumnBlock | CallToAction | VideoBlock)[]
   meta?: {
     title?: string | null
     description?: string | null
@@ -195,11 +195,11 @@ export interface Exhibition {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  homepageImage?: Media
+  homepageImage?: (string | null) | Media
   /**
    * Optimal aspect-ratio: N/A
    */
-  image: Media
+  image: string | Media
   addLink?: boolean | null
   exhibitionLink?: {
     type?: ('reference' | 'custom' | 'mailto') | null
@@ -364,7 +364,7 @@ export interface Artwork {
   /**
    * Optimal aspect-ratio: N/A
    */
-  image: Media
+  image: string | Media
   relation: {
     artist: string | Artist
   }
@@ -384,7 +384,7 @@ export interface Artist {
   /**
    * Optimal aspect-ratio: 1/1 for avatar (other aspect ratios can also work as long as the person is centered)
    */
-  image: Media
+  image: string | Media
   type: 'represented' | 'featured'
   bio: {
     [k: string]: unknown
@@ -413,7 +413,7 @@ export interface ArtSocietyPage {
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageHero: Media
+  imageHero: string | Media
   help_text_: {
     [k: string]: unknown
   }[]
@@ -423,13 +423,13 @@ export interface ArtSocietyPage {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  benefitsVideo: Media
+  benefitsVideo: string | Media
   title_sentence: string
   testimonialsItems?: (string | Testimonial)[] | null
   /**
    * Optimal aspect-ratio: 1/1
    */
-  resetPasswordImage: Media
+  resetPasswordImage: string | Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -499,21 +499,21 @@ export interface GalleryPage {
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageHero: Media
+  imageHero: string | Media
   alexander_bio: {
     [k: string]: unknown
   }[]
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageAlexander: Media
+  imageAlexander: string | Media
   felicitas_bio: {
     [k: string]: unknown
   }[]
   /**
    * Optimal aspect-ratio: 1/1
    */
-  imageFelicitas: Media
+  imageFelicitas: string | Media
   main_text: {
     [k: string]: unknown
   }[]
@@ -521,7 +521,7 @@ export interface GalleryPage {
     /**
      * Optimal aspect-ratio: 4/3
      */
-    imageVision: Media
+    imageVision: string | Media
     text_under_image: {
       [k: string]: unknown
     }[]
@@ -578,7 +578,7 @@ export interface GalleryPage {
   /**
    * Optimal aspect-ratio:  N/A
    */
-  backgroundImage: Media
+  backgroundImage: string | Media
   meta?: {
     title?: string | null
     description?: string | null
@@ -620,7 +620,7 @@ export interface MembersOnlyPage {
   /**
    * Optimal aspect-ratio: N/A
    */
-  specialEventsImage: Media
+  specialEventsImage: string | Media
   tab_title_art_advice: string
   page_title_art_advice: string
   individuallArtAdviceBlock: TitleImageInfoBlock[]
@@ -699,7 +699,7 @@ export interface TitleImageInfoBlock {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  image: Media
+  image: string | Media
   id?: string | null
   blockName?: string | null
   blockType: 'title-image-info-block'
@@ -835,7 +835,7 @@ export interface TwoColumnBlock {
     /**
      * Optimal aspect-ratio: 1/1
      */
-    image: Media
+    image: string | Media
   }
   id?: string | null
   blockName?: string | null
@@ -854,7 +854,7 @@ export interface CallToAction {
   /**
    * Optimal aspect-ratio: 16/9
    */
-  featuredImage: Media
+  featuredImage: string | Media
   link: {
     type?: ('reference' | 'custom' | 'mailto') | null
     newTab?: boolean | null
@@ -903,6 +903,22 @@ export interface CallToAction {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  videoType: 'vimeo' | 'youtube'
+  /**
+   * Enter the ID or full URL (e.g., vimeo.com/123456789 or 123456789)
+   */
+  videoId: string
+  title?: string | null
+  description?: string | null
+  id?: string | null
+  blockName?: string | null
+  blockType: 'videoBlock'
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-page".
  */
 export interface BlogPage {
@@ -933,7 +949,7 @@ export interface Blogpost {
   id: string
   title?: string | null
   summary?: string | null
-  layout: (TextBlock | MediaBlock | CallToAction)[]
+  layout: (TextBlock | MediaBlock | CallToAction | VideoBlock)[]
   meta?: {
     title?: string | null
     description?: string | null
@@ -955,7 +971,7 @@ export interface Blogpost {
 export interface MediaBlock {
   invertBackground?: boolean | null
   position?: ('default' | 'fullscreen') | null
-  media: Media
+  media: string | Media
   id?: string | null
   blockName?: string | null
   blockType: 'mediaBlock'
@@ -1058,7 +1074,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'media'
-        value: Media
+        value: string | Media
       } | null)
     | ({
         relationTo: 'form-submission'
@@ -1122,6 +1138,7 @@ export interface HomepageSelect<T extends boolean = true> {
         textBlock?: T | TextBlockSelect<T>
         'two-column-block'?: T | TwoColumnBlockSelect<T>
         cta?: T | CallToActionSelect<T>
+        videoBlock?: T | VideoBlockSelect<T>
       }
   meta?:
     | T
@@ -1209,6 +1226,18 @@ export interface CallToActionSelect<T extends boolean = true> {
         body?: T
         label?: T
       }
+  id?: T
+  blockName?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  videoType?: T
+  videoId?: T
+  title?: T
+  description?: T
   id?: T
   blockName?: T
 }
@@ -1550,6 +1579,7 @@ export interface BlogpostSelect<T extends boolean = true> {
         textBlock?: T | TextBlockSelect<T>
         mediaBlock?: T | MediaBlockSelect<T>
         cta?: T | CallToActionSelect<T>
+        videoBlock?: T | VideoBlockSelect<T>
       }
   meta?:
     | T

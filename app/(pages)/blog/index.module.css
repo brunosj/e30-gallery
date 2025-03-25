@@ -1,4 +1,9 @@
 
+.title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
 .pageContent {
   margin-bottom: 2rem;
 }

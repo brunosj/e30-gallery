@@ -1,0 +1,43 @@
+.container {
+  max-width: 1024px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.videoWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.aspectVideo {
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.aspectSquare {
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+}
+
+.aspect4x3 {
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.description {
+  color: #4a5568;
+}

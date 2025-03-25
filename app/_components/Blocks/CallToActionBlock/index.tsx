@@ -53,7 +53,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.5 }}
         variants={fadeInVariants}
         className={cn(classes.cta, 'container padding-y')}
       >

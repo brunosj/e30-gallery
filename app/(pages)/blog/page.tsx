@@ -58,6 +58,7 @@ export default async function BlogPage() {
 
   return (
     <section className="container padding-y">
+      <h1 className={classes.title}>{page.title}</h1>
       {page.text && (
         <div className={classes.pageContent}>
           <RichText content={page.text} />

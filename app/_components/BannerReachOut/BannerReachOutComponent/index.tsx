@@ -33,7 +33,7 @@ export default function BannerReachOutComponen({ data }: Props) {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.75 }}
+        viewport={{ once: true, amount: 0.75 }}
         variants={fadeInVariants}
         className={cn(classes.reachOut, 'container', 'padding-y-sm')}
       >

@@ -22,7 +22,7 @@ export const ArtistPageHero = ({ data }: Props) => {
         initial="hidden"
         whileInView="visible"
         variants={slideInFromLeftVariants}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <RichText content={data.text} />
       </motion.div>

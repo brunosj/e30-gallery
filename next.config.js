@@ -13,6 +13,8 @@ const allowedDomains = [
   'https://storage.mlcdn.com',
   'https://groot.mailerlite.com',
   'https://assets.mlcdn.com',
+  'https://player.vimeo.com',
+  'https://www.youtube.com',
   ...(isDevelopment ? ['http://localhost:3000', 'http://localhost:5173'] : []),
 ]
 

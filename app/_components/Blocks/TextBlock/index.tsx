@@ -13,7 +13,7 @@ export const TextBlockComponent: React.FC<TextBlock> = ({ text_block }) => {
         className={classes.container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
         variants={fadeInVariants}
       >
         <RichText content={text_block} />

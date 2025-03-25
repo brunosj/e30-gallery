@@ -1,5 +1,11 @@
 import React from 'react'
-import type { TwoColumnBlock, CallToAction, MediaBlock, TextBlock } from '@/app/payload-types'
+import type {
+  TwoColumnBlock,
+  CallToAction,
+  MediaBlock,
+  TextBlock,
+  VideoBlock,
+} from '@/app/payload-types'
 import { components } from '@/components/Blocks'
 import cn from 'classnames'
 
@@ -21,7 +27,16 @@ interface TextBlockProps extends TextBlock {
   blockType: 'textBlock'
 }
 
-export type Layout = TwoColumnBlockProps | CallToActionBlockProps | MediaBlockProps | TextBlockProps
+interface VideoBlockProps extends VideoBlock {
+  blockType: 'videoBlock'
+}
+
+export type Layout =
+  | TwoColumnBlockProps
+  | CallToActionBlockProps
+  | MediaBlockProps
+  | TextBlockProps
+  | VideoBlockProps
 
 type Props = {
   layout: Layout[]

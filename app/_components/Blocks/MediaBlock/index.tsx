@@ -26,7 +26,7 @@ export const MediaBlockComponent: React.FC<MediaBlock> = ({
         className={classes.mediaContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
         variants={fadeInVariants}
       >
         <Image
