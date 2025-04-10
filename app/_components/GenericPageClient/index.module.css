@@ -1,0 +1,9 @@
+.page {
+  min-height: 90vh;
+  width: 100%;
+}
+
+.text {
+  max-width: 800px;
+  margin: 0 auto;
+} 

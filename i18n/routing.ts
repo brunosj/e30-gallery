@@ -27,7 +27,7 @@ export const routing = defineRouting({
     },
     '/gallery': {
       en: '/gallery',
-      de: '/galerie',
+      de: '/gallery',
     },
     '/artists/[slug]': {
       en: '/artists/[slug]',
@@ -44,6 +44,18 @@ export const routing = defineRouting({
     '/blog/[...slug]': {
       en: '/blog/[...slug]',
       de: '/blog/[...slug]',
+    },
+    '/contact': {
+      en: '/contact',
+      de: '/kontakt',
+    },
+    '/legal': {
+      en: '/legal-notice',
+      de: '/rechtlicher-hinweis',
+    },
+    '/data-privacy': {
+      en: '/data-privacy',
+      de: '/datenschutz',
     },
   },
 })

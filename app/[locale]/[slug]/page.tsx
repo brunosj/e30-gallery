@@ -1,9 +1,9 @@
 import type { GenericPage, Artist, Artwork } from '@/app/payload-types'
 import { notFound } from 'next/navigation'
-import { RichText } from '@/components/RichText'
-import classes from './index.module.css'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import { Metadata } from 'next'
+import GenericPageClient from '@/app/_components/GenericPageClient'
+
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string, slug: string) {
@@ -69,14 +69,5 @@ export default async function GenericPage({ params }: { params: Params }) {
 
   const page: GenericPage = pageData.docs[0]
 
-  return (
-    <article className={classes.page}>
-      <div className="container padding-y">
-        <div className={classes.text}>
-          <h2 className="padding-b">{page.title}</h2>
-          <RichText content={page.text} />
-        </div>
-      </div>
-    </article>
-  )
+  return <GenericPageClient page={page} />
 }
