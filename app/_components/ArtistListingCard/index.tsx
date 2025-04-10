@@ -2,7 +2,7 @@
 
 import type { Artist } from '@/app/payload-types'
 
-import { useRouter, Link } from '@/lib/i18n'
+import { useRouter, Link } from '@/i18n/routing'
 import Image from 'next/image'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import classes from './index.module.css'
@@ -11,7 +11,13 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
   const router = useRouter()
 
   return (
-    <Link className={classes.card} href={`/artists/${item.slug}`}>
+    <Link
+      className={classes.card}
+      href={{
+        pathname: '/artists/[slug]' as const,
+        params: { slug: item.slug || '' },
+      }}
+    >
       <div className={classes.avatar}>
         <Image src={getImageUrl(item.image?.url || '')} alt={item.image.title} fill />
       </div>

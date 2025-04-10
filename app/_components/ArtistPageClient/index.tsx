@@ -3,77 +3,45 @@
 import { useEffect, useState } from 'react'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
 import type { Artist } from '@/app/payload-types'
-import { useRouter, usePathname } from 'next/navigation'
-import { languageTag } from '@/paraglide/runtime.js'
+import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 type ArtistPageClientProps = {
   artist: Artist
   locale: string
+  allArtists: Artist[]
+  currentArtistIndex: number
 }
 
-export default function ArtistPageClient({ artist, locale }: ArtistPageClientProps) {
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(artist)
-  const [filteredArtists, setFilteredArtists] = useState<Artist[]>([])
-  const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null)
+export default function ArtistPageClient({
+  artist,
+  locale,
+  allArtists,
+  currentArtistIndex,
+}: ArtistPageClientProps) {
+  const [selectedArtist, setSelectedArtist] = useState<Artist>(artist)
   const [scriptUrl, setScriptUrl] = useState<string | null>(null)
   const router = useRouter()
-  const pathname = usePathname()
-
-  const clientLocale = languageTag()
-
-  // Fetch all artists based on locale for navigation
-  useEffect(() => {
-    async function fetchArtists() {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2&limit=0`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-            },
-          },
-        )
-        const { docs } = await response.json()
-        setFilteredArtists(docs as Artist[])
-        const index = docs.findIndex((a: Artist) => {
-          return a.slug?.trim().toLowerCase() === artist.slug?.trim().toLowerCase()
-        })
-
-        setSelectedArtistIndex(index >= 0 ? index : null)
-      } catch (error) {
-        console.error('Error fetching artists:', error)
-      }
-    }
-
-    if (artist.slug) {
-      fetchArtists()
-    }
-  }, [locale, artist.slug])
+  const clientLocale = useLocale()
 
   // Handle artist navigation
   const handleNavigation = (index: number) => {
-    const targetArtist = filteredArtists[index]
+    const targetArtist = allArtists[index]
     if (targetArtist) {
       const localePrefix = clientLocale === 'en' ? '' : `/${clientLocale}`
       router.replace(`${localePrefix}/artists/${targetArtist.slug}`)
       setSelectedArtist(targetArtist)
-      setSelectedArtistIndex(index)
     }
   }
 
   const handleNextClick = () => {
-    if (selectedArtistIndex !== null) {
-      const nextIndex = (selectedArtistIndex + 1) % filteredArtists.length
-      handleNavigation(nextIndex)
-    }
+    const nextIndex = (currentArtistIndex + 1) % allArtists.length
+    handleNavigation(nextIndex)
   }
 
   const handlePreviousClick = () => {
-    if (selectedArtistIndex !== null) {
-      const prevIndex = (selectedArtistIndex - 1 + filteredArtists.length) % filteredArtists.length
-      handleNavigation(prevIndex)
-    }
+    const prevIndex = (currentArtistIndex - 1 + allArtists.length) % allArtists.length
+    handleNavigation(prevIndex)
   }
 
   // Handle script loading
@@ -133,8 +101,8 @@ export default function ArtistPageClient({ artist, locale }: ArtistPageClientPro
       artist={selectedArtist}
       handleNextClick={handleNextClick}
       handlePreviousClick={handlePreviousClick}
-      selectedArtistIndex={selectedArtistIndex}
-      filteredArtists={filteredArtists}
+      selectedArtistIndex={currentArtistIndex}
+      filteredArtists={allArtists}
     />
   ) : (
     <p>Loading artist details...</p>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import type { Artist, Artwork } from '@/app/payload-types'
 import classes from './index.module.css'
 import { useRouter } from 'next/navigation'
-import ArtistListV1 from '@/components/ArtistDetails/ArtistListV0'
+import ArtistList from '@/app/_components/ArtistDetails/ArtistList'
 
 type Props = {
   artists: Artist[]
@@ -32,7 +32,7 @@ export default function ArtistDetailsV2({ artists, featuredArtwork }: Props) {
 
   return (
     <section className={classes.section}>
-      <ArtistListV1
+      <ArtistList
         artists={filteredArtists}
         filterType={filterType}
         setFilterType={setFilterType}

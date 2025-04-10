@@ -6,13 +6,14 @@ import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Squash as Hamburger } from 'hamburger-react'
 import { useAuth } from '@/providers/Auth'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import Settings from '@/components/SVG/Settings'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import { ExhibitionLink, ArtistLink } from '@/app/_utilities/linkObjects'
 import { LogOutLink } from '@/app/_utilities/linkObjects'
 import cn from 'classnames'
@@ -24,8 +25,8 @@ const MobileNavMembersArea: React.FC = () => {
   const { user } = useAuth()
   const [menu, setMenu] = useState<Menu | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const locale = languageTag() || 'en'
-
+  const locale = useLocale()
+  const t = useTranslations()
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -91,13 +92,13 @@ const MobileNavMembersArea: React.FC = () => {
             <div className={classes.menuContainer}>
               <Button link={ExhibitionLink()} onClick={handleCloseMenu} />
               <Button link={ArtistLink()} onClick={handleCloseMenu} />
-              <Link href="/account" onClick={handleCloseMenu}>
+              <Link href={'/account' as any} onClick={handleCloseMenu}>
                 <div className={classes.settings}>
-                  <p>{m.account()}</p>
+                  <p>{t('account')}</p>
                   <Settings color="var(--color-black)" size={22} />
                 </div>
               </Link>
-              <Button link={LogOutLink(m.logout(), 'primary')} />
+              <Button link={LogOutLink(t('logout'), 'primary')} />
               <Socials />
               <LanguageSwitcher theme="light" />
             </div>

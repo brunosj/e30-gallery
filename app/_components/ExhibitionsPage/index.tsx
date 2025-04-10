@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Select, { StylesConfig, GroupBase } from 'react-select'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import type { Exhibition } from '@/app/payload-types'
 import { LatestExhibition } from '@/components/LatestExhibition'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
@@ -41,7 +41,7 @@ const customStyles: StylesConfig<OptionType, false, GroupBase<OptionType>> = {
 
 export default function ExhibitionsPageData({ data, featuredExhibitions }: Props) {
   const exhibitions = data
-
+  const t = useTranslations()
   const [selectedYear, setSelectedYear] = useState<string | null>(null)
   const [showScrollArrow, setShowScrollArrow] = useState(false)
   const [lastScrollTop, setLastScrollTop] = useState(0)
@@ -60,7 +60,7 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
   )
 
   const yearOptions = [
-    { value: '', label: `${m.allYears()}` },
+    { value: '', label: `${t('allYears')}` },
     ...uniqueYears
       .sort((a, b) => parseInt(b) - parseInt(a))
       .map(year => ({ value: year, label: year })),
@@ -106,7 +106,7 @@ export default function ExhibitionsPageData({ data, featuredExhibitions }: Props
           value={yearOptions.find(option => option.value === selectedYear)}
           onChange={selectedOption => setSelectedYear(selectedOption?.value || '')}
           className={classes.filterDropdown}
-          placeholder={m.selectYear()}
+          placeholder={t('selectYear')}
           styles={customStyles}
         />
       </div>

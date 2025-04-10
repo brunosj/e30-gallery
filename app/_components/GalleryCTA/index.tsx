@@ -4,7 +4,7 @@ import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
@@ -16,6 +16,7 @@ type Props = {
 }
 
 export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
+  const t = useTranslations()
   const { text, link, backgroundImage } = data
 
   return (

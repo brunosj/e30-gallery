@@ -1,7 +1,6 @@
 import type { NewsletterBanner } from '@/app/payload-types'
-import { languageTag } from '@/paraglide/runtime'
-import Chevron from '@/components/SVG/Chevron'
-import { Link } from '@/lib/i18n'
+import { getLocale } from 'next-intl/server'
+
 import BannerNewsletterComponent from './BannerNewsletterComponent'
 
 import classes from './index.module.css'
@@ -32,7 +31,7 @@ async function getData(locale: string) {
 }
 
 export default async function BannerNewsletter() {
-  const locale = languageTag()
+  const locale = await getLocale()
   const data: NewsletterBanner = await getData(locale)
   const banner = data
 

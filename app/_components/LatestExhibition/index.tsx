@@ -3,9 +3,8 @@
 import type { Exhibition } from '@/app/payload-types'
 
 import Image from 'next/image'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button'
-import { ExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
 import cn from 'classnames'
 import {
@@ -15,7 +14,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
@@ -25,7 +24,8 @@ type Props = {
 }
 
 export const LatestExhibition: React.FC<Props> = ({ data }) => {
-  const locale = languageTag() || 'en'
+  const locale = useLocale()
+  const t = useTranslations()
   return (
     <section>
       {data.map((exhibition, index) => {
@@ -40,26 +40,30 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
           addLink,
           addOtherLink,
         } = exhibition
-        const begin = new Date(dateBegin || '')
-          .toLocaleDateString(locale, {
-            day: 'numeric',
-            month: 'long',
-          })
-          .split(' ')
-          .reverse()
-          .join(' ')
+        const begin = dateBegin
+          ? new Date(dateBegin)
+              .toLocaleDateString(locale, {
+                day: 'numeric',
+                month: 'long',
+              })
+              .split(' ')
+              .reverse()
+              .join(' ')
+          : ''
 
-        const end = new Date(dateEnd || '')
-          .toLocaleDateString(locale, {
-            day: 'numeric',
-            month: 'long',
-          })
-          .split(' ')
-          .reverse()
-          .join(' ')
+        const end = dateEnd
+          ? new Date(dateEnd)
+              .toLocaleDateString(locale, {
+                day: 'numeric',
+                month: 'long',
+              })
+              .split(' ')
+              .reverse()
+              .join(' ')
+          : ''
 
-        const beginYear = new Date(dateBegin || '').getFullYear()
-        const endYear = new Date(dateEnd || '').getFullYear()
+        const beginYear = dateBegin ? new Date(dateBegin).getFullYear() : null
+        const endYear = dateEnd ? new Date(dateEnd).getFullYear() : null
 
         const invertOrder = index % 2 !== 0
 
@@ -81,11 +85,12 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                   variants={clipPathVariants}
                   className={classes.content}
                 >
-                  <h3 className="">{m.featuredExhibition()}</h3>
+                  <h3 className="">{t('featuredExhibition')}</h3>
                   <p className="spacedTitle">{title}</p>
                   <p>
                     <span className="block">
-                      {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
+                      {begin} {beginYear && endYear && beginYear !== endYear ? beginYear : ''} -{' '}
+                      {end} {endYear}
                     </span>
                   </p>
 
@@ -104,7 +109,9 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 className={cn(invertOrder ? classes.order1 : classes.order2, 'relative')}
               >
                 <div className={classes.image}>
-                  <Image src={getImageUrl(image?.url || '')} alt={image.title} fill priority />
+                  {image?.url && (
+                    <Image src={getImageUrl(image.url)} alt={image.title || ''} fill priority />
+                  )}
                 </div>
               </motion.div>
             </div>

@@ -3,7 +3,7 @@
 import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import { RichText } from '../RichText'
 import {
   clipPathVariants,
@@ -11,7 +11,7 @@ import {
   slideInFromLeftVariants,
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { m, motion } from 'framer-motion'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
@@ -22,7 +22,7 @@ type Props = {
 
 export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
   const { title, about_text, mission_statement, imageHero } = data
-
+  const t = useTranslations()
   return (
     <section className={classes.grid}>
       <motion.div
@@ -34,7 +34,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
       >
         <div className="container flex padding-y">
           <div className={classes.content}>
-            <p className="">{m.aboutTheGallery()}</p>
+            <p className="">{t('aboutTheGallery')}</p>
             <RichText content={about_text} />
             <div className={classes.flex}>
               <div className={classes.line} />

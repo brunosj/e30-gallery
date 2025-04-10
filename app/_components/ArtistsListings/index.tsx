@@ -1,12 +1,12 @@
 import type { Artist } from '@/app/payload-types'
 
-import { languageTag } from '@/paraglide/runtime'
-import * as m from '@/paraglide/messages.js'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '../Button'
 import ArtistCarousel from '@/components/ArtistCarousel/ArtistCarousel'
 import classes from './index.module.css'
-import { ArtistLink } from '@/app/_utilities/linkObjects'
+import { createArtistLink } from '@/app/_utilities/linkObjects'
 import cn from 'classnames'
+import ArtistViewAllButton from './ArtistViewAllButton'
 
 async function getData(locale: string) {
   let data
@@ -41,15 +41,16 @@ function shuffleArray(array: Artist[]) {
 }
 
 export default async function ArtistsListings() {
-  const locale = languageTag()
+  const locale = await getLocale()
+  const t = await getTranslations()
   const data: Artist[] = await getData(locale)
   shuffleArray(data)
 
   return (
     <section className="container padding-y">
       <div className={cn(classes.info, 'centered')}>
-        <h2 className="uppercase">{m.artistsAtE30()}</h2>
-        <Button link={ArtistLink(m.viewAll(), 'default')} />
+        <h2 className="uppercase">{t('artistsAtE30')}</h2>
+        <ArtistViewAllButton />
       </div>
       <ArtistCarousel slides={data} />
     </section>

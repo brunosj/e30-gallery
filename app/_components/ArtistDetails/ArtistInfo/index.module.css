@@ -66,16 +66,16 @@
 }
 
 .navigationButtons {
-  display:flex;
+  display: flex;
   justify-content: space-between;
-  gap:var(--base-100);
-
+  gap: var(--base-100);
 }
 
 .disabled {
-  color:var(--color-gray);
-  font-weight: 300;
+  opacity: 0.5;
   cursor: not-allowed;
+  color: var(--color-gray);
+  font-weight: 300;
 }
 
 .additionalInfo {

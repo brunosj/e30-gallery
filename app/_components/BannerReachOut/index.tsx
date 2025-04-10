@@ -1,5 +1,5 @@
 import type { ReachOut } from '@/app/payload-types'
-import { languageTag } from '@/paraglide/runtime'
+import { getLocale } from 'next-intl/server'
 import BannerReachOutComponentV2 from '@/components/BannerReachOut/BannerReachOutComponentV2'
 
 async function getData(locale: string) {
@@ -28,7 +28,7 @@ async function getData(locale: string) {
 }
 
 export default async function BannerReachOut() {
-  const locale = languageTag()
+  const locale = await getLocale()
   const data: ReachOut = await getData(locale)
   const banner = data
 

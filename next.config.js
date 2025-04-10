@@ -1,5 +1,5 @@
-const { paraglide } = require('@inlang/paraglide-next/plugin')
 const { withPlausibleProxy } = require('next-plausible')
+const createNextIntlPlugin = require('next-intl/plugin')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -35,75 +35,74 @@ const cspHeader = `
   .replace(/\s{2,}/g, ' ')
   .trim()
 
-module.exports = withPlausibleProxy({
-  customDomain: 'https://plausible.e30gallery.com',
-})(
-  paraglide({
-    paraglide: {
-      project: './project.inlang',
-      outdir: './paraglide',
-    },
-    // env: {
-    //   NEXT_PUBLIC_PAYLOAD_URL: 'http://localhost:3000',
-    // },
-    typescript: {
-      // !! WARN !!
-      // Dangerously allow production builds to successfully complete even if
-      // your project has type errors.
-      // !! WARN !!
-      ignoreBuildErrors: false,
-    },
-    async headers() {
-      return [
-        {
-          source: '/(.*)',
-          headers: [
-            {
-              key: 'Access-Control-Allow-Credentials',
-              value: 'true',
-            },
-            {
-              key: 'Access-Control-Allow-Origin',
-              value: isDevelopment ? '*' : process.env.NEXT_PUBLIC_FRONTEND_URL,
-            },
-            {
-              key: 'Access-Control-Allow-Methods',
-              value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-            },
-            {
-              key: 'Access-Control-Allow-Headers',
-              value:
-                'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Origin, Cache-Control',
-            },
-            {
-              key: 'Content-Security-Policy',
-              value: cspHeader.replace(/\n/g, ''),
-            },
-          ],
-        },
-      ]
-    },
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'res.cloudinary.com',
-          port: '',
-          pathname: '/e30/image/upload/**',
-        },
-        {
-          protocol: 'https',
-          hostname: 'cms.e30gallery.com',
-          port: '',
-          pathname: '/**',
-        },
-        {
-          protocol: 'http',
-          hostname: 'localhost',
-          port: '3000',
-          pathname: '/**',
-        },
-      ],
-    },
-  }),
-)
+// Create the next-intl plugin
+const withNextIntl = createNextIntlPlugin()
+
+// Combine with the plausible proxy
+const withPlugins = config => {
+  return withPlausibleProxy({
+    customDomain: 'https://plausible.e30gallery.com',
+  })(withNextIntl(config))
+}
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Keep your existing settings
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: isDevelopment ? '*' : process.env.NEXT_PUBLIC_FRONTEND_URL,
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Origin, Cache-Control',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader.replace(/\n/g, ''),
+          },
+        ],
+      },
+    ]
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/e30/image/upload/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cms.e30gallery.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
+      },
+    ],
+  },
+}
+
+module.exports = withPlugins(nextConfig)

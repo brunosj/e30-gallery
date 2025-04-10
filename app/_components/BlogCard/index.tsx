@@ -1,9 +1,11 @@
+'use client'
+
 import React from 'react'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import type { Blogpost } from '@/app/payload-types'
 import styles from './index.module.css'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import { formatDate } from '@/app/_utilities/formatDate'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
@@ -12,14 +14,20 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
-  const locale = languageTag() || 'en'
+  const locale = useLocale() || 'en'
 
   const firstMediaBlock = post.layout.find(block => block.blockType === 'mediaBlock' && block.media)
 
   const { formattedDate, year } = formatDate(post.createdAt, locale)
 
   return (
-    <Link href={`/blog/${post.slug}`} className={styles.card}>
+    <Link
+      href={{
+        pathname: '/blog/[...slug]' as any,
+        params: { slug: post.slug ? [post.slug] : [] },
+      }}
+      className={styles.card}
+    >
       {firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media && (
         <div className={styles.imageWrapper}>
           <Image

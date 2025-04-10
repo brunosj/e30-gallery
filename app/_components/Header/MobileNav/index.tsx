@@ -6,7 +6,7 @@ import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Squash as Hamburger } from 'hamburger-react'
 import { useAuth } from '@/providers/Auth'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
@@ -19,7 +19,7 @@ const MobileNav: React.FC = () => {
   const { user } = useAuth()
   const [menu, setMenu] = useState<Menu | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const locale = languageTag() || 'en'
+  const locale = useLocale()
 
   useEffect(() => {
     const fetchMenu = async () => {

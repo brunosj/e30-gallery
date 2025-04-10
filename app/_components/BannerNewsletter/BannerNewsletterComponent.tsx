@@ -3,7 +3,8 @@
 import React from 'react'
 import type { NewsletterBanner } from '@/app/payload-types'
 import Chevron from '@/components/SVG/Chevron'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import { fadeInVariants } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
 
@@ -13,7 +14,18 @@ export default function BannerNewsletterComponent({ banner }: { banner: Newslett
   return (
     <React.Fragment>
       <Link
-        href={(banner.link.reference?.value as { slug: string })?.slug}
+        href={
+          banner.link.reference?.relationTo && banner.link.reference.value
+            ? {
+                pathname: `/${banner.link.reference.relationTo}` as any,
+                query:
+                  banner.link.type === 'reference' &&
+                  typeof banner.link.reference.value !== 'string'
+                    ? { id: (banner.link.reference.value as { id: string }).id }
+                    : undefined,
+              }
+            : ('/newsletter-page' as any)
+        }
         className={classes.link}
       >
         <motion.div

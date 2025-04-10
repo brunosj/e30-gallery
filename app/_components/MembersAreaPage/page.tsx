@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import { RenderParams } from '@/components/RenderParams'
 import MembersAreaComponent from '@/components/MembersComponent'
 import { RiseLoader } from 'react-spinners'
@@ -35,7 +35,7 @@ async function getData(locale: string) {
 }
 
 export default function MembersAreaPage() {
-  const locale = languageTag()
+  const locale = useLocale()
   const [page, setPage] = useState<MembersOnlyPage | null>(null)
   const [loading, setLoading] = useState(true)
 

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
 import cn from 'classnames'
-import { motion } from 'framer-motion'
+import { m, motion } from 'framer-motion'
 import {
   fadeInVariants,
   slideInFromLeftVariants,
@@ -20,14 +21,20 @@ type Props = {
   artist: Artist
   handleNextClick: () => void
   handlePreviousClick: () => void
-  selectedArtistIndex: number | null
+  selectedArtistIndex: number
   filteredArtists: Artist[]
 }
 
-const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousClick }) => {
+const ArtistInfo: React.FC<Props> = ({
+  artist,
+  handleNextClick,
+  handlePreviousClick,
+  selectedArtistIndex,
+  filteredArtists,
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [currentArtist, setCurrentArtist] = useState(artist)
-
+  const t = useTranslations()
   useEffect(() => {
     setImageLoaded(false)
     setCurrentArtist(artist)
@@ -37,22 +44,35 @@ const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousCl
     setImageLoaded(true)
   }
 
+  // Enable navigation buttons if there are multiple artists
+  const hasArtists = Array.isArray(filteredArtists) && filteredArtists.length > 1
+  const hasPrevious = hasArtists
+  const hasNext = hasArtists
+
   return (
     <div className={classes.artistDetails}>
       <div className={classes.artists}>
         <div className={classes.heading}>
           <div className="semibold desktop">
-            <p>{m.artists()}</p>
+            <p>{t('artists')}</p>
           </div>
           <Link href="/artists" className="controls">
-            {m.backToList()}
+            {t('backToList')}
           </Link>
 
           <div className={classes.navigationButtons}>
-            <button onClick={handlePreviousClick}>
+            <button
+              onClick={handlePreviousClick}
+              disabled={!hasPrevious}
+              className={!hasPrevious ? classes.disabled : ''}
+            >
               <ArrowLeft color="var(--color-black)" size={25} />
             </button>
-            <button onClick={handleNextClick}>
+            <button
+              onClick={handleNextClick}
+              disabled={!hasNext}
+              className={!hasNext ? classes.disabled : ''}
+            >
               <ArrowRight color="var(--color-black)" size={25} />
             </button>
           </div>
@@ -143,7 +163,7 @@ const ArtistInfo: React.FC<Props> = ({ artist, handleNextClick, handlePreviousCl
           >
             <div className={classes.work}>
               <div className={classes.heading}>
-                <p className="semibold">{m.work()}</p>
+                <p className="semibold">{t('work')}</p>
               </div>
             </div>
             <div>

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react'
 import type { Exhibition } from '@/app/payload-types'
 import Image from 'next/image'
@@ -5,7 +7,7 @@ import { RichText } from '@/components/RichText'
 import classes from './index.module.css'
 import { motion, useInView } from 'framer-motion'
 import { cardVariants } from '@/app/_utilities/animationVariants'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
@@ -14,7 +16,7 @@ type Props = {
 }
 
 export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
-  const locale = languageTag() || 'en'
+  const locale = useLocale()
 
   const ref = useRef(null)
   const inView = useInView(ref, {
@@ -60,7 +62,8 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
         <div className={classes.contentInner}>
           <p className={classes.title}>{title}</p>
           <p className={classes.date}>
-            {formattedBegin} {beginYear !== endYear ? beginYear : ''} - {formattedEnd} {endYear}{' '}
+            {formattedBegin} {beginYear !== endYear ? beginYear : ''} - {formattedEnd}{' '}
+            {endYear}{' '}
           </p>
         </div>
         <div className={classes.description}>

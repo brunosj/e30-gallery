@@ -1,10 +1,11 @@
 import type { Footer } from '@/app/payload-types'
-import { languageTag } from '@/paraglide/runtime'
+import { getLocale } from 'next-intl/server'
 import LongLogo from '@/components/SVG/LongLogo'
-import * as m from '@/paraglide/messages.js'
+import { getTranslations } from 'next-intl/server'
 import { FooterNav } from '@/components/Footer/Nav'
 import cn from 'classnames'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import classes from './index.module.css'
 
 async function getData(locale: string) {
@@ -33,9 +34,10 @@ async function getData(locale: string) {
 }
 
 export default async function Footer() {
-  const locale = languageTag()
+  const locale = await getLocale()
   const data: Footer = await getData(locale)
   const footer = data
+  const t = await getTranslations()
 
   return (
     <>
@@ -51,15 +53,15 @@ export default async function Footer() {
               </div>
               <div className="container padding-y-sm">
                 <p>
-                  © {new Date().getFullYear()} E30 Gallery, {m.allRightsReserved()}. Website by{' '}
-                  <Link
+                  © {new Date().getFullYear()} E30 Gallery, {t('allRightsReserved')}. Website by{' '}
+                  <a
                     href="https://landozone.net"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classes.link}
                   >
                     landozone
-                  </Link>
+                  </a>
                   .
                 </p>
               </div>

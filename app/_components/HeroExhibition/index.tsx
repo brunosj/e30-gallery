@@ -4,10 +4,10 @@ import type { Exhibition } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { Button } from '@/components/Button'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import classes from './index.module.css'
 import Chevron from '@/components/SVG/Chevron'
-import { ExhibitionLink } from '@/app/_utilities/linkObjects'
+import { createExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
 import { motion } from 'framer-motion'
 import {
@@ -22,36 +22,45 @@ type Props = {
 }
 
 export const HeroExhibition: React.FC<Props> = ({ data }) => {
+  const t = useTranslations()
+
+  if (!data || data.length === 0) {
+    return null
+  }
+
   const { title, homepageImage, image, dateBegin, dateEnd, text, artworks_by } = data[0]
-  const begin = new Date(dateBegin || '')
-    .toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
 
-  const end = new Date(dateEnd || '')
-    .toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-    })
-    .split(' ')
-    .reverse()
-    .join(' ')
+  const begin = dateBegin
+    ? new Date(dateBegin)
+        .toLocaleDateString('en-US', {
+          day: 'numeric',
+          month: 'long',
+        })
+        .split(' ')
+        .reverse()
+        .join(' ')
+    : ''
 
-  const beginYear = new Date(dateBegin || '').getFullYear()
-  const endYear = new Date(dateEnd || '').getFullYear()
+  const end = dateEnd
+    ? new Date(dateEnd)
+        .toLocaleDateString('en-US', {
+          day: 'numeric',
+          month: 'long',
+        })
+        .split(' ')
+        .reverse()
+        .join(' ')
+    : ''
+
+  const beginYear = dateBegin ? new Date(dateBegin).getFullYear() : null
+  const endYear = dateEnd ? new Date(dateEnd).getFullYear() : null
+
+  const imageUrl = homepageImage?.url || image?.url || ''
+  const imageAlt = homepageImage?.title || image?.title || ''
 
   return (
     <section className={classes.hero}>
-      <Image
-        src={getImageUrl(homepageImage?.url ?? image?.url ?? '')}
-        alt={image?.title ?? ''}
-        fill
-        priority
-      />
+      {imageUrl && <Image src={getImageUrl(imageUrl)} alt={imageAlt} fill priority />}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -63,16 +72,19 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
             <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
             <div className={classes.info}>
               <p className="spacedTitle">{title}</p>
-              <div className={classes.artworksBy}>
-                <span>
-                  {m.withArtworksBy()} {artworks_by}
-                </span>
-              </div>
+              {artworks_by && (
+                <div className={classes.artworksBy}>
+                  <span>
+                    {t('withArtworksBy')} {artworks_by}
+                  </span>
+                </div>
+              )}
               <p className="uppercase">
-                {begin} {beginYear !== endYear ? beginYear : ''} - {end} {endYear}
+                {begin} {beginYear && endYear && beginYear !== endYear ? beginYear : ''} - {end}{' '}
+                {endYear}
               </p>
               <div className="right">
-                <Button link={ExhibitionLink(m.viewNow(), 'primary')} />
+                <Button link={createExhibitionLink(t('viewNow'), 'primary')} />
               </div>
             </div>
             <Chevron color="var(--color-black)" size={20} className="iconBottomRight" />

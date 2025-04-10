@@ -1,7 +1,8 @@
 import type { LinkObject } from '@/app/types'
 
 import React from 'react'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import classes from './index.module.css'
 import cn from 'classnames'
 
@@ -71,7 +72,7 @@ export const Button: React.FC<Props> = ({
 
   if (action !== 'submit' && finalHref) {
     return (
-      <Link href={finalHref} className={className} {...newTabProps} onClick={onClick}>
+      <Link href={finalHref as any} className={className} {...newTabProps} onClick={onClick}>
         {content}
       </Link>
     )

@@ -26,6 +26,7 @@
       "@/providers/*": ["./app/_providers/*"],
       "@/utilities/*": ["./app/_utilities/*"],
       "@/assets/*": ["./assets/*"],
+      "@/i18n/*": ["./i18n/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next-sitemap.config.js"],

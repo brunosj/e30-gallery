@@ -3,7 +3,8 @@
 import type { Social } from '@/app/payload-types'
 
 import React, { useEffect, useState } from 'react'
-import { Link } from '@/lib/i18n'
+import { Link } from '@/i18n/navigation'
+
 import Insta from '@/components/SVG/Insta'
 import Maps from '@/components/SVG/Maps'
 import { motion } from 'framer-motion'
@@ -86,9 +87,14 @@ export const Socials: React.FC = () => {
         >
           {socials.socials.map((item, index) => (
             <li key={index}>
-              <Link href={item.url as string} target="_blank" aria-label={item.platform}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.platform}
+              >
                 {renderSocialIcon(item.platform)}
-              </Link>
+              </a>
             </li>
           ))}
           <li className="desktop">

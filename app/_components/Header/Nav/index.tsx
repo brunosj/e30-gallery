@@ -4,7 +4,7 @@ import type { Menu } from '@/app/payload-types'
 
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '@/providers/Auth'
-import { languageTag } from '@/paraglide/runtime'
+import { useLocale } from 'next-intl'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
@@ -18,7 +18,7 @@ export const HeaderNav: React.FC = () => {
   const [menu, setMenu] = useState<Menu | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const locale = languageTag() || 'en'
+  const locale = useLocale()
 
   useEffect(() => {
     const fetchMenu = async () => {

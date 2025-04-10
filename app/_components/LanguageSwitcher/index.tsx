@@ -1,5 +1,9 @@
-import { Link, usePathname } from '@/lib/i18n'
-import { languageTag } from '@/paraglide/runtime'
+'use client'
+
+import { Link, usePathname } from '@/i18n/navigation'
+import { useRouter } from '@/i18n/routing'
+import { useSearchParams, useParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
 import classes from './index.module.css'
 import { motion } from 'framer-motion'
 
@@ -23,7 +27,38 @@ type Props = {
 
 export default function LanguageSwitcher({ theme = 'light' }: Props) {
   const pathname = usePathname()
-  const locale = languageTag()
+  const locale = useLocale()
+  const params = useParams()
+
+  // Function to create the appropriate link href based on the current route
+  const createHref = (targetLocale: string) => {
+    // For dynamic artist pages, we need to include the slug parameter
+    if (pathname.includes('/artists/') || pathname.includes('/kuenstler/')) {
+      const slug = params?.slug
+      if (slug) {
+        // Use type assertion to handle the type compatibility
+        return {
+          pathname: '/artists/[slug]',
+          params: { slug: slug as string },
+        } as any
+      }
+    }
+
+    // For dynamic blog pages
+    if (pathname.includes('/blog/')) {
+      const slug = params?.slug
+      if (slug) {
+        // Use type assertion to handle the type compatibility
+        return {
+          pathname: '/blog/[...slug]',
+          params: { slug: Array.isArray(slug) ? slug : [slug as string] },
+        } as any
+      }
+    }
+
+    // For static routes, use the pathname directly
+    return pathname
+  }
 
   const getLanguageClass = (language: string) => {
     if (locale === language) {
@@ -40,11 +75,11 @@ export default function LanguageSwitcher({ theme = 'light' }: Props) {
       variants={fadeInVariants}
       className={classes.switcher}
     >
-      <Link href={pathname} locale="en">
+      <Link href={createHref('en')} locale="en">
         <span className={getLanguageClass('en')}>EN</span>
       </Link>
       <span className={theme === 'light' ? classes.fontBlack : classes.fontWhite}>/</span>
-      <Link href={pathname} locale="de">
+      <Link href={createHref('de')} locale="de">
         <span className={getLanguageClass('de')}>DE</span>
       </Link>
     </motion.div>

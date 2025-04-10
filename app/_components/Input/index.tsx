@@ -1,6 +1,8 @@
+'use client'
+
 import React from 'react'
 import { FieldValues, UseFormRegister, Validate } from 'react-hook-form'
-import * as m from '@/paraglide/messages.js'
+import { useTranslations } from 'next-intl'
 import cn from 'classnames'
 
 import classes from './index.module.css'
@@ -24,6 +26,8 @@ export const Input: React.FC<Props> = ({
   type = 'text',
   validate,
 }) => {
+  const t = useTranslations('Common')
+
   return (
     <div className={classes.inputWrap}>
       <label htmlFor="name" className={classes.label}>
@@ -39,7 +43,7 @@ export const Input: React.FC<Props> = ({
             ? {
                 pattern: {
                   value: /\S+@\S+\.\S+/,
-                  message: `${m.pleaseEnterValidEmail()}`,
+                  message: t('pleaseEnterValidEmail'),
                 },
               }
             : {}),
@@ -47,7 +51,7 @@ export const Input: React.FC<Props> = ({
       />
       {error && (
         <div className={classes.errorMessage}>
-          {!error?.message && error?.type === 'required' ? `${m.requiredField()}` : error?.message}
+          {!error?.message && error?.type === 'required' ? t('requiredField') : error?.message}
         </div>
       )}
     </div>
