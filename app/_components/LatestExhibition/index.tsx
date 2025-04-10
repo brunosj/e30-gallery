@@ -74,7 +74,7 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 className={cn(
                   classes.contentContainer,
                   invertOrder ? classes.order2 : classes.order1,
-                  invertOrder ? 'text-right' : '',
+                  // invertOrder ? 'text-right' : '',
                   invertOrder ? classes.marginLeft : '',
                 )}
               >

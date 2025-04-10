@@ -49,7 +49,7 @@
 
 .richText p {
   font-size: var(--base-100);
-  line-height: 2;
+  line-height: 1.5;
   margin-bottom: var(--base-50);
 }
 
@@ -57,6 +57,24 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+
+.richText ul {
+  margin-bottom: var(--base-100);
+  list-style-position: inside;
+}
+
+.richText ol {
+  list-style-type: decimal;
+  margin-bottom: var(--base-100);
+}
+
+.richText ul li {
+  list-style-type: square;
+  color:black;
+  margin-left: var(--base-100);
+  
+}
+
 
 /* Responsive Styles for iPads and Mobile Devices */
 
