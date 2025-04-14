@@ -5,7 +5,7 @@
 }
 
 .pageContent {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .postsGrid {
@@ -17,6 +17,10 @@
 @media (max-width: 850px) {
   .blogGrid {
     padding: 1rem;
+  }
+
+  .pageContent {
+    margin-bottom: 2rem;
   }
   
   .postsGrid {

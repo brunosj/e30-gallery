@@ -58,7 +58,7 @@ export default async function BlogPage({ params }: { params: Params }) {
   )
 
   return (
-    <section className="container padding-y">
+    <section className="container padding-y min-h-screen">
       <h1 className={classes.title}>{page.title}</h1>
       {page.text && (
         <div className={classes.pageContent}>

@@ -41,9 +41,9 @@ export const routing = defineRouting({
       en: '/members-area',
       de: '/mitgliederbereich',
     },
-    '/blog/[...slug]': {
-      en: '/blog/[...slug]',
-      de: '/blog/[...slug]',
+    '/insights/[...slug]': {
+      en: '/insights/[...slug]',
+      de: '/insights/[...slug]',
     },
     '/contact': {
       en: '/contact',

@@ -45,12 +45,12 @@ export default function LanguageSwitcher({ theme = 'light' }: Props) {
     }
 
     // For dynamic blog pages
-    if (pathname.includes('/blog/')) {
+    if (pathname.includes('/insights/')) {
       const slug = params?.slug
       if (slug) {
         // Use type assertion to handle the type compatibility
         return {
-          pathname: '/blog/[...slug]',
+          pathname: '/insights/[...slug]',
           params: { slug: Array.isArray(slug) ? slug : [slug as string] },
         } as any
       }

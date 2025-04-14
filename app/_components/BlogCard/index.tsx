@@ -23,7 +23,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   return (
     <Link
       href={{
-        pathname: '/blog/[...slug]' as any,
+        pathname: '/insights/[...slug]' as any,
         params: { slug: post.slug ? [post.slug] : [] },
       }}
       className={styles.card}
