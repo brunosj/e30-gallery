@@ -11,23 +11,24 @@ import { motion } from 'framer-motion'
 import classes from './index.module.css'
 
 export default function BannerNewsletterComponent({ banner }: { banner: NewsletterBanner }) {
+  // Handle link similar to Button component
+  let href = '/newsletter'
+
+  if (
+    banner.link?.type === 'reference' &&
+    banner.link.reference?.relationTo &&
+    banner.link.reference.value
+  ) {
+    if (banner.link.reference.relationTo === 'newsletter-page') {
+      href = '/newsletter'
+    } else {
+      href = `/${banner.link.reference.relationTo}`
+    }
+  }
+
   return (
     <React.Fragment>
-      <Link
-        href={
-          banner.link.reference?.relationTo && banner.link.reference.value
-            ? {
-                pathname: `/${banner.link.reference.relationTo}` as any,
-                query:
-                  banner.link.type === 'reference' &&
-                  typeof banner.link.reference.value !== 'string'
-                    ? { id: (banner.link.reference.value as { id: string }).id }
-                    : undefined,
-              }
-            : ('/newsletter-page' as any)
-        }
-        className={classes.link}
-      >
+      <Link href={href as any} className={classes.link}>
         <motion.div
           initial="hidden"
           whileInView="visible"
