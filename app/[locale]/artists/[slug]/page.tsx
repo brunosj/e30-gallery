@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: artist.meta?.title || artist.full_name,
     description: artist.meta?.description || artist.additional_info,
-    keywords: [parseKeywords(artist.meta?.keywords || '')],
+    keywords: parseKeywords(artist.meta?.keywords || ''),
     openGraph: {
       title: artist.meta?.title || artist.full_name,
       description: artist.meta?.description || artist.additional_info,

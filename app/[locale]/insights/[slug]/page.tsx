@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: blogPost.meta?.title || blogPost.title,
     description: blogPost.meta?.description || blogPost.summary,
-    keywords: [parseKeywords(blogPost.meta?.keywords || '')],
+    // // keywords: parseKeywords(metadata.keywords),
     openGraph: {
       title: blogPost.meta?.title || blogPost.title || '',
       description: blogPost.meta?.description || blogPost.summary || '',

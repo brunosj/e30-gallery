@@ -2,6 +2,12 @@
   margin-top: 0;
 }
 
+.richText {
+  word-break: break-word;
+  hyphens: auto;
+  
+}
+
 .richText a {
   text-decoration: underline;
   transition: opacity 0.3s ease;
@@ -101,8 +107,8 @@
 
   .richText p {
     font-size: var(--base-100);
-    line-height: 1.5;
-    margin-bottom: var(--base-25);
+    line-height: 1.4;
+    margin-bottom: var(--base-50);
   }
 
   .richText small {

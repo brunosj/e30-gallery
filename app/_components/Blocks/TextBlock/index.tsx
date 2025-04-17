@@ -9,15 +9,9 @@ import classes from './index.module.css'
 export const TextBlockComponent: React.FC<TextBlock> = ({ text_block }) => {
   return (
     <section className={classes.wrapper}>
-      <motion.div
-        className={classes.container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInVariants}
-      >
+      <div className={classes.container}>
         <RichText content={text_block} />
-      </motion.div>
+      </div>
     </section>
   )
 }

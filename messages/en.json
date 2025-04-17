@@ -23,7 +23,7 @@
     "memberLogin": "E30 Art Society Member Login",
     "email": "Email",
     "firstName": "First name",
-    "lastName": "Last name", 
+    "lastName": "Last name",
     "password": "Password",
     "pleaseEnterMail": "Please enter your email",
     "weSentLink": "We have sent you a link to reset your password",
@@ -35,7 +35,7 @@
     "confirmPassword": "Confirm Password",
     "confirm": "Confirm",
     "processing": "Processing",
-    "errorWithCredentials":"There was an error with the credentials provided. Please try again.",
+    "errorWithCredentials": "There was an error with the credentials provided. Please try again.",
     "alreadyLoggedIn": "You are already logged in",
     "mustBeLoggedIn": "You must be logged in to access this area",
     "pleaseEnterValidEmail": "Please enter a valid email",
@@ -67,6 +67,6 @@
     "allYears": "All Years",
     "pageNotFound": "Page not found, sorry!",
     "withArtworksBy": "With artworks by",
-    "emailNotFound" : "An account with this email address does not exist."
-
+    "emailNotFound": "An account with this email address does not exist.",
+    "otherExhibitions": "Other Exhibitions"
 }

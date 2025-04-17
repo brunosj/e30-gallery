@@ -1,0 +1,101 @@
+.exhibitionDetails {
+  margin-bottom: var(--base-200);
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-black);
+  padding-bottom: var(--base-50);
+  margin-bottom: var(--base-150);
+}
+
+.navigationButtons {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.navigationButtons button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--base-200);
+  margin-bottom: var(--base-300);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-50);
+}
+
+.exhibitionDates {
+  margin-bottom: var(--base-100);
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  gap: var(--base-100);
+  margin-top: var(--base-100);
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+.exhibitions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--base-150);
+  margin-top: var(--base-150);
+}
+
+.otherExhibitions {
+  margin-top: var(--base-300);
+}
+
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--base-150);
+  }
+  
+  .image {
+    height: 300px;
+    order: -1;
+  }
+  
+  .exhibitions {
+    grid-template-columns: 1fr;
+  }
+  
+  .heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .navigationButtons {
+    margin-left: 0;
+  }
+} 

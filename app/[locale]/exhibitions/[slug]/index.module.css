@@ -1,0 +1,42 @@
+.navigationButtons {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.navigationButtons button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-black);
+  padding-bottom: var(--base-50);
+  margin-bottom: var(--base-150);
+}
+
+@media (max-width: 850px) {
+  .heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .navigationButtons {
+    margin-left: 0;
+  }
+} 

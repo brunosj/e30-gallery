@@ -22,20 +22,14 @@ export const MediaBlockComponent: React.FC<MediaBlock> = ({
         [classes.fullscreen]: position === 'fullscreen',
       })}
     >
-      <motion.div
-        className={classes.mediaContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInVariants}
-      >
+      <div className={classes.mediaContainer}>
         <Image
           src={getImageUrl(image?.url || '')}
           alt={image.title}
           fill
           className={classes.image}
         />
-      </motion.div>
+      </div>
     </section>
   )
 }

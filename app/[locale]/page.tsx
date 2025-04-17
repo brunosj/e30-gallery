@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
-    keywords: [parseKeywords(metadata.keywords)],
+    // // keywords: parseKeywords(metadata.keywords),
     openGraph: {
       title: metadata.title,
       description: metadata.description,

@@ -107,6 +107,8 @@ small {
   letter-spacing: 5px;
   font-size: 2.50rem;
   line-height: 1.2;
+  word-break: break-word;
+  hyphens: manual;
 }
 
 .centered {

@@ -43,13 +43,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
   const endYear = new Date(dateEnd || '').getFullYear()
 
   return (
-    <motion.div
-      ref={ref}
-      variants={cardVariants(index)}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
-      className={classes.card}
-    >
+    <div className={classes.card}>
       <div className={classes.imageWrapper}>
         <Image
           src={getImageUrl(image?.url || '')}
@@ -70,6 +64,6 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
           <RichText content={text} className={classes.richTextInner} />
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

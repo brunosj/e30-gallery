@@ -302,6 +302,7 @@ export interface Exhibition {
   relation?: {
     artists?: (string | Artist)[] | null
   }
+  slug?: string | null
   updatedAt: string
   createdAt: string
   _status?: ('draft' | 'published') | null
@@ -381,6 +382,8 @@ export interface Artist {
   full_name: string
   country: string
   additional_info: string
+  website: string
+  instagram: string
   /**
    * Optimal aspect-ratio: 1/1 for avatar (other aspect ratios can also work as long as the person is centered)
    */
