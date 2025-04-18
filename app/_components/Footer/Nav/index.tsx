@@ -5,7 +5,7 @@ import type { Footer } from '@/app/payload-types'
 import React from 'react'
 import { Button } from '@/components/Button'
 import { RichText } from '@/components/RichText'
-
+import { LinkObject } from '@/app/types'
 import classes from './index.module.css'
 
 type Props = {
@@ -37,7 +37,7 @@ export const FooterNav: React.FC<Props> = ({ data }: Props) => {
                   {category.navItem &&
                     category.navItem.map((item, idx) => (
                       <li key={idx}>
-                        <Button link={item.link} />
+                        <Button link={item.link as LinkObject} />
                       </li>
                     ))}
                 </ul>

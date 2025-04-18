@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -121,6 +122,7 @@ export interface Config {
     socials: Social
     'reach-out': ReachOut
     'newsletter-banner': NewsletterBanner
+    'newsletter-popup': NewsletterPopup
   }
   globalsSelect: {
     menu: MenuSelect<false> | MenuSelect<true>
@@ -128,6 +130,7 @@ export interface Config {
     socials: SocialsSelect<false> | SocialsSelect<true>
     'reach-out': ReachOutSelect<false> | ReachOutSelect<true>
     'newsletter-banner': NewsletterBannerSelect<false> | NewsletterBannerSelect<true>
+    'newsletter-popup': NewsletterPopupSelect<false> | NewsletterPopupSelect<true>
   }
   locale: 'en' | 'de'
   user: User & {
@@ -173,6 +176,7 @@ export interface Homepage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -188,7 +192,6 @@ export interface Exhibition {
   title: string
   dateBegin?: string | null
   dateEnd?: string | null
-  artworks_by: string
   text: {
     [k: string]: unknown
   }[]
@@ -237,6 +240,10 @@ export interface Exhibition {
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
         } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -283,6 +290,10 @@ export interface Exhibition {
       | ({
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
+        } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
         } | null)
     url?: string | null
     email?: string | null
@@ -348,6 +359,7 @@ export interface ArtistsPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -382,8 +394,8 @@ export interface Artist {
   full_name: string
   country: string
   additional_info: string
-  website: string
-  instagram: string
+  website?: string | null
+  instagram?: string | null
   /**
    * Optimal aspect-ratio: 1/1 for avatar (other aspect ratios can also work as long as the person is centered)
    */
@@ -442,6 +454,7 @@ export interface ArtSocietyPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -481,6 +494,7 @@ export interface ExhibitionsPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -568,6 +582,10 @@ export interface GalleryPage {
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
         } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -591,6 +609,7 @@ export interface GalleryPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -636,6 +655,7 @@ export interface MembersOnlyPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -688,6 +708,10 @@ export interface TitleImageInfoBlock {
       | ({
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
+        } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
         } | null)
     url?: string | null
     email?: string | null
@@ -752,6 +776,32 @@ export interface NewsletterPage {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
+  }
+  slug?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-page".
+ */
+export interface BlogPage {
+  id: string
+  text: {
+    [k: string]: unknown
+  }[]
+  meta?: {
+    title?: string | null
+    description?: string | null
+    keywords?: string | null
+  }
+  title?: string | null
+  Banners?: {
+    reachOutBoolean?: boolean | null
+    newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -821,6 +871,10 @@ export interface TwoColumnBlock {
         | ({
             relationTo: 'newsletter-page'
             value: string | NewsletterPage
+          } | null)
+        | ({
+            relationTo: 'blog-page'
+            value: string | BlogPage
           } | null)
       url?: string | null
       email?: string | null
@@ -894,6 +948,10 @@ export interface CallToAction {
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
         } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -922,36 +980,13 @@ export interface VideoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog-page".
- */
-export interface BlogPage {
-  id: string
-  text: {
-    [k: string]: unknown
-  }[]
-  meta?: {
-    title?: string | null
-    description?: string | null
-    keywords?: string | null
-  }
-  title?: string | null
-  Banners?: {
-    reachOutBoolean?: boolean | null
-    newsletterBoolean?: boolean | null
-  }
-  slug?: string | null
-  updatedAt: string
-  createdAt: string
-  _status?: ('draft' | 'published') | null
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blogpost".
  */
 export interface Blogpost {
   id: string
   title?: string | null
   summary?: string | null
+  categories: ('artists' | 'behind_the_scenes' | 'art_market' | 'all')[]
   layout: (TextBlock | MediaBlock | CallToAction | VideoBlock)[]
   meta?: {
     title?: string | null
@@ -961,6 +996,7 @@ export interface Blogpost {
   Banners?: {
     reachOutBoolean?: boolean | null
     newsletterBoolean?: boolean | null
+    newsletterPopupBoolean?: boolean | null
   }
   slug?: string | null
   updatedAt: string
@@ -1156,6 +1192,7 @@ export interface HomepageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1263,6 +1300,7 @@ export interface ExhibitionsPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1289,6 +1327,7 @@ export interface ArtistsPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1342,6 +1381,7 @@ export interface GalleryPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1374,6 +1414,7 @@ export interface ArtSocietyPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1420,6 +1461,7 @@ export interface MembersOnlyPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1473,6 +1515,7 @@ export interface NewsletterPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1498,6 +1541,7 @@ export interface BlogPageSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1531,6 +1575,8 @@ export interface ArtistSelect<T extends boolean = true> {
   full_name?: T
   country?: T
   additional_info?: T
+  website?: T
+  instagram?: T
   image?: T
   type?: T
   bio?: T
@@ -1576,6 +1622,7 @@ export interface ArtworkSelect<T extends boolean = true> {
 export interface BlogpostSelect<T extends boolean = true> {
   title?: T
   summary?: T
+  categories?: T
   layout?:
     | T
     | {
@@ -1596,6 +1643,7 @@ export interface BlogpostSelect<T extends boolean = true> {
     | {
         reachOutBoolean?: T
         newsletterBoolean?: T
+        newsletterPopupBoolean?: T
       }
   slug?: T
   updatedAt?: T
@@ -1621,7 +1669,6 @@ export interface ExhibitionSelect<T extends boolean = true> {
   title?: T
   dateBegin?: T
   dateEnd?: T
-  artworks_by?: T
   text?: T
   homepageImage?: T
   image?: T
@@ -1665,6 +1712,7 @@ export interface ExhibitionSelect<T extends boolean = true> {
     | {
         artists?: T
       }
+  slug?: T
   updatedAt?: T
   createdAt?: T
   _status?: T
@@ -1806,6 +1854,10 @@ export interface Menu {
                 relationTo: 'newsletter-page'
                 value: string | NewsletterPage
               } | null)
+            | ({
+                relationTo: 'blog-page'
+                value: string | BlogPage
+              } | null)
           url?: string | null
           email?: string | null
           subject?: string | null
@@ -1871,6 +1923,10 @@ export interface Footer {
                   | ({
                       relationTo: 'newsletter-page'
                       value: string | NewsletterPage
+                    } | null)
+                  | ({
+                      relationTo: 'blog-page'
+                      value: string | BlogPage
                     } | null)
                 url?: string | null
                 email?: string | null
@@ -1953,6 +2009,10 @@ export interface ReachOut {
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
         } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -2009,6 +2069,10 @@ export interface NewsletterBanner {
           relationTo: 'newsletter-page'
           value: string | NewsletterPage
         } | null)
+      | ({
+          relationTo: 'blog-page'
+          value: string | BlogPage
+        } | null)
     url?: string | null
     email?: string | null
     subject?: string | null
@@ -2019,6 +2083,19 @@ export interface NewsletterBanner {
      */
     appearance?: ('default' | 'primary' | 'secondary') | null
   }
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-popup".
+ */
+export interface NewsletterPopup {
+  id: string
+  /**
+   * Paste the script code for the newsletter embedded formhere, without the <script> tag. It should start with (function([rest of script here])); (make sure to include the semicolon at the end)
+   */
+  newsletter?: string | null
   updatedAt?: string | null
   createdAt?: string | null
 }
@@ -2142,6 +2219,16 @@ export interface NewsletterBannerSelect<T extends boolean = true> {
         label?: T
         appearance?: T
       }
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-popup_select".
+ */
+export interface NewsletterPopupSelect<T extends boolean = true> {
+  newsletter?: T
   updatedAt?: T
   createdAt?: T
   globalType?: T

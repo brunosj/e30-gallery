@@ -14,7 +14,7 @@ import {
 } from '@/utilities/animationVariants'
 import cn from 'classnames'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
-
+import { LinkObject } from '@/app/types'
 type Props = {
   data: MembersOnlyPage
 }
@@ -65,7 +65,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               >
                 <h4 className={classes.title}>{title}</h4>
                 <RichText content={info} className={classes.richText} />
-                <Button link={link} />
+                <Button link={link as LinkObject} />
               </div>
             </motion.div>
           )
@@ -91,7 +91,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               >
                 <h4 className={classes.title}>{title}</h4>
                 <RichText content={info} className={classes.richText} />
-                <Button link={link} />
+                <Button link={link as LinkObject} />
               </div>
             </motion.div>
           )

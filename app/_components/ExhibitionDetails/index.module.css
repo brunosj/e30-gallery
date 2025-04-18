@@ -4,7 +4,6 @@
 
 .heading {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--color-black);
@@ -16,6 +15,12 @@
   display: flex;
   gap: 1rem;
   margin-left: auto;
+}
+
+.backToListContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .navigationButtons button {
@@ -33,11 +38,13 @@
   cursor: not-allowed !important;
 }
 
+
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--base-200);
-  margin-bottom: var(--base-300);
+  margin: var(--base-300) 0;
 }
 
 .content {
@@ -57,27 +64,34 @@
   margin-top: var(--base-100);
 }
 
+
 .image {
-  position: relative;
-  width: 100%;
-  height: 500px;
+  object-fit: contain;
+  min-height: 30vh;
 }
+
+.image img {
+  object-fit: contain;
+
+}
+
 
 .exhibitions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--base-150);
-  margin-top: var(--base-150);
+  gap: var(--base-200);
+  margin-top: var(--base-300);
 }
 
 .otherExhibitions {
-  margin-top: var(--base-300);
+  padding-top: var(--base-200);
 }
 
 @media (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;
     gap: var(--base-150);
+    margin: var(--base-150) 0;
   }
   
   .image {
@@ -90,12 +104,23 @@
   }
   
   .heading {
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-areas: 
+      "title title"
+      "back nav";
+    grid-template-columns: 1fr auto;
+    align-items: center;
     gap: 0.5rem;
   }
   
+  .backToListContainer {
+    grid-area: back;
+    justify-content: flex-start;
+    margin: 0;
+  }
+  
   .navigationButtons {
-    margin-left: 0;
+    grid-area: nav;
+    margin-left: auto;
   }
 } 

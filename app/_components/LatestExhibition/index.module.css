@@ -50,6 +50,7 @@
 @media  (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: var(--base-150);
   }
   
   .contentContainer {

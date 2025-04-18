@@ -1,7 +1,7 @@
 'use client'
 
 import type { TwoColumnBlock, Media } from '@/app/payload-types'
-
+import { LinkObject } from '@/app/types'
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
@@ -26,7 +26,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ amount: 0.3 }}
+        viewport={{ amount: 0.3, once: true }}
         variants={invertOrder ? slideInFromRightVariants : slideInFromLeftVariants}
         className={cn(
           'container padding-y',
@@ -43,7 +43,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
             <RichText content={columnText.content} />
           </div>
         )}
-        {columnText.addLink && columnText.link && <Button link={columnText.link} />}
+        {columnText.addLink && columnText.link && <Button link={columnText.link as LinkObject} />}
       </motion.div>
       <div
         className={cn(

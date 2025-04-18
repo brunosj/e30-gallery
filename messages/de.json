@@ -69,5 +69,14 @@
     "pageNotFound": "Seite nicht gefunden, sorry!",
     "withArtworksBy": "Mit Kunstwerken von",
     "emailNotFound": "Ein Konto mit dieser E-Mail-Adresse existiert nicht.",
-    "otherExhibitions": "Andere Ausstellungen"
+    "otherExhibitions": "Andere Ausstellungen",
+    "website": "Website",
+    "instagram": "Instagram",
+    "all": "Alle",
+    "current": "Aktuell",
+    "upcoming": "Kommend",
+    "past": "Vergangen",
+    "artists_category": "Künstler*innen",
+    "behind_the_scenes": "Behind the scenes",
+    "art_market": "Kunstmarkt"
 }

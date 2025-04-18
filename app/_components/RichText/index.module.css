@@ -38,6 +38,7 @@
   line-height: 1.2;
   font-weight: 500;
   letter-spacing: 1.5px;
+  margin-top: var(--base-200);
   margin-bottom: var(--base-100);
 }
 

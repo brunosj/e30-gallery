@@ -9,7 +9,7 @@ import Chevron from '@/components/SVG/Chevron'
 import { fadeInVariants, gradientVariants } from '@/app/_utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
-
+import { LinkObject } from '@/app/types'
 type Props = {
   data: ReachOut
 }
@@ -54,7 +54,7 @@ export default function BannerReachOutComponen({ data }: Props) {
           <div className={classes.text}>
             <RichText content={data.text} />
           </div>
-          <Button link={data.link} />
+          <Button link={data.link as LinkObject} />
         </div>
       </motion.div>
     </section>

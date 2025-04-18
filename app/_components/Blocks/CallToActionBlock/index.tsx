@@ -7,6 +7,7 @@ import { RichText } from '@/components/RichText'
 import cn from 'classnames'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
+import { LinkObject } from '@/app/types'
 import { motion } from 'framer-motion'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
@@ -64,7 +65,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
           <div className={classes.text} style={{ color: textColor }}>
             <RichText content={text} />
           </div>
-          <Button link={{ ...link, appearance: buttonAppearance }} />
+          <Button link={{ ...link, appearance: buttonAppearance } as LinkObject} />
         </div>
         <div className={classes.image}>
           <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />

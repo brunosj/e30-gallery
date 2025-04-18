@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation'
 import { RiseLoader } from 'react-spinners'
 import { motion } from 'framer-motion'
 import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
-
+import type { LinkObject } from '@/app/types'
 export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
   const { user } = useAuth()
@@ -84,7 +84,7 @@ export const HeaderNav: React.FC = () => {
             normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
           return (
             <li key={index} className={isActive ? 'activeMenuItem' : ''}>
-              <Button link={item.link} />
+              <Button link={item.link as LinkObject} />
             </li>
           )
         })}

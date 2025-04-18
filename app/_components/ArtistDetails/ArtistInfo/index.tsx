@@ -12,6 +12,7 @@ import cn from 'classnames'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { RiseLoader } from 'react-spinners'
 import { Button } from '@/app/_components/Button'
+import { div } from 'framer-motion/client'
 
 type Props = {
   artist: Artist
@@ -19,6 +20,14 @@ type Props = {
   handlePreviousClick: () => void
   selectedArtistIndex: number
   filteredArtists: Artist[]
+}
+
+const artistLink = (link: string, label: string) => {
+  return (
+    <Link href={link as any} className={classes.artistLink} target="_blank">
+      <span>{label}</span>
+    </Link>
+  )
 }
 
 const ArtistInfo: React.FC<Props> = ({
@@ -117,12 +126,6 @@ const ArtistInfo: React.FC<Props> = ({
         )} */}
         <div className={classes.grid}>
           <div>
-            {/* <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={slideInFromLeftVariants}
-            > */}
             <div>
               <h2>{artist.full_name}</h2>
               <div className={classes.additionalInfo}>
@@ -147,54 +150,20 @@ const ArtistInfo: React.FC<Props> = ({
                 onLoad={handleImageLoad}
               />
             </div>
-            {/* <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={slideInFromLeftVariants}
-            > */}
+
             <div>
               <RichText content={artist.bio} className="padding-y-sm" />
 
               {/* Social links */}
-              {/* {(artist.website || artist.instagram) && (
+              {(artist.website || artist.instagram) && (
                 <div className={classes.socialLinks}>
-                  {artist.website && (
-                    <Button
-                      link={{
-                        label: t('website'),
-                        url: artist.website,
-                        appearance: 'primary',
-                        newTab: true,
-                        type: 'custom',
-                      }}
-                    />
-                  )}
-                  {artist.instagram && (
-                    <Button
-                      link={{
-                        label: 'Instagram',
-                        url: artist.instagram.startsWith('http')
-                          ? artist.instagram
-                          : `https://instagram.com/${artist.instagram.replace('@', '')}`,
-                        appearance: 'secondary',
-                        newTab: true,
-                        type: 'custom',
-                      }}
-                    />
-                  )}
+                  {artist.website && artistLink(artist.website, t('website'))}
+                  {artist.instagram && artistLink(artist.instagram, t('instagram'))}
                 </div>
-              )} */}
+              )}
             </div>
-            {/* </motion.div> */}
           </div>
-          {/* <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={slideInFromRightVariants}
-            className={cn(classes.image, 'desktop')}
-          > */}
+
           <div className={cn(classes.image, 'desktop')}>
             <Image
               key={currentArtist.id}
@@ -213,7 +182,6 @@ const ArtistInfo: React.FC<Props> = ({
               priority
             />
           </div>
-          {/* </motion.div> */}
         </div>
         {artist.artworkArchiveCode && (
           <div>

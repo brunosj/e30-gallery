@@ -1,6 +1,7 @@
 'use client'
 
 import type { MembersOnlyPage } from '@/app/payload-types'
+import type { LinkObject } from '@/app/types'
 import React, { useState } from 'react'
 import { MembersHome } from '../MembersHome'
 import { MembersArtAdvice } from '../MembersArtAdvice'
@@ -77,10 +78,10 @@ const MembersAreaComponent: React.FC<Props> = ({ data }: Props) => {
             </button>
           </li>
           <li className={classes.buttonContainer}>
-            <Button link={ExhibitionLink()} />
+            <Button link={ExhibitionLink() as LinkObject} />
           </li>
           <li className={classes.buttonContainer}>
-            <Button link={ArtistLink()} />
+            <Button link={ArtistLink() as LinkObject} />
           </li>
         </nav>
       </div>

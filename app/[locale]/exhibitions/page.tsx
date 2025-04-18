@@ -2,6 +2,7 @@ import type { ExhibitionsPage, Exhibition } from '@/app/payload-types'
 
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
+import NewsletterPopup from '@/components/NewsletterPopup'
 import ExhibitionsPageData from '@/components/ExhibitionsPage'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import classes from './index.module.css'
@@ -67,6 +68,9 @@ export default async function Exhibitions({ params }: { params: Params }) {
       <ExhibitionsPageData data={exhibitions} featuredExhibitions={featuredExhibitions} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
       {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.newsletterPopupBoolean && (
+        <NewsletterPopup triggerOnScroll={true} scrollPercentage={30} />
+      )}
     </article>
   )
 }

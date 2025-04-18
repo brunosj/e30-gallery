@@ -16,22 +16,36 @@ interface BlogCardProps {
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const locale = useLocale() || 'en'
 
-  const firstMediaBlock = post.layout.find(block => block.blockType === 'mediaBlock' && block.media)
+  const firstMediaBlock = post.layout?.find(
+    block => block.blockType === 'mediaBlock' && block.media,
+  )
 
   const { formattedDate, year } = formatDate(post.createdAt, locale)
+
+  const slug = post.slug ? [post.slug] : []
+
+  if (!post) return null
+
+  const mediaUrl =
+    firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media
+      ? typeof firstMediaBlock.media === 'string'
+        ? firstMediaBlock.media
+        : firstMediaBlock.media.url || ''
+      : ''
 
   return (
     <Link
       href={{
         pathname: '/insights/[...slug]' as any,
-        params: { slug: post.slug ? [post.slug] : [] },
+        params: { slug },
       }}
       className={styles.card}
+      prefetch={false}
     >
       {firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media && (
         <div className={styles.imageWrapper}>
           <Image
-            src={getImageUrl(firstMediaBlock.media?.url || '')}
+            src={getImageUrl(mediaUrl)}
             alt={post.title || ''}
             width={400}
             height={250}

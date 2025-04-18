@@ -10,7 +10,7 @@ import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants } from '@/utilities/animationVariants'
 import { motion } from 'framer-motion'
-
+import { LinkObject } from '@/app/types'
 type Props = {
   data: GalleryPage
 }
@@ -39,10 +39,10 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
         >
           <RichText content={text} className={classes.text} />
           <div className="desktop">
-            <Button link={link} />
+            <Button link={link as LinkObject} />
           </div>
           <div className="mobile">
-            <Button link={link} />
+            <Button link={link as LinkObject} />
           </div>
         </motion.div>
       </div>

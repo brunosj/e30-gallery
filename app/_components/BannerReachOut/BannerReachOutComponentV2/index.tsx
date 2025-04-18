@@ -9,7 +9,7 @@ import { Button } from '@/components/Button'
 import Chevron from '@/components/SVG/Chevron'
 import classes from './index.module.css'
 import cn from 'classnames'
-
+import { LinkObject } from '@/app/types'
 type Props = {
   data: ReachOut
 }
@@ -89,7 +89,7 @@ export default function BannerReachOutComponentV2({ data }: Props) {
           <div className={classes.text}>
             <RichText content={data.text} />
           </div>
-          <Button link={data.link} />
+          <Button link={data.link as LinkObject} />
         </div>
       </motion.div>
     </motion.section>

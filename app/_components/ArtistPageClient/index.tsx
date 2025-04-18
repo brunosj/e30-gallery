@@ -64,9 +64,6 @@ export default function ArtistPageClient({
       script.type = 'text/javascript'
       script.async = true
       script.src = scriptUrl
-      script.onload = () => {
-        console.log('Script loaded successfully')
-      }
       script.onerror = e => {
         console.error('Error loading script:', e)
       }

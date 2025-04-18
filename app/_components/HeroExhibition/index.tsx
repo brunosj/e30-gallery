@@ -16,6 +16,7 @@ import {
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { formatDate, formatDateRange } from '@/app/_utilities/formatDate'
 
 type Props = {
   data: Exhibition[]
@@ -28,35 +29,27 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
     return null
   }
 
-  const { title, homepageImage, image, dateBegin, dateEnd, text, artworks_by } = data[0]
+  const { title, homepageImage, image, dateBegin, dateEnd, relation } = data[0]
 
-  const begin = dateBegin
-    ? new Date(dateBegin)
-        .toLocaleDateString('en-US', {
-          day: 'numeric',
-          month: 'long',
-        })
-        .split(' ')
-        .reverse()
-        .join(' ')
-    : ''
+  const formatArtistsNames = (artists: (string | { full_name: string })[]) => {
+    if (!artists || artists.length === 0) return ''
 
-  const end = dateEnd
-    ? new Date(dateEnd)
-        .toLocaleDateString('en-US', {
-          day: 'numeric',
-          month: 'long',
-        })
-        .split(' ')
-        .reverse()
-        .join(' ')
-    : ''
+    const artistNames = artists.map(artist =>
+      typeof artist === 'string' ? artist : artist.full_name,
+    )
 
-  const beginYear = dateBegin ? new Date(dateBegin).getFullYear() : null
-  const endYear = dateEnd ? new Date(dateEnd).getFullYear() : null
+    if (artistNames.length === 1) return artistNames[0]
+
+    const lastArtist = artistNames.pop()
+    return `${artistNames.join(', ')} & ${lastArtist}`
+  }
+
+  const dateRange = formatDateRange(dateBegin || '', dateEnd || '', 'en-US')
 
   const imageUrl = homepageImage?.url || image?.url || ''
   const imageAlt = homepageImage?.title || image?.title || ''
+
+  const artistsNames = relation?.artists ? formatArtistsNames(relation.artists) : ''
 
   return (
     <section className={classes.hero}>
@@ -64,6 +57,7 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
       <motion.div
         initial="hidden"
         whileInView="visible"
+        viewport={{ once: true }}
         variants={slideInFromRightVariants}
         className={classes.contentContainer}
       >
@@ -72,17 +66,14 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
             <Chevron color="var(--color-black)" size={20} className="iconTopLeft" />
             <div className={classes.info}>
               <p className="spacedTitle">{title}</p>
-              {artworks_by && (
+              {artistsNames && (
                 <div className={classes.artworksBy}>
                   <span>
-                    {t('withArtworksBy')} {artworks_by}
+                    {t('withArtworksBy')} {artistsNames}
                   </span>
                 </div>
               )}
-              <p className="uppercase">
-                {begin} {beginYear && endYear && beginYear !== endYear ? beginYear : ''} - {end}{' '}
-                {endYear}
-              </p>
+              <p className="uppercase">{dateRange.display}</p>
               <div className="right">
                 <Button link={createExhibitionLink(t('viewNow'), 'primary')} />
               </div>

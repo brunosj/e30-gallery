@@ -1,17 +1,15 @@
 'use client'
 
-import type { NewsletterPage } from '@/app/payload-types'
-
 import Script from 'next/script'
 
 type Props = {
-  data: NewsletterPage
+  code: string
 }
-const NewsletterEmbed = ({ data }: Props) => {
+const NewsletterEmbed = ({ code }: Props) => {
   return (
-    <div className="padding-y">
+    <div>
       {/* MailerLite Universal */}
-      <Script id="mailerlite-script">{data.newsletter}</Script>
+      <Script id="mailerlite-script">{code}</Script>
       {/* End MailerLite Universal */}
 
       {/* MailerLite Form */}

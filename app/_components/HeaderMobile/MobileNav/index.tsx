@@ -11,7 +11,7 @@ import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
 import cn from 'classnames'
-
+import { LinkObject } from '@/app/types'
 const MobileNav: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
   const [isOpen, setOpen] = useState(false)
@@ -96,7 +96,7 @@ const MobileNav: React.FC = () => {
                       `/${(item.link?.reference?.value as { slug: string })?.slug}`
                     return (
                       <li key={index} className={isActive ? classes.activeMenuItem : ''}>
-                        <Button link={item.link} onClick={handleCloseMenu} />
+                        <Button link={item.link as LinkObject} onClick={handleCloseMenu} />
                       </li>
                     )
                   })}

@@ -1,6 +1,7 @@
 'use client'
 
 import type { Menu } from '@/app/payload-types'
+import type { LinkObject } from '@/app/types'
 import { useState, useEffect, useRef } from 'react'
 import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -96,7 +97,7 @@ const MobileNav: React.FC = () => {
                       `/${(item.link?.reference?.value as { slug: string })?.slug}`
                     return (
                       <li key={index} className={isActive ? classes.activeMenuItem : ''}>
-                        <Button link={item.link} onClick={handleCloseMenu} />
+                        <Button link={item.link as LinkObject} onClick={handleCloseMenu} />
                       </li>
                     )
                   })}

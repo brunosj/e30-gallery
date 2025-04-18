@@ -20,6 +20,9 @@ import {
 } from '@/utilities/animationVariants'
 
 import classes from './index.module.css'
+import { LinkObject } from '@/app/types'
+import { formatDate } from '@/app/_utilities/formatDate'
+import { formatDateRange } from '@/app/_utilities/formatDate'
 
 type Props = {
   exhibition: Exhibition
@@ -37,22 +40,7 @@ const ExhibitionDetails: React.FC<Props> = ({
   const t = useTranslations()
   const [currentExhibition, setCurrentExhibition] = useState(exhibition)
 
-  // Format dates
-  const formatDate = (dateString: string | null | undefined) => {
-    if (!dateString) return ''
-    return new Date(dateString)
-      .toLocaleDateString(locale, {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-      .split(' ')
-      .reverse()
-      .join(' ')
-  }
-
-  const begin = formatDate(exhibition.dateBegin)
-  const end = formatDate(exhibition.dateEnd)
+  const dateRange = formatDateRange(exhibition.dateBegin || '', exhibition.dateEnd || '', locale)
 
   // Handle navigation between exhibitions
   const handleNextClick = () => {
@@ -74,7 +62,7 @@ const ExhibitionDetails: React.FC<Props> = ({
   }
 
   // Filter out the current exhibition from the list
-  const otherExhibitions = allExhibitions.filter(item => item.id !== exhibition.id).slice(0, 6) // Limit to 6 other exhibitions
+  const otherExhibitions = allExhibitions.filter(item => item.id !== exhibition.id)
 
   const hasNavigation = allExhibitions.length > 1
 
@@ -85,10 +73,11 @@ const ExhibitionDetails: React.FC<Props> = ({
           <div className="semibold desktop">
             <p>{t('exhibitions')}</p>
           </div>
-          <Link href="/exhibitions" className="controls">
-            {t('backToList')}
-          </Link>
-
+          <div className={classes.backToListContainer}>
+            <Link href="/exhibitions" className="controls">
+              {t('backToList')}
+            </Link>
+          </div>
           <div className={classes.navigationButtons}>
             <button
               onClick={handlePreviousClick}
@@ -119,19 +108,17 @@ const ExhibitionDetails: React.FC<Props> = ({
           >
             <h2>{exhibition.title}</h2>
             <div className={classes.exhibitionDates}>
-              <p>
-                {begin} - {end}
-              </p>
+              <p>{dateRange.display}</p>
             </div>
-            <RichText content={exhibition.text} className="padding-y-sm" />
+            <RichText content={exhibition.text} />
 
             {/* Exhibition links */}
             <div className={classes.links}>
               {exhibition.addLink && exhibition.exhibitionLink && (
-                <Button link={exhibition.exhibitionLink} />
+                <Button link={exhibition.exhibitionLink as LinkObject} />
               )}
               {exhibition.addOtherLink && exhibition.extraLink && (
-                <Button link={exhibition.extraLink} />
+                <Button link={exhibition.extraLink as LinkObject} />
               )}
             </div>
           </motion.div>
@@ -148,7 +135,7 @@ const ExhibitionDetails: React.FC<Props> = ({
                 alt={exhibition.image.title || exhibition.title}
                 fill
                 priority
-                className="object-cover"
+                className="object-contain"
               />
             )}
           </motion.div>

@@ -1,0 +1,155 @@
+.link:hover  .heading {
+  transform: scale(1.02);
+}
+
+.title {
+  margin:auto;
+  text-transform: uppercase;
+}
+
+.heading {
+  font-size:4.5rem;
+  text-align: center;
+  transition: transform 0.3s ease
+}
+
+.titleElements {
+  display: block;
+}
+
+@media (max-width: 850px) {
+  .heading {
+    font-size:2rem;
+  }
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-in-out;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.popupWrapper {
+  position: relative;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 400px;
+  height: auto;
+  max-height: 90vh;
+  margin: 0 auto;
+  animation: slideUp 0.4s ease-out;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.popupContainer {
+  min-height: 400px;
+  height: 100%;
+  max-height: calc(90vh);
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  /* Add scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.popupContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.popupContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.popupContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+}
+
+.closeButton {
+  color: white;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 1001;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+}
+
+/* Ensure embedded content fits */
+.popupContainer > div {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+/* Adjustments for mobile devices */
+@media (max-width: 600px) {
+  .popupWrapper {
+    max-height: 85vh;
+    min-height: 300px;
+    width: 95%;
+  }
+  
+  .popupContainer {
+    padding: 1.5rem;
+    min-height: 300px;
+    max-height: calc(85vh - 2rem);
+  }
+  
+  .closeButton {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+

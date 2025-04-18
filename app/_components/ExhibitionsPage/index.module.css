@@ -12,7 +12,7 @@
 .exhibitions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap:2rem 4rem;
+  gap: var(--base-200);
 }
 
 .filterContainer {

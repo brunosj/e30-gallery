@@ -8,7 +8,7 @@ import { useLocale } from 'next-intl'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
-
+import { LinkObject } from '@/app/types'
 export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
   const { user } = useAuth()
@@ -61,7 +61,7 @@ export const HeaderNav: React.FC = () => {
               normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
             return (
               <li key={index} className={isActive ? classes.activeMenuItem : ''}>
-                <Button link={item.link} />
+                <Button link={item.link as LinkObject} />
               </li>
             )
           })}

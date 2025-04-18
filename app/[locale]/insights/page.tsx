@@ -1,9 +1,6 @@
 import type { BlogPage, Blogpost } from '@/app/payload-types'
-import BlogCard from '@/components/BlogCard'
-import { parseKeywords } from '@/utilities/parseKeywords'
-import { RichText } from '@/app/_components/RichText'
-import classes from './index.module.css'
 import { Metadata } from 'next'
+import BlogPageClient from './client'
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string) {
@@ -41,7 +38,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: pageData.docs[0].title,
     description: metadata?.description,
-    // // keywords: parseKeywords(metadata.keywords),
+    // keywords: parseKeywords(metadata.keywords),
     openGraph: {
       title: metadata?.title,
       description: metadata?.description,
@@ -52,24 +49,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function BlogPage({ params }: { params: Params }) {
   const { locale } = await params
   const { pageData, blogPosts } = await getData(locale)
-  const page: BlogPage = pageData.docs[0]
-  const posts: Blogpost[] = blogPosts.docs.sort(
-    (a: Blogpost, b: Blogpost) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  )
 
-  return (
-    <section className="container padding-y min-h-screen">
-      <h1 className={classes.title}>{page.title}</h1>
-      {page.text && (
-        <div className={classes.pageContent}>
-          <RichText content={page.text} />
-        </div>
-      )}
-      <div className={classes.postsGrid}>
-        {posts.map(post => (
-          <BlogCard key={post.id} post={post} />
-        ))}
-      </div>
-    </section>
-  )
+  return <BlogPageClient pageData={pageData} blogPosts={blogPosts} />
 }

@@ -56,7 +56,9 @@ export default async function Newsletter({ params }: { params: Params }) {
     <article>
       <div className="container padding-y">
         <RichText content={page.text} />
-        <NewsletterEmbed data={page} />
+        <div className="padding-y">
+          <NewsletterEmbed code={page.newsletter || ''} />
+        </div>
       </div>
     </article>
   )

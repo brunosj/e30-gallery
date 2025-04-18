@@ -1,6 +1,7 @@
 'use client'
 
 import type { Menu } from '@/app/payload-types'
+import type { LinkObject } from '@/app/types'
 import { useState, useEffect, useRef } from 'react'
 import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
