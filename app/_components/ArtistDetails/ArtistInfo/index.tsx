@@ -79,7 +79,6 @@ const ArtistInfo: React.FC<Props> = ({
   const hasArtists = Array.isArray(filteredArtists) && filteredArtists.length > 1
   const hasPrevious = hasArtists
   const hasNext = hasArtists
-  console.log(artist)
 
   return (
     <div className={classes.artistDetails}>
@@ -158,7 +157,7 @@ const ArtistInfo: React.FC<Props> = ({
               <RichText content={artist.bio} className="padding-y-sm" />
 
               {/* Social links */}
-              {(artist.website || artist.instagram) && (
+              {/* {(artist.website || artist.instagram) && (
                 <div className={classes.socialLinks}>
                   {artist.website && (
                     <Button
@@ -185,7 +184,7 @@ const ArtistInfo: React.FC<Props> = ({
                     />
                   )}
                 </div>
-              )}
+              )} */}
             </div>
             {/* </motion.div> */}
           </div>
