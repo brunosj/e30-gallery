@@ -1,6 +1,10 @@
 import type { BlogPage, Blogpost } from '@/app/payload-types'
 import { Metadata } from 'next'
 import BlogPageClient from './client'
+import NewsletterPopup from '@/components/NewsletterPopup'
+import BannerReachOut from '@/components/BannerReachOut'
+import BannerNewsletter from '@/components/BannerNewsletter'
+import { parseKeywords } from '@/utilities/parseKeywords'
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string) {
@@ -38,7 +42,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: pageData.docs[0].title,
     description: metadata?.description,
-    // keywords: parseKeywords(metadata.keywords),
+    keywords: parseKeywords(metadata.keywords),
     openGraph: {
       title: metadata?.title,
       description: metadata?.description,
@@ -50,5 +54,14 @@ export default async function BlogPage({ params }: { params: Params }) {
   const { locale } = await params
   const { pageData, blogPosts } = await getData(locale)
 
-  return <BlogPageClient pageData={pageData} blogPosts={blogPosts} />
+  return (
+    <article>
+      <BlogPageClient pageData={pageData} blogPosts={blogPosts} />
+      {pageData.Banners?.reachOutBoolean && <BannerReachOut />}
+      {pageData.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {pageData.Banners?.newsletterPopupBoolean && (
+        <NewsletterPopup triggerOnScroll={true} scrollPercentage={30} />
+      )}
+    </article>
+  )
 }

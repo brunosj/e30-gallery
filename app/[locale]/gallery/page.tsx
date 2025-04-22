@@ -7,6 +7,8 @@ import { GalleryVision } from '@/components/GalleryVision'
 import { GalleryCTA } from '@/components/GalleryCTA'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import { Metadata } from 'next'
+import NewsletterPopup from '@/components/NewsletterPopup'
+
 type Params = Promise<{ locale: string }>
 
 async function getData(locale: string) {
@@ -40,7 +42,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: pageData.docs[0].title,
     description: metadata.description,
-    // // keywords: parseKeywords(metadata.keywords),
+    keywords: parseKeywords(metadata.keywords),
     openGraph: {
       title: metadata.title,
       description: metadata.description,
@@ -61,6 +63,9 @@ export default async function GalleryPage({ params }: { params: Params }) {
       <GalleryCTA data={page} />
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
       {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.newsletterPopupBoolean && (
+        <NewsletterPopup triggerOnScroll={true} scrollPercentage={30} />
+      )}
     </article>
   )
 }

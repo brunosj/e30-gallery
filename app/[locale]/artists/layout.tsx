@@ -3,8 +3,9 @@ import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
 import { setRequestLocale } from 'next-intl/server'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
-import { ArtistPageHero } from '@/components/ArtistPageHero'
 import { parseKeywords } from '@/utilities/parseKeywords'
+import NewsletterPopup from '@/components/NewsletterPopup'
+
 import { Metadata } from 'next'
 type Params = Promise<{ locale: string }>
 
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const metadata = pageData.docs[0].meta
   return {
     title: pageData.docs[0].title,
-    // // keywords: parseKeywords(metadata.keywords),
+    keywords: parseKeywords(metadata.keywords),
     description: metadata.description,
     openGraph: {
       title: metadata.title,
@@ -72,6 +73,9 @@ export default async function ArtistsLayout({
       {children}
       {page.Banners?.reachOutBoolean && <BannerReachOut />}
       {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.newsletterPopupBoolean && (
+        <NewsletterPopup triggerOnScroll={true} scrollPercentage={30} />
+      )}
     </article>
   )
 }
