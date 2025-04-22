@@ -1,7 +1,7 @@
 import localFont from 'next/font/local'
 import { setRequestLocale, getMessages } from 'next-intl/server'
 import type { Viewport } from 'next'
-
+import PlausibleProvider from 'next-plausible'
 import './_css/app.css'
 
 type Params = Promise<{ locale: string }>
@@ -31,7 +31,13 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${hanken.className}`}>
-      <body className="relative">{children}</body>
+      <PlausibleProvider
+        domain="e30gallery.com"
+        customDomain="https://plausible.e30gallery.com"
+        enabled={true}
+      >
+        <body className="relative">{children}</body>
+      </PlausibleProvider>
     </html>
   )
 }
