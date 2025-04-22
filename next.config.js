@@ -15,6 +15,7 @@ const allowedDomains = [
   'https://assets.mlcdn.com',
   'https://player.vimeo.com',
   'https://www.youtube.com',
+  'https://plausible.e30gallery.com',
   ...(isDevelopment ? ['http://localhost:3000', 'http://localhost:5173'] : []),
 ]
 
@@ -40,9 +41,13 @@ const withNextIntl = createNextIntlPlugin()
 
 // Combine with the plausible proxy
 const withPlugins = config => {
-  return withPlausibleProxy({
+  // First apply the base config to withPlausibleProxy
+  const withPlausible = withPlausibleProxy({
     customDomain: 'https://plausible.e30gallery.com',
-  })(withNextIntl(config))
+  })(config)
+
+  // Then apply withNextIntl to the result
+  return withNextIntl(withPlausible)
 }
 
 /** @type {import('next').NextConfig} */
