@@ -10,7 +10,7 @@ interface ProvidersProps {
 
 export default function Providers({ children, locale, messages }: ProvidersProps) {
   return (
-    <PlausibleProvider domain="e30gallery.com">
+    <PlausibleProvider domain="e30gallery.com" selfHosted={true}>
       <NextIntlClientProvider messages={messages} locale={locale}>
         <AuthProvider api="rest">{children}</AuthProvider>
       </NextIntlClientProvider>
