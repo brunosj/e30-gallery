@@ -32,8 +32,15 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${hanken.className}`}>
-      <PlausibleProvider domain="e30gallery.com" />
-      <body className="relative">{children}</body>
+      <body className="relative">
+        <PlausibleProvider
+          domain="e30gallery.com"
+          customDomain="https://plausible.e30gallery.com"
+          enabled={true}
+        >
+          {children}
+        </PlausibleProvider>
+      </body>
     </html>
   )
 }
