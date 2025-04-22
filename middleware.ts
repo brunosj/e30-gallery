@@ -11,6 +11,7 @@ export const config = {
     // - api (API routes)
     // - Static files with extensions (like .jpg, .png, etc.)
     // - Specific static files like favicon.ico
-    '/((?!api|_next|.*\\..*|favicon.ico).*)',
+    // - proxy (proxy)
+    '/((?!api|_next|.*\\..*|favicon.ico|proxy).*)',
   ],
 }
