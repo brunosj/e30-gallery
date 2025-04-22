@@ -34,8 +34,10 @@ export default async function RootLayout({
       <head>
         <PlausibleProvider
           domain="e30gallery.com"
-          customDomain="https://plausible.e30gallery.com"
-          enabled={true}
+          scriptProps={{
+            onLoad: () => console.log('Plausible script loaded successfully'),
+            onError: e => console.error('Plausible script failed to load:', e),
+          }}
         />
       </head>
       <body className="relative">{children}</body>

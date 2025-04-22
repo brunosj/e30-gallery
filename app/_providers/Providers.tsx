@@ -10,7 +10,13 @@ interface ProvidersProps {
 
 export default function Providers({ children, locale, messages }: ProvidersProps) {
   return (
-    <PlausibleProvider domain="e30gallery.com" enabled={true}>
+    <PlausibleProvider
+      domain="e30gallery.com"
+      scriptProps={{
+        onLoad: () => console.log('Plausible script loaded successfully'),
+        onError: e => console.error('Plausible script failed to load:', e),
+      }}
+    >
       <NextIntlClientProvider messages={messages} locale={locale}>
         <AuthProvider api="rest">{children}</AuthProvider>
       </NextIntlClientProvider>
