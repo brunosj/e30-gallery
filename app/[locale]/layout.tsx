@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { HeaderMobile } from '@/components/HeaderMobile'
-import { AuthProvider } from '@/providers/Auth'
 import Footer from '@/components/Footer'
 import { siteMetadata } from '@/components/Metadata'
 import HeaderV5 from '@/components/Header/V5'
 import { routing } from '@/i18n/routing'
 import { getMessages } from 'next-intl/server'
+import Providers from '@/providers/Providers'
 
 import classes from './index.module.css'
 
@@ -32,13 +32,11 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
-      <AuthProvider api="rest">
-        <HeaderV5 />
-        <HeaderMobile />
-        <main className={classes.main}>{children}</main>
-        <Footer />
-      </AuthProvider>
-    </NextIntlClientProvider>
+    <Providers locale={locale} messages={messages}>
+      <HeaderV5 />
+      <HeaderMobile />
+      <main className={classes.main}>{children}</main>
+      <Footer />
+    </Providers>
   )
 }
