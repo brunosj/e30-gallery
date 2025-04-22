@@ -32,13 +32,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${hanken.className}`}>
       <head>
-        <PlausibleProvider
-          domain="e30gallery.com"
-          scriptProps={{
-            onLoad: () => console.log('Plausible script loaded successfully'),
-            onError: e => console.error('Plausible script failed to load:', e),
-          }}
-        />
+        <PlausibleProvider domain="e30gallery.com" />
       </head>
       <body className="relative">{children}</body>
     </html>
