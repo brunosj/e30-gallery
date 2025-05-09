@@ -73,9 +73,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       images: [
         {
           url:
-            typeof artist.relation.artworks !== 'string'
-              ? getImageUrl((artist.relation.artworks as Media).url || '')
-              : '',
+            typeof artist.image !== 'string' ? getImageUrl((artist.image as Media).url || '') : '',
           alt: artist.full_name,
         },
       ],
