@@ -87,6 +87,19 @@
   padding-top: var(--base-200);
 }
 
+
+.artistLink {
+  font-weight: 600;
+  font-size: var(--base-100);
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+  opacity:1
+}
+
+.artistLink:hover {
+  opacity:0.6
+}
+
 @media (max-width: 850px) {
   .grid {
     grid-template-columns: 1fr;

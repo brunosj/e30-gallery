@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import type { Exhibition } from '@/app/payload-types'
+import type { Exhibition, Artist } from '@/app/payload-types'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
@@ -107,6 +107,37 @@ const ExhibitionDetails: React.FC<Props> = ({
             className={classes.content}
           >
             <h2>{exhibition.title}</h2>
+
+            {/* Exhibition Artists */}
+            {exhibition.relation?.artists && exhibition.relation.artists.length > 0 && (
+              <div className={classes.exhibitionArtists}>
+                <p className="artists-list">
+                  {exhibition.relation.artists.map((artist, index) => {
+                    // Check if artist is a string or an Artist object
+                    const artistObj = typeof artist === 'string' ? null : (artist as Artist)
+                    const artistSlug = artistObj?.slug || ''
+                    const artistName = artistObj?.full_name || ''
+
+                    return (
+                      <React.Fragment key={artistObj?.id || index}>
+                        {index > 0 && <span>, </span>}
+                        {artistSlug ? (
+                          <Link
+                            href={`/artists/${artistSlug}` as any}
+                            className={classes.artistLink}
+                          >
+                            {artistName}
+                          </Link>
+                        ) : (
+                          artistName
+                        )}
+                      </React.Fragment>
+                    )
+                  })}
+                </p>
+              </div>
+            )}
+
             <div className={classes.exhibitionDates}>
               <p>{dateRange.display}</p>
             </div>

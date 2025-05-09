@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import { Metadata } from 'next'
 import ExhibitionDetails from '@/app/_components/ExhibitionDetails'
-
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string, slug: string) {
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       description: exhibition.meta?.description || '',
       images: [
         {
-          url: exhibition.image?.url || '',
+          url: getImageUrl(exhibition.image?.url || ''),
           alt: exhibition.title,
         },
       ],

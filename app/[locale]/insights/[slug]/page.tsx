@@ -7,6 +7,7 @@ import classes from './index.module.css'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { Metadata } from 'next'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string, slug: string) {
@@ -49,6 +50,20 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 
   const blogPost: Blogpost = pageData.docs[0]
+
+  // Extract the first media block from the layout, similar to what's done in BlogCard
+  const firstMediaBlock = blogPost.layout?.find(
+    block => block.blockType === 'mediaBlock' && block.media,
+  )
+
+  // Get the media URL
+  const mediaUrl =
+    firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media
+      ? typeof firstMediaBlock.media === 'string'
+        ? firstMediaBlock.media
+        : firstMediaBlock.media.url || ''
+      : ''
+
   return {
     title: blogPost.meta?.title || blogPost.title,
     description: blogPost.meta?.description || blogPost.summary,
@@ -56,13 +71,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     openGraph: {
       title: blogPost.meta?.title || blogPost.title || '',
       description: blogPost.meta?.description || blogPost.summary || '',
-      // images: [
-      //   {
-      //     url:
-      //       typeof blogPost.featuredImage !== 'string' ? (blogPost.featuredImage as Media).url : '',
-      //     alt: blogPost.title,
-      //   },
-      // ],
+      images: mediaUrl
+        ? [
+            {
+              url: getImageUrl(mediaUrl),
+              alt: blogPost.title || '',
+            },
+          ]
+        : [],
     },
   }
 }

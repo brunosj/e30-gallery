@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import ArtistPageClient from '@/components/ArtistPageClient'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import { Metadata } from 'next'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
 type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string, slug: string) {
@@ -73,7 +74,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         {
           url:
             typeof artist.relation.artworks !== 'string'
-              ? (artist.relation.artworks as Media).url || ''
+              ? getImageUrl((artist.relation.artworks as Media).url || '')
               : '',
           alt: artist.full_name,
         },
