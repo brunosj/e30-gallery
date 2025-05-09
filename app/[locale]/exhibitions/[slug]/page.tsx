@@ -9,8 +9,8 @@ type Params = Promise<{ locale: string; slug: string }>
 
 async function getData(locale: string, slug: string) {
   const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?where[slug][equals]=${slug}&locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=2&limit=0`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?where[slug][equals]=${slug}&locale=${locale}&depth=3`,
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/exhibition?locale=${locale}&depth=3&limit=0`,
   ]
 
   const fetchPromises = urls.map(url =>
