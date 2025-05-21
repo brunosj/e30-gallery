@@ -43,11 +43,14 @@
 
 
 .list {
-  column-count: 2; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--base-25);
 }
 
 .list li {
-  margin-bottom:var(--base-50);
+  margin-bottom: 0;
+  color: var(--color-black);
 }
 
 .list button  {
@@ -103,8 +106,8 @@
     gap:var(--base-300);
   }
 
-  .list {
-    column-count: 1; 
+  .list li {
+    width: 100%;
   }
 
   
@@ -114,7 +117,7 @@
 
   
   .list {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .list > * + * {
