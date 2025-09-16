@@ -11,7 +11,7 @@ import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import classes from './index.module.css'
 import { set, throttle } from 'lodash'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeInVariants } from '@/app/_utilities/animationVariants'
 
 export function Header() {

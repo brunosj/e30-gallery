@@ -4,12 +4,10 @@ import React, { useRef } from 'react'
 import type { Exhibition } from '@/app/payload-types'
 import Image from 'next/image'
 import classes from './index.module.css'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, Variants } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { Link } from '@/i18n/navigation'
-import { RichText } from '@/components/RichText'
-import { LinkObject } from '@/app/types'
 
 type Props = {
   data: Exhibition
@@ -45,7 +43,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
 
   const dateDisplay = `${formattedBegin} ${beginYear !== endYear ? beginYear : ''} - ${formattedEnd} ${endYear}`
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   }

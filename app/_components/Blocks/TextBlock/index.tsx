@@ -2,7 +2,7 @@
 
 import type { TextBlock } from '@/app/payload-types'
 import { RichText } from '@/components/RichText'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeInVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 

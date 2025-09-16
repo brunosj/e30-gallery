@@ -8,7 +8,7 @@ import {
   slideInFromLeftVariants,
   clipPathVariants,
 } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import cn from 'classnames'
 
 type Props = {

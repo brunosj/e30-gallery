@@ -6,7 +6,7 @@ import Chevron from '@/components/SVG/Chevron'
 import { Link } from '@/i18n/navigation'
 
 import { fadeInVariants } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 import classes from './index.module.css'
 

@@ -2,7 +2,7 @@
 
 import type { ReachOut } from '@/app/payload-types'
 import { useEffect, useRef } from 'react'
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { motion, useAnimation, useInView } from 'motion/react'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import Chevron from '@/components/SVG/Chevron'

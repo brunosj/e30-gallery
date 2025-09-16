@@ -10,7 +10,7 @@ import { Button } from '@/components/Button'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import cn from 'classnames'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import {

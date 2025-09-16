@@ -9,7 +9,7 @@ import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { LinkObject } from '@/app/types'
 type Props = {
   data: GalleryPage

@@ -4,7 +4,7 @@ import type { GalleryPage } from '@/app/payload-types'
 
 import Image from 'next/image'
 import { RichText } from '../RichText'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import {
   fadeInVariants,
   slideInFromLeftVariants,

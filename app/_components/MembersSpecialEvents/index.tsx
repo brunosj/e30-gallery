@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { RichText } from '../RichText'
 import type { MembersOnlyPage } from '@/app/payload-types'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import {
   fadeInVariants,
   slideInFromLeftVariants,

@@ -1,6 +1,6 @@
-import { Variants } from 'framer-motion'
+import { Variants } from 'motion'
 
-export const textVariants = {
+export const textVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 15,
@@ -15,7 +15,7 @@ export const textVariants = {
   },
 }
 
-export const clipPathVariants = {
+export const clipPathVariants: Variants = {
   hidden: {
     transform: 'translate3d(0, 30%, 0)',
     clipPath: 'polygon(0% -100%, 100% -100%, 100% 0%, 0% 0%)',
@@ -34,7 +34,7 @@ export const clipPathVariants = {
   },
 }
 
-export const cardVariants = (index: number) => ({
+export const cardVariants = (index: number): Variants => ({
   hidden: {
     opacity: 0,
     y: 0,
@@ -52,7 +52,7 @@ export const cardVariants = (index: number) => ({
   },
 })
 
-export const cascadeVariants = (index: number) => ({
+export const cascadeVariants = (index: number): Variants => ({
   hidden: {
     opacity: 0,
     y: 0,
@@ -70,20 +70,16 @@ export const cascadeVariants = (index: number) => ({
   },
 })
 
-export const fadeInVariants = {
+export const fadeInVariants: Variants = {
   hidden: {
     opacity: 0,
   },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.75,
-      ease: 'easeOut',
-    },
   },
 }
 
-export const slideInFromLeftVariants = {
+export const slideInFromLeftVariants: Variants = {
   hidden: {
     opacity: 0,
     x: -100,
@@ -98,7 +94,7 @@ export const slideInFromLeftVariants = {
   },
 }
 
-export const slideInFromRightVariants = {
+export const slideInFromRightVariants: Variants = {
   hidden: {
     opacity: 0,
     x: 100,
@@ -136,7 +132,7 @@ export const gradientVariants: Variants = {
   },
 }
 
-export const backgroundVariants = {
+export const backgroundVariants: Variants = {
   initial: {
     backgroundColor: 'var(--color-black)',
     transition: {

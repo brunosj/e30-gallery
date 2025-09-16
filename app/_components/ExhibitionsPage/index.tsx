@@ -7,7 +7,7 @@ import type { Exhibition } from '@/app/payload-types'
 import { LatestExhibition } from '@/components/LatestExhibition'
 import { ExhibitionCard } from '@/components/ExhibitionCard'
 import ArrowScroll from '@/components/SVG/ArrowScroll'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { fadeInVariants } from '@/utilities/animationVariants'
 
 import classes from './index.module.css'

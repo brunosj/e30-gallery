@@ -8,7 +8,7 @@ import cn from 'classnames'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
 import { LinkObject } from '@/app/types'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'

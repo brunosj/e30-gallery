@@ -8,7 +8,7 @@ import { DotButton, useDotButton } from './DotButtons'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArtistListingCard } from '../ArtistListingCard'
 import { fadeInVariants } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 type PropType = {
   slides: Artist[]

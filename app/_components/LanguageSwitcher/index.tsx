@@ -5,9 +5,9 @@ import { useRouter } from '@/i18n/routing'
 import { useSearchParams, useParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import classes from './index.module.css'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'motion/react'
 
-const fadeInVariants = {
+const fadeInVariants: Variants = {
   hidden: {
     opacity: 0,
   },

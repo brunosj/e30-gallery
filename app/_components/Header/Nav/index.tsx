@@ -9,7 +9,7 @@ import classes from './index.module.css'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
 import { RiseLoader } from 'react-spinners'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
 import type { LinkObject } from '@/app/types'
 export const HeaderNav: React.FC = () => {

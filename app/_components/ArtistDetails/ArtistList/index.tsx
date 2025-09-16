@@ -2,11 +2,10 @@
 
 import React from 'react'
 import { Link } from '@/i18n/navigation'
-
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import { useTranslations } from 'next-intl'
-import { m, motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'

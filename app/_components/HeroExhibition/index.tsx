@@ -9,7 +9,7 @@ import classes from './index.module.css'
 import Chevron from '@/components/SVG/Chevron'
 import { createExhibitionLink } from '@/app/_utilities/linkObjects'
 import { RichText } from '@/components/RichText'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import {
   fadeInVariants,
   slideInFromLeftVariants,

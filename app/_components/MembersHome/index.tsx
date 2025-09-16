@@ -4,7 +4,7 @@ import { RichText } from '../RichText'
 import type { MembersOnlyPage } from '@/app/payload-types'
 import classes from './index.module.css'
 import { getTextJustificationClass } from '@/utilities/geTextJustification'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'motion/react'
 import cn from 'classnames'
 import {
   fadeInVariants,

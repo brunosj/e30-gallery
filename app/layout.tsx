@@ -1,10 +1,8 @@
 import localFont from 'next/font/local'
-import { setRequestLocale, getMessages } from 'next-intl/server'
 import type { Viewport } from 'next'
 import PlausibleProvider from 'next-plausible'
+import { getLocale } from 'next-intl/server'
 import './_css/app.css'
-
-type Params = Promise<{ locale: string }>
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -19,15 +17,8 @@ const hanken = localFont({
   weight: '1 1000',
 })
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: Params
-}) {
-  const { locale } = await params
-  setRequestLocale(locale)
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale()
 
   return (
     <html lang={locale} className={`${hanken.className}`}>

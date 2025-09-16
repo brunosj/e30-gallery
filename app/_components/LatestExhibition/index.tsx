@@ -14,7 +14,7 @@ import {
   slideInFromLeftVariants,
   slideInFromRightVariants,
 } from '@/utilities/animationVariants'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { formatDate, formatDateRange } from '@/app/_utilities/formatDate'

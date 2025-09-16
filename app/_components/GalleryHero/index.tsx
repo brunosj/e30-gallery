@@ -5,13 +5,8 @@ import type { GalleryPage } from '@/app/payload-types'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { RichText } from '../RichText'
-import {
-  clipPathVariants,
-  fadeInVariants,
-  slideInFromLeftVariants,
-  slideInFromRightVariants,
-} from '@/utilities/animationVariants'
-import { m, motion } from 'framer-motion'
+import { slideInFromLeftVariants } from '@/utilities/animationVariants'
+import { motion } from 'motion/react'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'

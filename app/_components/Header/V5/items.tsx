@@ -8,7 +8,7 @@ import { HeaderNav } from '@/components/Header/Nav'
 import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import classes from './index.module.css'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 export const MenuItems = ({}) => {
   return (

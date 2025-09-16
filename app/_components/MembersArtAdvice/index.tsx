@@ -5,7 +5,7 @@ import type { MembersOnlyPage } from '@/app/payload-types'
 import classes from './index.module.css'
 import { getTextJustificationClass } from '@/utilities/geTextJustification'
 import { Button } from '@/components/Button'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'motion/react'
 import {
   fadeInVariants,
   cardVariants,

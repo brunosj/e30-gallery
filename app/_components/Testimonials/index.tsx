@@ -2,7 +2,7 @@
 
 import type { ArtSocietyPage, Testimonial } from '@/app/payload-types'
 import TestimonialCarousel from '@/components//TestimonialCarousel/TestimonialCarousel'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { clipPathVariants, fadeInVariants } from '@/app/_utilities/animationVariants'
 import cn from 'classnames'
 import classes from './index.module.css'

@@ -11,8 +11,6 @@ import ArrowRight from '@/components/SVG/ArrowRight'
 import cn from 'classnames'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { RiseLoader } from 'react-spinners'
-import { Button } from '@/app/_components/Button'
-import { div } from 'framer-motion/client'
 
 type Props = {
   artist: Artist

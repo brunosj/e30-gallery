@@ -4,13 +4,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Artist, Artwork } from '@/app/payload-types'
 import { useTranslations } from 'next-intl'
-import { m, motion } from 'framer-motion'
-import {
-  fadeInVariants,
-  cascadeVariants,
-  slideInFromLeftVariants,
-  slideInFromRightVariants,
-} from '@/utilities/animationVariants'
+import { motion, Variants } from 'motion/react'
+import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
@@ -24,7 +19,7 @@ type Props = {
   handleMouseLeave: () => void
 }
 
-const anim = {
+const anim: Variants = {
   initial: { width: 0 },
   open: { width: 'auto', transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] } },
   closed: { width: 0 },

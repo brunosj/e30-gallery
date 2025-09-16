@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import classes from './index.module.css'
 
 export const MenuToggle = ({ toggle }: { toggle: () => void }) => (

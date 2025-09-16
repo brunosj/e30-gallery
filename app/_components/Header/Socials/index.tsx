@@ -7,11 +7,11 @@ import { Link } from '@/i18n/navigation'
 
 import Insta from '@/components/SVG/Insta'
 import Maps from '@/components/SVG/Maps'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'motion/react'
 import classes from './index.module.css'
 import { delay } from 'lodash'
 
-const fadeInVariants = {
+const fadeInVariants: Variants = {
   hidden: {
     opacity: 0,
   },

@@ -2,7 +2,7 @@
 
 import type { ReachOut } from '@/app/payload-types'
 import { useEffect, useRef, useState } from 'react'
-import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
+import { motion, useAnimation, useInView, useScroll } from 'motion/react'
 import { fadeInVariants, backgroundVariants } from '@/app/_utilities/animationVariants'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
