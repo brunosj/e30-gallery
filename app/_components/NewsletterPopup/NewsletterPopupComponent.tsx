@@ -23,7 +23,7 @@ const NewsletterPopupComponent = ({
 
   useEffect(() => {
     // Check if popup has been shown before
-    const hasSeenPopup = localStorage.getItem('hasSeenNewsletterPopup')
+    const hasSeenPopup = sessionStorage.getItem('hasSeenNewsletterPopup')
 
     // Only show popup if it hasn't been shown before
     if (!hasSeenPopup) {
@@ -40,7 +40,7 @@ const NewsletterPopupComponent = ({
 
   useEffect(() => {
     // Only add scroll listener if triggerOnScroll is true and popup hasn't been shown
-    if (triggerOnScroll && !localStorage.getItem('hasSeenNewsletterPopup')) {
+    if (triggerOnScroll && !sessionStorage.getItem('hasSeenNewsletterPopup')) {
       const handleScroll = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop
         const scrollHeight = document.documentElement.scrollHeight
@@ -95,8 +95,8 @@ const NewsletterPopupComponent = ({
 
   const closePopup = () => {
     setIsOpen(false)
-    // Store in localStorage that user has seen the popup
-    localStorage.setItem('hasSeenNewsletterPopup', 'true')
+    // Store in sessionStorage that user has seen the popup
+    sessionStorage.setItem('hasSeenNewsletterPopup', 'true')
   }
 
   if (!isOpen) return null
