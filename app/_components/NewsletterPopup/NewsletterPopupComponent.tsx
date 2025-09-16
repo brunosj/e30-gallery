@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import NewsletterEmbed from '../NewsletterEmbed'
+import type { NewsletterPopup, NewsletterPage } from '@/app/payload-types'
 import classes from './index.module.css'
 
 type Props = {
@@ -20,56 +21,72 @@ const NewsletterPopupComponent = ({
   const [isOpen, setIsOpen] = useState(false)
   const popupWrapperRef = useRef<HTMLDivElement>(null)
 
-  const hasSeenThisSession = () => {
-    return sessionStorage.getItem('hasSeenNewsletterPopupSession') === 'true'
-  }
-
   useEffect(() => {
-    if (!triggerOnScroll && !hasSeenThisSession()) {
-      const timer = setTimeout(() => {
-        setIsOpen(true)
-      }, delayInSeconds * 1000)
+    // Check if popup has been shown before
+    const hasSeenPopup = localStorage.getItem('hasSeenNewsletterPopup')
 
-      return () => clearTimeout(timer)
+    // Only show popup if it hasn't been shown before
+    if (!hasSeenPopup) {
+      if (!triggerOnScroll) {
+        // Set a timeout to show popup after page loads
+        const timer = setTimeout(() => {
+          setIsOpen(true)
+        }, delayInSeconds * 1000)
+
+        return () => clearTimeout(timer)
+      }
     }
   }, [triggerOnScroll, delayInSeconds])
 
   useEffect(() => {
-    if (triggerOnScroll && !hasSeenThisSession()) {
+    // Only add scroll listener if triggerOnScroll is true and popup hasn't been shown
+    if (triggerOnScroll && !localStorage.getItem('hasSeenNewsletterPopup')) {
       const handleScroll = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop
         const scrollHeight = document.documentElement.scrollHeight
         const clientHeight = document.documentElement.clientHeight
+
+        // Calculate percentage scrolled correctly
         const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100
 
+        // Show popup when user scrolls past the specified percentage
         if (scrolled >= scrollPercentage) {
           setIsOpen(true)
+          // Remove scroll listener once popup is triggered
           window.removeEventListener('scroll', handleScroll)
         }
       }
 
+      // Check scroll position immediately in case page is already scrolled
       handleScroll()
+
       window.addEventListener('scroll', handleScroll)
       return () => window.removeEventListener('scroll', handleScroll)
     }
   }, [triggerOnScroll, scrollPercentage])
 
   useEffect(() => {
+    // Add event listener for escape key
     const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closePopup()
+      if (event.key === 'Escape') {
+        closePopup()
+      }
     }
 
+    // Handle clicks outside the popup
     const handleClickOutside = (event: MouseEvent) => {
       if (popupWrapperRef.current && !popupWrapperRef.current.contains(event.target as Node)) {
         closePopup()
       }
     }
 
+    // Only add the event listeners if the popup is open
     if (isOpen) {
       document.addEventListener('keydown', handleEscKey)
       document.addEventListener('mousedown', handleClickOutside)
     }
 
+    // Cleanup function
     return () => {
       document.removeEventListener('keydown', handleEscKey)
       document.removeEventListener('mousedown', handleClickOutside)
@@ -78,8 +95,8 @@ const NewsletterPopupComponent = ({
 
   const closePopup = () => {
     setIsOpen(false)
-    // Mark popup as seen for this session
-    sessionStorage.setItem('hasSeenNewsletterPopupSession', 'true')
+    // Store in localStorage that user has seen the popup
+    localStorage.setItem('hasSeenNewsletterPopup', 'true')
   }
 
   if (!isOpen) return null
@@ -104,6 +121,7 @@ const NewsletterPopupComponent = ({
             </svg>
           </button>
 
+          {/* Newsletter embed component */}
           <NewsletterEmbed code={code} />
         </div>
       </div>
