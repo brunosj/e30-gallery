@@ -22,7 +22,7 @@ const NewsletterPopupComponent = ({
   const popupWrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Check if popup has been shown before
+    // Check if popup has been shown before (only for popup, not embed)
     const hasSeenPopup = sessionStorage.getItem('hasSeenNewsletterPopup')
 
     // Only show popup if it hasn't been shown before
@@ -95,7 +95,7 @@ const NewsletterPopupComponent = ({
 
   const closePopup = () => {
     setIsOpen(false)
-    // Store in sessionStorage that user has seen the popup
+    // Store in sessionStorage that user has seen the popup (only affects popup, not embed)
     sessionStorage.setItem('hasSeenNewsletterPopup', 'true')
   }
 
