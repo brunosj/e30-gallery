@@ -77,5 +77,10 @@
     "past": "Past",
     "artists_category": "Artists",
     "behind_the_scenes": "Behind the Scenes",
-    "art_market": "Art Market"
+    "art_market": "Art Market",
+    "newsletterSignup": "Newsletter Signup",
+    "adblockerMessage": "It looks like an adblocker is preventing our newsletter form from loading.",
+    "visitNewsletterPage": "visit our newsletter page",
+    "adblockerInstructionsBefore": "Please disable your adblocker or",
+    "adblockerInstructionsAfter": "to subscribe."
 }

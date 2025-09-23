@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   code: string
@@ -16,7 +17,20 @@ declare global {
 }
 
 const NewsletterEmbed = ({ code }: Props) => {
+  const t = useTranslations()
   const formRef = useRef<HTMLDivElement>(null)
+  const [isBlocked, setIsBlocked] = useState(false)
+
+  // Detect if adblocker is blocking MailerLite
+  useEffect(() => {
+    const checkBlocked = setTimeout(() => {
+      if (formRef.current && !formRef.current.innerHTML.trim()) {
+        setIsBlocked(true)
+      }
+    }, 2000) // Check after 3 seconds
+
+    return () => clearTimeout(checkBlocked)
+  }, [])
 
   useEffect(() => {
     if (!code || !formRef.current) return
@@ -112,10 +126,37 @@ const NewsletterEmbed = ({ code }: Props) => {
     }
   }, [code])
 
+  if (isBlocked) {
+    return (
+      <div
+        style={{
+          padding: '20px',
+          // border: '1px solid #ddd',
+          // borderRadius: '4px',
+          textAlign: 'center',
+        }}
+      >
+        <h3>{t('newsletterSignup')}</h3>
+        <p>{t('adblockerMessage')}</p>
+        <p>
+          {t('adblockerInstructionsBefore')}{' '}
+          <a href="/newsletter" style={{ color: '#0066cc' }}>
+            {t('visitNewsletterPage')}
+          </a>{' '}
+          {t('adblockerInstructionsAfter')}
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div>
-      {/* MailerLite Form Container */}
-      <div ref={formRef} className="ml-embedded" data-form="ylMNsi"></div>
+      {/* Newsletter Form Container - using generic classes to avoid adblocker detection */}
+      <div
+        ref={formRef}
+        className="newsletter-form embedded-form ml-embedded"
+        data-form="ylMNsi"
+      ></div>
     </div>
   )
 }
