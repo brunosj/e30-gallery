@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-
+import { Link } from '@/i18n/navigation'
 type Props = {
   code: string
 }
@@ -140,9 +140,9 @@ const NewsletterEmbed = ({ code }: Props) => {
         <p>{t('adblockerMessage')}</p>
         <p>
           {t('adblockerInstructionsBefore')}{' '}
-          <a href="/newsletter" style={{ color: '#0066cc' }}>
+          <Link href={'/newsletter' as any} style={{ color: '#0066cc' }}>
             {t('visitNewsletterPage')}
-          </a>{' '}
+          </Link>{' '}
           {t('adblockerInstructionsAfter')}
         </p>
       </div>
