@@ -1,0 +1,96 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 40vh;
+}
+
+.imageColumn {
+  position: relative;
+  aspect-ratio: 1/1;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.textOverlay {
+  position: absolute;
+  top: 66%; 
+  left: 0;
+  right: 0;
+  transform: translateY(-50%); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.richTextContent {
+  text-align: center;
+  padding: 0 var(--base-100);
+}
+
+.richTextContent h1,
+.richTextContent h2,
+.richTextContent h3 {
+  color: white;
+  margin-bottom: var(--base-50);
+}
+
+.richTextContent p {
+  color: white;
+  margin-bottom: var(--base-50);
+}
+
+.formColumn {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.formContainer {
+  width: 100%;
+  min-width: 600px;
+  padding: var(--base-200);
+}
+
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0rem;
+  }
+
+  .imageColumn {
+    padding-right: 6rem;
+  }
+
+  .image {
+    grid-column: span 2;
+    position: relative;
+    height: 100%;
+    margin: auto 0;
+  }
+
+  .textOverlay {
+    width: 80%;
+    margin: auto;
+  }
+  
+  .richTextContent {
+    padding: 0 var(--base-200);
+  }
+  
+  .formContainer {
+    min-width: 300px;
+    padding: var(--base-100);
+  }
+
+  .formColumn {
+    margin: var(--base-200) auto;
+  }
+}
+

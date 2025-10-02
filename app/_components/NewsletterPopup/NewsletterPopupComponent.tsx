@@ -2,18 +2,15 @@
 
 import { useEffect, useState, useRef } from 'react'
 import NewsletterEmbed from '../NewsletterEmbed'
-import type { NewsletterPopup, NewsletterPage } from '@/app/payload-types'
 import classes from './index.module.css'
 
 type Props = {
-  code: string
   triggerOnScroll?: boolean
   scrollPercentage?: number
   delayInSeconds?: number
 }
 
 const NewsletterPopupComponent = ({
-  code,
   triggerOnScroll = true,
   scrollPercentage = 30,
   delayInSeconds = 2,
@@ -122,7 +119,7 @@ const NewsletterPopupComponent = ({
           </button>
 
           {/* Newsletter embed component */}
-          <NewsletterEmbed code={code} />
+          <NewsletterEmbed />
         </div>
       </div>
     </div>

@@ -763,6 +763,7 @@ export interface NewsletterPage {
   success_message: {
     [k: string]: unknown
   }[]
+  image: Media
   /**
    * Paste the script code for the newsletter here, without the <script> tag. It should start with (function([rest of script here])); (make sure to include the semicolon at the end)
    */

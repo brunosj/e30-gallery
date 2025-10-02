@@ -1,0 +1,136 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap:var(--base-200)
+
+}
+
+
+
+.header {
+  margin-bottom: calc(var(--base) * 1.5);
+  text-align: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: var(--base-50);
+  color: var(--theme-text);
+}
+
+.subtitle {
+  color: var(--theme-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.form {
+  margin-bottom: var(--base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-100);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.checkboxGroup {
+  width: 100%;
+}
+
+.checkboxTitle {
+  font-weight: 500;
+  color: var(--theme-text);
+  margin-bottom: var(--base-50);
+  line-height: 1.4;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--base-50);
+  margin-bottom: calc(var(--base-50) / 2);
+  padding: calc(var(--base-50) / 2) 0;
+}
+
+.checkbox {
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  border: 1px solid var(--color-black);
+  border-radius: 3px;
+  background-color: var(--theme-bg);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.checkbox:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkbox:hover {
+  border-color: var(--color-accent);
+}
+
+.checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.checkboxLabel {
+  color: var(--theme-text);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.disclaimer {
+  font-size: 0.8rem;
+  color: var(--theme-text);
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.submit {
+  margin-top: calc(var(--base) / 2);
+}
+
+.message {
+  width: 100%;
+}
+
+/* Mobile responsiveness - matching existing forms */
+@media (max-width: 850px) {
+  .form {
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+}

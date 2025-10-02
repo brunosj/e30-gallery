@@ -47,7 +47,6 @@ export default async function NewsletterPopup({
   if (!data) return null
   return (
     <NewsletterPopupComponent
-      code={data.newsletter || ''}
       triggerOnScroll={triggerOnScroll}
       scrollPercentage={scrollPercentage}
       delayInSeconds={delayInSeconds}

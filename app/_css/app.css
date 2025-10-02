@@ -231,7 +231,7 @@ small {
 }
 
 .blueLink {
-  color: var(--color-blue-link);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
@@ -255,7 +255,7 @@ small {
 }
 
 .richTextHelpText a {
-  color: var(--color-blue-link);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 

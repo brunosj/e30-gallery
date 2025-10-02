@@ -8,15 +8,10 @@ import { useTranslations } from 'next-intl'
 import classes from './index.module.css'
 import Chevron from '@/components/SVG/Chevron'
 import { createExhibitionLink } from '@/app/_utilities/linkObjects'
-import { RichText } from '@/components/RichText'
 import { motion } from 'motion/react'
-import {
-  fadeInVariants,
-  slideInFromLeftVariants,
-  slideInFromRightVariants,
-} from '@/utilities/animationVariants'
+import { slideInFromRightVariants } from '@/utilities/animationVariants'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
-import { formatDate, formatDateRange } from '@/app/_utilities/formatDate'
+import { formatDateRange } from '@/app/_utilities/formatDate'
 
 type Props = {
   data: Exhibition[]

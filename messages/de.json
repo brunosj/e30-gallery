@@ -83,5 +83,19 @@
     "adblockerMessage": "Es scheint, als würde ein Adblocker das Laden unseres Newsletter-Formulars verhindern.",
     "visitNewsletterPage": "besuchen Sie unsere Newsletter-Seite",
     "adblockerInstructionsBefore": "Bitte deaktivieren Sie Ihren Adblocker oder",
-    "adblockerInstructionsAfter": ", um sich anzumelden."
+    "adblockerInstructionsAfter": ", um sich anzumelden.",
+    "joinOurNewsletter": "Melden Sie sich für unseren Newsletter an!",
+    "signUpForNews": "Melden Sie sich für Neuigkeiten und Einladungen zu besonderen Veranstaltungen an!",
+    "name": "Name",
+    "weWouldLoveToHear": "Wir würden gerne hören, was wir für Sie tun können!",
+    "showMeArt": "Zeigen Sie mir Kunst, mit der ich meine Sammlung erweitern kann!",
+    "tellMeWhere": "Sagen Sie mir, wo und wie ich beim Kunstkauf anfangen soll!",
+    "wantToJoin": "Ich möchte an Ihren Shows und Veranstaltungen teilnehmen!",
+    "justLooking": "Ahh, ich schaue nur mal rum!",
+    "unsubscribeAnytime": "Sie können sich jederzeit abmelden. Weitere Details finden Sie in unserem Impressum und unserer Datenschutzerklärung.",
+    "subscribe": "Abonnieren",
+    "subscribing": "Abonniere...",
+    "subscriptionError": "Beim Abonnieren ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "pleaseEnterName": "Bitte geben Sie Ihren Namen ein",
+    "pleaseEnterLastName": "Bitte geben Sie Ihren Nachnamen ein"
 }

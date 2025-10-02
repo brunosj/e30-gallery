@@ -82,5 +82,19 @@
     "adblockerMessage": "It looks like an adblocker is preventing our newsletter form from loading.",
     "visitNewsletterPage": "visit our newsletter page",
     "adblockerInstructionsBefore": "Please disable your adblocker or",
-    "adblockerInstructionsAfter": "to subscribe."
+    "adblockerInstructionsAfter": "to subscribe.",
+    "joinOurNewsletter": "Join our newsletter!",
+    "signUpForNews": "Sign up for news and invites to special events!",
+    "name": "Name",
+    "weWouldLoveToHear": "We would love to hear what we can do for you!",
+    "showMeArt": "Show me art I can grow my collection with!",
+    "tellMeWhere": "Tell me where and how to start when buying art!",
+    "wantToJoin": "I want to join your shows and events!",
+    "justLooking": "Ahh, just looking around!",
+    "unsubscribeAnytime": "You can unsubscribe anytime. For more details, review our Legal Notice and Privacy Policy.",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "subscriptionError": "There was an error subscribing. Please try again.",
+    "pleaseEnterName": "Please enter your name",
+    "pleaseEnterLastName": "Please enter your last name"
 }

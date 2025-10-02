@@ -1,7 +1,6 @@
 import type { NewsletterPage } from '@/app/payload-types'
 
-import NewsletterEmbed from '@/components/NewsletterEmbed'
-import { RichText } from '@/components/RichText'
+import { NewsletterHero } from '@/components/NewsletterHero'
 import { parseKeywords } from '@/utilities/parseKeywords'
 import { Metadata } from 'next'
 type Params = Promise<{ locale: string }>
@@ -54,12 +53,7 @@ export default async function Newsletter({ params }: { params: Params }) {
 
   return (
     <article>
-      <div className="container padding-y">
-        <RichText content={page.text} />
-        <div className="padding-y">
-          <NewsletterEmbed code={page.newsletter || ''} />
-        </div>
-      </div>
+      <NewsletterHero data={page} />
     </article>
   )
 }
