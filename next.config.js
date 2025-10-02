@@ -13,6 +13,7 @@ const allowedDomains = [
   'https://storage.mlcdn.com',
   'https://groot.mailerlite.com',
   'https://assets.mlcdn.com',
+  'https://connect.mailerlite.com',
   'https://player.vimeo.com',
   'https://www.youtube.com',
   'https://plausible.e30gallery.com',

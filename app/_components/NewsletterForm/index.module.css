@@ -33,7 +33,9 @@
   flex-direction: column;
   gap: var(--base-100);
   align-items: flex-start;
-  width: 100%;
+  width: 80%;
+  margin: auto;
+  flex-grow: 0;
 }
 
 .checkboxGroup {
