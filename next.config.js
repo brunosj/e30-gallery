@@ -9,7 +9,7 @@ const allowedDomains = [
   'https://art.kunstmatrix.com',
   'https://www.artworkarchive.com',
   'https://cdnjs.cloudflare.com',
-  'https://assets.mailerlite.com',
+  'https://*.mailerlite.com',
   'https://storage.mlcdn.com',
   'https://groot.mailerlite.com',
   'https://assets.mlcdn.com',
