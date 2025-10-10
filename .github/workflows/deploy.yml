@@ -33,20 +33,9 @@ jobs:
     if: failure()
 
     steps:
-    - name: Send Email
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: peacock.uberspace.de
-        server_port: 587
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
-        subject: GitHub Actions - Deploy E30 Frontend Failed
-        body: |
-          The GitHub Actions workflow 'Deploy E30 Frontend' has failed.
-          Repository: ${{ github.repository }}
-          Workflow: ${{ github.workflow }}
-          Job: ${{ github.job }}
-          Commit: ${{ github.sha }}
-          Author: ${{ github.actor }}
-        to: system@landozone.net
-        from: sender@landozone.net
+      - name: Notify via Resend
+        uses: brunosj/actions/resend-notify@v1
+        with:
+          subject: "GitHub Actions - Deploy E30 Gallery Failed"
+          resend_api_key: ${{ secrets.RESEND_API_KEY }}
+
