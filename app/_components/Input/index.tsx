@@ -26,7 +26,7 @@ export const Input: React.FC<Props> = ({
   type = 'text',
   validate,
 }) => {
-  const t = useTranslations('Common')
+  const t = useTranslations()
 
   return (
     <div className={classes.inputWrap}>

@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
@@ -24,6 +25,8 @@ export const NewsletterForm: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [preferences, setPreferences] = useState<string[]>([])
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<any>(null)
 
   const {
     register,
@@ -47,6 +50,13 @@ export const NewsletterForm: React.FC = () => {
       setLoading(true)
       setError(null)
 
+      // Check if Turnstile token is available
+      if (!turnstileToken) {
+        setError(t('pleaseCompleteCaptcha'))
+        setLoading(false)
+        return
+      }
+
       try {
         const response = await fetch('/api/newsletter/subscribe', {
           method: 'POST',
@@ -56,6 +66,7 @@ export const NewsletterForm: React.FC = () => {
           body: JSON.stringify({
             ...data,
             preferences,
+            turnstileToken,
           }),
         })
 
@@ -64,14 +75,24 @@ export const NewsletterForm: React.FC = () => {
         } else {
           const errorData = await response.json()
           setError(errorData.error || t('subscriptionError'))
+          // Reset Turnstile on error
+          if (turnstileRef.current) {
+            turnstileRef.current.reset()
+            setTurnstileToken(null)
+          }
         }
       } catch (error) {
         setError(t('subscriptionError'))
+        // Reset Turnstile on error
+        if (turnstileRef.current) {
+          turnstileRef.current.reset()
+          setTurnstileToken(null)
+        }
       } finally {
         setLoading(false)
       }
     },
-    [preferences, router, t],
+    [preferences, router, t, turnstileToken],
   )
 
   const submitButton = {
@@ -135,6 +156,22 @@ export const NewsletterForm: React.FC = () => {
         </div>
 
         <p className={classes.disclaimer}>{t('unsubscribeAnytime')}</p>
+
+        <div className={classes.turnstileContainer}>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={token => setTurnstileToken(token)}
+            onError={() => {
+              setTurnstileToken(null)
+              setError(t('captchaError'))
+            }}
+            onExpire={() => {
+              setTurnstileToken(null)
+              setError(t('captchaExpired'))
+            }}
+          />
+        </div>
 
         <Button link={submitButton} action="submit" />
 

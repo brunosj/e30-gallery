@@ -114,6 +114,13 @@
   opacity: 0.8;
 }
 
+.turnstileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: var(--base-100) 0;
+}
+
 .submit {
   margin-top: calc(var(--base) / 2);
 }

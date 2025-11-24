@@ -96,5 +96,8 @@
     "subscribing": "Subscribing...",
     "subscriptionError": "There was an error subscribing. Please try again.",
     "pleaseEnterName": "Please enter your name",
-    "pleaseEnterLastName": "Please enter your last name"
+    "pleaseEnterLastName": "Please enter your last name",
+    "pleaseCompleteCaptcha": "Please complete the security verification.",
+    "captchaError": "Security verification failed. Please try again.",
+    "captchaExpired": "Security verification expired. Please complete it again."
 }

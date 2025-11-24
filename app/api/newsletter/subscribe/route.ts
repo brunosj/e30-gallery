@@ -1,20 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// Function to verify Turnstile token
+async function verifyTurnstileToken(token: string): Promise<boolean> {
+  try {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        secret: process.env.TURNSTILE_SECRET_KEY!,
+        response: token,
+      }),
+    })
+
+    const data = await response.json()
+    return data.success === true
+  } catch (error) {
+    console.error('Turnstile verification error:', error)
+    return false
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log('Newsletter API called - Environment check:')
     console.log('MAILERLITE_BASE_URL:', process.env.MAILERLITE_BASE_URL)
     console.log('MAILERLITE_API_KEY exists:', !!process.env.MAILERLITE_API_KEY)
+    console.log('TURNSTILE_SECRET_KEY exists:', !!process.env.TURNSTILE_SECRET_KEY)
 
     const body = await request.json()
-    const { email, firstName, lastName, preferences } = body
+    const { email, firstName, lastName, preferences, turnstileToken } = body
 
-    console.log('Form data received:', { email, firstName, lastName, preferences })
+    console.log('Form data received:', {
+      email,
+      firstName,
+      lastName,
+      preferences,
+      turnstileToken: !!turnstileToken,
+    })
 
     // Validate required fields
     if (!email || !firstName || !lastName) {
       return NextResponse.json(
         { error: 'Email, first name, and last name are required' },
+        { status: 400 },
+      )
+    }
+
+    // Validate Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json({ error: 'CAPTCHA verification is required' }, { status: 400 })
+    }
+
+    // Verify Turnstile token
+    const isTurnstileValid = await verifyTurnstileToken(turnstileToken)
+    if (!isTurnstileValid) {
+      return NextResponse.json(
+        { error: 'CAPTCHA verification failed. Please try again.' },
         { status: 400 },
       )
     }

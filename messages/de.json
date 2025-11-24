@@ -97,5 +97,8 @@
     "subscribing": "Abonniere...",
     "subscriptionError": "Beim Abonnieren ist ein Fehler aufgetreten. Bitte versuche es erneut.",
     "pleaseEnterName": "Bitte gib deinen Namen ein",
-    "pleaseEnterLastName": "Bitte gib deinen Nachnamen ein"
+    "pleaseEnterLastName": "Bitte gib deinen Nachnamen ein",
+    "pleaseCompleteCaptcha": "Bitte vervollständige die Sicherheitsüberprüfung.",
+    "captchaError": "Sicherheitsüberprüfung fehlgeschlagen. Bitte versuche es erneut.",
+    "captchaExpired": "Sicherheitsüberprüfung abgelaufen. Bitte vervollständige sie erneut."
 }
