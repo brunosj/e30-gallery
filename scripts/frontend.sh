@@ -60,11 +60,11 @@ if ! check_app_status $DOMAIN; then
 	
 	# Navigate to the blue app directory and restart 
 	cd $BLUE_DIR || { echo 'Could not access blue app directory.' ; exit 1; }
-	pm2 start "pnpm run start" --name "blue" || { echo 'Failed to start blue app' ; exit 1; } 
+	pm2 start "$(which pnpm) run start" --name "blue" || { echo 'Failed to start blue app' ; exit 1; } 
 	
 	# Navigate to the green app directory and restart 
 	cd $GREEN_DIR || { echo 'Could not access green app directory.' ; exit 1; }
-	pm2 start "pnpm run start-green" --name "green" || { echo 'Failed to start green app' ; exit 1; } 
+	pm2 start "$(which pnpm) run start-green" --name "green" || { echo 'Failed to start green app' ; exit 1; } 
 	else 
 	echo "Domain is responding, no need to restart apps" 
 	fi
@@ -126,6 +126,25 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 nvm use 22.21.1 || { echo 'Could not switch to node version 22.21.1' ; exit 1; }
+
+# Set up pnpm path (for GitHub Actions and other environments)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# Verify pnpm is available
+if ! command -v pnpm &> /dev/null; then
+    echo "pnpm not found in PATH. Trying common locations..."
+    if [ -f "$HOME/.local/share/pnpm/pnpm" ]; then
+        export PATH="$HOME/.local/share/pnpm:$PATH"
+        echo "Found pnpm at $HOME/.local/share/pnpm/pnpm"
+    else
+        echo "ERROR: pnpm not found. Please install pnpm or update the PATH."
+        exit 1
+    fi
+fi
+
+echo "Using pnpm: $(which pnpm)"
+echo "pnpm version: $(pnpm --version)"
 
 # load the .env file
 source .env || { echo 'The ENV file does not exist' ; exit 1; }
@@ -190,9 +209,9 @@ else
     echo "Verifying .next directory: $(ls -la .next 2>/dev/null || echo 'NOT FOUND')"
     
     if [ "$DEPLOYING_TO_NAME" == "blue" ]; then
-        pm2 start "pnpm run start" --name "blue" --cwd "$(pwd)" || { echo 'Failed to start blue app' ; exit 1; }
+        pm2 start "$(which pnpm) run start" --name "blue" --cwd "$(pwd)" || { echo 'Failed to start blue app' ; exit 1; }
     elif [ "$DEPLOYING_TO_NAME" == "green" ]; then
-        pm2 start "pnpm run start-green" --name "green" --cwd "$(pwd)" || { echo 'Failed to start green app' ; exit 1; }
+        pm2 start "$(which pnpm) run start-green" --name "green" --cwd "$(pwd)" || { echo 'Failed to start green app' ; exit 1; }
     else
         echo "Unknown deployment target: $DEPLOYING_TO_NAME"
         exit 1
