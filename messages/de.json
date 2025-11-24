@@ -100,5 +100,7 @@
     "pleaseEnterLastName": "Bitte gib deinen Nachnamen ein",
     "pleaseCompleteCaptcha": "Bitte vervollständige die Sicherheitsüberprüfung.",
     "captchaError": "Sicherheitsüberprüfung fehlgeschlagen. Bitte versuche es erneut.",
-    "captchaExpired": "Sicherheitsüberprüfung abgelaufen. Bitte vervollständige sie erneut."
+    "captchaExpired": "Sicherheitsüberprüfung abgelaufen. Bitte vervollständige sie erneut.",
+    "tooManyRequests": "Zu viele Anfragen. Bitte versuche es später erneut.",
+    "disposableEmailNotAllowed": "Wegwerf-E-Mail-Adressen sind nicht erlaubt."
 }

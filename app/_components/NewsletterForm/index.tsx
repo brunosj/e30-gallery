@@ -17,6 +17,7 @@ type FormData = {
   firstName: string
   lastName: string
   preferences: string[]
+  website?: string // Honeypot field
 }
 
 export const NewsletterForm: React.FC = () => {
@@ -49,6 +50,13 @@ export const NewsletterForm: React.FC = () => {
     async (data: FormData) => {
       setLoading(true)
       setError(null)
+
+      // Check honeypot field (should be empty)
+      if (data.website) {
+        setError(t('subscriptionError'))
+        setLoading(false)
+        return
+      }
 
       // Check if Turnstile token is available
       if (!turnstileToken) {
@@ -134,6 +142,15 @@ export const NewsletterForm: React.FC = () => {
           register={register}
           error={errors.lastName}
           type="text"
+        />
+
+        {/* Honeypot field - hidden from users but bots often fill it */}
+        <input
+          type="text"
+          style={{ display: 'none' }}
+          tabIndex={-1}
+          autoComplete="off"
+          {...register('website')}
         />
 
         <div className={classes.checkboxGroup}>

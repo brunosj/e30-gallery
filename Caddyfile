@@ -1,0 +1,115 @@
+# Global options (must be first)
+{
+    # Email for Let's Encrypt
+    email contact@landozone.net
+    
+    # Enable the admin API (optional, for monitoring)
+    admin localhost:2019
+    
+    # Global log
+    log {
+        output file /var/log/caddy/access.log {
+            roll_size 100mb
+            roll_keep 10
+            roll_keep_for 720h
+        }
+        format json
+        level INFO
+    }
+}
+
+# Main domain with blue-green deployment
+e30gallery.com, www.e30gallery.com {
+    # Redirect www to non-www
+    @www host www.e30gallery.com
+    redir @www https://e30gallery.com{uri} permanent
+
+    # Blue-green deployment with health checks
+    reverse_proxy {
+        # Try blue first (port 5173), then green (port 5174)
+        to localhost:5173 localhost:5174
+        
+        # Health check configuration
+        health_uri /
+        health_interval 10s
+        health_timeout 5s
+        health_status 200
+        
+        # Load balancing method (first available)
+        lb_policy first
+        
+        # Fail timeout - how long to wait before retrying a failed backend
+        fail_duration 30s
+        
+        # Max fails before marking backend as down
+        max_fails 3
+        
+        # Headers for Next.js (only the necessary ones)
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+    }
+    
+    # Enable compression
+    encode gzip
+    
+    # Logging
+    log {
+        output file /var/log/caddy/e30gallery.log {
+            roll_size 100mb
+            roll_keep 5
+            roll_keep_for 720h
+        }
+        format json
+        level INFO
+    }
+}
+
+# CMS subdomain
+cms.e30gallery.com, www.cms.e30gallery.com {
+    # Redirect www to non-www for CMS
+    @www host www.cms.e30gallery.com
+    redir @www https://cms.e30gallery.com{uri} permanent
+    
+    reverse_proxy localhost:3000 {
+        # Headers for the CMS (only the necessary ones)
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+    }
+    
+    # Enable compression
+    encode gzip
+    
+    # Logging
+    log {
+        output file /var/log/caddy/cms.log {
+            roll_size 100mb
+            roll_keep 5
+            roll_keep_for 720h
+        }
+        format json
+        level INFO
+    }
+}
+
+# Plausible analytics subdomain
+plausible.e30gallery.com {
+    reverse_proxy localhost:8000 {
+        # Headers for Plausible (only the necessary ones)
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+    }
+    
+    # Enable compression
+    encode gzip
+    
+    # Logging
+    log {
+        output file /var/log/caddy/plausible.log {
+            roll_size 100mb
+            roll_keep 5
+            roll_keep_for 720h
+        }
+        format json
+        level INFO
+    }
+}

@@ -22,6 +22,41 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
   }
 }
 
+// Simple in-memory rate limiting (for production, use Redis or database)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour in milliseconds
+const RATE_LIMIT_MAX_ATTEMPTS = 3 // Max 3 attempts per hour
+
+// Common disposable email domains to block
+const DISPOSABLE_EMAIL_DOMAINS = [
+  '10minutemail.com',
+  'tempmail.org',
+  'guerrillamail.com',
+  'mailinator.com',
+  'yopmail.com',
+  'temp-mail.org',
+  'throwaway.email',
+  'getnada.com',
+]
+
+function checkRateLimit(clientIP: string): boolean {
+  const now = Date.now()
+  const clientData = rateLimitMap.get(clientIP)
+
+  if (!clientData || now > clientData.resetTime) {
+    // Reset or initialize
+    rateLimitMap.set(clientIP, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
+    return true
+  }
+
+  if (clientData.count >= RATE_LIMIT_MAX_ATTEMPTS) {
+    return false
+  }
+
+  clientData.count++
+  return true
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log('Newsletter API called - Environment check:')
@@ -30,7 +65,7 @@ export async function POST(request: NextRequest) {
     console.log('TURNSTILE_SECRET_KEY exists:', !!process.env.TURNSTILE_SECRET_KEY)
 
     const body = await request.json()
-    const { email, firstName, lastName, preferences, turnstileToken } = body
+    const { email, firstName, lastName, preferences, turnstileToken, website } = body
 
     console.log('Form data received:', {
       email,
@@ -38,7 +73,26 @@ export async function POST(request: NextRequest) {
       lastName,
       preferences,
       turnstileToken: !!turnstileToken,
+      honeypotFilled: !!website,
     })
+
+    // Check honeypot field (should be empty)
+    if (website) {
+      console.log('Honeypot triggered - potential bot detected')
+      return NextResponse.json({ error: 'Invalid submission' }, { status: 400 })
+    }
+
+    // Rate limiting
+    const clientIP =
+      request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+
+    if (!checkRateLimit(clientIP)) {
+      console.log(`Rate limit exceeded for IP: ${clientIP}`)
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 },
+      )
+    }
 
     // Validate required fields
     if (!email || !firstName || !lastName) {
@@ -66,6 +120,16 @@ export async function POST(request: NextRequest) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
+    }
+
+    // Check for disposable email domains
+    const emailDomain = email.split('@')[1]?.toLowerCase()
+    if (emailDomain && DISPOSABLE_EMAIL_DOMAINS.includes(emailDomain)) {
+      console.log(`Disposable email detected: ${emailDomain}`)
+      return NextResponse.json(
+        { error: 'Disposable email addresses are not allowed' },
+        { status: 400 },
+      )
     }
 
     // Prepare subscriber data for MailerLite with individual preference fields
