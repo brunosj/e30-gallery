@@ -17,6 +17,8 @@ const allowedDomains = [
   'https://player.vimeo.com',
   'https://www.youtube.com',
   'https://plausible.e30gallery.com',
+  'https://challenges.cloudflare.com',
+  'https://*.cloudflare.com',
   ...(isDevelopment ? ['http://localhost:3000', 'http://localhost:5173'] : []),
 ]
 
