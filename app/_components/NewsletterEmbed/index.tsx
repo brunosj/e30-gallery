@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { Turnstile } from '@marsidev/react-turnstile'
 import Logo from '@/public/E30_logo.png'
 import { Button } from '@/components/Button'
 
@@ -21,9 +22,12 @@ const NewsletterEmbed = ({ code }: Props) => {
     firstName: '',
     lastName: '',
     preferences: [] as string[],
+    website: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<any>(null)
 
   const preferenceOptions = [
     { key: 'showMeArt', label: t('showMeArt') },
@@ -43,12 +47,10 @@ const NewsletterEmbed = ({ code }: Props) => {
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
-    console.log('Checkbox changed:', { value, checked }) // Debug log
     setFormData(prev => {
       const newPreferences = checked
         ? [...prev.preferences, value]
         : prev.preferences.filter(pref => pref !== value)
-      console.log('New preferences:', newPreferences) // Debug log
       return {
         ...prev,
         preferences: newPreferences,
@@ -73,6 +75,10 @@ const NewsletterEmbed = ({ code }: Props) => {
       newErrors.lastName = t('pleaseEnterLastName')
     }
 
+    if (!turnstileToken) {
+      newErrors.submit = t('pleaseCompleteCaptcha')
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -84,16 +90,29 @@ const NewsletterEmbed = ({ code }: Props) => {
       return
     }
 
+    if (formData.website) {
+      setErrors({ submit: t('subscriptionError') })
+      return
+    }
+
     setIsSubmitting(true)
 
+    const { email, firstName, lastName, preferences, website } = formData
+
     try {
-      console.log('Submitting form data:', formData) // Debug log
       const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          email,
+          firstName,
+          lastName,
+          preferences,
+          website,
+          turnstileToken,
+        }),
       })
 
       if (response.ok) {
@@ -101,9 +120,13 @@ const NewsletterEmbed = ({ code }: Props) => {
       } else {
         const errorData = await response.json()
         setErrors({ submit: errorData.error || t('subscriptionError') })
+        turnstileRef.current?.reset()
+        setTurnstileToken(null)
       }
     } catch (error) {
       setErrors({ submit: t('subscriptionError') })
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
     } finally {
       setIsSubmitting(false)
     }
@@ -167,6 +190,17 @@ const NewsletterEmbed = ({ code }: Props) => {
           {errors.lastName && <span className={classes.error}>{errors.lastName}</span>}
         </div>
 
+        <input
+          type="text"
+          name="website"
+          value={formData.website}
+          onChange={handleInputChange}
+          style={{ display: 'none' }}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+        />
+
         <div className={classes.checkboxGroup}>
           <p className={classes.checkboxTitle}>{t('weWouldLoveToHear')}</p>
           {preferenceOptions.map(option => (
@@ -187,6 +221,22 @@ const NewsletterEmbed = ({ code }: Props) => {
         </div>
 
         <p className={classes.disclaimer}>{t('unsubscribeAnytime')}</p>
+
+        <div className={classes.turnstileContainer}>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={token => setTurnstileToken(token)}
+            onError={() => {
+              setTurnstileToken(null)
+              setErrors(prev => ({ ...prev, submit: t('captchaError') }))
+            }}
+            onExpire={() => {
+              setTurnstileToken(null)
+              setErrors(prev => ({ ...prev, submit: t('captchaExpired') }))
+            }}
+          />
+        </div>
 
         {errors.submit && <div className={classes.submitError}>{errors.submit}</div>}
 

@@ -175,6 +175,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode; api?: 'rest' | 
   )
 }
 
-type UseAuth<T = User> = () => AuthContext // eslint-disable-line no-unused-vars
+type UseAuth<T = User> = () => AuthContext  
 
 export const useAuth: UseAuth = () => useContext(Context)

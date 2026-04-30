@@ -2,6 +2,8 @@ const { withPlausibleProxy } = require('next-plausible')
 const createNextIntlPlugin = require('next-intl/plugin')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
+const plausibleSrc =
+  process.env.NEXT_PUBLIC_PLAUSIBLE_SRC || 'https://plausible.e30gallery.com/js/script.js'
 
 const allowedDomains = [
   process.env.NEXT_PUBLIC_PAYLOAD_URL,
@@ -46,7 +48,7 @@ const withNextIntl = createNextIntlPlugin()
 const withPlugins = config => {
   // First apply the base config to withPlausibleProxy
   const withPlausible = withPlausibleProxy({
-    customDomain: 'https://plausible.e30gallery.com',
+    src: plausibleSrc,
   })(config)
 
   // Then apply withNextIntl to the result
@@ -90,6 +92,12 @@ const nextConfig = {
     ]
   },
   images: {
+    localPatterns: [
+      {
+        pathname: '/E30_logo.png',
+        search: '?v=1',
+      },
+    ],
     remotePatterns: [
       {
         protocol: 'https',

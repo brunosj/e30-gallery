@@ -7,7 +7,7 @@ import { Link } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
 
 import classes from './index.module.css'
-// eslint-disable-next-line no-use-before-define
+ 
 type Children = Leaf[]
 
 type DocValue = {

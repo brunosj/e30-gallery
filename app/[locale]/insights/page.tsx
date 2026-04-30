@@ -5,7 +5,7 @@ import NewsletterPopup from '@/components/NewsletterPopup'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { parseKeywords } from '@/utilities/parseKeywords'
-type Params = Promise<{ locale: string; slug: string }>
+type Params = Promise<{ locale: string }>
 
 async function getData(locale: string) {
   const urls = [

@@ -149,6 +149,13 @@
   margin-top: 0.5rem;
 }
 
+.turnstileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
 .submitError {
   background-color: #f8d7da;
   color: #721c24;

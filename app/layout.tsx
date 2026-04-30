@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} className={`${hanken.className}`}>
       <body className="relative">
-        <PlausibleProvider domain="e30gallery.com">{children}</PlausibleProvider>
+        <PlausibleProvider>{children}</PlausibleProvider>
       </body>
     </html>
   )
