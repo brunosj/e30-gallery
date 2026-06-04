@@ -5,9 +5,16 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 const plausibleSrc =
   process.env.NEXT_PUBLIC_PLAUSIBLE_SRC || 'https://plausible.e30gallery.com/js/script.js'
 
-const allowedDomains = [
+const productionOrigins = ['https://e30gallery.com', 'https://cms.e30gallery.com']
+
+const uniqueAllowedDomains = domains =>
+  [...new Set(domains.filter(domain => typeof domain === 'string' && domain.length > 0))]
+
+const allowedDomains = uniqueAllowedDomains([
   process.env.NEXT_PUBLIC_PAYLOAD_URL,
   process.env.NEXT_PUBLIC_FRONTEND_URL,
+  process.env.NEXT_PUBLIC_SITE_URL,
+  ...productionOrigins,
   'https://art.kunstmatrix.com',
   'https://www.artworkarchive.com',
   'https://cdnjs.cloudflare.com',
@@ -22,7 +29,13 @@ const allowedDomains = [
   'https://challenges.cloudflare.com',
   'https://*.cloudflare.com',
   ...(isDevelopment ? ['http://localhost:3000', 'http://localhost:5173'] : []),
-]
+])
+
+const corsAllowOrigin = isDevelopment
+  ? '*'
+  : process.env.NEXT_PUBLIC_FRONTEND_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    'https://e30gallery.com'
 
 const cspHeader = `
     default-src 'self';
@@ -100,7 +113,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: isDevelopment ? '*' : process.env.NEXT_PUBLIC_FRONTEND_URL,
+            value: corsAllowOrigin,
           },
           {
             key: 'Access-Control-Allow-Methods',

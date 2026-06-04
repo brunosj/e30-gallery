@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
+import { artistDetailHref, exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
 import { Link, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import type { Exhibition, Artist } from '@/app/payload-types'
@@ -126,7 +126,7 @@ const ExhibitionDetails: React.FC<Props> = ({
                         {index > 0 && <span>, </span>}
                         {artistSlug ? (
                           <Link
-                            href={`/artists/${artistSlug}` as any}
+                            href={artistDetailHref(artistSlug)}
                             className={classes.artistLink}
                           >
                             {artistName}

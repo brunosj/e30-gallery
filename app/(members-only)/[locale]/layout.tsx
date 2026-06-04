@@ -13,6 +13,8 @@ import { routing } from '@/i18n/routing'
 
 import classes from './index.module.css'
 
+export const dynamic = 'force-dynamic'
+
 type LayoutParams = Promise<{ locale: string }>
 
 export async function generateMetadata({ params }: { params: LayoutParams }): Promise<Metadata> {

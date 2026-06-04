@@ -9,6 +9,8 @@ import { CreateAccountForm } from './CreateAccountForm'
 import classes from './index.module.css'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 type Params = Promise<{ locale: string }>
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {

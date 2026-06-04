@@ -3,6 +3,7 @@ import { cache } from 'react'
 import ArtistDetailsV2 from '@/components/ArtistDetails'
 import { ArtistPageHero } from '@/app/_components/ArtistPageHero'
 import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
+import { setRequestLocale } from 'next-intl/server'
 
 type Params = Promise<{ locale: string }>
 
@@ -21,6 +22,7 @@ const getData = cache(async (locale: string) => {
 
 export default async function ArtistsPage({ params }: { params: Params }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const { pageData, artistData } = await getData(locale)
   const page: ArtistsPage = pageData.docs[0]
 

@@ -12,10 +12,15 @@ import Providers from '@/providers/Providers'
 import { StructuredData } from '@/app/_components/StructuredData'
 import { fetchMenu } from '@/app/_utilities/fetchMenu'
 import { fetchSocials } from '@/app/_utilities/fetchSocials'
+import { generateLocaleParams } from '@/app/_utilities/staticParams'
 
 import classes from './index.module.css'
 
 export const metadata: Metadata = siteDefaults
+
+export function generateStaticParams() {
+  return generateLocaleParams()
+}
 
 export default async function LocaleLayout({
   children,

@@ -1,6 +1,6 @@
 import { cache } from 'react'
 
-const DEFAULT_REVALIDATE = 3600
+const DEFAULT_REVALIDATE = false as const
 
 export function collectionTag(collection: string): string {
   return `cms:${collection}`
@@ -16,7 +16,7 @@ export function globalTag(slug: string): string {
 
 type FetchPayloadOptions = {
   locale?: string
-  revalidate?: number
+  revalidate?: number | false
   tags?: string[]
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: string
@@ -82,7 +82,7 @@ type ListOptions = {
   depth?: number
   limit?: number
   where?: Record<string, unknown>
-  revalidate?: number
+  revalidate?: number | false
 }
 
 export const fetchList = cache(
@@ -110,7 +110,7 @@ type DocOptions = {
   locale: string
   slug: string
   depth?: number
-  revalidate?: number
+  revalidate?: number | false
 }
 
 export const fetchDocBySlug = cache(
@@ -134,7 +134,7 @@ export const fetchDocBySlug = cache(
 type SingletonOptions = {
   locale: string
   depth?: number
-  revalidate?: number
+  revalidate?: number | false
 }
 
 /** Payload singleton collections (homepage, artists-page, etc.) */
@@ -158,7 +158,7 @@ export const fetchSingleton = cache(
 type GlobalOptions = {
   locale: string
   depth?: number
-  revalidate?: number
+  revalidate?: number | false
 }
 
 export const fetchGlobal = cache(

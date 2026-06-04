@@ -13,6 +13,8 @@ import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchSingleton } from '@/app/_utilities/fetchPayload'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 type Params = Promise<{ locale: string }>
 
 const getData = cache(async (locale: string) => {

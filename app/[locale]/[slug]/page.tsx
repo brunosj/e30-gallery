@@ -14,6 +14,13 @@ import { StructuredData } from '@/app/_components/StructuredData'
 import type { Metadata } from 'next'
 import GenericPageClient from '@/app/_components/GenericPageClient'
 import { fetchDocBySlug } from '@/app/_utilities/fetchPayload'
+import { generateLocaleSlugParams } from '@/app/_utilities/staticParams'
+
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  return generateLocaleSlugParams('generic-pages')
+}
 
 type Params = Promise<{ locale: string; slug: string }>
 

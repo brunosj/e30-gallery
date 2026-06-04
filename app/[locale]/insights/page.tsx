@@ -7,6 +7,7 @@ import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
+import { setRequestLocale } from 'next-intl/server'
 
 type Params = Promise<{ locale: string }>
 
@@ -25,6 +26,7 @@ const getData = cache(async (locale: string) => {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
+  setRequestLocale(locale)
   const { pageData } = await getData(locale)
   const doc = pageData.docs[0]
   const metadata = doc.meta
@@ -39,6 +41,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function BlogPage({ params }: { params: Params }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const { pageData, blogPosts } = await getData(locale)
   const page = pageData.docs[0]
 

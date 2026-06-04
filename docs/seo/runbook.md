@@ -39,7 +39,9 @@
 | `FRONTEND_URL` | Public frontend origin (e.g. `https://e30gallery.com`) |
 | `REVALIDATION_KEY` | Same value as frontend `REVALIDATION_KEY` |
 
-On publish/delete, CMS hooks call `/next/revalidate?secret=…&collection=…&slug=…` (or `global=menu`). Payload fetches use cache tags `cms:{collection}` and `cms:global:{slug}` with a 1h ISR fallback.
+On publish/delete, CMS hooks call `/next/revalidate?secret=…&collection=…&slug=…` (or `global=menu`). Payload fetches use cache tags `cms:{collection}` and `cms:global:{slug}` with **no time-based revalidation** — cache is invalidated only via `revalidateTag`.
+
+**Build:** `pnpm build` must reach the CMS (`NEXT_PUBLIC_PAYLOAD_URL`, `PAYLOAD_API_KEY`) so `generateStaticParams` can pre-render published slugs for `en` and `de`.
 
 ## Files
 

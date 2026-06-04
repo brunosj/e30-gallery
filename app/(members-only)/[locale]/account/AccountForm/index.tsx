@@ -2,7 +2,7 @@
 
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/navigation'
 
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'

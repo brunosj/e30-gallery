@@ -2,7 +2,7 @@
 
 import type { Artist } from '@/app/payload-types'
 
-import { useRouter, Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/navigation'
 import Image from 'next/image'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import classes from './index.module.css'

@@ -7,6 +7,7 @@ import classes from './index.module.css'
 import { motion, useInView, Variants } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
 import { Link } from '@/i18n/navigation'
 
 type Props = {
@@ -57,7 +58,7 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
       whileHover={{ y: -4 }}
       style={{ height: '100%' }}
     >
-      <Link href={`/exhibitions/${slug}` as any} className={classes.card}>
+      <Link href={exhibitionDetailHref(slug || '')} className={classes.card}>
         <div className={classes.imageWrapper}>
           {image?.url && (
             <Image

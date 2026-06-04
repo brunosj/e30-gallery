@@ -149,6 +149,14 @@ echo "pnpm version: $(pnpm --version)"
 # load the .env file
 source .env || { echo 'The ENV file does not exist' ; exit 1; }
 
+for env_var in NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_FRONTEND_URL NEXT_PUBLIC_PAYLOAD_URL; do
+  env_value="${!env_var}"
+  if [[ "$env_value" == *":5173"* ]] || [[ "$env_value" == *":5174"* ]]; then
+    echo "ERROR: $env_var must not include internal blue/green ports ($env_value)"
+    exit 1
+  fi
+done
+
 # Pull the latest changes
 # clear any changes to avoid conflicts (usually permission based)
 git reset --hard || { echo 'Git reset command failed' ; exit 1; }

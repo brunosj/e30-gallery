@@ -5,7 +5,7 @@ import React, { useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from '@/i18n/navigation'
 
-import { useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
 
 import { RichText } from '@/components/RichText'

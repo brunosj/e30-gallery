@@ -44,8 +44,9 @@ e30gallery.com, www.e30gallery.com {
         # Max fails before marking backend as down
         max_fails 3
         
-        # Headers for Next.js (only the necessary ones)
-        header_up Host {upstream_hostport}
+        header_up Host {host}
+        header_up X-Forwarded-Host {host}
+        header_up X-Forwarded-Proto {scheme}
         header_up X-Real-IP {remote_host}
     }
     
@@ -71,8 +72,9 @@ cms.e30gallery.com, www.cms.e30gallery.com {
     redir @www https://cms.e30gallery.com{uri} permanent
     
     reverse_proxy localhost:3000 {
-        # Headers for the CMS (only the necessary ones)
-        header_up Host {upstream_hostport}
+        header_up Host {host}
+        header_up X-Forwarded-Host {host}
+        header_up X-Forwarded-Proto {scheme}
         header_up X-Real-IP {remote_host}
     }
     
@@ -94,8 +96,9 @@ cms.e30gallery.com, www.cms.e30gallery.com {
 # Plausible analytics subdomain
 plausible.e30gallery.com {
     reverse_proxy localhost:8000 {
-        # Headers for Plausible (only the necessary ones)
-        header_up Host {upstream_hostport}
+        header_up Host {host}
+        header_up X-Forwarded-Host {host}
+        header_up X-Forwarded-Proto {scheme}
         header_up X-Real-IP {remote_host}
     }
     

@@ -18,7 +18,15 @@ import classes from './index.module.css'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import { fetchDocBySlug } from '@/app/_utilities/fetchPayload'
+import { generateLocaleSlugParams } from '@/app/_utilities/staticParams'
+import { setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
+
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  return generateLocaleSlugParams('blogpost')
+}
 
 type Params = Promise<{ locale: string; slug: string }>
 
@@ -32,6 +40,7 @@ const getData = cache(async (locale: string, slug: string) => {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params
+  setRequestLocale(locale)
   const { pageData } = await getData(locale, slug)
   if (!pageData?.docs.length) {
     return buildNotFoundMetadata()
@@ -57,6 +66,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function BlogPostPage({ params }: { params: Params }) {
   const { locale, slug } = await params
+  setRequestLocale(locale)
   const { pageData } = await getData(locale, slug)
 
   if (!pageData?.docs.length) {
