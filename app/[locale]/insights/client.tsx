@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import type { BlogPage, Blogpost } from '@/app/payload-types'
 import BlogCard from '@/components/BlogCard'
+import RouteLoader from '@/components/RouteLoader'
 import { RichText } from '@/app/_components/RichText'
 import classes from './index.module.css'
 import { useTranslations } from 'next-intl'
@@ -105,7 +106,7 @@ export default function BlogPageClient({ pageData, blogPosts }: Props) {
 
   // Basic validation to prevent render errors
   if (!pageData?.docs?.length || !blogPosts?.docs) {
-    return <div className="container padding-y min-h-screen">Loading...</div>
+    return <RouteLoader />
   }
 
   if (!page) return null

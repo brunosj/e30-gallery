@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 export default async function MembersArea() {
-  const t = await getTranslations('Account')
+  const t = await getTranslations()
   const result = await getMeUser({
     nullUserRedirect: `/art-society?error=${encodeURIComponent(
       `${t('mustBeLoggedIn')}`,

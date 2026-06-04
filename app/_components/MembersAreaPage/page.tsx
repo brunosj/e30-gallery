@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import { RenderParams } from '@/components/RenderParams'
 import MembersAreaComponent from '@/components/MembersComponent'
-import { RiseLoader } from 'react-spinners'
+import RouteLoader from '@/components/RouteLoader'
 import classes from './index.module.css'
 import { MembersOnlyPage } from '@/app/payload-types'
 
@@ -55,11 +55,7 @@ export default function MembersAreaPage() {
   }, [locale])
 
   if (loading) {
-    return (
-      <div className="loader">
-        <RiseLoader />
-      </div>
-    )
+    return <RouteLoader />
   }
 
   if (!page) {

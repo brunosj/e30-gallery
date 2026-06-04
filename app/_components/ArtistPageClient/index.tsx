@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
+import RouteLoader from '@/components/RouteLoader'
 import type { Artist } from '@/app/payload-types'
 import { useRouter } from '@/i18n/navigation'
 import { artistDetailHref } from '@/app/_utilities/localizedUrl'
@@ -97,6 +98,6 @@ export default function ArtistPageClient({
       filteredArtists={allArtists}
     />
   ) : (
-    <p>Loading artist details...</p>
+    <RouteLoader />
   )
 }

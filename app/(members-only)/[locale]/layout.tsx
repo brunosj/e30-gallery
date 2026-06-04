@@ -37,7 +37,7 @@ export default async function MembersLayout({
 
   setRequestLocale(locale)
 
-  const t = await getTranslations('Layout')
+  const t = await getTranslations()
   const result = await getMeUser({
     nullUserRedirect: `/art-society?error=${encodeURIComponent(
       `${t('mustBeLoggedIn')}`,
