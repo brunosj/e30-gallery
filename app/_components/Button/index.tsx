@@ -2,6 +2,7 @@ import type { LinkObject } from '@/app/types'
 
 import React from 'react'
 import { Link } from '@/i18n/navigation'
+import { resolveLinkHref } from '@/app/_utilities/linkHref'
 
 import classes from './index.module.css'
 import cn from 'classnames'
@@ -37,57 +38,37 @@ export const Button: React.FC<Props> = ({
     </div>
   )
 
-  let finalHref = ''
-
-  if (link) {
-    switch (link.type) {
-      case 'mailto':
-        if (link.email) {
-          finalHref = `mailto:${link.email}`
-          const queryParams = []
-          if (link.subject) queryParams.push(`subject=${encodeURIComponent(link.subject)}`)
-          if (link.body) queryParams.push(`body=${encodeURIComponent(link.body)}`)
-          if (queryParams.length > 0) {
-            finalHref += `?${queryParams.join('&')}`
-          }
-        }
-        break
-      case 'custom':
-        if (link.url) {
-          finalHref = link.url.startsWith('http') ? link.url : `/${link.url}`
-        }
-        break
-      case 'reference':
-        if (link.reference) {
-          const slug = (link.reference.value as { slug: string }).slug
-          finalHref = `/${slug}`
-        }
-        break
-      default:
-        if (link.url) {
-          finalHref = link.url.startsWith('http') ? link.url : `${link.url}`
-        }
-        break
-    }
-  }
+  const finalHref = link ? resolveLinkHref(link) : null
 
   if (action !== 'submit' && finalHref) {
+    const isExternal =
+      typeof finalHref === 'string' &&
+      (finalHref.startsWith('http') || finalHref.startsWith('mailto:'))
+
+    if (isExternal) {
+      return (
+        <a href={finalHref} className={className} {...newTabProps} onClick={onClick}>
+          {content}
+        </a>
+      )
+    }
+
     return (
-      <Link href={finalHref as any} className={className} {...newTabProps} onClick={onClick}>
+      <Link href={finalHref as Parameters<typeof Link>[0]['href']} className={className} {...newTabProps} onClick={onClick}>
         {content}
       </Link>
     )
-  } else {
-    return (
-      <button
-        className={className}
-        type={action}
-        onClick={onClick}
-        disabled={disabled}
-        {...newTabProps}
-      >
-        {content}
-      </button>
-    )
   }
+
+  return (
+    <button
+      className={className}
+      type={action}
+      onClick={onClick}
+      disabled={disabled}
+      {...newTabProps}
+    >
+      {content}
+    </button>
+  )
 }

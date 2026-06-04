@@ -9,9 +9,10 @@ import classes from './index.module.css'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 export const MediaBlockComponent: React.FC<MediaBlock> = ({
+  caption,
   invertBackground = false,
-  position = 'default',
   media,
+  position = 'default',
 }) => {
   const image = media as Media
 
@@ -22,14 +23,17 @@ export const MediaBlockComponent: React.FC<MediaBlock> = ({
         [classes.fullscreen]: position === 'fullscreen',
       })}
     >
-      <div className={classes.mediaContainer}>
-        <Image
-          src={getImageUrl(image?.url || '')}
-          alt={image.title}
-          fill
-          className={classes.image}
-        />
-      </div>
+      <figure className={classes.figure}>
+        <div className={classes.mediaContainer}>
+          <Image
+            src={getImageUrl(image?.url || '')}
+            alt={image.title}
+            fill
+            className={classes.image}
+          />
+        </div>
+        {caption && <figcaption className={classes.caption}>{caption}</figcaption>}
+      </figure>
     </section>
   )
 }

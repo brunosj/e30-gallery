@@ -1,9 +1,9 @@
 'use client'
 
-import { Link, usePathname } from '@/i18n/navigation'
-import { useRouter } from '@/i18n/routing'
-import { useSearchParams, useParams } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
+import { useParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { getLocaleSwitchHref } from '@/app/_utilities/localizedUrl'
 import classes from './index.module.css'
 import { motion, Variants } from 'motion/react'
 
@@ -27,37 +27,14 @@ type Props = {
 
 export default function LanguageSwitcher({ theme = 'light' }: Props) {
   const pathname = usePathname()
+  const router = useRouter()
   const locale = useLocale()
   const params = useParams()
 
-  // Function to create the appropriate link href based on the current route
-  const createHref = (targetLocale: string) => {
-    // For dynamic artist pages, we need to include the slug parameter
-    if (pathname.includes('/artists/') || pathname.includes('/kuenstler/')) {
-      const slug = params?.slug
-      if (slug) {
-        // Use type assertion to handle the type compatibility
-        return {
-          pathname: '/artists/[slug]',
-          params: { slug: slug as string },
-        } as any
-      }
-    }
-
-    // For dynamic blog pages
-    if (pathname.includes('/insights/')) {
-      const slug = params?.slug
-      if (slug) {
-        // Use type assertion to handle the type compatibility
-        return {
-          pathname: '/insights/[...slug]',
-          params: { slug: Array.isArray(slug) ? slug : [slug as string] },
-        } as any
-      }
-    }
-
-    // For static routes, use the pathname directly
-    return pathname
+  const switchLocale = (nextLocale: string) => {
+    if (nextLocale === locale) return
+    const href = getLocaleSwitchHref(pathname, params)
+    router.replace(href as Parameters<typeof router.replace>[0], { locale: nextLocale })
   }
 
   const getLanguageClass = (language: string) => {
@@ -75,13 +52,23 @@ export default function LanguageSwitcher({ theme = 'light' }: Props) {
       variants={fadeInVariants}
       className={classes.switcher}
     >
-      <Link href={createHref('en')} locale="en">
+      <button
+        type="button"
+        className={classes.localeButton}
+        onClick={() => switchLocale('en')}
+        aria-current={locale === 'en' ? 'true' : undefined}
+      >
         <span className={getLanguageClass('en')}>EN</span>
-      </Link>
+      </button>
       <span className={theme === 'light' ? classes.fontBlack : classes.fontWhite}>/</span>
-      <Link href={createHref('de')} locale="de">
+      <button
+        type="button"
+        className={classes.localeButton}
+        onClick={() => switchLocale('de')}
+        aria-current={locale === 'de' ? 'true' : undefined}
+      >
         <span className={getLanguageClass('de')}>DE</span>
-      </Link>
+      </button>
     </motion.div>
   )
 }

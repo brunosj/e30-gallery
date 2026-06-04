@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Navigation } from './nav'
 import { MenuToggle } from './toggle'
 import classes from './index.module.css'
@@ -9,11 +9,12 @@ import { throttle } from 'lodash'
 
 export default function HeaderV4() {
   const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const lastScrollYRef = useRef(0)
 
   useEffect(() => {
     const handleScroll = throttle(() => {
       const currentScrollY = window.scrollY
+      const lastScrollY = lastScrollYRef.current
       const scrollDifference = Math.abs(currentScrollY - lastScrollY)
 
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -24,17 +25,18 @@ export default function HeaderV4() {
         setIsVisible(true)
       }
 
-      setLastScrollY(currentScrollY)
+      lastScrollYRef.current = currentScrollY
     }, 25)
 
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      handleScroll.cancel()
     }
-  }, [lastScrollY])
+  }, [])
 
   return (
-    <div className="desktop">
+    <div className="header-desktop">
       <AnimatePresence>
         {isVisible && (
           <motion.nav

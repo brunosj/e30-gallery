@@ -125,9 +125,11 @@ const ArtistInfo: React.FC<Props> = ({
         <div className={classes.grid}>
           <div>
             <div>
-              <h2>{artist.full_name}</h2>
+              <h1>{artist.full_name}</h1>
+              {artist.additional_info ? (
+                <p className={classes.lead}>{artist.additional_info}</p>
+              ) : null}
               <div className={classes.additionalInfo}>
-                <p>{artist.additional_info}</p>
                 <p>{artist.country}</p>
               </div>
             </div>

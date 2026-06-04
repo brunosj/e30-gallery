@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Link } from '@/i18n/navigation'
+import { exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
+import { Link, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import type { Exhibition, Artist } from '@/app/payload-types'
 import { RichText } from '@/components/RichText'
@@ -38,6 +39,7 @@ const ExhibitionDetails: React.FC<Props> = ({
   currentExhibitionIndex,
 }) => {
   const t = useTranslations()
+  const router = useRouter()
   const [currentExhibition, setCurrentExhibition] = useState(exhibition)
 
   const dateRange = formatDateRange(exhibition.dateBegin || '', exhibition.dateEnd || '', locale)
@@ -47,8 +49,7 @@ const ExhibitionDetails: React.FC<Props> = ({
     const nextIndex = (currentExhibitionIndex + 1) % allExhibitions.length
     const nextExhibition = allExhibitions[nextIndex]
     if (nextExhibition.slug) {
-      // Navigate to the next exhibition's page
-      window.location.href = `/${locale}/exhibitions/${nextExhibition.slug}`
+      router.push(exhibitionDetailHref(nextExhibition.slug))
     }
   }
 
@@ -56,8 +57,7 @@ const ExhibitionDetails: React.FC<Props> = ({
     const prevIndex = (currentExhibitionIndex - 1 + allExhibitions.length) % allExhibitions.length
     const prevExhibition = allExhibitions[prevIndex]
     if (prevExhibition.slug) {
-      // Navigate to the previous exhibition's page
-      window.location.href = `/${locale}/exhibitions/${prevExhibition.slug}`
+      router.push(exhibitionDetailHref(prevExhibition.slug))
     }
   }
 
@@ -106,7 +106,10 @@ const ExhibitionDetails: React.FC<Props> = ({
             variants={slideInFromLeftVariants}
             className={classes.content}
           >
-            <h2>{exhibition.title}</h2>
+            <h1>{exhibition.title}</h1>
+            {exhibition.meta?.description ? (
+              <p className={classes.lead}>{exhibition.meta.description}</p>
+            ) : null}
 
             {/* Exhibition Artists */}
             {exhibition.relation?.artists && exhibition.relation.artists.length > 0 && (

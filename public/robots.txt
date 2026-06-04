@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: http://e30gallery.com
-
-# Sitemaps
-Sitemap: http://e30gallery.com/sitemap.xml

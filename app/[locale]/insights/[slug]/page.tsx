@@ -1,100 +1,86 @@
-import type { Blogpost, Media } from '@/app/payload-types'
-
+import type { Blogpost } from '@/app/payload-types'
+import { cache } from 'react'
+import { getBlogPostFeaturedImageUrl } from '@/app/_utilities/getBlogPostFeaturedImage'
 import { notFound } from 'next/navigation'
 import BlogPostClient from './BlogPostClient'
-import { parseKeywords } from '@/utilities/parseKeywords'
+import {
+  buildNotFoundMetadata,
+  buildPageMetadata,
+} from '@/app/_utilities/generatePageMetadata'
+import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import {
+  insightDetailHref,
+  localizedAbsoluteUrl,
+} from '@/app/_utilities/localizedUrl'
+import { getSiteUrl } from '@/app/_utilities/siteUrl'
+import { StructuredData } from '@/app/_components/StructuredData'
 import classes from './index.module.css'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
-import { Metadata } from 'next'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { fetchDocBySlug } from '@/app/_utilities/fetchPayload'
+import type { Metadata } from 'next'
+
 type Params = Promise<{ locale: string; slug: string }>
 
-async function getData(locale: string, slug: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/blogpost?where[slug][equals]=${slug}&locale=${locale}&depth=2`,
-  ]
-
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    return { pageData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+const getData = cache(async (locale: string, slug: string) => {
+  const pageData = await fetchDocBySlug<Blogpost>('blogpost', { locale, slug, depth: 2 })
+  if (!pageData) {
+    throw new Error('Failed to fetch blog post')
   }
-}
+  return { pageData }
+})
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params
   const { pageData } = await getData(locale, slug)
-  if (!pageData || !pageData.docs.length) {
-    return {
-      title: '404 - Not Found',
-      description: 'Page not found',
-      openGraph: {
-        title: '404 - Not Found',
-      },
-    }
+  if (!pageData?.docs.length) {
+    return buildNotFoundMetadata()
   }
 
   const blogPost: Blogpost = pageData.docs[0]
+  const mediaUrl = getBlogPostFeaturedImageUrl(blogPost)
 
-  // Extract the first media block from the layout, similar to what's done in BlogCard
-  const firstMediaBlock = blogPost.layout?.find(
-    block => block.blockType === 'mediaBlock' && block.media,
-  )
-
-  // Get the media URL
-  const mediaUrl =
-    firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media
-      ? typeof firstMediaBlock.media === 'string'
-        ? firstMediaBlock.media
-        : firstMediaBlock.media.url || ''
-      : ''
-
-  return {
-    title: blogPost.meta?.title || blogPost.title,
+  return buildPageMetadata({
+    locale,
+    href: insightDetailHref(slug),
+    title: blogPost.meta?.title || blogPost.title || 'Insight',
     description: blogPost.meta?.description || blogPost.summary,
-    keywords: parseKeywords(blogPost.meta?.keywords || ''),
-    openGraph: {
-      title: blogPost.meta?.title || blogPost.title || '',
-      description: blogPost.meta?.description || blogPost.summary || '',
-      images: mediaUrl
-        ? [
-            {
-              url: getImageUrl(mediaUrl),
-              alt: blogPost.title || '',
-            },
-          ]
-        : [],
-    },
-  }
+    keywords: blogPost.meta?.keywords,
+    ogType: 'article',
+    publishedTime: blogPost.createdAt,
+    modifiedTime: blogPost.updatedAt,
+    ogImage: mediaUrl
+      ? { url: getImageUrl(mediaUrl), alt: blogPost.title || '' }
+      : null,
+  })
 }
 
 export default async function BlogPostPage({ params }: { params: Params }) {
   const { locale, slug } = await params
   const { pageData } = await getData(locale, slug)
 
-  if (!pageData || !pageData.docs.length) {
+  if (!pageData?.docs.length) {
     return notFound()
   }
 
   const blogPost: Blogpost = pageData.docs[0]
+  const pageUrl = localizedAbsoluteUrl(getSiteUrl(), locale, insightDetailHref(slug))
+  const mediaUrl = getBlogPostFeaturedImageUrl(blogPost)
+  const featuredImageUrl = mediaUrl ? getImageUrl(mediaUrl) : ''
 
   return (
     <>
+      <StructuredData
+        locale={locale}
+        includeBaseSchemas={false}
+        type="article"
+        pageTitle={blogPost.title || slug}
+        pageDescription={blogPost.meta?.description || blogPost.summary || undefined}
+        pageUrl={pageUrl}
+        pageImage={featuredImageUrl || undefined}
+        publishedTime={blogPost.createdAt}
+        modifiedTime={blogPost.updatedAt}
+      />
       <div className={classes.page}>
         <BlogPostClient blogPost={blogPost} locale={locale} />
       </div>

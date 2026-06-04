@@ -19,6 +19,17 @@
   font-size: 0.9rem;
 }
 
+.titleImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 2rem;
+}
+
+.titleImageImg {
+  object-fit: cover;
+}
+
 .content {
   margin: 0 auto;
   max-width: 800px;

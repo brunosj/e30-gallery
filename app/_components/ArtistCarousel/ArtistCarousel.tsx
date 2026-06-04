@@ -1,64 +1,63 @@
 'use client'
 
 import type { Artist } from '@/app/payload-types'
+import type { EmblaOptionsType } from 'embla-carousel'
 
-import React from 'react'
-import { EmblaOptionsType } from 'embla-carousel'
-import { DotButton, useDotButton } from './DotButtons'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ArtistListingCard } from '../ArtistListingCard'
-import { fadeInVariants } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
+import React from 'react'
+
+import { fadeInVariants } from '@/utilities/animationVariants'
+import { ArtistListingCard } from '../ArtistListingCard'
+import { NextButton, PrevButton, usePrevNextButtons } from './ArrowButtons'
+
+const defaultOptions: EmblaOptionsType = {
+  align: 'start',
+  containScroll: 'trimSnaps',
+  slidesToScroll: 'auto',
+}
 
 type PropType = {
-  slides: Artist[]
   options?: EmblaOptionsType
+  slides: Artist[]
 }
 
 const ArtistCarousel: React.FC<PropType> = props => {
-  const { slides, options } = props
-  const [emblaRef, emblaApi] = useEmblaCarousel(options)
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
-
-  // const {
-  //   prevBtnDisabled,
-  //   nextBtnDisabled,
-  //   onPrevButtonClick,
-  //   onNextButtonClick
-  // } = usePrevNextButtons(emblaApi)
+  const { options, slides } = props
+  const [emblaRef, emblaApi] = useEmblaCarousel({ ...defaultOptions, ...options })
+  const { nextBtnDisabled, onNextButtonClick, onPrevButtonClick, prevBtnDisabled } =
+    usePrevNextButtons(emblaApi)
 
   return (
-    <section className="artistCarousel">
-      <div className="artistCarousel__viewport" ref={emblaRef}>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInVariants}
-          className="artistCarousel__container"
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className="artistCarousel__slide">
-              <ArtistListingCard item={slide} />
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-      <div className="artistCarousel__controls">
-        <div className="artistCarousel__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={'artistCarousel__dot'.concat(
-                index === selectedIndex ? ' artistCarousel__dot--selected' : '',
-              )}
-            />
-          ))}
+    <motion.section
+      className="artistCarousel"
+      initial="hidden"
+      variants={fadeInVariants}
+      viewport={{ amount: 0.2, once: true }}
+      whileInView="visible"
+    >
+      <div className="artistCarousel__wrapper">
+        <PrevButton
+          aria-label="Previous artists"
+          disabled={prevBtnDisabled}
+          onClick={onPrevButtonClick}
+        />
+        <div className="artistCarousel__viewport" ref={emblaRef}>
+          <div className="artistCarousel__container">
+            {slides.map((slide, index) => (
+              <div className="artistCarousel__slide" key={slide.id ?? index}>
+                <ArtistListingCard item={slide} />
+              </div>
+            ))}
+          </div>
         </div>
+        <NextButton
+          aria-label="Next artists"
+          disabled={nextBtnDisabled}
+          onClick={onNextButtonClick}
+        />
       </div>
-    </section>
+    </motion.section>
   )
 }
 

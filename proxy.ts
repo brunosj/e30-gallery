@@ -12,6 +12,6 @@ export const config = {
     // - Static files with extensions (like .jpg, .png, etc.)
     // - Specific static files like favicon.ico
     // - proxy (proxy)
-    '/((?!api|_next|.*\\..*|favicon.ico|proxy).*)',
+    '/((?!api|_next|next|.*\\..*|favicon.ico|proxy).*)',
   ],
 }

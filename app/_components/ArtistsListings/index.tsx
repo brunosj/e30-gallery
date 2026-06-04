@@ -1,37 +1,10 @@
 import type { Artist } from '@/app/payload-types'
-
 import { getLocale, getTranslations } from 'next-intl/server'
-import { Button } from '../Button'
 import ArtistCarousel from '@/components/ArtistCarousel/ArtistCarousel'
 import classes from './index.module.css'
-import { createArtistLink } from '@/app/_utilities/linkObjects'
 import cn from 'classnames'
 import ArtistViewAllButton from './ArtistViewAllButton'
-
-async function getData(locale: string) {
-  let data
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2&limit=0`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-        },
-      },
-    )
-    if (!res.ok) {
-      console.error('Failed to fetch:', res.status, res.statusText)
-      throw new Error(`HTTP error status: ${res.status}`)
-    }
-    const dataRes = await res.json()
-    data = dataRes.docs
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-  return data
-}
+import { fetchList } from '@/app/_utilities/fetchPayload'
 
 function shuffleArray(array: Artist[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -43,7 +16,8 @@ function shuffleArray(array: Artist[]) {
 export default async function ArtistsListings() {
   const locale = await getLocale()
   const t = await getTranslations()
-  const data: Artist[] = await getData(locale)
+  const result = await fetchList<Artist>('artist', { locale, depth: 2, limit: 0 })
+  const data: Artist[] = result?.docs ?? []
   shuffleArray(data)
 
   return (

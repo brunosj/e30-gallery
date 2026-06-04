@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -p 5173",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "seo:audit:full": "node scripts/seo-audit.mjs --full",
     "start": "next start -p 5173",
     "start-green": "next start -p 5174",
     "lint": "eslint ."
@@ -25,7 +26,6 @@
     "next": "16.2.4",
     "next-intl": "^4.11.0",
     "next-plausible": "^4.0.0",
-    "next-sitemap": "^4.2.3",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-hook-form": "^7.74.0",

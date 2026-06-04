@@ -198,8 +198,8 @@ const Serialize = ({ children }: { children: Children }): React.ReactNode => {
               <Link
                 href={
                   {
-                    pathname: '/insights/[...slug]',
-                    params: { slug: [slug] },
+                    pathname: '/insights/[slug]',
+                    params: { slug },
                   } as any
                 }
                 key={i}

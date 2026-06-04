@@ -1,5 +1,5 @@
-import type { ArtSocietyPage, Testimonial } from '../../payload-types'
-
+import type { ArtSocietyPage } from '../../payload-types'
+import { cache } from 'react'
 import React from 'react'
 import { redirect } from 'next/navigation'
 import { RenderParams } from '@/components/RenderParams'
@@ -9,49 +9,32 @@ import { ArtSocietyHero } from '@/components/ArtSocietyHero'
 import { ArtSocietyBenefits } from '@/components/ArtSocietyBenefits'
 import { Testimonials } from '@/components/Testimonials'
 import classes from './index.module.css'
-import { parseKeywords } from '@/utilities/parseKeywords'
-import { Metadata } from 'next'
+import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
+import { fetchSingleton } from '@/app/_utilities/fetchPayload'
+import type { Metadata } from 'next'
+
 type Params = Promise<{ locale: string }>
 
-async function getData(locale: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`,
-  ]
-
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    return { pageData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+const getData = cache(async (locale: string) => {
+  const pageData = await fetchSingleton<ArtSocietyPage>('art-society-page', { locale, depth: 1 })
+  if (!pageData?.docs?.length) {
+    throw new Error('Failed to fetch art society page')
   }
-}
+  return { pageData }
+})
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
   const { pageData } = await getData(locale)
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
-    description: metadata.description,
-    keywords: parseKeywords(metadata.keywords),
-    openGraph: {
-      description: metadata.description,
-      title: metadata.title,
-    },
-  }
+  const doc = pageData.docs[0]
+  const metadata = doc.meta
+  return buildPageMetadata({
+    locale,
+    href: '/art-society',
+    title: doc.title ?? '',
+    description: metadata?.description,
+    keywords: metadata?.keywords,
+  })
 }
 
 export default async function Login({ params }: { params: Params }) {

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import Image from 'next/image'
 import { Turnstile } from '@marsidev/react-turnstile'
 import Logo from '@/public/E30_logo.png'

@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { Turnstile } from '@marsidev/react-turnstile'
 

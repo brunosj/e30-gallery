@@ -7,6 +7,7 @@ import type { Blogpost } from '@/app/payload-types'
 import styles from './index.module.css'
 import { useLocale } from 'next-intl'
 import { formatDate } from '@/app/_utilities/formatDate'
+import { getBlogPostFeaturedImage } from '@/app/_utilities/getBlogPostFeaturedImage'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 interface BlogCardProps {
@@ -16,37 +17,26 @@ interface BlogCardProps {
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const locale = useLocale() || 'en'
 
-  const firstMediaBlock = post.layout?.find(
-    block => block.blockType === 'mediaBlock' && block.media,
-  )
-
   const { formattedDate, year } = formatDate(post.createdAt, locale)
-
-  const slug = post.slug ? [post.slug] : []
 
   if (!post) return null
 
-  const mediaUrl =
-    firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media
-      ? typeof firstMediaBlock.media === 'string'
-        ? firstMediaBlock.media
-        : firstMediaBlock.media.url || ''
-      : ''
+  const featuredImage = getBlogPostFeaturedImage(post)
+  const mediaUrl = featuredImage?.url || ''
 
   return (
     <Link
       href={{
-        pathname: '/insights/[...slug]' as any,
-        params: { slug },
+        pathname: '/insights/[slug]' as const,
+        params: { slug: post.slug || '' },
       }}
       className={styles.card}
-      prefetch={false}
     >
-      {firstMediaBlock?.blockType === 'mediaBlock' && firstMediaBlock.media && (
+      {mediaUrl && (
         <div className={styles.imageWrapper}>
           <Image
             src={getImageUrl(mediaUrl)}
-            alt={post.title || ''}
+            alt={featuredImage?.title || post.title || ''}
             width={400}
             height={250}
             className={styles.image}

@@ -18,7 +18,7 @@
   filter: invert(1);
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1200px) {
   .header {
     padding: 0;
     height: 4rem;

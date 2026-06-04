@@ -1,73 +1,70 @@
-import type { GenericPage, Artist, Artwork } from '@/app/payload-types'
+import type { GenericPage } from '@/app/payload-types'
+import { cache } from 'react'
 import { notFound } from 'next/navigation'
-import { parseKeywords } from '@/utilities/parseKeywords'
-import { Metadata } from 'next'
+import {
+  buildNotFoundMetadata,
+  buildPageMetadata,
+} from '@/app/_utilities/generatePageMetadata'
+import {
+  genericPageHref,
+  localizedAbsoluteUrl,
+} from '@/app/_utilities/localizedUrl'
+import { getSiteUrl } from '@/app/_utilities/siteUrl'
+import { StructuredData } from '@/app/_components/StructuredData'
+import type { Metadata } from 'next'
 import GenericPageClient from '@/app/_components/GenericPageClient'
+import { fetchDocBySlug } from '@/app/_utilities/fetchPayload'
 
 type Params = Promise<{ locale: string; slug: string }>
 
-async function getData(locale: string, slug: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/generic-pages?where[slug][equals]=${slug}&locale=${locale}&depth=1`,
-  ]
-
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    const artistData = data[1]
-    return { pageData, artistData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
-  }
-}
+const getData = cache(async (locale: string, slug: string) => {
+  const pageData = await fetchDocBySlug<GenericPage>('generic-pages', {
+    locale,
+    slug,
+    depth: 1,
+  })
+  return { pageData }
+})
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params
   const { pageData } = await getData(locale, slug)
 
-  if (!pageData || !pageData.docs.length) {
-    return {
-      title: '404 - Not Found',
-      description: 'Page not found',
-      openGraph: {
-        title: '404 - Not Found',
-      },
-    }
+  if (!pageData?.docs.length) {
+    return buildNotFoundMetadata()
   }
 
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
-    description: metadata.description,
-    keywords: parseKeywords(metadata.keywords),
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-    },
-  }
+  const doc = pageData.docs[0]
+  const metadata = doc.meta
+  return buildPageMetadata({
+    locale,
+    href: genericPageHref(slug),
+    title: doc.title || slug,
+    description: metadata?.description,
+    keywords: metadata?.keywords,
+  })
 }
 
 export default async function GenericPage({ params }: { params: Params }) {
   const { locale, slug } = await params
   const { pageData } = await getData(locale, slug)
 
-  if (!pageData || !pageData.docs.length) {
+  if (!pageData?.docs.length) {
     return notFound()
   }
 
   const page: GenericPage = pageData.docs[0]
+  const pageUrl = localizedAbsoluteUrl(getSiteUrl(), locale, genericPageHref(slug))
 
-  return <GenericPageClient page={page} />
+  return (
+    <>
+      <StructuredData
+        locale={locale}
+        includeBaseSchemas={false}
+        type="breadcrumb"
+        breadcrumbs={[{ name: page.title || slug, url: pageUrl }]}
+      />
+      <GenericPageClient page={page} />
+    </>
+  )
 }

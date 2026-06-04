@@ -988,6 +988,7 @@ export interface Blogpost {
   title?: string | null
   summary?: string | null
   categories: ('artists' | 'behind_the_scenes' | 'art_market' | 'all')[]
+  titleImage?: (string | null) | Media
   layout: (TextBlock | MediaBlock | CallToAction | VideoBlock)[]
   meta?: {
     title?: string | null
@@ -1012,6 +1013,7 @@ export interface MediaBlock {
   invertBackground?: boolean | null
   position?: ('default' | 'fullscreen') | null
   media: Media
+  caption?: string | null
   id?: string | null
   blockName?: string | null
   blockType: 'mediaBlock'
@@ -1624,6 +1626,7 @@ export interface BlogpostSelect<T extends boolean = true> {
   title?: T
   summary?: T
   categories?: T
+  titleImage?: T
   layout?:
     | T
     | {
@@ -1659,6 +1662,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
   invertBackground?: T
   position?: T
   media?: T
+  caption?: T
   id?: T
   blockName?: T
 }

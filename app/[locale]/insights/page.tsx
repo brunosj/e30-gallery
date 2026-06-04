@@ -1,65 +1,53 @@
 import type { BlogPage, Blogpost } from '@/app/payload-types'
-import { Metadata } from 'next'
+import { cache } from 'react'
+import type { Metadata } from 'next'
 import BlogPageClient from './client'
 import NewsletterPopup from '@/components/NewsletterPopup'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
-import { parseKeywords } from '@/utilities/parseKeywords'
+import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
+import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
+
 type Params = Promise<{ locale: string }>
 
-async function getData(locale: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/blog-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/blogpost?locale=${locale}&depth=2&limit=0`,
-  ]
+const getData = cache(async (locale: string) => {
+  const [pageData, blogPosts] = await Promise.all([
+    fetchSingleton<BlogPage>('blog-page', { locale, depth: 2 }),
+    fetchList<Blogpost>('blogpost', { locale, depth: 2, limit: 0 }),
+  ])
 
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    const blogPosts = data[1]
-    return { pageData, blogPosts }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+  if (!pageData?.docs?.length || !blogPosts) {
+    throw new Error('Failed to fetch insights page data')
   }
-}
+
+  return { pageData, blogPosts }
+})
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
   const { pageData } = await getData(locale)
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
+  const doc = pageData.docs[0]
+  const metadata = doc.meta
+  return buildPageMetadata({
+    locale,
+    href: '/insights',
+    title: doc.title ?? '',
     description: metadata?.description,
-    keywords: parseKeywords(metadata.keywords),
-    openGraph: {
-      title: metadata?.title,
-      description: metadata?.description,
-    },
-  }
+    keywords: metadata?.keywords,
+  })
 }
 
 export default async function BlogPage({ params }: { params: Params }) {
   const { locale } = await params
   const { pageData, blogPosts } = await getData(locale)
+  const page = pageData.docs[0]
 
   return (
     <article>
       <BlogPageClient pageData={pageData} blogPosts={blogPosts} />
-      {pageData.Banners?.reachOutBoolean && <BannerReachOut />}
-      {pageData.Banners?.newsletterBoolean && <BannerNewsletter />}
-      {pageData.Banners?.newsletterPopupBoolean && (
+      {page.Banners?.reachOutBoolean && <BannerReachOut />}
+      {page.Banners?.newsletterBoolean && <BannerNewsletter />}
+      {page.Banners?.newsletterPopupBoolean && (
         <NewsletterPopup triggerOnScroll={true} scrollPercentage={30} />
       )}
     </article>

@@ -1,56 +1,35 @@
 import { ReactNode } from 'react'
-import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
+import type { ArtistsPage } from '@/app/payload-types'
+import { cache } from 'react'
 import { setRequestLocale } from 'next-intl/server'
 import BannerReachOut from '@/components/BannerReachOut'
 import BannerNewsletter from '@/components/BannerNewsletter'
-import { parseKeywords } from '@/utilities/parseKeywords'
+import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import NewsletterPopup from '@/components/NewsletterPopup'
+import { fetchSingleton } from '@/app/_utilities/fetchPayload'
 
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 type Params = Promise<{ locale: string }>
 
-async function getData(locale: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artists-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2&limit=0`,
-  ]
-
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    const artistData = data[1]
-    return { pageData, artistData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+const getArtistsPageData = cache(async (locale: string) => {
+  const pageData = await fetchSingleton<ArtistsPage>('artists-page', { locale, depth: 2 })
+  if (!pageData?.docs?.length) {
+    throw new Error('Failed to fetch artists page')
   }
-}
+  return pageData.docs[0]
+})
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
-
-  const { pageData } = await getData(locale)
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
-    keywords: parseKeywords(metadata.keywords),
-    description: metadata.description,
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-    },
-  }
+  const doc = await getArtistsPageData(locale)
+  const metadata = doc.meta
+  return buildPageMetadata({
+    locale,
+    href: '/artists',
+    title: doc.title ?? '',
+    description: metadata?.description,
+    keywords: metadata?.keywords,
+  })
 }
 
 export default async function ArtistsLayout({
@@ -61,12 +40,9 @@ export default async function ArtistsLayout({
   params: Params
 }) {
   const { locale } = await params
-
-  // Set locale for static rendering
   setRequestLocale(locale)
 
-  const { pageData, artistData } = await getData(locale)
-  const page: ArtistsPage = pageData.docs[0]
+  const page = await getArtistsPageData(locale)
 
   return (
     <article>

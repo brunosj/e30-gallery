@@ -1,57 +1,22 @@
 'use client'
 
-import type { Menu } from '@/app/payload-types'
 import type { LinkObject } from '@/app/types'
 import { useState, useEffect, useRef } from 'react'
 import { Socials } from '@/components/Header/Socials'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { Squash as Hamburger } from 'hamburger-react'
-import { useAuth } from '@/providers/Auth'
-import { useLocale } from 'next-intl'
+import { usePathname } from '@/i18n/navigation'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
-import { usePathname } from 'next/navigation'
 import cn from 'classnames'
+import { useMenu } from '@/providers/Menu'
+import { hrefMatchesPath, resolveLinkHref } from '@/app/_utilities/linkHref'
 
 const MobileNav: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null)
   const [isOpen, setOpen] = useState(false)
   const pathname = usePathname()
-  const { user } = useAuth()
-  const [menu, setMenu] = useState<Menu | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const locale = useLocale()
-
-  useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/menu?locale=${locale}&depth=1`,
-          {
-            credentials: 'include',
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-            },
-          },
-        )
-
-        if (!res.ok) {
-          console.error('Failed to fetch:', res.status, res.statusText)
-          throw new Error(`API call failed with status: ${res.status}`)
-        }
-
-        const data: Menu = await res.json()
-        setMenu(data)
-      } catch (error) {
-        console.error('Failed to fetch menu:', error)
-        setError('Failed to fetch menu')
-      }
-    }
-
-    fetchMenu()
-  }, [locale])
+  const menu = useMenu()
 
   useEffect(() => {
     if (isOpen) {
@@ -69,12 +34,8 @@ const MobileNav: React.FC = () => {
     setOpen(false)
   }
 
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
   return (
-    <nav className="mobile">
+    <nav className={classes.root} aria-label="Main menu">
       <div className={classes.relativeFlex}>
         <nav>
           <Hamburger toggled={isOpen} toggle={setOpen} size={22} color="var(--color-black)" />
@@ -85,16 +46,12 @@ const MobileNav: React.FC = () => {
         >
           <div className={cn(classes.flexColumn, 'container')}>
             <div className={classes.menuContainer}>
-              {menu && menu.nav && (
+              {menu?.nav && (
                 <ul className={classes.menu}>
                   {menu.nav.map((item, index) => {
-                    const normalizedPathname = pathname.startsWith('/de/')
-                      ? pathname.replace('/de', '')
-                      : pathname
+                    const itemHref = resolveLinkHref(item.link as LinkObject)
+                    const isActive = hrefMatchesPath(itemHref, pathname)
 
-                    const isActive =
-                      normalizedPathname ===
-                      `/${(item.link?.reference?.value as { slug: string })?.slug}`
                     return (
                       <li key={index} className={isActive ? classes.activeMenuItem : ''}>
                         <Button link={item.link as LinkObject} onClick={handleCloseMenu} />

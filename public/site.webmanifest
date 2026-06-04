@@ -1,0 +1,16 @@
+{
+  "name": "E30 Gallery",
+  "short_name": "E30 Gallery",
+  "description": "Contemporary art gallery in Frankfurt am Main, Germany",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -13,7 +13,10 @@ export const GenericPageClient: React.FC<GenericPageClientProps> = ({ page }) =>
     <article className={classes.page}>
       <div className="container padding-y">
         <div className={classes.text}>
-          <h2 className="padding-b">{page.title}</h2>
+          <h1 className="padding-b">{page.title}</h1>
+          {page.meta?.description ? (
+            <p className={classes.lead}>{page.meta.description}</p>
+          ) : null}
           <RichText content={page.text} />
         </div>
       </div>

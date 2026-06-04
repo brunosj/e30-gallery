@@ -1,53 +1,23 @@
 import type { ArtistsPage, Artist, Artwork } from '@/app/payload-types'
+import { cache } from 'react'
 import ArtistDetailsV2 from '@/components/ArtistDetails'
-import { parseKeywords } from '@/utilities/parseKeywords'
 import { ArtistPageHero } from '@/app/_components/ArtistPageHero'
+import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
 
-import { Metadata } from 'next'
 type Params = Promise<{ locale: string }>
 
-async function getData(locale: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artists-page?locale=${locale}&depth=2`,
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/artist?locale=${locale}&depth=2&limit=0`,
-  ]
+const getData = cache(async (locale: string) => {
+  const [pageData, artistData] = await Promise.all([
+    fetchSingleton<ArtistsPage>('artists-page', { locale, depth: 2 }),
+    fetchList<Artist>('artist', { locale, depth: 2, limit: 0 }),
+  ])
 
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    const artistData = data[1]
-    return { pageData, artistData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+  if (!pageData?.docs?.length || !artistData?.docs) {
+    throw new Error('Failed to fetch artists page data')
   }
-}
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const { locale } = await params
-  const { pageData } = await getData(locale)
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
-    description: metadata.description,
-    keywords: parseKeywords(metadata.keywords),
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-    },
-  }
-}
+  return { pageData, artistData }
+})
 
 export default async function ArtistsPage({ params }: { params: Params }) {
   const { locale } = await params

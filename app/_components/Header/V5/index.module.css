@@ -45,7 +45,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* flex-wrap: wrap; */
   width: 100%;
 }
 
@@ -60,26 +59,3 @@
 .navbar-closed .menuList .menu {
   pointer-events: none;
 }
-
-/* @media (min-width: 850px) and (max-width: 1200px) {
-  .hamburger {
-    top: calc(22px) !important;
-    right: calc(2vw) !important;
-  }
-}
-
-
-@media (min-width: 1200px) and (max-width: 2000px) {
-  .hamburger {
-    top: calc(22px) !important;
-    right: calc(1.0vw) !important;
-  }
-}
-
-
-@media (min-width: 2000px) {
-  .hamburger {
-    top: calc(22px) !important;
-    right: calc(1.3vw) !important;
-  }
-} */

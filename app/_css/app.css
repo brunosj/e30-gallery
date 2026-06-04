@@ -314,6 +314,30 @@ display: block;
 	display:none;
 }
 
+/* Header: tablets + iPad landscape use mobile nav; full bar from 1201px */
+.header-desktop {
+  display: block;
+}
+
+.header-mobile {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .header-desktop {
+    display: none;
+  }
+
+  .header-mobile {
+    display: block;
+  }
+
+  .header-mobile.container {
+    padding-left: var(--base-200);
+    padding-right: var(--base-200);
+  }
+}
+
 .bg-white {
 	background-color: white;
 }

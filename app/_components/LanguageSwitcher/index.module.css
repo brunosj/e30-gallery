@@ -1,7 +1,17 @@
 .switcher {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 0.15rem;
   color:var(--colar-gray)
+}
+
+.localeButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
 }
 
 .active {

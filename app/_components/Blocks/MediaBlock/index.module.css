@@ -3,6 +3,21 @@
   background-color: var(--color-white);
 }
 
+.figure {
+  margin: 0;
+}
+
+.caption {
+  margin-top: var(--base-50);
+  color: var(--color-gray);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.wrapper.inverted .caption {
+  color: var(--color-white);
+}
+
 .wrapper.inverted {
   background-color: var(--color-black);
 }

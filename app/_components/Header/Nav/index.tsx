@@ -1,69 +1,25 @@
 'use client'
 
-import type { Menu } from '@/app/payload-types'
-
-import React, { useEffect, useState } from 'react'
-import { useAuth } from '@/providers/Auth'
-import { useLocale } from 'next-intl'
+import React from 'react'
+import { usePathname } from '@/i18n/navigation'
 import classes from './index.module.css'
 import { Button } from '@/components/Button'
-import { usePathname } from 'next/navigation'
-import { RiseLoader } from 'react-spinners'
 import { motion } from 'motion/react'
-import { fadeInVariants, clipPathVariants } from '@/utilities/animationVariants'
+import { fadeInVariants } from '@/utilities/animationVariants'
 import type { LinkObject } from '@/app/types'
+import { useMenu } from '@/providers/Menu'
+import { hrefMatchesPath, resolveLinkHref } from '@/app/_utilities/linkHref'
+
 export const HeaderNav: React.FC = () => {
   const pathname = usePathname()
-  const { user } = useAuth()
-  const [menu, setMenu] = useState<Menu | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
-  const locale = useLocale()
+  const menu = useMenu()
 
-  useEffect(() => {
-    const fetchMenu = async () => {
-      setLoading(true)
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/menu?locale=${locale}&depth=1`,
-          {
-            credentials: 'include',
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-            },
-          },
-        )
-
-        if (!res.ok) {
-          console.error('Failed to fetch:', res.status, res.statusText)
-          throw new Error(`API call failed with status: ${res.status}`)
-        }
-
-        const data: Menu = await res.json()
-        setMenu(data)
-      } catch (error) {
-        console.error('Failed to fetch menu:', error)
-        setError('Failed to fetch menu')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchMenu()
-  }, [locale])
-
-  if (loading) {
-    return
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
-  if (!menu || !menu.nav) {
-    return <div>No menu data available</div>
+  if (!menu?.nav?.length) {
+    return (
+      <nav className="desktop" aria-hidden>
+        <ul className={classes.menu} />
+      </nav>
+    )
   }
 
   return (
@@ -76,12 +32,9 @@ export const HeaderNav: React.FC = () => {
     >
       <ul className={classes.menu}>
         {menu.nav.map((item, index) => {
-          const normalizedPathname = pathname.startsWith('/de/')
-            ? pathname.replace('/de', '')
-            : pathname
+          const itemHref = resolveLinkHref(item.link as LinkObject)
+          const isActive = hrefMatchesPath(itemHref, pathname)
 
-          const isActive =
-            normalizedPathname === `/${(item.link?.reference?.value as { slug: string })?.slug}`
           return (
             <li key={index} className={isActive ? 'activeMenuItem' : ''}>
               <Button link={item.link as LinkObject} />

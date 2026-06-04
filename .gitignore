@@ -4,5 +4,3 @@ build
 node_modules
 .env
 package-lock.json
-/public/sitemap.xml
-/public/sitemap-*.xml

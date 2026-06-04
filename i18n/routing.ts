@@ -33,6 +33,14 @@ export const routing = defineRouting({
       en: '/artists/[slug]',
       de: '/kuenstler/[slug]',
     },
+    '/exhibitions/[slug]': {
+      en: '/exhibitions/[slug]',
+      de: '/exhibitions/[slug]',
+    },
+    '/insights': {
+      en: '/insights',
+      de: '/insights',
+    },
     '/art-society': {
       en: '/art-society',
       de: '/art-society',
@@ -41,9 +49,9 @@ export const routing = defineRouting({
       en: '/members-area',
       de: '/mitgliederbereich',
     },
-    '/insights/[...slug]': {
-      en: '/insights/[...slug]',
-      de: '/insights/[...slug]',
+    '/insights/[slug]': {
+      en: '/insights/[slug]',
+      de: '/insights/[slug]',
     },
     '/contact': {
       en: '/contact',
@@ -56,6 +64,14 @@ export const routing = defineRouting({
     '/data-privacy': {
       en: '/data-privacy',
       de: '/datenschutz',
+    },
+    '/newsletter': {
+      en: '/newsletter',
+      de: '/newsletter',
+    },
+    '/newsletter-success': {
+      en: '/newsletter-success',
+      de: '/newsletter-success',
     },
   },
 })

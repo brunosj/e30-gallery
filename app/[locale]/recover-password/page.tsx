@@ -1,5 +1,4 @@
 import type { ArtSocietyPage } from '@/app/payload-types'
-
 import React from 'react'
 import { RecoverPasswordForm } from './RecoverPasswordForm'
 import cn from 'classnames'
@@ -7,51 +6,37 @@ import Image from 'next/image'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import classes from './index.module.css'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
-import { Metadata } from 'next'
+import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
+import { fetchSingleton } from '@/app/_utilities/fetchPayload'
+import type { Metadata } from 'next'
+
 type Params = Promise<{ locale: string }>
 
-async function getData(locale: string) {
-  const urls = [
-    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/art-society-page?locale=${locale}&depth=1`,
-  ]
-
-  const fetchPromises = urls.map(url =>
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `users API-Key ${process.env.PAYLOAD_API_KEY}`,
-      },
-    }),
-  )
-
-  try {
-    const responses = await Promise.all(fetchPromises)
-    const data = await Promise.all(responses.map(res => res.json()))
-    const pageData = data[0]
-    return { pageData }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
+async function getArtSocietyPage(locale: string) {
+  const pageData = await fetchSingleton<ArtSocietyPage>('art-society-page', { locale, depth: 1 })
+  if (!pageData?.docs?.length) {
+    throw new Error('Failed to fetch art society page')
   }
+  return pageData
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
-  const { pageData } = await getData(locale)
-  const metadata = pageData.docs[0].meta
-  return {
-    title: pageData.docs[0].title,
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-    },
-  }
+  const pageData = await getArtSocietyPage(locale)
+  const doc = pageData.docs[0]
+  const metadata = doc.meta
+  return buildPageMetadata({
+    locale,
+    href: '/recover-password',
+    title: doc.title ?? '',
+    description: metadata?.description,
+    noIndex: true,
+  })
 }
 
 export default async function RecoverPassword({ params }: { params: Params }) {
   const { locale } = await params
-  const { pageData } = await getData(locale)
+  const pageData = await getArtSocietyPage(locale)
   const page: ArtSocietyPage = pageData.docs[0]
   return (
     <>

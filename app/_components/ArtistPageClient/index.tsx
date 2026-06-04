@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import ArtistInfo from '@/components/ArtistDetails/ArtistInfo'
 import type { Artist } from '@/app/payload-types'
-import { useRouter } from 'next/navigation'
-import { useLocale } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
+import { artistDetailHref } from '@/app/_utilities/localizedUrl'
 
 type ArtistPageClientProps = {
   artist: Artist
@@ -15,21 +15,17 @@ type ArtistPageClientProps = {
 
 export default function ArtistPageClient({
   artist,
-  locale,
   allArtists,
   currentArtistIndex,
 }: ArtistPageClientProps) {
   const [selectedArtist, setSelectedArtist] = useState<Artist>(artist)
   const [scriptUrl, setScriptUrl] = useState<string | null>(null)
   const router = useRouter()
-  const clientLocale = useLocale()
 
-  // Handle artist navigation
   const handleNavigation = (index: number) => {
     const targetArtist = allArtists[index]
-    if (targetArtist) {
-      const localePrefix = clientLocale === 'en' ? '' : `/${clientLocale}`
-      router.replace(`${localePrefix}/artists/${targetArtist.slug}`)
+    if (targetArtist?.slug) {
+      router.replace(artistDetailHref(targetArtist.slug))
       setSelectedArtist(targetArtist)
     }
   }
@@ -44,7 +40,6 @@ export default function ArtistPageClient({
     handleNavigation(prevIndex)
   }
 
-  // Handle script loading
   useEffect(() => {
     if (selectedArtist) {
       const embedScriptUrl = selectedArtist.artworkArchiveCode

@@ -1,28 +1,37 @@
+import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages, setRequestLocale, getTranslations } from 'next-intl/server'
+import { notFound, redirect } from 'next/navigation'
 
 import { HeaderMembersArea } from '@/components/HeaderMembersArea'
 import { AuthProvider } from '@/providers/Auth'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import Footer from '@/components/Footer'
 import { getMeUser } from '@/utilities/getMeUser'
-import { redirect } from 'next/navigation'
+import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
+import { routing } from '@/i18n/routing'
 
 import classes from './index.module.css'
-import { routing } from '@/i18n/routing'
-import { notFound } from 'next/navigation'
 
-export const metadata = {
-  title: 'E30 Gallery',
-  description: 'an art gallery located in Frankfurt am Main, Germany',
+type LayoutParams = Promise<{ locale: string }>
+
+export async function generateMetadata({ params }: { params: LayoutParams }): Promise<Metadata> {
+  const { locale } = await params
+  return buildPageMetadata({
+    locale,
+    href: '/members-area',
+    title: 'Members Area',
+    description: 'E30 Gallery members area',
+    noIndex: true,
+  })
 }
 
-export default async function RootLayout({
+export default async function MembersLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: LayoutParams
 }) {
   const { locale } = await params
 
@@ -46,14 +55,12 @@ export default async function RootLayout({
   const messages = await getMessages()
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <body className="relative">
-        <AuthProvider api="rest">
-          <HeaderMembersArea />
-          <main className={classes.main}>{children}</main>
-          <BannerNewsletter />
-          <Footer />
-        </AuthProvider>
-      </body>
+      <AuthProvider api="rest">
+        <HeaderMembersArea />
+        <main className={classes.main}>{children}</main>
+        <BannerNewsletter />
+        <Footer />
+      </AuthProvider>
     </NextIntlClientProvider>
   )
 }

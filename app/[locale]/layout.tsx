@@ -4,17 +4,18 @@ import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { HeaderMobile } from '@/components/HeaderMobile'
 import Footer from '@/components/Footer'
-import { siteMetadata } from '@/components/Metadata'
+import { siteDefaults } from '@/components/Metadata'
 import HeaderV5 from '@/components/Header/V5'
 import { routing } from '@/i18n/routing'
-import { getMessages, getLocale } from 'next-intl/server'
+import { getMessages } from 'next-intl/server'
 import Providers from '@/providers/Providers'
+import { StructuredData } from '@/app/_components/StructuredData'
+import { fetchMenu } from '@/app/_utilities/fetchMenu'
+import { fetchSocials } from '@/app/_utilities/fetchSocials'
 
 import classes from './index.module.css'
 
-export const metadata: Metadata = {
-  ...siteMetadata,
-}
+export const metadata: Metadata = siteDefaults
 
 export default async function LocaleLayout({
   children,
@@ -23,18 +24,21 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
-  // Ensure the incoming locale is valid
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
 
-  // Enable static rendering
   setRequestLocale(locale)
-  const messages = await getMessages()
+  const [messages, menu, socials] = await Promise.all([
+    getMessages(),
+    fetchMenu(locale),
+    fetchSocials(locale),
+  ])
 
   return (
-    <Providers locale={locale} messages={messages}>
+    <Providers locale={locale} messages={messages} menu={menu} socials={socials}>
+      <StructuredData locale={locale} />
       <HeaderV5 />
       <HeaderMobile />
       <main className={classes.main}>{children}</main>

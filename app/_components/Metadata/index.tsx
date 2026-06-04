@@ -1,99 +1,68 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-const siteMetadata: Metadata = {
-  metadataBase: new URL('https://e30gallery.com'),
-  title: 'E30 Gallery',
-  description: 'An art gallery located in Frankfurt am Main, Germany',
+import { getSiteUrl } from '@/app/_utilities/siteUrl'
 
-  // Basic metadata
+const siteUrl = getSiteUrl()
+
+export const siteDefaults: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'E30 Gallery',
+    template: '%s | E30 Gallery',
+  },
+  description:
+    'An art gallery located in Frankfurt am Main, Germany',
   applicationName: 'E30 Gallery',
-  authors: [{ name: 'Bruno SJ', url: 'https://landozone.net' }],
-  keywords: ['art gallery', 'Frankfurt', 'art exhibitions'],
+  authors: [{ name: 'E30 Gallery', url: siteUrl }],
+  keywords: ['art gallery', 'Frankfurt', 'art exhibitions', 'contemporary art'],
   referrer: 'origin-when-cross-origin',
-  creator: 'landozone',
+  creator: 'E30 Gallery',
   publisher: 'E30 Gallery',
-
-  // Open Graph metadata
   openGraph: {
     title: 'E30 Gallery',
-    description: 'An art gallery located in Frankfurt am Main, Germany',
-    url: 'https://e30gallery.com',
+    description:
+      'An art gallery located in Frankfurt am Main, Germany',
+    url: siteUrl,
     siteName: 'E30 Gallery',
     images: [
       {
-        url: 'https://e30gallery.com/e30-gallery.jpg',
+        url: `${siteUrl}/e30-gallery.jpg`,
         width: 1200,
         height: 630,
-        alt: 'E30 Gallery Image',
+        alt: 'E30 Gallery',
       },
     ],
-    locale: 'en_US, de_DE',
     type: 'website',
   },
-
-  // Twitter metadata
   twitter: {
     card: 'summary_large_image',
     title: 'E30 Gallery',
-    description: 'An art gallery located in Frankfurt am Main, Germany',
-    images: ['https://e30gallery.com/e30-gallery.jpg'],
+    description:
+      'An art gallery located in Frankfurt am Main, Germany',
+    images: [`${siteUrl}/e30-gallery.jpg`],
   },
-
-  // Verification for search engines
-  verification: {
-    google: 'google-site-verification=your-google-verification-code',
-    yandex: 'yandex-verification=your-yandex-verification-code',
-    yahoo: 'yahoo-site-verification=your-yahoo-verification-code',
-  },
-
-  // Alternate languages
-  alternates: {
-    canonical: 'https://e30gallery.com',
-    languages: {
-      'en-US': 'https://e30gallery.com/',
-      'de-DE': 'https://e30gallery.com/de',
-    },
-  },
-
-  // Icons
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.icon',
-    apple: '/apple-touch-icon.png',
-    other: [
-      {
-        rel: 'apple-touch-icon-precomposed',
-        url: '/apple-touch-icon-precomposed.png',
-      },
-    ],
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
-
-  // Manifest
-  manifest: '/site.webmanifest',
-
-  // App-specific metadata
-  appleWebApp: {
-    capable: false,
-    title: 'E30 Gallery',
-    statusBarStyle: 'black-translucent',
-  },
-
-  // Robots directives
   robots: {
     index: true,
     follow: true,
-    nocache: true,
     googleBot: {
       index: true,
       follow: true,
-      noimageindex: true,
-      'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
+      'max-video-preview': -1,
     },
   },
-
-  // Format detection
   formatDetection: {
     email: false,
     address: false,
@@ -101,9 +70,7 @@ const siteMetadata: Metadata = {
   },
 }
 
-const MetadataComponent = () => {
-  return null
-}
+const MetadataComponent = () => null
 
 export default MetadataComponent
-export { siteMetadata }
+export { siteDefaults as siteMetadata }
