@@ -2,6 +2,7 @@ import localFont from 'next/font/local'
 import type { Viewport } from 'next'
 import PlausibleProvider from 'next-plausible'
 import { getLocale } from 'next-intl/server'
+import Progress from '@/providers/Progress'
 import { getSiteUrl } from '@/app/_utilities/siteUrl'
 import './_css/app.css'
 
@@ -34,7 +35,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="relative">
-        <PlausibleProvider>{children}</PlausibleProvider>
+        <Progress>
+          <PlausibleProvider>{children}</PlausibleProvider>
+        </Progress>
       </body>
     </html>
   )
