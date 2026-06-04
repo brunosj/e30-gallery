@@ -113,12 +113,34 @@
 }
 
 @media (max-width: 749px) {
+  .artistCarousel {
+    margin-left: calc(-1 * var(--base-200));
+    margin-right: calc(-1 * var(--base-200));
+    width: calc(100% + 2 * var(--base-200));
+    --slide-spacing: var(--base-100);
+    --slide-size: 78%;
+  }
+
   .artistCarousel__wrapper {
-    gap: var(--base-50);
+    gap: 0;
   }
 
   .artistCarousel__button {
-    height: 2.5rem;
-    width: 2.5rem;
+    display: none;
+  }
+
+  .artistCarousel__viewport {
+    width: 100%;
+  }
+
+  .artistCarousel__container {
+    gap: var(--slide-spacing);
+    margin-left: 0;
+    padding-left: var(--base-200);
+    padding-right: var(--base-200);
+  }
+
+  .artistCarousel__slide {
+    padding-left: 0;
   }
 }

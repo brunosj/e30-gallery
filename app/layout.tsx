@@ -12,7 +12,7 @@ const cmsOrigin = process.env.NEXT_PUBLIC_PAYLOAD_URL?.replace(/\/$/, '')
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: '#F5F5F5',
   colorScheme: 'light',
 }
 
