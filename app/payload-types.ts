@@ -123,6 +123,7 @@ export interface Config {
     'reach-out': ReachOut
     'newsletter-banner': NewsletterBanner
     'newsletter-popup': NewsletterPopup
+    'llms-txt': LlmsTxt
   }
   globalsSelect: {
     menu: MenuSelect<false> | MenuSelect<true>
@@ -131,6 +132,7 @@ export interface Config {
     'reach-out': ReachOutSelect<false> | ReachOutSelect<true>
     'newsletter-banner': NewsletterBannerSelect<false> | NewsletterBannerSelect<true>
     'newsletter-popup': NewsletterPopupSelect<false> | NewsletterPopupSelect<true>
+    'llms-txt': LlmsTxtSelect<false> | LlmsTxtSelect<true>
   }
   locale: 'en' | 'de'
   user: User & {
@@ -2106,6 +2108,16 @@ export interface NewsletterPopup {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "llms-txt".
+ */
+export interface LlmsTxt {
+  id: string
+  content: string
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "menu_select".
  */
 export interface MenuSelect<T extends boolean = true> {
@@ -2234,6 +2246,16 @@ export interface NewsletterBannerSelect<T extends boolean = true> {
  */
 export interface NewsletterPopupSelect<T extends boolean = true> {
   newsletter?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "llms-txt_select".
+ */
+export interface LlmsTxtSelect<T extends boolean = true> {
+  content?: T
   updatedAt?: T
   createdAt?: T
   globalType?: T
