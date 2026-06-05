@@ -10,8 +10,7 @@ export const siteDefaults: Metadata = {
     default: 'E30 Gallery',
     template: '%s | E30 Gallery',
   },
-  description:
-    'An art gallery located in Frankfurt am Main, Germany',
+  description: 'An art gallery located in Frankfurt am Main, Germany',
   applicationName: 'E30 Gallery',
   authors: [{ name: 'E30 Gallery', url: siteUrl }],
   keywords: ['art gallery', 'Frankfurt', 'art exhibitions', 'contemporary art'],
@@ -20,8 +19,7 @@ export const siteDefaults: Metadata = {
   publisher: 'E30 Gallery',
   openGraph: {
     title: 'E30 Gallery',
-    description:
-      'An art gallery located in Frankfurt am Main, Germany',
+    description: 'An art gallery located in Frankfurt am Main, Germany',
     url: siteUrl,
     siteName: 'E30 Gallery',
     images: [
@@ -37,8 +35,7 @@ export const siteDefaults: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'E30 Gallery',
-    description:
-      'An art gallery located in Frankfurt am Main, Germany',
+    description: 'An art gallery located in Frankfurt am Main, Germany',
     images: [`${siteUrl}/e30-gallery.jpg`],
   },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
@@ -49,8 +46,11 @@ export const siteDefaults: Metadata = {
       }
     : {}),
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      // { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   robots: {
     index: true,
