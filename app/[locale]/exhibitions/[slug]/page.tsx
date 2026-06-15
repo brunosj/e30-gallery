@@ -32,11 +32,11 @@ const getData = cache(async (locale: string, slug: string) => {
     fetchList<Exhibition>('exhibition', { locale, depth: 3, limit: 0 }),
   ])
 
-  if (!exhibitionData?.docs?.length || !allExhibitionsData?.docs) {
-    throw new Error('Failed to fetch exhibition data')
+  if (!exhibitionData?.docs?.length) {
+    notFound()
   }
 
-  const allExhibitions = allExhibitionsData.docs.sort((a: Exhibition, b: Exhibition) => {
+  const allExhibitions = (allExhibitionsData?.docs ?? []).sort((a: Exhibition, b: Exhibition) => {
     const dateA = new Date(a.dateEnd || '').getTime()
     const dateB = new Date(b.dateEnd || '').getTime()
     return dateB - dateA

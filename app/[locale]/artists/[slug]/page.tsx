@@ -32,11 +32,11 @@ const getData = cache(async (locale: string, slug: string) => {
     fetchList<Artist>('artist', { locale, depth: 2, limit: 0 }),
   ])
 
-  if (!artistData?.docs?.length || !allArtistsData?.docs) {
-    throw new Error('Failed to fetch artist data')
+  if (!artistData?.docs?.length) {
+    notFound()
   }
 
-  const allArtists = allArtistsData.docs.sort((a: Artist, b: Artist) => {
+  const allArtists = (allArtistsData?.docs ?? []).sort((a: Artist, b: Artist) => {
     const getLastName = (name: string): string => {
       const parts = name.split(' ')
       return parts.length > 1 ? parts[parts.length - 1] : name

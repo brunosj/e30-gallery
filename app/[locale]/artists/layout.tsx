@@ -7,6 +7,7 @@ import BannerNewsletter from '@/components/BannerNewsletter'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import NewsletterPopup from '@/components/NewsletterPopup'
 import { fetchSingleton } from '@/app/_utilities/fetchPayload'
+import { notFound } from 'next/navigation'
 
 import type { Metadata } from 'next'
 type Params = Promise<{ locale: string }>
@@ -14,7 +15,7 @@ type Params = Promise<{ locale: string }>
 const getArtistsPageData = cache(async (locale: string) => {
   const pageData = await fetchSingleton<ArtistsPage>('artists-page', { locale, depth: 2 })
   if (!pageData?.docs?.length) {
-    throw new Error('Failed to fetch artists page')
+    notFound()
   }
   return pageData.docs[0]
 })

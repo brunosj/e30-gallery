@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import type { BlogPage, Blogpost } from '@/app/payload-types'
+import type { PayloadListResponse } from '@/app/_utilities/fetchPayload'
 import BlogCard from '@/components/BlogCard'
 import RouteLoader from '@/components/RouteLoader'
 import { RichText } from '@/app/_components/RichText'
@@ -13,9 +14,7 @@ type Props = {
   pageData: {
     docs: BlogPage[]
   }
-  blogPosts: {
-    docs: Blogpost[]
-  }
+  blogPosts: PayloadListResponse<Blogpost> | null
 }
 
 export default function BlogPageClient({ pageData, blogPosts }: Props) {

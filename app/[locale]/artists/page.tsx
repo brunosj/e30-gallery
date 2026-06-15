@@ -4,6 +4,7 @@ import ArtistDetailsV2 from '@/components/ArtistDetails'
 import { ArtistPageHero } from '@/app/_components/ArtistPageHero'
 import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
 import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 
 type Params = Promise<{ locale: string }>
 
@@ -13,8 +14,8 @@ const getData = cache(async (locale: string) => {
     fetchList<Artist>('artist', { locale, depth: 2, limit: 0 }),
   ])
 
-  if (!pageData?.docs?.length || !artistData?.docs) {
-    throw new Error('Failed to fetch artists page data')
+  if (!pageData?.docs?.length) {
+    notFound()
   }
 
   return { pageData, artistData }
@@ -26,7 +27,7 @@ export default async function ArtistsPage({ params }: { params: Params }) {
   const { pageData, artistData } = await getData(locale)
   const page: ArtistsPage = pageData.docs[0]
 
-  const artists: Artist[] = artistData.docs.sort((a: Artist, b: Artist) => {
+  const artists: Artist[] = (artistData?.docs ?? []).sort((a: Artist, b: Artist) => {
     const getLastName = (name: string): string => {
       const parts = name.split(' ')
       return parts.length > 1 ? parts[parts.length - 1] : name

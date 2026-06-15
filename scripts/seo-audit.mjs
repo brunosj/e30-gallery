@@ -12,7 +12,12 @@ const LOG_DIR = join(__dirname, '..', 'docs', 'seo')
 
 const httpChecks = [
   { name: 'robots.txt', url: `${SITE}/robots.txt`, expect: 'Sitemap:' },
-  { name: 'sitemap index', url: `${SITE}/sitemap.xml`, expect: '<sitemapindex' },
+  {
+    name: 'sitemap index',
+    url: `${SITE}/sitemap.xml`,
+    expect: 'page-sitemap-en.xml',
+    reject: 'sitemap-0.xml',
+  },
   { name: 'llms.txt', url: `${SITE}/llms.txt`, expect: 'E30 Gallery' },
   { name: 'site.webmanifest', url: `${SITE}/site.webmanifest`, expect: '"name"' },
   {

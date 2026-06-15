@@ -30,6 +30,11 @@ const getData = cache(async (locale: string, slug: string) => {
     slug,
     depth: 1,
   })
+
+  if (!pageData?.docs?.length) {
+    notFound()
+  }
+
   return { pageData }
 })
 

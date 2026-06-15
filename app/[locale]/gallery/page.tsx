@@ -8,6 +8,7 @@ import { GalleryVision } from '@/components/GalleryVision'
 import { GalleryCTA } from '@/components/GalleryCTA'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchSingleton } from '@/app/_utilities/fetchPayload'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import NewsletterPopup from '@/components/NewsletterPopup'
 
@@ -16,7 +17,7 @@ type Params = Promise<{ locale: string }>
 const getData = cache(async (locale: string) => {
   const pageData = await fetchSingleton<GalleryPage>('gallery-page', { locale, depth: 2 })
   if (!pageData?.docs?.length) {
-    throw new Error('Failed to fetch gallery page')
+    notFound()
   }
   return { pageData }
 })

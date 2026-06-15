@@ -8,6 +8,7 @@ import BannerNewsletter from '@/components/BannerNewsletter'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
 import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 
 type Params = Promise<{ locale: string }>
 
@@ -17,8 +18,8 @@ const getData = cache(async (locale: string) => {
     fetchList<Blogpost>('blogpost', { locale, depth: 2, limit: 0 }),
   ])
 
-  if (!pageData?.docs?.length || !blogPosts) {
-    throw new Error('Failed to fetch insights page data')
+  if (!pageData?.docs?.length) {
+    notFound()
   }
 
   return { pageData, blogPosts }

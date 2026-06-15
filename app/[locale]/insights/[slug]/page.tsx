@@ -32,8 +32,8 @@ type Params = Promise<{ locale: string; slug: string }>
 
 const getData = cache(async (locale: string, slug: string) => {
   const pageData = await fetchDocBySlug<Blogpost>('blogpost', { locale, slug, depth: 2 })
-  if (!pageData) {
-    throw new Error('Failed to fetch blog post')
+  if (!pageData?.docs?.length) {
+    notFound()
   }
   return { pageData }
 })

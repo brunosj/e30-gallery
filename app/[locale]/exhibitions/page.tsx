@@ -7,6 +7,7 @@ import ExhibitionsPageData from '@/components/ExhibitionsPage'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchList, fetchSingleton } from '@/app/_utilities/fetchPayload'
 import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 type Params = Promise<{ locale: string }>
@@ -17,8 +18,8 @@ const getData = cache(async (locale: string) => {
     fetchList<Exhibition>('exhibition', { locale, depth: 3, limit: 0 }),
   ])
 
-  if (!pageData?.docs?.length || !exhibitionData?.docs) {
-    throw new Error('Failed to fetch exhibitions page data')
+  if (!pageData?.docs?.length) {
+    notFound()
   }
 
   return { pageData, exhibitionData }
@@ -47,7 +48,7 @@ export default async function Exhibitions({ params }: { params: Params }) {
   const featuredExhibitions: Exhibition[] = page.featuredExhibitions?.filter(
     item => typeof item !== 'string',
   )
-  const exhibitions: Exhibition[] = exhibitionData.docs
+  const exhibitions: Exhibition[] = exhibitionData?.docs ?? []
 
   return (
     <article>

@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import { normalizeSlug } from '@/app/_utilities/normalizeSlug'
 
 const DEFAULT_REVALIDATE = false as const
 
@@ -118,15 +119,16 @@ export const fetchDocBySlug = cache(
     collection: string,
     { locale, slug, depth = 2, revalidate }: DocOptions,
   ): Promise<PayloadListResponse<T> | null> => {
+    const normalizedSlug = normalizeSlug(slug)
     const params = new URLSearchParams({
       locale,
       depth: String(depth),
-      'where[slug][equals]': slug,
+      'where[slug][equals]': normalizedSlug,
     })
     return fetchPayloadUncached<PayloadListResponse<T>>(`/api/${collection}?${params}`, {
       locale,
       revalidate,
-      tags: [collectionTag(collection), docTag(collection, slug)],
+      tags: [collectionTag(collection), docTag(collection, normalizedSlug)],
     })
   },
 )

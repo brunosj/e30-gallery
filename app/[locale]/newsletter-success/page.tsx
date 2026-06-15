@@ -5,6 +5,7 @@ import cn from 'classnames'
 import classes from './index.module.css'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchSingleton } from '@/app/_utilities/fetchPayload'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 type Params = Promise<{ locale: string }>
@@ -12,7 +13,7 @@ type Params = Promise<{ locale: string }>
 const getData = cache(async (locale: string) => {
   const pageData = await fetchSingleton<NewsletterPage>('newsletter-page', { locale, depth: 1 })
   if (!pageData?.docs?.length) {
-    throw new Error('Failed to fetch newsletter page')
+    notFound()
   }
   return { pageData }
 })
