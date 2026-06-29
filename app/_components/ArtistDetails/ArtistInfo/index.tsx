@@ -10,6 +10,7 @@ import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
 import cn from 'classnames'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { normalizeExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 import { RiseLoader } from 'react-spinners'
 
 type Props = {
@@ -22,9 +23,14 @@ type Props = {
 
 const artistLink = (link: string, label: string) => {
   return (
-    <Link href={link as any} className={classes.artistLink} target="_blank">
+    <a
+      href={normalizeExternalUrl(link)}
+      className={classes.artistLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span>{label}</span>
-    </Link>
+    </a>
   )
 }
 

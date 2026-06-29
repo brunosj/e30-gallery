@@ -5,6 +5,7 @@ import type { Social } from '@/app/payload-types'
 import React, { useEffect, useState } from 'react'
 import { Link } from '@/i18n/navigation'
 
+import { normalizeExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 import Insta from '@/components/SVG/Insta'
 import Maps from '@/components/SVG/Maps'
 
@@ -63,7 +64,11 @@ export const Socials: React.FC = () => {
         <ul className={classes.socials}>
           {socials.socials.map((item, index) => (
             <li key={index}>
-              <a href={item.url} target="_blank" rel="noopener noreferrer">
+              <a
+                href={normalizeExternalUrl(item.url || '')}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {renderSocialIcon(item.platform)}
               </a>
             </li>

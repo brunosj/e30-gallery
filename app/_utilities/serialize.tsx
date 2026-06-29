@@ -2,6 +2,11 @@ import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 import { Text } from 'slate'
 
+import {
+  isExternalUrl,
+  normalizeExternalUrl,
+} from '@/app/_utilities/normalizeExternalUrl'
+
  
 type Children = Leaf[]
 
@@ -78,14 +83,15 @@ const serialize = (children: Children): React.ReactNode[] =>
       case 'li':
         return <li key={i}>{serialize(node.children)}</li>
       case 'link': {
-        const url = escapeHTML(node.url)
-        const isExternal = url.startsWith('https') || url.startsWith('www')
+        const rawUrl = typeof node.url === 'string' ? node.url : ''
+        const external = isExternalUrl(rawUrl)
+        const href = external ? normalizeExternalUrl(rawUrl) : escapeHTML(rawUrl)
         return (
           <a
-            href={url}
-            target={isExternal ? '_blank' : undefined}
+            href={href}
+            target={external ? '_blank' : undefined}
             key={i}
-            rel={isExternal ? 'noopener noreferrer' : undefined}
+            rel={external ? 'noopener noreferrer' : undefined}
           >
             {serialize(node.children)}
           </a>

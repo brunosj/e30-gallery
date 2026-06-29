@@ -3,6 +3,7 @@ import type { LinkObject } from '@/app/types'
 import React from 'react'
 import { Link } from '@/i18n/navigation'
 import { resolveLinkHref } from '@/app/_utilities/linkHref'
+import { isExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 
 import classes from './index.module.css'
 import cn from 'classnames'
@@ -41,9 +42,7 @@ export const Button: React.FC<Props> = ({
   const finalHref = link ? resolveLinkHref(link) : null
 
   if (action !== 'submit' && finalHref) {
-    const isExternal =
-      typeof finalHref === 'string' &&
-      (finalHref.startsWith('http') || finalHref.startsWith('mailto:'))
+    const isExternal = typeof finalHref === 'string' && isExternalUrl(finalHref)
 
     if (isExternal) {
       return (

@@ -7,6 +7,7 @@ import {
   buildPageMetadata,
 } from '@/app/_utilities/generatePageMetadata'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { normalizeExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 import {
   artistDetailHref,
   localizedAbsoluteUrl,
@@ -101,7 +102,7 @@ export default async function ArtistPage(props: { params: Params }) {
         pageImage={imageUrl || undefined}
         personName={artist.full_name}
         personCountry={artist.country || undefined}
-        personWebsite={artist.website || undefined}
+        personWebsite={artist.website ? normalizeExternalUrl(artist.website) : undefined}
       />
       <ArtistPageClient
         artist={artist}

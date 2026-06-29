@@ -1,5 +1,10 @@
 import type { LinkObject } from '@/app/types'
 import type { LocalizedHref } from '@/app/_utilities/localizedUrl'
+import {
+  isExternalUrl,
+  normalizeExternalUrl,
+  resolveExternalOrInternalHref,
+} from '@/app/_utilities/normalizeExternalUrl'
 
 type ReferenceRelationTo = NonNullable<LinkObject['reference']>['relationTo']
 
@@ -66,12 +71,12 @@ export function resolveLinkHref(link: LinkObject): string | LocalizedHref | null
       return mailto
     case 'custom':
       if (!link.url) return null
-      return link.url.startsWith('http') ? link.url : `/${link.url.replace(/^\//, '')}`
+      return resolveExternalOrInternalHref(link.url)
     case 'reference':
       return resolveReferenceHref(link)
     default:
       if (link.url) {
-        return link.url.startsWith('http') ? link.url : link.url
+        return isExternalUrl(link.url) ? normalizeExternalUrl(link.url) : link.url
       }
       return null
   }

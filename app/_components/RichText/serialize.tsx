@@ -6,6 +6,12 @@ import { Text } from 'slate'
 import { Link } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
 
+import {
+  isExternalUrl,
+  normalizeExternalUrl,
+  resolveExternalOrInternalHref,
+} from '@/app/_utilities/normalizeExternalUrl'
+
 import classes from './index.module.css'
  
 type Children = Leaf[]
@@ -256,11 +262,12 @@ const Serialize = ({ children }: { children: Children }): React.ReactNode => {
 
         // Handle custom URLs
         if (node.fields?.link.type === 'custom' && node.fields.link.url) {
-          // Use anchor tag for external URLs
-          if (node.fields.link.url.startsWith('http')) {
+          const url = node.fields.link.url
+
+          if (isExternalUrl(url)) {
             return (
               <a
-                href={node.fields.link.url}
+                href={normalizeExternalUrl(url)}
                 key={i}
                 className={classes.link}
                 target="_blank"
@@ -271,9 +278,12 @@ const Serialize = ({ children }: { children: Children }): React.ReactNode => {
             )
           }
 
-          // Use Link for internal paths
           return (
-            <Link href={node.fields.link.url as any} key={i} className={classes.link}>
+            <Link
+              href={resolveExternalOrInternalHref(url) as any}
+              key={i}
+              className={classes.link}
+            >
               {node.children && <Serialize>{node.children}</Serialize>}
             </Link>
           )
@@ -301,10 +311,10 @@ const Serialize = ({ children }: { children: Children }): React.ReactNode => {
         }
 
         // Fallback for legacy or malformed links
-        if (node.url && node.url.startsWith('http')) {
+        if (node.url && isExternalUrl(node.url)) {
           return (
             <a
-              href={node.url}
+              href={normalizeExternalUrl(node.url)}
               key={i}
               className={classes.link}
               target="_blank"
@@ -316,7 +326,11 @@ const Serialize = ({ children }: { children: Children }): React.ReactNode => {
         }
 
         return (
-          <Link href={(node.url || '/') as any} key={i} className={classes.link}>
+          <Link
+            href={resolveExternalOrInternalHref(node.url || '/') as any}
+            key={i}
+            className={classes.link}
+          >
             {node.children && <Serialize>{node.children}</Serialize>}
           </Link>
         )

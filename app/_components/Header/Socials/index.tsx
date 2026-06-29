@@ -5,6 +5,7 @@ import Insta from '@/components/SVG/Insta'
 import Maps from '@/components/SVG/Maps'
 import { motion, Variants } from 'motion/react'
 import classes from './index.module.css'
+import { normalizeExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 import { useSocials } from '@/providers/Socials'
 
 const fadeInVariants: Variants = {
@@ -50,7 +51,7 @@ export const Socials: React.FC = () => {
       {socials.socials.map((item, index) => (
         <li key={index}>
           <a
-            href={item.url}
+            href={normalizeExternalUrl(item.url || '')}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.platform}
