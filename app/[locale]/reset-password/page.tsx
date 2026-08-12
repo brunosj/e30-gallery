@@ -1,10 +1,9 @@
 import type { ArtSocietyPage } from '@/app/payload-types'
 import React from 'react'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { ResetPasswordForm } from './ResetPasswordForm'
 import BannerNewsletter from '@/components/BannerNewsletter'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import classes from './index.module.css'
 import { buildPageMetadata } from '@/app/_utilities/generatePageMetadata'
 import { fetchSingleton } from '@/app/_utilities/fetchPayload'
@@ -43,12 +42,8 @@ export default async function ResetPassword({ params }: { params: Params }) {
     <>
       <article className={classes.grid}>
         <div className={cn(classes.imageColumn)}>
-          <Image
-            src={
-              typeof page.resetPasswordImage === 'string'
-                ? page.resetPasswordImage
-                : getImageUrl(page.resetPasswordImage?.url ?? '')
-            }
+          <CMSImage
+            src={page.resetPasswordImage}
             alt={
               typeof page.resetPasswordImage === 'string'
                 ? ''

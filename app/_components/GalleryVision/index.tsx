@@ -2,14 +2,13 @@
 
 import type { GalleryPage } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { useEffect, useRef, useState } from 'react'
 import { RichText } from '../RichText'
 import { motion, useAnimation, useInView, useScroll } from 'motion/react'
 import { fadeInVariants, backgroundVariants } from '@/app/_utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: GalleryPage
@@ -75,11 +74,7 @@ export const GalleryVision: React.FC<Props> = ({ data }: Props) => {
         className={classes.leftColumn}
       >
         <div className={classes.image}>
-          <Image
-            src={getImageUrl(textImageBlock.imageVision?.url || '')}
-            alt={textImageBlock.imageVision.title}
-            fill
-          />
+          <CMSImage src={textImageBlock.imageVision} alt={textImageBlock.imageVision.title} fill />
         </div>
         <div className={classes.line} />
         <RichText content={textImageBlock.text_under_image} />

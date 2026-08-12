@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { artistDetailHref, exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
 import { Link, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
@@ -13,7 +13,6 @@ import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
 import { motion } from 'motion/react'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import {
   fadeInVariants,
   slideInFromLeftVariants,
@@ -163,9 +162,9 @@ const ExhibitionDetails: React.FC<Props> = ({
             variants={slideInFromRightVariants}
             className={cn(classes.image, 'relative')}
           >
-            {exhibition.image?.url && (
-              <Image
-                src={getImageUrl(exhibition.image.url)}
+            {exhibition.image && (
+              <CMSImage
+                src={exhibition.image}
                 alt={exhibition.image.title || exhibition.title}
                 fill
                 priority

@@ -2,14 +2,13 @@
 
 import type { CallToAction, Media } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { RichText } from '@/components/RichText'
 import cn from 'classnames'
 import { Button } from '@/components/Button'
 import { textVariants, clipPathVariants, fadeInVariants } from '@/utilities/animationVariants'
 import { LinkObject } from '@/app/types'
 import { motion } from 'motion/react'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
 
@@ -68,7 +67,7 @@ export const CallToActionBlockComponent: React.FC<CallToAction> = ({
           <Button link={{ ...link, appearance: buttonAppearance } as LinkObject} />
         </div>
         <div className={classes.image}>
-          <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
+          <CMSImage src={image} alt={image.title} fill />
         </div>
       </motion.div>
     </section>

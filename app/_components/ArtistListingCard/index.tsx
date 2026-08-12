@@ -3,12 +3,14 @@
 import type { Artist } from '@/app/payload-types'
 
 import { Link, useRouter } from '@/i18n/navigation'
-import Image from 'next/image'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { CMSImage } from '@/app/_components/CMSImage'
 import classes from './index.module.css'
 
 export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
   const router = useRouter()
+
+  const artwork =
+    typeof item.relation.artworks === 'object' ? item.relation.artworks : null
 
   return (
     <Link
@@ -19,7 +21,9 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
       }}
     >
       <div className={classes.avatar}>
-        <Image src={getImageUrl(item.image?.url || '')} alt={item.image.title} fill />
+        {typeof item.image !== 'string' && item.image && (
+          <CMSImage src={item.image} alt={item.image.title} fill />
+        )}
       </div>
       <div className={classes.content}>
         <div className={classes.info}>
@@ -28,15 +32,9 @@ export const ArtistListingCard: React.FC<{ item: Artist }> = ({ item }) => {
         </div>
       </div>
       <div className={classes.artwork}>
-        <Image
-          src={
-            typeof item.relation.artworks === 'object'
-              ? getImageUrl(item.relation.artworks.image?.url || '')
-              : ''
-          }
-          alt={typeof item.relation.artworks === 'object' ? item.relation.artworks.image.title : ''}
-          fill
-        />
+        {artwork?.image && typeof artwork.image !== 'string' && (
+          <CMSImage src={artwork.image} alt={artwork.image.title} fill />
+        )}
       </div>
     </Link>
   )

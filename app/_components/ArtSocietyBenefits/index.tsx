@@ -2,7 +2,7 @@
 
 import type { ArtSocietyPage, Media } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import Chevron from '@/components/SVG/Chevron'
 import classes from './index.module.css'
 import { RichText } from '../RichText'
@@ -13,7 +13,6 @@ import {
 } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: ArtSocietyPage
@@ -45,8 +44,8 @@ export const ArtSocietyBenefits: React.FC<Props> = ({ data }: Props) => {
       >
         <div className={classes.imageContents}>
           <div className={cn(classes.imageContainer)}>
-            <Image
-              src={getImageUrl(image?.url || '')}
+            <CMSImage
+              src={image}
               alt={image.title}
               className={classes.image}
               fill

@@ -2,8 +2,7 @@
 
 import type { GalleryPage } from '@/app/payload-types'
 
-import Image from 'next/image'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { useTranslations } from 'next-intl'
 import classes from './index.module.css'
 import { RichText } from '@/components/RichText'
@@ -23,8 +22,8 @@ export const GalleryCTA: React.FC<Props> = ({ data }: Props) => {
     <section className="padding-y bg-white">
       <div className={classes.cta}>
         <div className={classes.backgroundImageWrapper}>
-          <Image
-            src={getImageUrl(backgroundImage?.url || '')}
+          <CMSImage
+            src={backgroundImage}
             alt={backgroundImage.title}
             fill
             className={classes.backgroundImage}

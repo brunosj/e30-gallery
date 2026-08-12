@@ -1,13 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { Artist, Artwork } from '@/app/payload-types'
 import { useTranslations } from 'next-intl'
 import { motion, Variants } from 'motion/react'
 import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   artists: Artist[]
@@ -90,8 +89,8 @@ const ArtistListV2: React.FC<Props> = ({
                     animate={activeIndex === index ? 'open' : 'closed'}
                     className={classes.imgContainer}
                   >
-                    <Image
-                      src={getImageUrl((artist.relation.artworks as Artwork)?.image?.url || '')}
+                    <CMSImage
+                      src={(artist.relation.artworks as Artwork)?.image}
                       alt={(artist.relation.artworks as Artwork)?.image.title}
                       width={100}
                       height={100}

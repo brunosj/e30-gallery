@@ -1,3 +1,5 @@
+import type { Media } from '@/app/payload-types'
+
 export const getImageUrl = (url: string | undefined): string => {
   if (!url) return ''
 
@@ -11,4 +13,10 @@ export const getImageUrl = (url: string | undefined): string => {
 
   // Combine the base URL with the image path
   return `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/${cleanUrl}`
+}
+
+/** Stored LQIP from Payload upload hook; undefined when missing or empty. */
+export function getMediaBlurDataURL(media: Media | null | undefined): string | undefined {
+  const value = media?.blurDataURL?.trim()
+  return value ? value : undefined
 }

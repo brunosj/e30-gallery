@@ -2,7 +2,7 @@
 
 import type { GalleryPage } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { RichText } from '../RichText'
 import { motion } from 'motion/react'
 import {
@@ -12,7 +12,6 @@ import {
 } from '@/utilities/animationVariants'
 import classes from './index.module.css'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: GalleryPage
@@ -32,16 +31,16 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               viewport={{ once: true, amount: 0.5 }}
               className={cn(classes.imageColumn, 'padding-y')}
             >
-              <Image
+              <CMSImage
                 key={imageAlexander.title}
-                src={getImageUrl(imageAlexander?.url || '')}
+                src={imageAlexander}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
               />
-              <Image
+              <CMSImage
                 key={imageFelicitas.title}
-                src={getImageUrl(imageFelicitas?.url || '')}
+                src={imageFelicitas}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}
@@ -69,9 +68,9 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
         <div className={classes.info}>
           <div className={classes.image}>
             <div className={cn(classes.imageColumn, 'padding-y')}>
-              <Image
+              <CMSImage
                 key={imageAlexander.title}
-                src={getImageUrl(imageAlexander?.url || '')}
+                src={imageAlexander}
                 alt={imageAlexander.title}
                 height={225}
                 width={225}
@@ -79,9 +78,9 @@ export const GalleryFounders: React.FC<Props> = ({ data }: Props) => {
               <div className={classes.content}>
                 <RichText content={alexander_bio} className={classes.richTextFounders} />
               </div>
-              <Image
+              <CMSImage
                 key={imageFelicitas.title}
-                src={getImageUrl(imageFelicitas?.url || '')}
+                src={imageFelicitas}
                 alt={imageFelicitas.title}
                 className={classes.imageBottomRight}
                 height={225}

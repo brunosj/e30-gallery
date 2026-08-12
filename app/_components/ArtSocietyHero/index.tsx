@@ -1,8 +1,8 @@
 'use client'
 
-import type { ArtSocietyPage, Media } from '@/app/payload-types'
+import type { ArtSocietyPage } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { LoginForm } from '@/app/[locale]/art-society/LoginForm'
 import Chevron from '@/components/SVG/Chevron'
 import {
@@ -14,7 +14,6 @@ import {
 import { motion } from 'motion/react'
 import classes from './index.module.css'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: ArtSocietyPage
@@ -32,8 +31,8 @@ export const ArtSocietyHero: React.FC<Props> = ({ data }: Props) => {
         variants={slideInFromLeftVariants}
         className={classes.imageColumn}
       >
-        <Image
-          src={getImageUrl(imageHero?.url || '')}
+        <CMSImage
+          src={imageHero}
           alt={imageHero.title}
           className={classes.image}
           fill

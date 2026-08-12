@@ -2,13 +2,12 @@
 
 import React from 'react'
 import { Link } from '@/i18n/navigation'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { Artist, Artwork } from '@/app/payload-types'
 import { useTranslations } from 'next-intl'
 import { motion } from 'motion/react'
 import { fadeInVariants, cascadeVariants } from '@/utilities/animationVariants'
 import classes from './index.module.css'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   artists: Artist[]
@@ -83,15 +82,15 @@ const ArtistList: React.FC<Props> = ({
         <div className="relative desktop">
           <div className={classes.image}>
             {hoveredArtwork ? (
-              <Image
-                src={getImageUrl(hoveredArtwork.image?.url || '')}
+              <CMSImage
+                src={hoveredArtwork.image}
                 alt={hoveredArtwork.image?.title}
                 fill
                 priority
               />
             ) : (
-              <Image
-                src={getImageUrl((artists[0]?.relation.artworks as Artwork)?.image?.url || '')}
+              <CMSImage
+                src={(artists[0]?.relation.artworks as Artwork)?.image}
                 alt={(artists[0]?.relation.artworks as Artwork)?.image?.title}
                 fill
                 priority

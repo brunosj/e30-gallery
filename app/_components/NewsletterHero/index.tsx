@@ -1,13 +1,12 @@
 'use client'
 
-import type { NewsletterPage, Media } from '@/app/payload-types'
+import type { NewsletterPage } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { NewsletterForm } from '@/components/NewsletterForm'
 import { clipPathVariants, slideInFromLeftVariants } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
 import classes from './index.module.css'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: NewsletterPage
@@ -25,8 +24,8 @@ export const NewsletterHero: React.FC<Props> = ({ data }: Props) => {
         variants={slideInFromLeftVariants}
         className={classes.imageColumn}
       >
-        <Image
-          src={getImageUrl(image?.url || '')}
+        <CMSImage
+          src={image}
           alt={image?.title || 'Newsletter'}
           className={classes.image}
           fill

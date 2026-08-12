@@ -2,13 +2,12 @@
 
 import React from 'react'
 import { Link } from '@/i18n/navigation'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import type { Blogpost } from '@/app/payload-types'
 import styles from './index.module.css'
 import { useLocale } from 'next-intl'
 import { formatDate } from '@/app/_utilities/formatDate'
 import { getBlogPostFeaturedImage } from '@/app/_utilities/getBlogPostFeaturedImage'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 interface BlogCardProps {
   post: Blogpost
@@ -22,7 +21,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   if (!post) return null
 
   const featuredImage = getBlogPostFeaturedImage(post)
-  const mediaUrl = featuredImage?.url || ''
 
   return (
     <Link
@@ -32,11 +30,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       }}
       className={styles.card}
     >
-      {mediaUrl && (
+      {featuredImage && (
         <div className={styles.imageWrapper}>
-          <Image
-            src={getImageUrl(mediaUrl)}
-            alt={featuredImage?.title || post.title || ''}
+          <CMSImage
+            src={featuredImage}
+            alt={featuredImage.title || post.title || ''}
             width={400}
             height={250}
             className={styles.image}

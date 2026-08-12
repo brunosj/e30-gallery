@@ -2,7 +2,7 @@
 
 import type { TwoColumnBlock, Media } from '@/app/payload-types'
 import { LinkObject } from '@/app/types'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { RichText } from '@/components/RichText'
 import { Button } from '@/components/Button'
 import { motion } from 'motion/react'
@@ -13,7 +13,6 @@ import {
 } from '@/utilities/animationVariants'
 import cn from 'classnames'
 import classes from './index.module.css'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
   invertOrder,
@@ -52,7 +51,7 @@ export const TwoColumnBlockComponent: React.FC<TwoColumnBlock> = ({
           invertOrder ? classes.order1 : classes.order2,
         )}
       >
-        <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
+        <CMSImage src={image} alt={image.title} fill />
       </div>
     </div>
   )

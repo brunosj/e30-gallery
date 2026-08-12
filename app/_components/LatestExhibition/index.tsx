@@ -4,7 +4,7 @@ import React from 'react'
 import type { Artist, Exhibition } from '@/app/payload-types'
 import type { LinkObject } from '@/app/types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button'
 import { RichText } from '@/components/RichText'
@@ -14,7 +14,6 @@ import { motion } from 'motion/react'
 import { useLocale } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { artistDetailHref } from '@/app/_utilities/localizedUrl'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { formatDateRange } from '@/app/_utilities/formatDate'
 
 import classes from './index.module.css'
@@ -109,8 +108,8 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 className={cn(invertOrder ? classes.order1 : classes.order2, 'relative')}
               >
                 <div className={classes.image}>
-                  {image && typeof image !== 'string' && image.url && (
-                    <Image src={getImageUrl(image.url)} alt={image.title || ''} fill priority />
+                  {image && typeof image !== 'string' && (
+                    <CMSImage src={image} alt={image.title || ''} fill priority />
                   )}
                 </div>
               </motion.div>

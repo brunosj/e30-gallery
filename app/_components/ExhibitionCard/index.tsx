@@ -2,11 +2,10 @@
 
 import React, { useRef } from 'react'
 import type { Exhibition } from '@/app/payload-types'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import classes from './index.module.css'
 import { motion, useInView, Variants } from 'motion/react'
 import { useLocale } from 'next-intl'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { exhibitionDetailHref } from '@/app/_utilities/localizedUrl'
 import { Link } from '@/i18n/navigation'
 
@@ -60,9 +59,9 @@ export const ExhibitionCard: React.FC<Props> = ({ data, index }) => {
     >
       <Link href={exhibitionDetailHref(slug || '')} className={classes.card}>
         <div className={classes.imageWrapper}>
-          {image?.url && (
-            <Image
-              src={getImageUrl(image.url)}
+          {image && (
+            <CMSImage
+              src={image}
               alt={image.title || title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

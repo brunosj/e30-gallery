@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { RichText } from '../RichText'
 import type { MembersOnlyPage } from '@/app/payload-types'
 import classes from './index.module.css'
@@ -13,7 +13,6 @@ import {
   clipPathVariants,
 } from '@/utilities/animationVariants'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { LinkObject } from '@/app/types'
 type Props = {
   data: MembersOnlyPage
@@ -58,7 +57,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.block}
             >
               <div className={classes.image}>
-                <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
+                <CMSImage src={image} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.text} ${getTextJustificationClass(textJustification || 'left')}`}
@@ -84,7 +83,7 @@ export const MembersArtAdvice: React.FC<Props> = ({ data }: Props) => {
               className={classes.gridLast}
             >
               <div className={classes.imageLast}>
-                <Image src={getImageUrl(image?.url || '')} alt={image.title} fill />
+                <CMSImage src={image} alt={image.title} fill />
               </div>
               <div
                 className={`${classes.textLast} ${getTextJustificationClass(textJustification || 'left')}`}

@@ -2,12 +2,11 @@
 
 import type { GalleryPage } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { useTranslations } from 'next-intl'
 import { RichText } from '../RichText'
 import { slideInFromLeftVariants } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 import classes from './index.module.css'
 
@@ -39,7 +38,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
         </div>
       </motion.div>
       <motion.div className={classes.image}>
-        <Image src={getImageUrl(imageHero?.url || '')} alt={imageHero.title} fill priority />
+        <CMSImage src={imageHero} alt={imageHero.title} fill priority />
       </motion.div>
     </section>
   )

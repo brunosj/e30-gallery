@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { RichText } from '../RichText'
 import type { MembersOnlyPage } from '@/app/payload-types'
 import classes from './index.module.css'
@@ -12,7 +12,6 @@ import {
   cardVariants,
   clipPathVariants,
 } from '@/utilities/animationVariants'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 type Props = {
   data: MembersOnlyPage
@@ -71,7 +70,7 @@ export const MembersHome: React.FC<Props> = ({ data, setActiveTab }: Props) => {
                 </h4>
               </div>
               <div className={classes.image} onClick={handleClick}>
-                <Image src={getImageUrl(image?.url || '')} alt={image.title} fill priority />
+                <CMSImage src={image} alt={image.title} fill priority />
               </div>
             </motion.div>
           )

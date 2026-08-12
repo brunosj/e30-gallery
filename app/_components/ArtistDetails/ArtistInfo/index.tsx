@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from '@/i18n/navigation'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { Artist, Artwork } from '@/app/payload-types'
 import { useTranslations } from 'next-intl'
 import { RichText } from '@/components/RichText'
@@ -9,7 +9,6 @@ import classes from './index.module.css'
 import ArrowLeft from '@/components/SVG/ArrowLeft'
 import ArrowRight from '@/components/SVG/ArrowRight'
 import cn from 'classnames'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { normalizeExternalUrl } from '@/app/_utilities/normalizeExternalUrl'
 import { RiseLoader } from 'react-spinners'
 
@@ -141,12 +140,8 @@ const ArtistInfo: React.FC<Props> = ({
             </div>
             {/* </motion.div> */}
             <div className={cn(classes.imageArtist, 'mobile')}>
-              <Image
-                src={
-                  typeof artist.image === 'string'
-                    ? artist.image
-                    : getImageUrl(artist.image?.url || '')
-                }
+              <CMSImage
+                src={artist.image}
                 alt={
                   typeof artist.image === 'string'
                     ? 'Artist Image'
@@ -171,13 +166,9 @@ const ArtistInfo: React.FC<Props> = ({
           </div>
 
           <div className={cn(classes.image, 'desktop')}>
-            <Image
+            <CMSImage
               key={currentArtist.id}
-              src={
-                typeof artist.image === 'string'
-                  ? artist.image
-                  : getImageUrl(artist.image?.url || '')
-              }
+              src={artist.image}
               alt={
                 typeof artist.image === 'string'
                   ? 'Artist Image'

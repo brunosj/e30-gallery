@@ -1,11 +1,10 @@
 import React from 'react'
 import type { Blogpost } from '@/app/payload-types'
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import RenderBlocks from '@/components/Blocks/RenderBlocks'
 import classes from './index.module.css'
 import { formatDate } from '@/app/_utilities/formatDate'
 import { getBlogPostTitleImageMedia } from '@/app/_utilities/getBlogPostFeaturedImage'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 
 interface BlogPostClientProps {
   blogPost: Blogpost
@@ -32,8 +31,8 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ blogPost, locale }) => 
 
       {titleImage ? (
         <div className={classes.titleImage}>
-          <Image
-            src={getImageUrl(titleImage.url || '')}
+          <CMSImage
+            src={titleImage}
             alt={titleImage.title || blogPost.title || ''}
             fill
             className={classes.titleImageImg}

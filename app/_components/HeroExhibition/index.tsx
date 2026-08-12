@@ -2,7 +2,7 @@
 
 import type { Exhibition } from '@/app/payload-types'
 
-import Image from 'next/image'
+import { CMSImage } from '@/app/_components/CMSImage'
 import { Button } from '@/components/Button'
 import { useTranslations } from 'next-intl'
 import classes from './index.module.css'
@@ -10,7 +10,6 @@ import Chevron from '@/components/SVG/Chevron'
 import { createExhibitionLink } from '@/app/_utilities/linkObjects'
 import { motion } from 'motion/react'
 import { slideInFromRightVariants } from '@/utilities/animationVariants'
-import { getImageUrl } from '@/app/_utilities/getImageUrl'
 import { formatDateRange } from '@/app/_utilities/formatDate'
 
 type Props = {
@@ -41,14 +40,17 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
 
   const dateRange = formatDateRange(dateBegin || '', dateEnd || '', 'en-US')
 
-  const imageUrl = homepageImage?.url || image?.url || ''
-  const imageAlt = homepageImage?.title || image?.title || ''
+  const heroMedia = homepageImage || image
+  const imageAlt =
+    typeof heroMedia === 'object' && heroMedia ? heroMedia.title || '' : ''
 
   const artistsNames = relation?.artists ? formatArtistsNames(relation.artists) : ''
 
   return (
     <section className={classes.hero}>
-      {imageUrl && <Image src={getImageUrl(imageUrl)} alt={imageAlt} fill priority />}
+      {typeof heroMedia === 'object' && heroMedia && (
+        <CMSImage src={heroMedia} alt={imageAlt} fill priority />
+      )}
       <motion.div
         initial="hidden"
         whileInView="visible"
