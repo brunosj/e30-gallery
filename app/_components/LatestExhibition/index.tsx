@@ -1,6 +1,7 @@
 'use client'
 
-import type { Exhibition } from '@/app/payload-types'
+import React from 'react'
+import type { Artist, Exhibition } from '@/app/payload-types'
 import type { LinkObject } from '@/app/types'
 
 import Image from 'next/image'
@@ -8,16 +9,13 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button'
 import { RichText } from '@/components/RichText'
 import cn from 'classnames'
-import {
-  fadeInVariants,
-  clipPathVariants,
-  slideInFromLeftVariants,
-  slideInFromRightVariants,
-} from '@/utilities/animationVariants'
+import { slideInFromLeftVariants, slideInFromRightVariants } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
 import { useLocale } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+import { artistDetailHref } from '@/app/_utilities/localizedUrl'
 import { getImageUrl } from '@/app/_utilities/getImageUrl'
-import { formatDate, formatDateRange } from '@/app/_utilities/formatDate'
+import { formatDateRange } from '@/app/_utilities/formatDate'
 
 import classes from './index.module.css'
 
@@ -41,9 +39,11 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
           extraLink,
           addLink,
           addOtherLink,
+          relation,
         } = exhibition
 
         const dateRange = formatDateRange(dateBegin || '', dateEnd || '', locale)
+        const artists = relation?.artists
 
         const invertOrder = index % 2 !== 0
 
@@ -54,8 +54,6 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 className={cn(
                   classes.contentContainer,
                   invertOrder ? classes.order2 : classes.order1,
-                  // invertOrder ? 'text-right' : '',
-                  // invertOrder ? classes.marginLeft : '',
                 )}
               >
                 <motion.div
@@ -67,6 +65,31 @@ export const LatestExhibition: React.FC<Props> = ({ data }) => {
                 >
                   <h3 className="">{t('featuredExhibition')}</h3>
                   <p className="spacedTitle">{title}</p>
+                  {artists && artists.length > 0 && (
+                    <p className="artists-list">
+                      {artists.map((artist, artistIndex) => {
+                        const artistObj = typeof artist === 'string' ? null : (artist as Artist)
+                        const artistSlug = artistObj?.slug || ''
+                        const artistName = artistObj?.full_name || ''
+
+                        return (
+                          <React.Fragment key={artistObj?.id || artistIndex}>
+                            {artistIndex > 0 && <span>, </span>}
+                            {artistSlug ? (
+                              <Link
+                                href={artistDetailHref(artistSlug)}
+                                className={classes.artistLink}
+                              >
+                                {artistName}
+                              </Link>
+                            ) : (
+                              artistName
+                            )}
+                          </React.Fragment>
+                        )
+                      })}
+                    </p>
+                  )}
                   <p>
                     <span className="block">{dateRange.display}</span>
                   </p>
