@@ -18,6 +18,7 @@
 
 .textOverlay {
   position: absolute;
+  z-index: 1;
   top: 66%; 
   left: 0;
   right: 0;

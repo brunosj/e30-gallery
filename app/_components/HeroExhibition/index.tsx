@@ -49,12 +49,11 @@ export const HeroExhibition: React.FC<Props> = ({ data }) => {
   return (
     <section className={classes.hero}>
       {typeof heroMedia === 'object' && heroMedia && (
-        <CMSImage src={heroMedia} alt={imageAlt} fill priority />
+        <CMSImage src={heroMedia} alt={imageAlt} fill priority className={classes.image} />
       )}
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible"
         variants={slideInFromRightVariants}
         className={classes.contentContainer}
       >

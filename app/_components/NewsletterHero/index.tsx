@@ -4,7 +4,7 @@ import type { NewsletterPage } from '@/app/payload-types'
 
 import { CMSImage } from '@/app/_components/CMSImage'
 import { NewsletterForm } from '@/components/NewsletterForm'
-import { clipPathVariants, slideInFromLeftVariants } from '@/utilities/animationVariants'
+import { clipPathVariants } from '@/utilities/animationVariants'
 import { motion } from 'motion/react'
 import classes from './index.module.css'
 
@@ -17,24 +17,18 @@ export const NewsletterHero: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <div className={classes.grid}>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={slideInFromLeftVariants}
-        className={classes.imageColumn}
-      >
+      <div className={classes.imageColumn}>
         <CMSImage
           src={image}
           alt={image?.title || 'Newsletter'}
           className={classes.image}
           fill
+          priority
         />
-      </motion.div>
+      </div>
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible"
         variants={clipPathVariants}
         className={classes.formColumn}
       >

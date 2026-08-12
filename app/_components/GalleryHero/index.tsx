@@ -21,8 +21,7 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
     <section className={classes.grid}>
       <motion.div
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible"
         variants={slideInFromLeftVariants}
         className={classes.contentColumn}
       >
@@ -37,9 +36,9 @@ export const GalleryHero: React.FC<Props> = ({ data }: Props) => {
           </div>
         </div>
       </motion.div>
-      <motion.div className={classes.image}>
+      <div className={classes.image}>
         <CMSImage src={imageHero} alt={imageHero.title} fill priority />
-      </motion.div>
+      </div>
     </section>
   )
 }

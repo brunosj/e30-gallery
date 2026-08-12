@@ -8,8 +8,13 @@
   min-height: 75vh;
 }
 
+.image {
+  z-index: 0;
+}
+
 .contentContainer {
   position: relative;
+  z-index: 1;
   max-width: 50%;
   padding: var(--base-300); 
   background-color: rgba(var(--color-white-rgb), 0.90);
@@ -43,7 +48,6 @@
 
 .hero img {
   object-fit: cover;
-  aspect-ratio: 16/9;
 }
 
 
