@@ -22,7 +22,24 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
       run: |
         set -e
-        ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "cd ~/scripts && ./frontend.sh"
+        ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} '
+          set -euo pipefail
+
+          # Prefer blue, fall back to green — both are full repo checkouts
+          for dir in /home/lando/frontend/app-blue /home/lando/frontend/app-green; do
+            if [ -d "$dir/.git" ]; then
+              cd "$dir"
+              # Pull the latest deploy script from main before running it
+              git fetch origin main
+              git checkout origin/main -- scripts/frontend.sh
+              chmod +x scripts/frontend.sh
+              exec bash scripts/frontend.sh
+            fi
+          done
+
+          echo "ERROR: Neither app-blue nor app-green checkout found"
+          exit 1
+        '
         EXIT_STATUS=$?
         echo "Deployment script exited with status $EXIT_STATUS"
         exit $EXIT_STATUS
@@ -38,4 +55,3 @@ jobs:
         with:
           subject: "GitHub Actions - Deploy E30 Gallery Failed"
           resend_api_key: ${{ secrets.RESEND_API_KEY }}
-
