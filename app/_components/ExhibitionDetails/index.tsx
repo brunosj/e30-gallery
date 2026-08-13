@@ -106,9 +106,9 @@ const ExhibitionDetails: React.FC<Props> = ({
             className={classes.content}
           >
             <h1>{exhibition.title}</h1>
-            {exhibition.meta?.description ? (
+            {/* {exhibition.meta?.description ? (
               <p className={classes.lead}>{exhibition.meta.description}</p>
-            ) : null}
+            ) : null} */}
 
             {/* Exhibition Artists */}
             {exhibition.relation?.artists && exhibition.relation.artists.length > 0 && (
@@ -124,10 +124,7 @@ const ExhibitionDetails: React.FC<Props> = ({
                       <React.Fragment key={artistObj?.id || index}>
                         {index > 0 && <span>, </span>}
                         {artistSlug ? (
-                          <Link
-                            href={artistDetailHref(artistSlug)}
-                            className={classes.artistLink}
-                          >
+                          <Link href={artistDetailHref(artistSlug)} className={classes.artistLink}>
                             {artistName}
                           </Link>
                         ) : (
