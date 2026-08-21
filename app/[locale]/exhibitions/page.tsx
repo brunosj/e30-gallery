@@ -40,15 +40,23 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   })
 }
 
+function featuredExhibitionId(item: string | Exhibition): string {
+  return typeof item === 'string' ? item : item.id
+}
+
 export default async function Exhibitions({ params }: { params: Params }) {
   const { locale } = await params
   setRequestLocale(locale)
   const { pageData, exhibitionData } = await getData(locale)
   const page: ExhibitionsPage = pageData.docs[0]
-  const featuredExhibitions: Exhibition[] = page.featuredExhibitions?.filter(
-    item => typeof item !== 'string',
-  )
   const exhibitions: Exhibition[] = exhibitionData?.docs ?? []
+  const exhibitionsById = new Map(exhibitions.map(exhibition => [exhibition.id, exhibition]))
+  // Resolve featured from the exhibition list (cms:exhibition), not nested
+  // exhibitions-page payloads which can stay stale after an exhibition publish.
+  const featuredExhibitions: Exhibition[] = (page.featuredExhibitions ?? [])
+    .map(featuredExhibitionId)
+    .map(id => exhibitionsById.get(id))
+    .filter((exhibition): exhibition is Exhibition => exhibition != null)
 
   return (
     <article>

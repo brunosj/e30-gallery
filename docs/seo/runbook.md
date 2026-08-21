@@ -41,6 +41,20 @@
 
 On publish/delete, CMS hooks call `/next/revalidate?secret=…&collection=…&slug=…` (or `global=menu`). Payload fetches use cache tags `cms:{collection}` and `cms:global:{slug}` with **no time-based revalidation** — cache is invalidated only via `revalidateTag`.
 
+Exhibition publishes also cascade to `exhibitions-page` and `homepage` so nested featured content does not stay stale. The `/exhibitions` listing resolves featured docs from the exhibition list (`cms:exhibition`), not from nested page payloads.
+
+### Manual cache purge (after deploy / stuck content)
+
+With `REVALIDATION_KEY` set, hit the frontend (replace `SECRET` and host as needed):
+
+```bash
+curl -sS "https://e30gallery.com/next/revalidate?secret=SECRET&collection=exhibition"
+curl -sS "https://e30gallery.com/next/revalidate?secret=SECRET&collection=exhibitions-page"
+curl -sS "https://e30gallery.com/next/revalidate?secret=SECRET&collection=homepage"
+```
+
+Expect JSON `{ "revalidated": true, "tags": [...] }`. On the CMS, a normal **Publish** of an exhibition should log `Revalidated frontend cache (...)`. Draft-only saves do not revalidate.
+
 **Build:** `pnpm build` must reach the CMS (`NEXT_PUBLIC_PAYLOAD_URL`, `PAYLOAD_API_KEY`) so `generateStaticParams` can pre-render published slugs for `en` and `de`.
 
 ## Files
