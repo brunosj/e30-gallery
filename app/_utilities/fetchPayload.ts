@@ -3,6 +3,9 @@ import { normalizeSlug } from '@/app/_utilities/normalizeSlug'
 
 const DEFAULT_REVALIDATE = false as const
 
+/** Production caches until CMS revalidate tags fire. Dev always hits Payload. */
+const skipDataCache = process.env.NODE_ENV === 'development'
+
 export function collectionTag(collection: string): string {
   return `cms:${collection}`
 }
@@ -50,7 +53,9 @@ async function fetchPayloadUncached<T>(
         'Content-Type': 'application/json',
         Authorization: `users API-Key ${apiKey}`,
       },
-      next: { revalidate, tags },
+      ...(skipDataCache
+        ? { cache: 'no-store' as const }
+        : { next: { revalidate, tags } }),
     })
 
     if (!res.ok) {

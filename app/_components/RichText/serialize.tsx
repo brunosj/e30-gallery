@@ -54,13 +54,18 @@ type Leaf = {
   [key: string]: unknown
 }
 
+/** Shift+Enter in Payload Slate is stored as `\n`; HTML would otherwise collapse it. */
+function escapedTextWithBreaks(text: string) {
+  return escapeHTML(text).replace(/\n/g, '<br />')
+}
+
 // Convert to a component with capitalized name to follow React conventions
 const Serialize = ({ children }: { children: Children }): React.ReactNode => {
   const locale = useLocale()
 
   return children.map((node, i) => {
     if (Text.isText(node)) {
-      let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+      let text = <span dangerouslySetInnerHTML={{ __html: escapedTextWithBreaks(node.text) }} />
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>

@@ -21,10 +21,14 @@ type Leaf = {
   [key: string]: unknown
 }
 
+function escapedTextWithBreaks(text: string) {
+  return escapeHTML(text).replace(/\n/g, '<br />')
+}
+
 const serialize = (children: Children): React.ReactNode[] =>
   children.map((node, i) => {
     if (Text.isText(node)) {
-      let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+      let text = <span dangerouslySetInnerHTML={{ __html: escapedTextWithBreaks(node.text) }} />
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>
