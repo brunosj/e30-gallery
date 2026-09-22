@@ -30,7 +30,14 @@ jobs:
           echo "🚀 Starting E30 Gallery frontend deployment..."
           ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR ${{ env.USERNAME }}@${{ env.HOST }} "
             set -e
-            cd /home/lando/frontend/repo || exit 1
+            if [ ! -d /home/lando/frontend/repo ]; then
+              echo '❌ Missing /home/lando/frontend/repo'
+              echo '   Create it once on the VPS (e.g. mv /home/lando/frontend/app-blue /home/lando/frontend/repo)'
+              echo '   then re-run this workflow.'
+              ls -la /home/lando/frontend/ || true
+              exit 1
+            fi
+            cd /home/lando/frontend/repo
             [ ! -f 'scripts/deploy.sh' ] && echo '❌ Deploy script not found!' && exit 1
             bash scripts/deploy.sh
           "

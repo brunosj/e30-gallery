@@ -39,7 +39,9 @@ Open [http://localhost:5173](http://localhost:5173) with your browser to see the
 
 ## Production deployment
 
-GitHub Actions SSHs into the VPS and runs `bash scripts/deploy.sh` from `/home/lando/frontend/repo`. Caddy proxies `e30gallery.com` to `127.0.0.1:5173`. Keep `.env` / `.env.production` on the server (never committed).
+GitHub Actions SSHs into the VPS and runs `bash scripts/deploy.sh` from a single checkout at `/home/lando/frontend/repo`. PM2 process `e30-frontend` listens on port **5173**. Caddy proxies `e30gallery.com` to `127.0.0.1:5173`.
+
+Keep `.env` / `.env.production` on the server (never committed).
 
 Manual deploy:
 
@@ -47,38 +49,12 @@ Manual deploy:
 cd /home/lando/frontend/repo && bash scripts/deploy.sh
 ```
 
-### First deploy after this layout (VPS)
-
-The previous layout used two full checkouts (`app-blue` on 5173, `app-green` on 5174). Create the single checkout **before** the new Actions workflow runs:
+Useful checks:
 
 ```bash
-sudo apt-get clean
-sudo journalctl --vacuum-time=3d
-df -h /
-
-mv /home/lando/frontend/app-blue /home/lando/frontend/repo
-cd /home/lando/frontend/repo && git fetch && git reset --hard origin/main
-# if .env only existed on green:
-# cp /home/lando/frontend/app-green/.env /home/lando/frontend/repo/.env
-```
-
-Point Caddy at **only** `127.0.0.1:5173` (remove the 5174 upstream) and reload Caddy. Then:
-
-```bash
-pm2 delete blue green || true
-cd /home/lando/frontend/repo
-pm2 start ecosystem.config.cjs --only e30-frontend
-pm2 save
 pm2 show e30-frontend   # cwd must be /home/lando/frontend/repo
 curl -sf -o /dev/null -w "%{http_code}\n" http://localhost:5173
 curl -sf -o /dev/null -w "%{http_code}\n" https://e30gallery.com
-```
-
-After smoke checks pass, reclaim disk:
-
-```bash
-du -sh /home/lando/frontend/app-green /home/lando/frontend/app-blue 2>/dev/null
-rm -rf /home/lando/frontend/app-green
 ```
 
 Do **not** delete `/home/lando/cms` or `/home/lando/media`.
