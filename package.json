@@ -8,7 +8,6 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:audit:full": "node scripts/seo-audit.mjs --full",
     "start": "next start -p 5173",
-    "start-green": "next start -p 5174",
     "lint": "eslint ."
   },
   "dependencies": {

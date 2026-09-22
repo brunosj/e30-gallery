@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from '@/i18n/routing'
 
-const INTERNAL_PORTS = new Set(['5173', '5174', '3000'])
+const INTERNAL_PORTS = new Set(['5173', '3000'])
 
 const handleI18nRouting = createMiddleware(routing)
 

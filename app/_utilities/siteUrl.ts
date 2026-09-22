@@ -9,7 +9,7 @@ function normalizePublicOrigin(raw: string): string {
     }
     try {
       const url = new URL(origin)
-      if (url.port === '5173' || url.port === '5174') {
+      if (url.port === '5173') {
         url.port = ''
       }
       origin = url.origin
