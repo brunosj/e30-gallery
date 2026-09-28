@@ -11,6 +11,9 @@ module.exports = {
       name: 'e30-frontend',
       cwd: '/home/lando/frontend/repo',
       script: 'node_modules/next/dist/bin/next',
+      // Pin runtime to the Node that evaluates this file (deploy.sh's `nvm use` from .nvmrc),
+      // not the Node the PM2 daemon happens to run on.
+      interpreter: process.execPath,
       args: 'start -p 5173',
       env: {
         PORT: 5173,

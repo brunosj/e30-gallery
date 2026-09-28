@@ -15,20 +15,30 @@ jobs:
 
     steps:
       - name: Setup SSH
+        env:
+          HOST: ${{ secrets.HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          if [ -n "$SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "::warning::SSH_KNOWN_HOSTS secret not set; falling back to ssh-keyscan (pin the host key, see ldz-kit/infra/deploy.md)"
+            ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+          fi
+          chmod 600 ~/.ssh/known_hosts
 
       - name: Execute deployment script
         env:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
         run: |
-          set -e
           echo "🚀 Starting E30 Gallery frontend deployment..."
-          ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR ${{ env.USERNAME }}@${{ env.HOST }} "
+          set +e
+          ssh -o LogLevel=ERROR "$USERNAME@$HOST" "
             set -e
             if [ ! -d /home/lando/frontend/repo ]; then
               echo '❌ Missing /home/lando/frontend/repo'
@@ -38,10 +48,13 @@ jobs:
               exit 1
             fi
             cd /home/lando/frontend/repo
+            git fetch origin --quiet
+            git reset --hard origin/main --quiet
             [ ! -f 'scripts/deploy.sh' ] && echo '❌ Deploy script not found!' && exit 1
             bash scripts/deploy.sh
           "
           EXIT_STATUS=$?
+          set -e
           if [ $EXIT_STATUS -eq 0 ]; then
             echo ""
             echo "✅ Deployment completed successfully"
@@ -60,13 +73,13 @@ jobs:
         run: |
           echo ""
           echo "🔍 Verifying deployment..."
-          ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR ${{ env.USERNAME }}@${{ env.HOST }} "
+          ssh -o LogLevel=ERROR "$USERNAME@$HOST" "
             echo '📊 PM2 Status:'
             pm2 show e30-frontend 2>/dev/null | grep -E 'status|exec cwd|script path' || pm2 list
             echo ''
-            APP_STATUS=\$(curl -sf http://localhost:5173 > /dev/null 2>&1 && echo 'ok' || echo 'error')
-            echo '🏥 Health Check:'
-            echo \"   Frontend: [\$APP_STATUS]\"
+            HTTP_CODE=\$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:5173/api/health || true)
+            echo '🏥 Health Check (/api/health):'
+            echo \"   Frontend: [HTTP \$HTTP_CODE]\"
           " 2>&1 | grep -v "^Warning:" || true
 
   notify:

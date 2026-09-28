@@ -49,12 +49,26 @@ Manual deploy:
 cd /home/lando/frontend/repo && bash scripts/deploy.sh
 ```
 
+Node comes from `.nvmrc` (installed via nvm on first deploy if missing). PM2 is reloaded, not deleted, so the old process serves until the new one is up. A failed build leaves PM2 untouched.
+
+Health URL: `http://127.0.0.1:5173/api/health` (returns 503 when the CMS or its MongoDB is unreachable). Use `https://e30gallery.com/api/health` for external uptime monitoring.
+
+Rollback (each successful deploy records its SHA in `/home/lando/frontend/last-good-sha`):
+
+```bash
+cd /home/lando/frontend/repo
+git reset --hard "$(cat ../last-good-sha)"   # or a known SHA
+SKIP_GIT_SYNC=1 bash scripts/deploy.sh
+```
+
+GitHub secrets: `SSH_PRIVATE_KEY`, `HOST`, `USERNAME`, `SSH_KNOWN_HOSTS` (output of `ssh-keyscan -H <host>` from a trusted network; the workflow falls back to `ssh-keyscan` with a warning if unset), optional `RESEND_API_KEY`.
+
 Useful checks:
 
 ```bash
 pm2 show e30-frontend   # cwd must be /home/lando/frontend/repo
-curl -sf -o /dev/null -w "%{http_code}\n" http://localhost:5173
-curl -sf -o /dev/null -w "%{http_code}\n" https://e30gallery.com
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:5173/api/health
+curl -s -o /dev/null -w "%{http_code}\n" https://e30gallery.com/api/health
 ```
 
 Do **not** delete `/home/lando/cms` or `/home/lando/media`.
